@@ -1,0 +1,230 @@
+最常用的Apache路径有：
+/etc/httpd/conf/httpd.conf
+/usr/local/apache/conf/httpd.conf
+/usr/local/apache2/conf/httpd.conf
+
+Apache 2.2 default layout (apache.org source package):
+ServerRoot              ::      /usr/local/apache2
+DocumentRoot            ::      /usr/local/apache2/htdocs
+Apache Config File      ::      /usr/local/apache2/conf/httpd.conf
+Other Config Files      ::      /usr/local/apache2/conf/extra/
+SSL Config File         ::      /usr/local/apache2/conf/extra/httpd-ssl.conf
+ErrorLog                ::      /usr/local/apache2/logs/error_log
+AccessLog               ::      /usr/local/apache2/logs/access_log
+cgi-bin                 ::      /usr/local/apache2/cgi-bin (enabled by default, but the bundled scripts are 644)
+binaries (apachectl)    ::      /usr/local/apache2/bin
+start/stop              ::      /usr/local/apache2/bin/apachectl (start|restart|graceful|graceful-stop|stop|configtest)
+
+Apache 2.0 default layout (apache.org source package):
+ServerRoot              ::      /usr/local/apache2
+DocumentRoot            ::      /usr/local/apache2/htdocs
+Apache Config File      ::      /usr/local/apache2/conf/httpd.conf
+SSL Config              ::      /usr/local/apache2/conf/ssl.conf
+ErrorLog                ::      /usr/local/apache2/logs/error_log
+AccessLog               ::      /usr/local/apache2/logs/access_log
+cgi-bin                 ::      /usr/local/apache2/cgi-bin (enabled by default, but the bundled scripts are 644)
+binaries (apachectl)    ::      /usr/local/apache2/bin
+start/stop              ::      /usr/local/apache2/bin/apachectl (start|stop|graceful|configtest)
+
+Apache 1.3 default layout (apache.org source package):
+ServerRoot              ::      /usr/local/apache
+DocumentRoot            ::      /usr/local/apache/htdocs
+Apache Config File      ::      /usr/local/apache/conf/httpd.conf
+ErrorLog                ::      /usr/local/apache/logs/error_log
+AccessLog               ::      /usr/local/apache/logs/access_log
+cgi-bin                 ::      /usr/local/apache/cgi-bin (enabled by default, but the bundled scripts are 644)
+binaries (apachectl)    ::      /usr/local/apache/bin
+start/stop              ::      /usr/local/apache/bin/apachectl (start|stop|graceful|configtest)
+
+Debian, Ubuntu (Apache 2):
+ServerRoot              ::      /etc/apache2
+DocumentRoot            ::      /var/www
+Apache Config Files     ::      /etc/apache2/apache2.conf
+                                      ::      /etc/apache2/ports.conf
+Default VHost Config    ::      /etc/apache2/sites-available/default, /etc/apache2/sites-enabled/000-default
+Module Locations        ::      /etc/apache2/mods-available, /etc/apache2/mods-enabled
+ErrorLog                ::      /var/log/apache2/error.log
+AccessLog               ::      /var/log/apache2/access.log
+cgi-bin                 ::      /usr/lib/cgi-bin
+binaries (apachectl)    ::      /usr/sbin
+start/stop              ::      /etc/init.d/apache2 (start|stop|restart|reload|force-reload|start-htcacheclean|stop-htcacheclean)
+
+Debian, Ubuntu (Apache 1.3):
+ServerRoot              ::      /etc/apache
+DocumentRoot            ::      /var/www
+ErrorLog                ::      /var/log/apache/error.log
+AccessLog               ::      /var/log/apache/access.log
+cgi-bin                 ::      /usr/lib/cgi-bin
+binaries (apachectl)    ::      /usr/sbin
+start/stop              ::      /etc/init.d/apache (start|stop|graceful|configtest)
+
+Fedora Core, CentOS, RHEL:
+ServerRoot              ::      /etc/httpd
+Primary Config Fle      ::      /etc/httpd/conf/httpd.conf
+Other Config Files      ::      /etc/httpd/conf.d
+Module Locations        ::      /usr/lib/httpd/modules
+DocumentRoot            ::      /var/www/html
+ErrorLog                ::      /var/log/httpd/error_log
+AccessLog               ::      /var/log/httpd/access_log
+cgi-bin                 ::      /var/www/cgi-bin (empty and disabled by default)
+binary                  ::      /usr/sbin/httpd
+runtime directory       ::      /etc/httpd/run
+start/stop              ::      /sbin/service httpd {start|stop|restart|condrestart|reload|status|fullstatus|graceful|help|configtest}
+
+RedHat 9.0 and older:
+ServerRoot              ::      /etc/httpd
+Primary Config Fle      ::      /etc/httpd/conf/httpd.conf
+DocumentRoot            ::      /var/www/html
+ErrorLog                ::      /var/log/httpd/error_log
+AccessLog               ::      /var/log/httpd/access_log
+cgi-bin                 ::      /var/www/cgi-bin (empty and disabled by default)
+binary                  ::      /usr/sbin/httpd
+start/stop              ::      /sbin/service httpd {start|stop|restart|condrestart|reload|status|fullstatus|graceful|help|configtest}
+
+Mandriva (Apache 2.2):
+ServerRoot              ::      /etc/httpd
+Primary Config Fle      ::      /etc/httpd/conf/httpd.conf
+DocumentRoot            ::      /var/www/html
+ErrorLog                ::      /var/log/httpd/error_log
+AccessLog               ::      /var/log/httpd/access_log
+cgi-bin                 ::      /var/www/cgi-bin
+binary                  ::      /usr/sbin/httpd
+start/stop              ::      /sbin/service httpd
+
+Mac OS X (Tiger and earlier, Apache 1.3):
+ServerRoot              ::      /usr
+Primary Config Fle      ::      /etc/httpd/httpd.conf
+DocumentRoot            ::      /Library/WebServer/Documents
+ErrorLog                ::      /var/log/httpd/error_log
+AccessLog               ::      /var/log/httpd/access_log
+cgi-bin                 ::      /Library/WebServer/CGI-Executables (empty by default)
+binary                  ::      /usr/sbin/httpd
+start/stop              ::      apachectl (start|stop|restart|fullstatus|status|graceful|configtest|help)
+
+NetBSD Apache 2.0 and 1.3 from pkgsrc (layout is identical):
+ServerRoot              ::      /usr/pkg
+Config File             ::      /usr/pkg/etc/httpd/httpd.conf
+DocumentRoot            ::      /usr/pkg/share/httpd/htdocs
+ErrorLog                ::      /var/log/httpd/error_log
+AccessLog               ::      /var/log/httpd/access_log
+cgi-bin                 ::      /usr/pkg/libexec/cgi-bin
+binaries (apachectl)    ::      /usr/pkg/sbin
+start/stop              ::      /etc/rc.d/apache [fast|force|one](start stop restart rcvar reload status poll)
+/etc/rc.conf variables  ::      apache=YES, apache_start="start" (or "startssl")
+
+FreeBSD 6.1 (Apache 2.2):
+ServerRoot              ::      /usr/local
+Config File             ::      /usr/local/etc/apache22/httpd.conf
+DocumentRoot            ::      /usr/local/www/apache22/data
+ErrorLog                ::      /var/log/httpd-error.log
+AccessLog               ::      /var/log/httpd-access.log
+cgi-bin                 ::      /usr/local/www/apache22/cgi-bin
+binaries (apachectl)    ::      /usr/local/sbin
+start/stop              ::      /usr/local/etc/rc.d/apache22.sh (start|restart|stop|reload|graceful|gracefulstop|configtest)
+/etc/rc.conf variables  ::      apache22_enable="YES"
+
+FreeBSD 6.1 (Apache 2.0):
+ServerRoot              ::      /usr/local
+Config File             ::      /usr/local/etc/apache2/httpd.conf
+DocumentRoot            ::      /usr/local/www/data
+ErrorLog                ::      /var/log/httpd-error.log
+AccessLog               ::      /var/log/httpd-access.log
+cgi-bin                 ::      /usr/local/www/cgi-bin
+binaries (apachectl)    ::      /usr/local/sbin
+start/stop              ::      /usr/local/etc/rc.d/apache2.sh [fast|force|one](start|restart|stop|reload|configtest|rcvar)
+/etc/rc.conf variables  ::      apache2_enable="YES"
+
+FreeBSD (Apache 1.3):
+ServerRoot              ::      /usr/local
+Config File             ::      /usr/local/etc/apache/httpd.conf
+DocumentRoot            ::      /usr/local/www/data
+ErrorLog                ::      /var/log/httpd-error.log
+AccessLog               ::      /var/log/httpd-access.log
+cgi-bin                 ::      /usr/local/www/cgi-bin
+binaries (apachectl)    ::      /usr/local/sbin
+start/stop              ::      /usr/local/etc/rc.d/apache.sh
+rc.conf variables       ::      apache_enable="YES"
+See:http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/network-apache.html
+
+Win32 (2.2):
+ServerRoot              ::      "C:/Program Files/Apache Software Foundation/Apache2.2"
+Config File             ::      "C:/Program Files/Apache Software Foundation/Apache2.2/conf/httpd.conf"
+DocumentRoot            ::      "C:/Program Files/Apache Software Foundation/Apache2.2/htdocs"
+ErrorLog                ::      "C:/Program Files/Apache Software Foundation/Apache2.2/logs/error.log"
+AccessLog               ::      "C:/Program Files/Apache Software Foundation/Apache2.2/logs/access.log"
+cgi-bin                 ::      "C:/Program Files/Apache Software Foundation/Apache2.2/cgi-bin/"
+binaries (apachectl)    ::      "C:/Program Files/Apache Software Foundation/Apache2.2/bin"
+
+Solaris 10 (Apache 2.0):
+ServerRoot              ::      /usr/apache2
+Config File             ::      /etc/apache2/httpd.conf
+DocumentRoot            ::      /var/apache2/htdocs
+ErrorLog                ::      /var/apache2/logs/error_log
+AccessLog               ::      /var/apache2/logs/access_log
+cgi-bin                 ::      /var/apache2/cgi-bin
+binaries                ::      /usr/apache2/bin
+
+Solaris 10 (Apache 1.3):
+ServerRoot              ::      /usr/apache
+Config File             ::      /etc/apache/httpd.conf
+DocumentRoot            ::      /var/apache/htdocs
+ErrorLog                ::      /var/apache/logs/error_log
+AccessLog               ::      /var/apache/logs/access_log
+cgi-bin                 ::      /var/apache/cgi-bin
+binaries                ::      /usr/apache/bin
+start/stop              ::      /etc/init.d/apache (start|startssl|sslstart|start-SSL|restart|stop)
+
+Slackware 10.1, 10.2 and 11.0 (Apache 1.3):
+ServerRoot              ::     /usr
+DocumentRoot            ::     /var/www/htdocs
+AccessLog               ::     /var/log/apache/access_log
+ErrorLog                ::     /var/log/apache/error_log
+binaries (apachectl)    ::     /usr/sbin
+modules                 ::     /usr/libexec/apache
+system startup script   ::     /etc/rc.d/rc.httpd (start|stop|restart|graceful)
+Apache config file      ::     /etc/apache/httpd.conf
+mod_ssl config file     ::     /etc/apache/mod_ssl.conf
+php config file         ::     /etc/apache/mod_php.conf
+cgi-bin                 ::     /var/www/cgi-bin
+on-line docs ("manual") ::     /var/www/htdocs/manual
+proxy cache             ::     /var/cache/proxy
+
+Slackware 12.0 (Apache 2.2):
+ServerRoot              ::     /usr
+DocumentRoot            ::     /svr/httpd/htdocs
+AccessLog               ::     /var/log/httpd/access_log
+ErrorLog                ::     /var/log/httpd/error_log
+binaries (apachectl)    ::     /usr/sbin
+modules                 ::     /usr/lib/httpd
+system startup script   ::     /etc/rc.d/rc.httpd (start|restart|graceful|graceful-stop|stop)
+Apache config file      ::     /etc/httpd/httpd.conf
+mod_ssl config file     ::     /etc/httpd/extra/httpd-ssl.conf
+php config file         ::     /etc/httpd/mod_php.conf
+cgi-bin                 ::     /svr/httpd/cgi-bin
+on-line docs ("manual") ::     /svr/httpd/htdocs/manual
+
+openSUSE and SLES (Apache 2.2):
+ServerRoot              ::      /srv/www
+DocumentRoot            ::      /srv/www/htdocs
+Apache Config File      ::      /etc/apache2/httpd.conf
+Other Config Files      ::      /etc/sysconfig/apache2
+SSL Config File         ::      /etc/apache2/ssl-global.conf
+ErrorLog                ::      /var/log/apache2/error_log
+AccessLog               ::      /var/log/apache2/access_log
+cgi-bin                 ::      /srv/www/cgi-bin
+binaries (apachectl)    ::      /usr/sbin
+start/stop              ::      /etc/init.d/apache2 (start|restart|restart-graceful|reload|graceful|graceful-stop|stop|configtest)
+
+Gentoo (Apache 2.2):
+ServerRoot              ::      /usr/lib/apache2
+DocumentRoot            ::      /var/www/localhost/htdocs
+Apache Config File      ::      /etc/apache2/httpd.conf
+Other Config Files      ::      /etc/conf.d/apache2
+Default VHost Config    ::      /etc/apache2/vhosts.d/00_default_vhost.conf
+Module Configuration    ::      /etc/apache2/modules.d
+Module Locations        ::      /usr/lib/apache2/modules
+ErrorLog                ::      /var/log/apache2/error_log
+AccessLog               ::      /var/log/apache2/access_log
+cgi-bin                 ::      /var/www/localhost/cgi-bin
+binaries (apache2ctl)   ::      /usr/sbin
+start/stop              ::      /etc/init.d/apache2 (start|restart|graceful|stop|configtest)

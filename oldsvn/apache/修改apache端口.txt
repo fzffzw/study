@@ -1,0 +1,16 @@
+安装了nginx要修改apache端口
+Listen 88
+然后重启 访问地址:88   访问不对
+
+
+是防火墙的原因
+修改/etc/sysconfig/iptables
+加入如下
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 88 -j ACCEPT
+然后
+service iptables restart
+
+然后/usr/local/apache2/bin/apachectl restart
+
+
+ok 正常了

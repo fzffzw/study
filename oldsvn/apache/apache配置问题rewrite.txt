@@ -1,0 +1,9 @@
+<Directory "/var/www/html">
+    Options Indexes MultiViews FollowSymLinks
+    AllowOverride All # 这样设置就可以在网站文件的目录中使用 .htaccess
+    Order allow,deny
+    Allow from all
+</Directory>
+
+因为没有设置这个所以一直没使用重写机制
+http://cnzhx.net/blog/vps-centos-6-lamp-phpmyadmin/
