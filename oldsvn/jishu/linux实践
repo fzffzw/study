@@ -1,0 +1,82 @@
+安装vsftp
+检查vsftp是否安装
+rpm -qa | grep vsftpd
+
+没有安装的情况下 用光盘进入
+挂载光盘
+mount /dev/cdrom /mnt/cdrom
+然后进入 /mnt/cdrom
+执行rpm -ivh vsftpd*.rpm
+就安装成功了
+
+可以通过 service vsftpd status 
+检查vsftpd状态
+若关闭则使用 service vsftpd start开启
+
+vsftp中文存在乱码现象 可以通过以下方法解决
+vi /etc/sysconfig/i18n
+
+配置ftp
+cd /var/ftp
+
+建立一个upload文件 
+赋予777权限 chmod -R 777 /var/ftp/upload
+
+编辑vsftpd配置文件
+vi /etc/vsftpd/vsftpd.conf
+
+配置为:
+anonymous_enable=YES
+local_enable=YES
+write_enable=YES
+local_umask=022
+anon_upload_enable=YES
+anon_mkdir_write_enable=YES
+
+更改ftp默认家目录
+vi /etc/passwd
+重启vsftpd
+service vsftpd restart
+
+创建用户
+useradd -d /var/www -g ftp -s /sbin/nologin fzfftp
+
+然后是配置ftp账户
+useradd -d /var/www -g ftp -s /sbin/nologin fzfftp
+
+passwd fzfftp
+
+连接出现错误
+　vsftpd是linux/unix下常见的ftp服务软件，如果在使用中遇到下列错误信息：
+
+　　500 OOPS: cannot change directory ..........
+
+解决起来很简单，只需要在启动vsftpd服务前，执行：setsebool ftpd_disable_trans 1，
+然后再重启服务即可，例如：
+
+ setsebool ftpd_disable_trans 1
+　　注：如果希望设置永久有效，在执行setsebool时附加 -P参数即
+
+chkconfig --level 35 vsftpd on
+
+/sbin/chkconfig –add vsftpd
+
+/sbin/chkconfig  vsftpd on
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

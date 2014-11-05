@@ -1,0 +1,18 @@
+yum install mysql
+yum install mysql-server
+yum install mysql-devel
+chgrp -R mysql /var/lib/mysql
+chmod -R 770 /var/lib/mysql
+service mysqld start 
+mysql
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('secret_password');
+收工！
+
+更新
+
+如要其他机器能访问，在mysql.user中添加一个Host为'%'的user,然后flush priviledges;，最后防火墙加一句类似这样的语句即可(开通3306端口)：
+
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 3306 -j ACCEPT
+如果要reboot自启动：
+
+chkconfig --levels 345 mysqld on

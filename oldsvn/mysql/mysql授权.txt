@@ -1,0 +1,11 @@
+host not allowed connect to this mysql server
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'192.168.25.128' IDENTIFIED BY '123456' WITH GRANT OPTION;
+
+GRANT ALL PRIVILEGES ON wms.* TO 'root'@'192.168.25.128' IDENTIFIED BY '123456' WITH GRANT OPTION;
+
+
+flush privileges;
+
+授权所有ip 用户为master 密码为master
+GRANT ALL PRIVILEGES ON *.* TO'master'@'%' IDENTIFIED BY 'master' WITH GRANT OPTION;

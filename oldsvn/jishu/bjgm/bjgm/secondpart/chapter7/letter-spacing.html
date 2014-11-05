@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>7.5 单词间隔（word-spacing）和字母间隔（letter-spacing） :: 第7章：文本</title>
+<link href="../samplecss/show.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+p {
+line-height:3em;
+}
+#wordSpacing p {
+word-spacing: 1em;
+}
+#wordSpacing p.word1 {
+word-spacing:-0.5em;
+}
+#wordSpacing p.word2 {
+word-spacing:-1em;
+}
+#letterSpacing p {
+letter-spacing: 1em;
+}
+#letterSpacing2 p {
+letter-spacing:1em;
+}
+p.textAlign {
+text-align: justify;
+}
+-->
+</style>
+</head>
+
+<body id="c_text">
+<h1>第7章：文本</h1>
+<h2>7.5 单词间隔（word-spacing）和字母间隔（letter-spacing）</h2>
+<div id="wordSpacing">
+  <h3><a name="word">7.5.1 单词间隔：word-spacing属性</a></h3>
+  <p>没有空格的中文和英文word-spacing都没有效果。</p>
+  <p>含 有 空 格 的 中 文 和 word spacing</p>
+  <p class="word1">负 值 缩 进 word-spacing : -0.5em</p>
+  <p class="word2">负 值 缩 进 word-spacing : -1em</p>
+  <p class="textAlign">文字 两端 对齐 word spacing 文字 两端 对齐 word spacing 文字 两端 对齐 word spacing</p>
+</div>
+<div id="letterSpacing">
+  <h3><a name="letter">7.5.2 字母间隔：letter-spacing属性</a></h3>
+  <p>字母间隔letter spacing</p>
+</div>
+<div id="letterSpacing2">
+  <h3>文字水平对齐和间隔</h3>
+  <p class="textAlign">文 字 两 端 对 齐 letter spacing 文 字 两 端 对 齐</p>
+  <p>段落letter-spacing:1em; <strong>这里是强调文本</strong></p>
+</div>
+<div class="gotoIndex"><a href="../../index.html#chapter7" title="返回示例代码目录">返回代码目录</a></div>
+</body>
+</html>

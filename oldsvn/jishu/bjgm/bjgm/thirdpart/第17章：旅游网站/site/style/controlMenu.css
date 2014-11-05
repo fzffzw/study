@@ -1,0 +1,39 @@
+#controlMenu > ul {
+width:390px;
+float:right;
+}
+#controlMenu > ul > li {
+position:relative;
+float:left;
+margin-right:2em;
+}
+#controlMenu ul ul {
+background:#39F;
+border:1px solid #039;
+padding:4px;
+position:absolute;
+left:-9999px;
+top:26px;
+}
+
+#controlMenu > ul > li:hover ul {
+left:auto;
+}
+#controlMenu ul ul li {
+border-top:1px dotted #CFF;
+padding:1px 0;
+}
+#controlMenu ul ul li:first-child {
+border:0;
+} 
+#controlMenu ul ul li a {
+display:block;
+width:5em;
+line-height:18px;
+padding:0 5px;
+}
+#controlMenu ul ul li a:hover {
+background:#CFF;
+color:#039;
+text-decoration:none;
+}

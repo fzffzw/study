@@ -1,0 +1,10 @@
+#!/bin/bash
+# Using for and loop to read the account of this linux server!
+# VBird 2002/06/27
+account=`cut -d ":" -f1 /etc/passwd|sort`
+echo "The following is your linux server's account"
+
+for i in $account
+do
+        echo $i
+done 

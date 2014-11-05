@@ -1,0 +1,47 @@
+<?php
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>9.3.7 应用：显示提示内容 :: 9.3 定位 :: 第9章：浮动、定位与视觉格式化模型</title>
+<link href="../samplecss/show.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.tips {
+color:#C00;
+text-decoration:none;
+border-bottom:1px dashed;
+margin: 0.5em;
+}
+.tips span {
+font-size:0.9em;
+padding:0 5px;
+position:absolute;
+width:17em;
+border:1px solid #F60;
+background:#FC3;
+top:1em;
+left:-9999px;
+}
+.tips:hover {
+position:relative;
+color:#f00;
+}
+.tips:hover span {
+left:1em;
+}
+-->
+</style>
+</head>
+
+<body id="c_visual">
+<h1>第9章：浮动、定位与视觉格式化模型</h1>
+<h2>9.3 定位</h2>
+<h3>9.3.7 应用：显示提示内容</h3>
+<div>
+  <p>WEB标准并不是一个强制性的东西，它只是<a href="#" class="tips">W3C<span> World Wide Web Consortium，万维网联盟，一个非营利性组织，官方网站网址为：http://www.w3c.org。</span></a>提出的一个建议性的文档。WEB标准不是某一个标准，而是<a href="#" class="tips">一系列标准<span>结构化标准语言主要包括XHTML和XML；表现标准语言主要包括CSS；行为标准主要包括对象模型（如W3C DOM、ECMAScript等）。</span></a>的集合。</p>
+</div>
+<div class="gotoIndex"><a href="../../index.html#chapter9" title="返回示例代码目录">返回代码目录</a></div>
+</body>
+</html>

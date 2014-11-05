@@ -1,0 +1,111 @@
+系统设定档案所在的目录: /etc/sysconfig 这个目录啰
+
+这样就设定 OK 啦！其实，以上的步骤就只是设定底下几个档案：
+
+网络设定相关的目录　
+
+    * /etc/sysconfig/network
+    * /etc/sysconfig/network-scripts/ifcfg-eth0
+    * /etc/resolv.conf 
+    
+ setup：
+我们先来说一说 setup 的用法吧！以 root 的身份在 command line 输入 setup 就可以进入如下的画面：
+   
+   
+# 这个设定设好之后，其连结会在 /etc/rc.d/rc#.d/Sxxservername 这个档案内，
+例如我以文字型态登入的，所以 run-level 为 3 ，而我要设定的是 atd 这个服务，
+所以就会在 /etc/rc.d/rc3.d/S95atd 这个连结档建立到 /etc/rc.d/init.d/atd 
+这个执行 script 中！请注意，那么 S 代表开机启动的意思，而数字代表执行的顺序！    
+
+时区设置
+建立的数据写在 /etc/sysconfig/clock 里头！
+    
+/etc/sysconfig/*
+	
+用途
+authconfig 	系统使用者所使用的认证方式，或者说是系统使用者使用以登入主机的密码管理方式。目前最常见的就是每部主机自己管理自己，也就是 /etc/shadow 这个档案，以及底下会再提到的档案认证方式 MD5 的编码格式！通常档案的内容为：
+　
+USELDAP=no   <==是否使用 LDAP
+USEMD5=yes   <==是否使用MD5
+USENIS=no    <==是否使用NIS
+USESHADOW=yes <==是否使用 shadow 
+autofsck 	当系统出现问题的时候，通常系统会自动的执行 fsck ，但是当这个档案存在的时候，那么系统就会依据这个档案的内容来决定是否需要以 fsck 来检查硬盘数据！
+
+AUTOFSCK_TIMEOUT=5   <==暂停时间等待输入
+AUTOFSCK_DEF_CHECK=no  <==若不输入是否进行 fsck 检验，这里是设定为 no 喔！
+clock 	记录时区的档案内容：
+
+UTC=true      <==设定时区为以 GMT 时区的设定
+ARC=false     <==设定时间以 ARC console 来比对
+ZONE=Asia/Taipei  <==以 GMT 时间推算出本地的时区
+gpm 	纪录一些额外的接口设备的档案数据，例如鼠标！这个服务可以让您在文字模式下能使用鼠标来进行复制、剪贴等等的功能！
+harddisks 	要开启 IDA 模式吗？要启动 16 I/O 模式吗？没错！使用这个档案来设定就对了！尤其是档案里头的 USE_DMA=1 ，应该是可以直接启动的啦！（将 # 去除！）这东西与 hdparm 程序有点关系的啦！
+hwconf 	在你启动 Linux 的时候，不是有侦测硬件的项目吗？没错，侦测到的硬件就是记录在这里，所以，如果要了解你的硬件信息，来这个档案看一看就知道了！（注：需要对于硬件如芯片组有点了解的人才比较容易看懂！）这东西与 hdparm 程序有点关系的啦！
+i18n 	修改预设语系的地方！很多朋友常常提到，如果预设语系选择中文，偏偏文字模式下无法正常显示，那么就修改这里的设定即可！将 LANG 的设定改成 en_US 即可！不过，有没有支持还是得看这个档案里头的 SUPPORTED 项目才行！
+keyboard 	设定键盘的形式；
+kudzu 	设定开机时后侦测新装置的方式！
+mouse 	设定鼠标的形式
+network 	设定你的网络状态，例如 gateway, hostname 等等的地方！相当重要！
+network-scipts 	所有的适配卡设定档案的地方！例如 ifcfg-eth0 ！相当的重要！
+rhn 	设定一些 up2date 在线更新的注册数据！( Red Hat 上才有！)
+iptables 	（不一定会存在的档案）这个档案为开机时启动防火墙规则的规则档案！
+
+ntsysv
+　
+[root @test /root]# ntsysv [--level run-level]
+参数说明：
+--level ：可以设定每一个 run-level 的开机启动项目
+范例：
+[root @test /root]# ntsysv　　　　　　　<== 目前的 run-level 下的设定
+[root @test /root]# ntsysv --level 5　　<== 不同 run-level 下的设定修改
+
+
+# chkconfig
+　
+[root @test /root]# chkconfig [--level levels] [--list|add|del] [service name]
+参数说明：
+--level ：同样的说明了可以设定不同的 run-level 的咚咚！
+--list  ：列出 run-level 情况下的该套件名称是否有被开机启动？！
+--add   ：增加一个 service_name 在开机的时候启动；
+--del   ：删除一个开机启动的服务！
+service name ：这个服务名称必须要实际存在 /etc/rc.d/init.d 这个目录下才行
+范例：
+[root @test /root]# chkconfig --list sendmail　　<==列出 sendmail 的启动！ 
+sendmail        0:off   1:off   2:on    3:on    4:on    5:on    6:off
+上面说明， sendmail 在 run-level 0, 1, 6 的时候是 off ，而在 2,3,4,5 是 On 的情况！
+
+[root @test /root]# chkconfig  <==列出系统所拥有的执行服务，并且列出是否开机启动？
+keytable        0:off   1:on    2:on    3:on    4:on    5:on    6:off
+atd             0:off   1:off   2:off   3:on    4:on    5:on    6:off
+kdcrotate       0:off   1:off   2:off   3:off   4:off   5:off   6:off
+syslog          0:off   1:off   2:on    3:on    4:on    5:on    6:off
+gpm             0:off   1:off   2:on    3:off   4:on    5:on    6:off
+kudzu           0:off   1:off   2:off   3:off   4:on    5:on    6:off
+sendmail        0:off   1:off   2:on    3:on    4:on    5:on    6:off
+netfs           0:off   1:off   2:off   3:off   4:on    5:on    6:off
+network         0:off   1:off   2:on    3:on    4:on    5:on    6:off
+random          0:off   1:off   2:on    3:on    4:on    5:on    6:off
+rawdevices      0:off   1:off   2:off   3:off   4:on    5:on    6:off
+apmd            0:off   1:off   2:on    3:off   4:on    5:on    6:off
+ipchains        0:off   1:off   2:on    3:off   4:on    5:on    6:off
+iptables        0:off   1:off   2:on    3:on    4:on    5:on    6:off
+crond           0:off   1:off   2:on    3:on    4:on    5:on    6:off
+anacron         0:off   1:off   2:on    3:off   4:on    5:on    6:off
+xinetd based services:
+        chargen-udp:    off
+        chargen:        off
+        daytime-udp:    off
+        daytime:        off
+        echo-udp:       off
+        echo:   off
+        time-udp:       off
+[root @test /root]# chkconfig --add gpm   <==增加 gpm 这个咚咚在开机的时候启动！
+说明：
+chkconfig 这个程序可以将 /etc/rc.d/init.d/ 里面的可执行服务与 /etc/xinetd.d 里面的相关可执行的服务，
+连结到目前的 run-level 里头去，或者是您可以定义你的 run-level 让你的该项服务在开机的时候就给他启动?
+不过请注意呦！ service 是马上让你的该项服务立刻启动，但是 chkconfig 则仅是设定某个服务在开机得时候可以被启动，
+并不一样，请注意ㄋㄟ！
+
+　
+    
+    

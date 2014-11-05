@@ -1,0 +1,7 @@
+[max_allowed_packet]
+IN 列表中所列值的个数仅受限于
+ 值max_allowed_packet 
+当MySQL客户端或mysqld服务器收到大于max_allowed_packet字节的信息包时，将发出“信息包过大”错误，并关闭连接。对于某些客户端，如果通信信息包过大，在执行查询期间，了能回遇到“丢失与MySQL服务器的连接”错误。
+
+mysql --max_allowed_packet=32M
+或者在mysql的配置文件设置

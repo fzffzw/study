@@ -1,0 +1,49 @@
+原来已经有一套CACTI监控mysql，那是对昨天的进行画图监控，如果想实时的该如何看？
+
+例如：
+
+OS层：会去看cpu,内存，io.
+
+如果：cpu使用率过高，内存占用率过高，io负载增大，就想看mysql的内部过载的原因
+
+
+DB层：
+
+如何看,看show status;
+            show processlist;
+            status;
+            show innodb status;
+            show mutex status;（InnoDB互斥量的细节信息）
+
+-----------------这个跟主从相关-------------------
+            show master status;
+            show binlog events;
+            show slave status;
+                         
+
+或者:INFORMATION_SCHEMA.GLOBAL_STATUS和INFORMATION_SCHEMA.SESSION_STATUS
+
+如果想看时长几分钟的时间段改变多少:命令:mysqladmin extended-status -r -i 5或 innotop
+
+看变量：
+
+尝试连接：Connections,Max_used_connections,Threads_connected
+
+退出连接：Aborted_clients,Aborted_connects
+
+网络流量：Bytes_received ,Bytes_sent
+
+线程：Slow_launch_threads,Threads_cached,Threads_created,Threads_running
+
+其中aborted_connects，如果有累加，不为0，说明网络有问题。值太大了，有副作用
+
+
+每秒钟创建的线程数目(Threads_created/Uptime).
+
+
+Binlog_cache_use 二进制日志缓存保存了多少食物
+Binlog_cache_disk_use 有多少个事务过于庞大无法放入缓存
+
+
+
+还有没有更好的看状态的方法？大家都分享出来呗。一起看看

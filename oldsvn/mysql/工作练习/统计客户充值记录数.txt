@@ -1,0 +1,5 @@
+select customer.customer_id,customer.customer_code,if(ISNULL(ba.number),0,ba.number) as number 
+from customer left join 
+(select customer_code,count(*) as number 
+from customer_balance_log group by customer_code) ba on
+ customer.customer_code=ba.customer_code COLLATE utf8_unicode_ci order by ba.number desc;

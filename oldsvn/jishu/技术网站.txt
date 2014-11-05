@@ -1,0 +1,159 @@
+太水了，都是照书上读的,呵呵，mysql优化无非就是分表，结构设计，索引的设计
+
+http://www.phppan.com/category/pm/
+http://www.php-internal.com/downloads/
+
+http://sourceforge.net
+http://www.54chen.com
+
+http://yanbin.org/
+
+ice中间件
+PHPRPC NuSOAP与PHPRPC比较
+
+http://www.phpwebgo.com/article/class/id/13/
+
+http://www.oschina.net/news/24456/open-source-php-projects-2011
+
+nosql memcache区别
+
+
+nosql php 链接 nosql视频学习
+
+http://crodas.org/slides/2010/PHPConf/NoSQL/#slide50
+
+http://timyang.net/
+
+http://www.iteye.com/news/23691
+
+http://www.iteye.com/topic/1118899
+
+http://blog.csdn.net/baiduforum/article/details/7070198
+
+http://www.nhs8.com/tech/18185.html
+
+http://www.oschina.net/news/24339/strangest-language-feature
+http://www.gsm8.cn/bbs/forum.php
+
+
+ibm php试题(搜索) http://www.phperz.com/browse/life/020GO020091790.htmlhttp://wenku.baidu.com/view/b3d071244b35eefdc8d33306.html
+
+http://www.iteye.com/topic/1120476 (云桌面)
+
+
+ERwin （数据库建模）
+
+
+mysql master-master master-slave区别应用
+http://blog.xiuwz.com/2012/01/10/talk-nginx-with-http/
+
+http://www.cnblogs.com/jackyrong/archive/2008/03/29/1129212.html
+
+http://www.taobaodba.com/html/tag/innotop
+
+大规模Web服务开发技术 书
+mysql js面试
+http://www.uml.net.cn
+
+
+http://www.techinterviews.com/?s=php&searchsubmit=Search
+
+http://www.pztai.com/index.php
+
+Ocean base
+
+精通CSS,DIV+CSS 别具风格 pdf
+
+Goagent
+
+防盗链 淘宝技术团队
+
+
+
+
+
+
+
+
+聚集索引 聚簇索引
+
+
+http://www.cnblogs.com/hustcat/archive/2009/10/28/1591648.html
+
+
+http://oneoo.com/
+
+
+http://www.ccvita.com
+
+
+http://www.blags.org/php-sphinxapi-use-method/comment-page-1/
+
+http://blog.s135.com (高性能相关网站)
+
+http://code.google.com/p/httpcws/
+
+http://www.mysqlops.com （mysql源码及优化相关）
+
+http://www.open-open.com/home/space-2869-do-blog-id-5489.html (mysql松散索引)
+
+lucene php 
+
+
+http://www.sphinxsearch.org/archives/17
+
+
+http://www.rocing.cn/category-8-1.html
+
+http://www.cnblogs.com/picaso/category/301439.html
+
+php 算法 （搜索）
+
+http://7567567.blog.51cto.com/706378/d-1 （技术相关 mysql主从）
+
+
+http://www.oschina.net/news/27272/google-interview-strange-questions (google面试)
+
+Sqoop 成为 Apache 顶级项目
+
+http://www.fuchaoqun.com/2008/11/sphinx-on-windows-xp/
+
+http://www.fuchaoqun.com/2008/11/sphinx-on-windows-xp/ sphinx 配置
+
+
+http://www.blogjava.net/dongbule/archive/2010/08/22/329602.html  mysql主从
+http://2526575.blog.51cto.com/2516575/689199  mysql主从
+
+http://blog.csdn.net/jtlyuan/article/details/7435857 tencent面试
+
+
+http://c.chinaitlab.com/special/cpxsf/index.html
+http://www.cnblogs.com/kkun/archive/2011/11/23/2260312.html
+
+http://www.cnblogs.com/python27/archive/2012/04/09/2438614.html tencent题目
+
+http://www.sziwap.com/ 高性能php
+
+http://www.uml.org.cn
+
+http://www.ooso.net
+
+
+
+
+
+（中文分词） 排序
+
+
+
+http://www.iteye.com/topic/1119694
+
+https://github.com/zzdhidden/12306/blob/master/login.jpg
+
+
+http://cdc.tencent.com/
+
+http://www.hemono.com/?m=201110
+
+
+http://www.oschina.net/news/25225/10-fresh-jquery-plugins-january-2012 (jquery插件)

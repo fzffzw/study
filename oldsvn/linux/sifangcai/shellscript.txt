@@ -1,0 +1,18 @@
+    * for (( 条件一; 条件二; 条件三 ))
+    * for variable in variable1 variable2 .....
+    * while [ condition1 ] && { || } [ condition2 ] ...
+    * until [ condition1 ] && { || } [ condition2 ] ... 
+
+for 是已经知道有多少个 run 了，即是已经知道要跑几次了，至于 until 与 while 则分别是：
+
+    * 『until：直到条件相同的时候才离开程序』；
+    * 『while：当条件相同的时候，就继续做！』 
+
+这两者不太相同的啦！
+
+
+sh脚本debug
+ sh [-nvx] scripts
+-n ：不要执行 scripts ，查询 scripts 内的语法，若有错误则予以列出！
+-v ：在执行 scripts 之前，先将 scripts 的内容显示在屏幕上；
+-x ：将有使用到的 scripts 内容显示在屏幕上，与 -v 稍微不同

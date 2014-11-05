@@ -1,0 +1,6 @@
+var str='china php mysql apache'
+var reg=/\b\w+\b/g
+console.log(str.match(reg))
+
+注意 reg=/\b\w+\b/g
+不要写成 reg='/\b\w+\b/g'

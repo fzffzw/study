@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<title>首页 :: Imerl旅游网</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="Imerl旅游网站，服务项目：自助游，旅行社，预订车票、旅店、宾馆，旅游景点折扣。" />
+<meta name="keywords" content="旅游, 自助游, 旅行社, 预订车票, 旅店, 宾馆, 折扣票价" />
+<link href="style/index.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body id="home">
+<div id="header">
+  <div id="logo">
+    <h1><a href="/index.html" title="前往网站首页"><img src="img/logo.gif" alt="网站Logo" width="209" height="100" /><span>Imerl旅游网</span></a></h1>
+  </div>
+  <div id="mainNav">
+    <ul><li><a href="/index.html" title="网站首页">首页</a></li><li><a href="/blog/index.html" title="[游记]栏目首页">游记</a></li><li><a href="/photos/index.html" title="[相册]栏目首页">相册</a></li><li><a href="/activities/index.html" title="[活动]栏目首页">活动</a></li><li><a href="/forum/index.html" title="[论坛]首页">论坛</a></li></ul>
+  </div>
+  <div id="login">
+    <form id="formLogin" action="forumHot.html">
+      <fieldset>
+      <legend>用户登录</legend>
+      <ul class="loginInfo">
+        <li>
+          <label for="loginNickname">昵称：</label>
+          <input type="text" id="loginNickname" maxlength="20" />
+        </li>
+        <li>
+          <label for="loginPassword">密码：</label>
+          <input type="password" id="loginPassword" maxlength="20" />
+        </li>
+        <li>
+          <!--<input type="submit" value="登录" id="btnLoginSubmit" title="单击登录" />-->
+          <!--<input type="image" src="img/btn_login.gif" name="btnLoginSubmit" id="btnLoginSubmit" title="单击登录" />-->
+		  <button type="submit" id="btnLoginSubmit">登录</button>
+        </li>
+	  </ul>
+	  <ul class="reg">
+        <li><a href="/member/reg.html" title="前往注册页面">注册</a></li>
+        <li><a href="/member/password1.html" title="前往找回密码页面">忘记密码</a></li>
+      </ul>
+      </fieldset>
+    </form>
+  </div>
+  <div id="controlMenu">
+    <ul>
+      <li><a href="/service/index.html" title="客户服务项目查询">客户服务<!--[if IE 7]><!--></a><!--<![endif]-->  
+        <!--[if lte IE 6]><table><tr><td><![endif]-->
+	    <div>
+        <ul>
+          <li class="first-child"><a href="/service/ticket.html" title="预定国内飞机、火车、船票">定票</a></li>
+          <li><a href="/service/hotel.html" title="预定国内各地酒店">定酒店</a></li>
+          <li><a href="/service/journey.html" title="预定国内旅行社行程">定行程</a></li>
+        </ul>
+	    </div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+      </li>
+      <li><a href="/member/score/" title="积分奖励内容查询">积分奖励<!--[if IE 7]><!--></a><!--<![endif]-->
+        <!--[if lte IE 6]><table><tr><td><![endif]-->
+	    <div>
+        <ul>
+          <li class="first-child"><a href="/member/score/1" title="查询积分情况">积分查询</a></li>
+          <li><a href="/member/score/2" title="使用积分换取礼品">积分换礼</a></li>
+        </ul>
+	    </div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+      </li>
+      <li><a href="/member/info/" title="修改个人信息">个人信息<!--[if IE 7]><!--></a><!--<![endif]-->
+        <!--[if lte IE 6]><table><tr><td><![endif]-->
+	    <div>
+        <ul>
+          <li class="first-child"><a href="/member/info/1" title="修改不公开的私密信息">私密信息</a></li>
+          <li><a href="/member/info/2" title="修改通信地址">通信地址</a></li>
+          <li><a href="/member/info/3" title="修改对其他用户公开的信息">公开信息</a></li>
+        </ul>
+	    </div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+      </li>
+      <li><a href="/member/orderForm/0" title="会员订单查询管理">订单管理<!--[if IE 7]><!--></a><!--<![endif]-->
+        <!--[if lte IE 6]><table><tr><td><![endif]-->
+	    <div>
+        <ul>
+          <li class="first-child"><a href="/member/orderForm/1" title="目前正在执行中的订单">订单查询</a></li>
+          <li><a href="/member/orderForm/2" title="已结订单">历史记录</a></li>
+        </ul>
+	    </div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+      </li>
+      <li><a href="/member/mail/" title="查看会员邮箱">会员邮箱</a></li>
+    </ul>
+  </div>
+</div><!-- #header -->
+<div id="main">
+  <div id="travels">
+	<h2>游记精选</h2>
+    <ul class="subjectNav">
+	  <li class="first-child"><a href="/blog/" title="发表新的游记">发表游记</a></li>
+	  <li><a href="/blog/" title="查看更多的游记">更多游记</a></li>
+	</ul>
+    <ol class="travelsList">
+      <li><h3><strong>[推荐]</strong><a href="/blog/" title="文章标题">这里是文章的标题</a></h3>
+	    <h4>作者：<a href="/blog/ddcat/" title="进入[豆豆猫]的Blog">豆豆猫</a></h4>
+		<h5>发表日期：2008-02-28</h5>
+	    <p class="pic"><a href="/blog/" title="文章标题"><img src="pic/blog_01.jpg" title="文章的标题" alt="插图" width="128" height="88" /></a></p>
+		<p>文章的摘要内容。文章的摘要内容。文章的摘要内容。文章的摘要内容。文章的摘要内容。文章的摘要内容。文章的摘要内容。</p>
+	  </li>
+      <li><h3><strong>[推荐]</strong><a href="/blog/" title="文章标题">这里是文章的标题</a></h3>
+	    <h4>作者：<a href="/blog/ddcat/" title="进入[豆豆猫]的Blog">豆豆猫</a></h4>
+		<h5>发表日期：2008-02-28</h5>
+	    <p class="pic"><a href="/blog/" title="文章标题"><img src="pic/blog_02.jpg" title="文章的标题" alt="插图" width="128" height="88" /></a></p>
+		<p>文章的摘要内容。文章的摘要内容。文章的摘要内容。文章的摘要内容。文章的摘要内容。</p>
+	  </li>
+      <li><h3><em>[国内]</em><a href="/blog/" title="文章标题">这里是文章的标题</a></h3>
+	    <h4>作者：<a href="/blog/ddcat/" title="进入[豆豆猫]的Blog">豆豆猫</a></h4>
+		<h5>发表日期：2008-02-28</h5>
+	    <p class="pic"><a href="/blog/" title="文章标题"><img src="pic/blog_03.jpg" title="文章的标题" alt="插图" width="128" height="88" /></a></p>
+		<p>文章的摘要内容。文章的摘要内容。文章的摘要内容。文章的摘要内容。文章的摘要内容。文章的摘要内容。文章的摘要内容。</p>
+	  </li>
+      <li><h3><em>[国外]</em><a href="/blog/" title="文章标题">这里是文章的标题</a></h3>
+	    <h4>作者：<a href="/blog/ddcat/" title="进入[豆豆猫]的Blog">豆豆猫</a></h4>
+		<h5>发表日期：2008-02-28</h5>
+	    <p class="pic"><a href="/blog/" title="文章标题"><img src="pic/blog_04.jpg" title="文章的标题" alt="插图" width="128" height="88" /></a></p>
+		<p>文章的摘要内容。文章的摘要内容。文章的摘要内容。文章的摘要内容。文章的摘要内容。文章的摘要内容。文章的摘要内容。</p>
+	  </li>
+      <li><h3><em>[国内]</em><a href="/blog/" title="文章标题">这里是文章的标题这里是文章的标题</a></h3>
+	    <h4>作者：<a href="/blog/ddcat/" title="进入[豆豆猫]的Blog">豆豆猫</a></h4>
+		<h5>发表日期：2008-02-28</h5>
+	    <p class="pic"><a href="/blog/" title="文章标题"><img src="pic/blog_05.jpg" title="文章的标题" alt="插图" width="128" height="88" /></a></p>
+		<p>文章的摘要内容。文章的摘要内容。文章的摘要内容。文章的摘要内容。文章的摘要内容。</p>
+	  </li>
+    </ol>
+  </div>
+  <div id="hot">
+    <h2>热点推荐</h2>
+    <ul class="subjectNav">
+	  <li><a href="/hot/" title="查看更多的游记">更多...</a></li>
+	</ul>
+	<ol class="hotArticle">
+	  <li><a href="/hot/" title="这里是热点推荐的标题">这里是热点推荐推荐的标题</a></li>
+	  <li><a href="/hot/" title="这里是热点推荐的标题">这里是热点推荐的标题</a></li>
+	  <li><a href="/hot/" title="这里是热点推荐的标题">这里是热点推荐的标题标题</a></li>
+	  <li><a href="/hot/" title="这里是热点推荐的标题">这里是热点推荐的标题</a></li>
+	  <li><a href="/hot/" title="这里是热点推荐的标题">这里是热点推荐的标题推荐的标题的标题的标题</a></li>
+	  <li><a href="/hot/" title="这里是热点推荐的标题">这里是热点推荐的标题</a></li>
+	  <li><a href="/hot/" title="这里是热点推荐的标题">这里是热点推荐的标题</a></li>
+	  <li><a href="/hot/" title="这里是热点推荐的标题">这里是热点推荐推荐的标题</a></li>
+	  <li><a href="/hot/" title="这里是热点推荐的标题">这里是热点推荐的标题推荐的标题的标题</a></li>
+	</ol>
+	<ol class="hotPicture">
+	  <li><a href="/hot/" title="标题文字"><img src="pic/ad_01.jpg" alt="热点图片" width="140" height="60" /></a></li>
+	  <li><a href="/hot/" title="标题文字"><img src="pic/ad_01.jpg" alt="热点图片" width="140" height="60" /></a></li>
+	  <li><a href="/hot/" title="标题文字"><img src="pic/ad_01.jpg" alt="热点图片" width="140" height="60" /></a></li>
+	</ol>
+  </div>
+  <div id="ad1">
+    <ul>
+	  <li><a href="/ad/" title="这里是广告的标题1">这里是广告的标题1</a></li>
+	  <li><a href="/ad/" title="这里是广告的标题2">这里是广告的标题2</a></li>
+	  <li><a href="/ad/" title="这里是广告的标题3">这里是广告的标题3</a></li>
+	  <li><a href="/ad/" title="这里是广告的标题4">这里是广告的标题4</a></li>
+	</ul>
+  </div>
+  <div id="photos">
+    <h2>照片精选</h2>
+    <ul class="subjectNav">
+	  <li class="first-child"><a href="/photo/" title="发表新的游记">发表照片</a></li>
+	  <li><a href="/photo/" title="查看更多的游记">更多...</a></li>
+	</ul>	
+    <ul class="photoList">
+	  <li><a href="/photo/" title="图片1的标题文字"><img src="pic/photo_01.jpg" width="100" height="80" alt="照片精选1" /></a><strong><a href="/photo/" title="图片1的标题文字">图片的标题文字</a></strong></li>
+	  <li><a href="/photo/" title="图片1的标题文字"><img src="pic/photo_02.jpg" width="100" height="80" alt="照片精选2" /></a><strong><a href="/photo/" title="图片1的标题文字">图片的标题文字</a></strong></li>
+	  <li><a href="/photo/" title="图片1的标题文字"><img src="pic/photo_03.jpg" width="100" height="80" alt="照片精选3" /></a><strong><a href="/photo/" title="图片1的标题文字">图片的标题文字</a></strong></li>
+	  <li><a href="/photo/" title="图片1的标题文字"><img src="pic/photo_04.jpg" width="100" height="80" alt="照片精选4" /></a><strong><a href="/photo/" title="图片1的标题文字">图片的标题文字</a></strong></li>
+	  <li><a href="/photo/" title="图片1的标题文字"><img src="pic/photo_05.jpg" width="100" height="80" alt="照片精选5" /></a><strong><a href="/photo/" title="图片1的标题文字">图片的标题文字</a></strong></li>
+	  <li><a href="/photo/" title="图片1的标题文字"><img src="pic/photo_06.jpg" width="100" height="80" alt="照片精选6" /></a><strong><a href="/photo/" title="图片1的标题文字">图片的标题文字</a></strong></li></ul>
+  </div>
+  <div id="forumList">
+    <ul>
+	  <li class="forumList1"><a href="/forum/" title="进入[宾馆点评]分论坛">宾馆点评</a></li>
+	  <li class="forumList2"><a href="/forum/" title="进入[餐馆点评]分论坛">餐馆点评</a></li>
+	  <li class="forumList3"><a href="/forum/" title="进入[景点点评]分论坛">景点点评</a></li>
+	  <li class="forumList4"><a href="/forum/" title="进入[娱乐场所点评]分论坛">娱乐场所点评</a></li>
+	</ul>  
+  </div>
+  <div id="forumHot">
+    <div id="budgetLine">
+	  <h3>自助线路</h3>
+      <ul class="subjectNav">
+	    <li><a href="/forum/" title="查看[自助线路]更多的帖子">更多...</a></li>
+	  </ul>		  
+	  <ul class="hotList">
+	    <li><a href="/forum/1" title="这里是帖子的标题" class="postTitle">这里是帖子标题</a> <a href="/blog/ddcat/" title="查看[豆豆猫]的个人资料" class="postMember">豆豆猫</a></li>
+	    <li><a href="/forum/2" title="这里是帖子的标题" class="postTitle">这里是帖子的标题的标题标题</a> <a href="/blog/ddcat/" title="查看[豆豆猫]的个人资料" class="postMember">豆豆猫</a></li>
+	    <li><a href="/forum/3" title="这里是帖子的标题" class="postTitle">这里是帖子的标题标题的标题标题的标题标题</a> <a href="/blog/ddcat/" title="查看[豆豆猫]的个人资料" class="postMember">豆豆猫</a></li>
+	    <li><a href="/forum/4" title="这里是帖子的标题" class="postTitle">这里是帖子标题的标题标题的标题标题</a> <a href="/blog/ddcat/" title="查看[豆豆猫]的个人资料" class="postMember">豆豆猫</a></li>
+	    <li><a href="/forum/5" title="这里是帖子的标题" class="postTitle">这里是帖子的标题的标题标题</a> <a href="/blog/ddcat/" title="查看[豆豆猫]的个人资料" class="postMember">豆豆猫</a></li>
+	  </ul>
+	</div><!-- #budgetLine -->
+    <div id="company">
+	  <h3>结伴同游</h3>
+      <ul class="subjectNav">
+	    <li><a href="/forum/" title="查看[自助线路]更多的帖子">更多...</a></li>
+	  </ul>		  
+	  <ul class="hotList">
+	    <li><a href="/forum/1" title="这里是帖子的标题" class="postTitle">这里是帖子标题的标题标题</a> <em>2008-02-28</em></li>
+	    <li><a href="/forum/2" title="这里是帖子的标题" class="postTitle">这里是帖子标题标题标题</a> <em>2008-02-28</em></li>
+	    <li><a href="/forum/3" title="这里是帖子的标题" class="postTitle">这里是帖子标题标题</a> <em>2008-02-28</em></li>
+	    <li><a href="/forum/4" title="这里是帖子的标题" class="postTitle">这里是帖子标题标题标题</a> <em>2008-02-28</em></li>
+	    <li><a href="/forum/5" title="这里是帖子的标题" class="postTitle">这里是帖子标题标题的标题标题的标题标题</a> <em>2008-02-28</em></li>
+	  </ul>
+	</div><!-- #company -->
+    <div id="colloquy">
+	  <h3>七嘴八舌</h3>
+      <ul class="subjectNav">
+	    <li><a href="/forum/" title="查看[自助线路]更多的帖子">更多...</a></li>
+	  </ul>		  
+	  <ul class="hotList">
+	    <li><a href="/forum/1" title="这里是帖子的标题" class="postTitle">这里是帖子标题</a> <a href="/blog/ddcat/" title="查看[豆豆猫]的个人资料" class="postMember">豆豆猫</a></li>
+	    <li><a href="/forum/2" title="这里是帖子的标题" class="postTitle">这里是帖子的标题的标题标题的标题标题</a> <a href="/blog/ddcat/" title="查看[豆豆猫]的个人资料" class="postMember">豆豆猫</a></li>
+	    <li><a href="/forum/3" title="这里是帖子的标题" class="postTitle">这里是帖子的标题标题的标题标题</a> <a href="/blog/ddcat/" title="查看[豆豆猫]的个人资料" class="postMember">豆豆猫</a></li>
+	    <li><a href="/forum/4" title="这里是帖子的标题" class="postTitle">这里是帖子标题的标题标题</a> <a href="/blog/ddcat/" title="查看[豆豆猫]的个人资料" class="postMember">豆豆猫</a></li>
+	    <li><a href="/forum/5" title="这里是帖子的标题" class="postTitle">这里是帖子的标题</a> <a href="/blog/ddcat/" title="查看[豆豆猫]的个人资料" class="postMember">豆豆猫</a></li>
+	  </ul>
+	</div><!-- #colloquy -->
+    <div id="question">
+	  <h3>有问必答</h3>
+      <ul class="subjectNav">
+        <li class="first-child"><a href="/forum/" title="到[有问必答]发帖提问">我要提问</a></li>
+	    <li><a href="/forum/" title="查看[有问必答]更多的帖子">更多...</a></li>
+	  </ul>
+	  <ul class="hotList">
+	    <li><a href="/forum/1" title="这里是帖子的标题" class="postTitle">这里是帖子的标题的标题的标题标题的标题标题</a></li>
+	    <li><a href="/forum/2" title="这里是帖子的标题" class="postTitle">这里是帖子的标题这里是帖子的标题</a></li>
+	    <li><a href="/forum/3" title="这里是帖子的标题" class="postTitle">这里是这里是帖子的标题</a></li>
+	    <li><a href="/forum/4" title="这里是帖子的标题" class="postTitle">这里是帖子标题的标题标题的标题标题</a></li>
+	    <li><a href="/forum/5" title="这里是帖子的标题" class="postTitle">这里是帖子的标题</a></li>
+	  </ul>
+	</div><!-- #question -->
+  </div><!-- #forumHot -->
+  <div id="club">
+    <h2>俱乐部专区</h2>
+    <ul class="subjectNav">
+	  <li class="first-child"><a href="/club/1" title="申请成立俱乐部">俱乐部申请</a></li>
+	  <li><a href="/club/2" title="查看已经成立的俱乐部列表">俱乐部列表</a></li>
+	  <li><a href="/club/3" title="查看所有俱乐部的活动">俱乐部活动</a></li>
+	</ul>
+	<ul class="clubList">
+	  <li><a href="/club/" title="查看[Imerl自由行俱乐部]详情"><img src="pic/clubLogo_1.gif" width="65" height="48" alt="Imerl自由行俱乐部Logo" />《Imerl自由行》俱乐部</a></li>
+	  <li><a href="/club/" title="查看[爱心绿地俱乐部]详情"><img src="pic/clubLogo_2.gif" width="52" height="52" alt="爱心绿地俱乐部Logo" />爱心绿地俱乐部</a></li>
+	</ul>	
+	<ul class="activitiesList">
+	  <li><a href="/club/1" title="这里是帖子的标题">这里是帖子的标题的标题</a></li>
+	  <li><a href="/club/2" title="这里是帖子的标题">这里是帖子的标题这里是帖子的标题</a></li>
+	  <li><a href="/club/3" title="这里是帖子的标题">这里是这里是帖子的标题</a></li>
+	  <li><a href="/club/4" title="这里是帖子的标题">这里是帖子标题</a></li>
+	  <li><a href="/club/5" title="这里是帖子的标题">这里是帖子的标题</a></li>
+	</ul>	
+  </div><!-- #club -->
+  <div id="vote">
+    <form id="voteForm" action="#">
+	  <fieldset>
+	    <legend>热点投票</legend>
+		<p>今年冬季，你选择以哪种方式来度过这个寒冷的冬天？</p>
+		<ul>
+		  <li><input type="radio" name="choice" id="choice1" value="1" /><label for="choice1">北上赏雪，领略北国边疆飘洒的漫天飞雪</label></li>
+		  <li><input type="radio" name="choice" id="choice2" value="2" /><label for="choice2">南下避寒，享受南国海滨温暖的冬日阳光</label></li>
+		  <li><input type="radio" name="choice" id="choice3" value="3" /><label for="choice3">购物血拼，到香港见识什么叫购物天堂</label></li>
+		  <li><input type="radio" name="choice" id="choice4" value="4" /><label for="choice4">温泉“泡汤”，健身驱寒</label></li>
+		  <li><input type="radio" name="choice" id="choice5" value="5" /><label for="choice5">哪儿都不去，在家“冬眠</label></li>
+		</ul>
+		<p class="button"><input type="submit" id="btnVoteSubmit" value="投票" /><input type="submit" id="btnShowResults" value="查看结果" /></p>
+	  </fieldset>
+	</form>
+  </div>
+  <div id="community">
+    <h2>社区服务台</h2>
+  	<ul><li><a href="/community/suggestion.html" title="为社区建设提意见建议">社区意见箱</a></li><li><a href="/community/manage.html" title="社区管理">社区管理</a></li><li><a href="/community/info.html" title="为社区提供信息">信息征集</a></li><li><a href="/community/errata.html" title="为社区提供勘误信息">网络查错</a></li><li><a href="/community/faq.html" title="社区使用说明">社区说明</a></li><li><a href="/community/serch.html" title="查询网友信息">网友查询</a></li></ul>
+  </div>
+</div><!-- #main -->
+<div id="footer">
+  <ul>
+    <li class="first-child"><a href="/member/reg.html" title="前往注册页面">免费注册</a></li>
+    <li><a href="/sitemap.html" title="查看网站地图">网站导航</a></li>
+    <li><a href="/statement.html" title="网站所提供服务的说明">服务说明</a></li>
+    <li><a href="/about.html" title="关于公司的概况">关于我们</a></li>
+    <li><a href="/job.html" title="本站招聘信息">诚聘英才</a></li>
+    <li><a href="/collaborate.html" title="同本站合作">代理合作</a></li>
+    <li><a href="/ad.html" title="本站承接的广告业务">广告业务</a></li>
+    <li><a href="/help.html" title="网站使用帮助">帮助信息</a></li>
+  </ul>
+  <p>Copyright &copy; Imerl.com .All Rights Reserved.</p>
+</div><!-- #footer -->
+</body>
+</html>

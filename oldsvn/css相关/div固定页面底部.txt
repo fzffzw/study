@@ -1,0 +1,33 @@
+ Div固定在浏览器底部兼容ie6的方法
+http://www.111cn.net/cssdiv/css/41120.htm
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ie6层固定</title>
+<style type="text/css">
+<!--
+.box {
+ background-color: #09C;
+ height: 60px;
+ width: 100%;
+ position: fixed;
+ bottom: 0px;
+ left: auto;
+ right: auto;
+ line-height: 60px;
+ text-align: center;
+ _POSITION: absolute;/*兼容IE6*/
+ _TOP: expression(offsetParent.scrollTop+document.documentElement.clientHeight-this.offsetHeight);/*兼容IE6*/
+}
+.box a{color: #FFF;}
+-->
+</style>
+</head>
+<body>
+<div style="height:2000px;">这个例子是实现层固定在浏览器窗口的最下面，兼容IE6.<br />
+<br />
+往下看，看页面的最下面</div>
+<div class="box"><a href="http://www.111cn.net" target="_blank">我固定在页面底部，拖动浏览器的滚动条试试 = =&gt;&gt;</a></div>
+</body>
+</html>

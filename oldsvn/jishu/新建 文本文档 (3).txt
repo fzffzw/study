@@ -1,0 +1,26 @@
+这是对sql的执行顺序不清楚引起的,sql语句从根本上也是逐行处理的，其执行顺序是： 
+1、from子句组装来自不同数据表中的数据； 
+2、where子句基于指定的条件对记录行进行筛选； 
+3、group by子句将数据划分为多个分组； 
+4、使用聚合函数进行计算； 
+5、使用having子句筛选分组； 
+6、order by排序 
+7、select部分 
+在带有group by子句的查询语句中，在select 列表中指定的列要么是group by子句中指定的列，
+要么包含聚合函数中。 
+s1.article = s2.article是把所有的数据都选上了，
+但SELECT MAX(s2.price)还会筛选数据返回，注意这里s1.article是每个不同的article传入再
+SELECT MAX(s2.price)的，
+相当于执行四条
+sql:
+SELECT MAX(s2.price) FROM shop s2 WHERE s2.article = '0001', 
+SELECT MAX(s2.price) FROM shop s2 WHERE s2.article = '0002', 
+SELECT MAX(s2.price) FROM shop s2 WHERE s2.article = '0003', 
+SELECT MAX(s2.price) FROM shop s2 WHERE s2.article = '0004'.
+
+
+SELECT article, dealer, price
+FROM   shop s1
+WHERE  price=(SELECT MAX(s2.price)
+              FROM shop s2
+              WHERE s1.article = s2.article);

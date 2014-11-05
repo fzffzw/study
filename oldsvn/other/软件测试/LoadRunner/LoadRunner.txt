@@ -1,0 +1,17 @@
+LoadRunner 包含哪些组件？
+LoadRunner 包含以下组件：
+➤ Virtual User Generator 录制最终用户业务流程并创建自动化性能测试脚本，
+即 Vuser 脚本。
+➤ Controller 组织、驱动、管理并监控负载测试。
+➤ Load Generator 通过运行 Vuser 产生负载。
+➤ Analysis 用于查看、剖析和比较性能结果。
+➤ Launcher 使您可以从单个访问点访问所有 LoadRunner 组件。
+
+了解 LoadRunner 术语
+场景文件根据性能要求定义每次测试期间发生的事件。
+在场景中， LoadRunner 用虚拟用户（或称 Vuser）代替真实用户。Vuser 模仿真
+实用户的操作来使用应用系统。一个场景可以包含数十、数百乃至数千个 Vuser。
+Vuser 脚本描述 Vuser 在场景中执行的操作。
+要评测服务器性能，需要定义事务。事务代表要评测的终端用户业务流程。
+
+

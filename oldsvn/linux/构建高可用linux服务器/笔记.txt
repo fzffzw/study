@@ -1,0 +1,249 @@
+﻿18页
+查看cpu数目
+cat /proc/cpuinfo | grep 'physical id' | sort | uniq|wc -l
+
+内存查看
+free -m
+shared 多个进程共享内存总额
+
+
+
+buffer cache 用于磁盘的读写
+
+page cache 对于文件的读写
+
+fdisk -l 查看硬盘的情况
+
+查看硬盘io的性能
+iostat -x 1 5
+具体参数要总结
+
+如果%idle小于70%就证明I/o压力比较大，说明读取进程有较多的wait
+vmstat
+procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 8  3   5152 122260 200988 2062936    0    0     3   290   74  116 47  1 37 15  0	
+ 
+ 参数b（等待资源的进程数）
+wa I/O等待所占用的cpu时间的百分比  高过30%证明I/O压力比较高
+
+elavator 电梯式查找寻道算法
+
+查看linux某目录大小 (p23)
+du -sh /root
+找到系统中占用空间最多的10个文件或者目录
+du  -cks *|sort -rn|head -n 10
+
+dd
+可以把定义的输入文件拷贝到指定的输出文件中,并且在拷贝的过程中可以进行格式转换
+如：
+1：制作交换文件
+dd if = /dev/zero of=/swapfiles bs =1024 count=65536
+2:制作驱动盘
+dd if=/rhe140.img of=/dev/fdisk0 bs=10k
+3:制作ISO镜像
+dd if=/dev/cdrom of=/root/cd1.iso
+也可以使用mkisofs制作ISO镜像
+
+参数如下
+ibs 一次性读入bytes字节 （即一个块大小为byte字节）
+obs 一次性写入bytes字节 （即一个块大小为byte字节）
+bs 同时设置读写卡大小 （可代替ibs和obs）
+cbs 一次性转换byte字节
+skip 从输入文件开头跳过block块后开始复制
+seek 从输出文件开头跳过block块后开始复制
+count 仅拷贝block个块
+
+1.2.4 查看linux平均负载
+即为cpu平均负载
+uptime
+14:08:43 up 1 day,  4:00,  1 user,  load average: 2.57, 2.47, 2.49
+过去一分钟 五分钟 15 分钟进程队列中平均进程数目
+标准
+如果每个cpu当前活动进程数目不大于3表示系统性能良好
+如果每个cpu当前活动进程不大于4表示可以接受
+如果每个cpu当前活动进程大于5表示系统性能问题严重
+
+
+w
+ 14:08:13 up 1 day,  4:00,  1 user,  load average: 2.45, 2.45, 2.48
+USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT
+root     pts/0    192.168.25.121   Sat10    0.00s 43:36m  0.00s w
+
+1.2.4 查看linux系统其它参数
+vmstat 监控linux整体性能
+procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 1  1  13172 105820 219584 2004304    0    0     3   300   39   37 43  1 40 16  0	
+
+ procs
+ r 等待运行的进程数
+ b 处于非中断睡眠状态的进程数
+ w 被交换出去的可运行进程数
+ 
+ memory
+ swpd 虚拟内存使用情况
+ free 空闲内存
+ buff 被用来作为缓存的内存数
+ 
+ swap
+ si 从磁盘交换到内存的交换页
+ so 从内存交换到磁盘的交换页 单位kb
+ 
+ io
+ bi 发送到块设备的块数
+ bo 从块设备接收的块数
+ 
+ system
+ in 每秒的中断
+ cs 每秒上下文环境切换数
+ 
+ cpu
+ 安cpu总使用百分比来显示
+ us cpu使用时间
+ sy cpu系统使用时间
+ id 闲置时间
+ 
+ 查看32还是64位
+ ls -lF /|grep /$
+ 如果含有/lib64 目录表示64位系统，没有是32位，64位架构cpu可以按照32也可以按照64位的系统
+ 也可以用
+ file /sbin/init
+ 来查看是64 还是32位系统
+ 
+ 查看linux发行版
+ lsb_release -a
+ centos5.5或以前没有此命令 可以用 yum -y install redhat-lsb安装
+ 
+ 查看系统已载入相关模块
+lsmod——显示已载入系统的模块
+lsmod 其实就是list modules的缩写，即 列出所有模块.
+功能说明：显示已载入系统的模块。
+ lsmod | grep ip_vs
+ 
+ linux查找pci设置 (p28)
+ lspci
+ 
+ 修改网卡配置文件
+ /etc/sysconfig/network-scripts/ifcfg-eth0
+ DEVICE="eth0"
+BOOTPROTO=none  #启动时ip取得的协议 static静态 dhcp dhcp服务器分配 none也表示静态
+NM_CONTROLLED="yes"
+ONBOOT=yes  #开机时启动网卡
+TYPE="Ethernet" #表示网卡为以太网
+UUID="f8c4f787-7825-49d3-9213-68cdce17395d"
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=yes
+IPV6INIT=no #是否支持 ipv6
+IPV6AUTOCON=no #是否自动配置ipv6
+NAME="System eth0" 
+#IPADDR=192.168.25.200
+PREFIX=24
+GATEWAY=192.168.25.11
+DNS1=192.168.25.10
+HWADDR=74:D0:2B:32:0E:BE
+LAST_CONNECT=1367890376
+
+
+修改主机的hostname
+/etc/sysconfig/network
+修改完成后可用 hostname查看
+用hostname修改但只对当前生效
+
+域名和ip对应修改 /etc/hosts
+
+配置dns域名服务器
+/etc/resolv.conf
+
+1.3.2查看linux网络连接
+ifconfig
+
+ifconfig eth0 |grep "inet addr"|awk -F[:" "] + "{print $4}"
+
+ifconfig eth0|grep "inet addr" |awk -F : '{print $2}' |awk '{print $1}'
+
+netstat
+-A 显示任何
+-r 打印实际地址
+
+忽略
+netstat -an | grep -v unix
+忽略unix
+
+netstat -an |awk '/^tcp/{++s[$NF]} END {for(a in s) print a,S[a]}'
+
+nslookup
+
+dig mail.163.com
+
+finger 查询用户信息
+
+lsof 列出当前系统文件的工具
+
+
+pgrep
+
+
+killall
+通过
+通过程序的名字，直接杀死所有的进程，
+
+添加静态路由表
+route add 192.168.4.0 mask 255.255.255.0 192.168.4.2
+192.168.4.0是需要路由的网段，mask是此网段的子网   (p45)
+
+在linux中可以使用
+/etc/sysconfig/networking-scripts/route-eth0
+加入
+127.16.60/24 via 172.16.2.25
+
+
+freebsd上
+
+查看最后十条记录
+tail -n10 /var/log/messages
+var/log/messages 记录登录系统存取数据文件
+
+denyHosts ssh防暴力破解工具
+
+登录日志
+
+专业的日志分析工具
+Awstats cacti
+
+系统日志报告的配置文件
+/etc/syslog.conf
+加入 kern.warning /var/log/iptables
+然后保存
+ 
+ /etc/init.d/syslog restart
+ 
+ mysqlbinlog 来分析mysql的binlog日志
+ 
+ 1.4.3 用shell分析nginx日志
+ nginx + keepalived集群
+ 
+缓存服务器
+squid varnish (p54)
+内存尽量多点
+
+如果是缓存服务器 如 squid varnish memcached考虑使用RAID0
+如果允许您先 +php5 或tomat resin 可以考虑raid1
+如果是内网开发服务器或存放重要代码 可以考虑raid5
+如果运行mysql orcale 数据库 可以考虑固态硬盘座raid5 或 raid10
+
+
+irqbalance (p58)
+
+echo 'net.ipv4.tcp_syncookies = 1' >> /etc/sysctl.conf
+sysctl -p
+
+sysctl -a > sysctl-file
+
+修改 /etc/profile
+的histsize
+不重启生效 souce /etc/profile
+
+停止打印服务
+/etc/rc.d/init.d/cups stop
+chkconfig cups off

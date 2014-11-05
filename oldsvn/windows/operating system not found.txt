@@ -1,0 +1,13 @@
+ 用VMVARE安装windowsXP出现operating system not found
+分类： VMware 2010-12-04 17:21 1377人阅读 评论(0) 收藏 举报
+systemvmwarenetworkcxp
+今天在VMware6.5上面装了深度的ghost版本的xp sp3，安装过程很顺利，但是装完重启之后出现如下的错误：
+Network boot from AMD AM79C970A 
+Copyright (C) 2003-2005 VMware, Inc. 
+Copyright (C) 1997-2000 Intel Corportion 
+CLIENT MAC ADDR:00 0C 29 7F 8D 5D GUID:564DB9EA-6FD4-BD50-D5FB_6FFEB77F8D5D 
+PXE-E56: NO boot filename received 
+
+PXE-M0F: Exiting intel PXE ROM. 
+Operating System not found
+找不到系统，在网上搜了一下，原来是虚拟硬盘分区后没有激活引导分区（一般就是装操作系统的c盘），运行深度系统安装盘中的PQ，选择系统分区，右键，"作用-进阶-设为作用" 执行就可以了。从硬盘启动计算机。

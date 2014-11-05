@@ -1,0 +1,5 @@
+在[mysqld]下面加入以下
+#log-slow-queries = /var/lib/mysql/slow-queries.log
+#long_query_time = 3
+#log-queries-not-using-indexes
+#log-slow-admin-statements

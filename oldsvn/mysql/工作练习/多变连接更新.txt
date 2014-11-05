@@ -1,0 +1,10 @@
+update orders,oo set orders.orders_id=oo.order_id  where oo.order_code=orders.order_code and order_id<100
+
+判断两个字段相等
+select * from order_address_book where ltrim(rtrim(oab_state))=ltrim(rtrim(oab_state_id))
+
+更新表的错误信息
+update order_address_book,region set order_address_book.oab_state=region.region_name
+where order_address_book.oab_state_id=region.region_id and ltrim(rtrim(order_address_book.oab_state))=ltrim(rtrim(order_address_book.oab_state_id))
+
+

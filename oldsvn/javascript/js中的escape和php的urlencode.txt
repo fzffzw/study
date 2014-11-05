@@ -1,0 +1,175 @@
+js实现php函数urlencode
+
+本文介绍了php函数urlencode的js实现方法并比较js和php各编码函数的区别。
+
+通常form表单的enctype类型为 application/x-www-form-urlencoded, 当表单提交后，提交的数据自动被编码， 规则为" 除了 -_. 之外的所有非字母数字字符都将被替换成百分号（%）后跟两位十六进制数，空格则编码为加号（+）。", php的urlencode函数与其功能相同。
+
+js编码方法：escape, encodeURI, encodeURIComponent。
+escape可以对大多数符号进行编码，但是对unicode字符无效。
+
+php编码方法：urlencode, rawurlencode, htmlentities。
+urlencode和rawurlencode唯一的区别是对空格的编码方式不同，rawurlencode遵循RFC 1738编码将空格转换为 %20。
+
+如何用js实现php的urlencode功能， 网上流传着一段js和vbscript混写的代码，通用性不好，另找到国外一高人写的， 经测试与urlencode相同。
+
+复制代码
+代码
+ 1 function URLEncode (clearString) {
+ 2   var output = '';
+ 3   var x = 0;
+ 4   clearString = clearString.toString();
+ 5   var regex = /(^[a-zA-Z0-9-_.]*)/;
+ 6   while (x < clearString.length) {
+ 7     var match = regex.exec(clearString.substr(x));
+ 8     if (match != null && match.length > 1 && match[1] != '') {
+ 9         output += match[1];
+10       x += match[1].length;
+11     } else {
+12       if (clearString.substr(x, 1) == ' ') {
+13         //原文在此用 clearString[x] == ' ' 做判断, 但ie不支持把字符串当作数组来访问, 
+14         //修改后两种浏览器都可兼容 
+15         output += '+';
+16       }
+17       else {
+18         var charCode = clearString.charCodeAt(x);
+19         var hexVal = charCode.toString(16);
+20         output += '%' + ( hexVal.length < 2 ? '0' : '' ) + hexVal.toUpperCase();
+21       }
+22       x++;
+23     }
+24   }
+25   return output;
+26 }
+复制代码
+ 
+
+ 
+注：上面的代码引自 http://cass-hacks.com/articles/code/js_url_encode_decode/
+
+下面附上js和php几种编码方法对特殊符号的编码对照表：
+
+ 
+
+ 
+
+Input	JavaScript	PHP
+escape	encodeURI	encodeURIComponent	urlencode	rawurlencode	htmlentities
+<space>	%20	%20	%20	+	%20	
+!	%21	!	!	%21	%21	!
+@	@	@	%40	%40	%40	@
+#	%23	#	%23	%23	%23	#
+$	%24	$	%24	%24	%24	$
+%	%25	%25	%25	%25	%25	%
+^	%5E	%5E	%5E	%5E	%5E	^
+&	%26	&	%26	%26	%26	&amp;
+*	*	*	*	%2A	%2A	*
+(	%28	(	(	%28	%28	(
+)	%29	)	)	%29	%29	)
+-	-	-	-	-	-	-
+_	_	_	_	_	_	_
+=	%3D	=	%3D	%3D	%3D	=
++	+	+	%2B	%2B	%2B	+
+:	%3A	:	%3A	%3A	%3A	:
+;	%3B	;	%3B	%3B	%3B;	;
+.	.	.	.	.	.	.
+"	%22	%22	%22	%22	%22	&quot;
+'	%27	'	'	%27	%27	'
+\	%5C	%5C	%5C	%5C	%5C	\
+/	/	/	%2F	%2F	%2F	/
+?	%3F	?	%3F	%3F	%3F	?
+<	%3C	%3C	%3C	%3C	%3C	&lt;
+>	%3E	%3E	%3E	%3E	%3E	&gt;
+~	%7E	~	~	%7E	%7E	~
+[	%5B	%5B	%5B	%5B	%5B	[
+]	%5D	%5D	%5D	%5D	%5D	]
+{	%7B	%7B	%7B	%7B	%7B	{
+}	%7D	%7D	%7D	%7D	%7D	}
+`	%60	%60	%60	%60	%60	`
+ 
+
+上表引自 http://www.the-art-of-web.com/javascript/escape/
+
+另一个非常优秀的urlencode和urldecode函数
+
+复制代码
+代码
+ 1 var Url = {
+ 2  
+ 3     // public method for url encoding
+ 4     encode : function (string) {
+ 5         return escape(this._utf8_encode(string));
+ 6     },
+ 7  
+ 8     // public method for url decoding
+ 9     decode : function (string) {
+10         return this._utf8_decode(unescape(string));
+11     },
+12  
+13     // private method for UTF-8 encoding
+14     _utf8_encode : function (string) {
+15         string = string.replace(/\r\n/g,"\n");
+16         var utftext = "";
+17  
+18         for (var n = 0; n < string.length; n++) {
+19  
+20             var c = string.charCodeAt(n);
+21  
+22             if (c < 128) {
+23                 utftext += String.fromCharCode(c);
+24             }
+25             else if((c > 127) && (c < 2048)) {
+26                 utftext += String.fromCharCode((c >> 6) | 192);
+27                 utftext += String.fromCharCode((c & 63) | 128);
+28             }
+29             else {
+30                 utftext += String.fromCharCode((c >> 12) | 224);
+31                 utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+32                 utftext += String.fromCharCode((c & 63) | 128);
+33             }
+34  
+35         }
+36  
+37         return utftext;
+38     },
+39  
+40     // private method for UTF-8 decoding
+41     _utf8_decode : function (utftext) {
+42         var string = "";
+43         var i = 0;
+44         var c = c1 = c2 = 0;
+45  
+46         while ( i < utftext.length ) {
+47  
+48             c = utftext.charCodeAt(i);
+49  
+50             if (c < 128) {
+51                 string += String.fromCharCode(c);
+52                 i++;
+53             }
+54             else if((c > 191) && (c < 224)) {
+55                 c2 = utftext.charCodeAt(i+1);
+56                 string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+57                 i += 2;
+58             }
+59             else {
+60                 c2 = utftext.charCodeAt(i+1);
+61                 c3 = utftext.charCodeAt(i+2);
+62                 string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+63                 i += 3;
+64             }
+65  
+66         }
+67  
+68         return string;
+69     }
+70  
+71 }
+复制代码
+ 
+
+ 
+ 
+
+ 
+
+今天又被QA发现了一个urlencode的bug， 对照了一下，上面第一个函数把 "-"(中线)丢了，网上的东西不能太过于相信了。不能简单的拿来主义，仔细检查后才能使用。

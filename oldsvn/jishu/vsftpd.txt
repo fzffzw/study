@@ -1,0 +1,127 @@
+centOS中vsftp安装与配置
+
+http://my.oschina.net/u/130017/blog/15229
+
+1. 安装
+使用chkconfig --list来查看是否装有vsftpd服务；
+使用yum命令直接安装：yum -y install vsftpd
+然后为它创建日志文件：touch /var/log/vsftpd.log
+
+这样简单的两个命令就完成了vsftp的安装，但是如果你现在想这样ftp://your_ip来访问的话，那还不行，还需要配置权限！
+
+2. 启动与配置自启动
+使用chkconfig --list来查看vsftpd服务启动项情况；
+如果看到的是如下显示的结果：
+vsftpd          0:off   1:off   2:off   3:off   4:off   5:off   6:off
+服务全部都是off的，注意这里的off表示的是服务器启动的时候是否会自启动服务，我们使用如下命令来配置其自启动：
+chkconfig --level 2345 vsftpd on #2345对应的是上面对应的0-6项
+
+查看与管理ftp服务：
+启动ftp服务：service vsftpd start
+查看ftp服务状态：service vsftpd status
+重启ftp服务：service vsftpd restart
+关闭ftp服务：service vsftpd stop
+
+3. 配置vsftp服务
+编辑/etc/vsftpd/vsftpd.conf文件，配置vsftp服务：
+#vi /etc/vsftpd/vsftpd.conf
+3.1 编辑修改如下项目：
+anonymous_enable=NO #设定不允许匿名访问
+local_enable=YES #设定本地用户可以访问。注：如使用虚拟宿主用户，在该项目设定为NO的情况下所有虚拟用户将无法访问。
+chroot_list_enable=YES #使用户不能离开主目录
+xferlog_file=/var/log/vsftpd.log #设定vsftpd的服务日志保存路径。注意，该文件默认不存在。必须要手动touch出来
+ascii_upload_enable=YES #允许使用ASCII模式上传
+ascii_download_enable=YES #设定支持ASCII模式的上传和下载功能。
+pam_service_name=vsftpd #PAM认证文件名。PAM将根据/etc/pam.d/vsftpd进行认证
+
+以下这些是关于Vsftpd虚拟用户支持的重要CentOS FTP服务配置项目。默认vsftpd.conf中不包含这些设定项目，需要自己手动添加RHEL/CentOS FTP服务配置。
+guest_enable=YES #设定启用虚拟用户功能。
+guest_username=ftp #指定虚拟用户的宿主用户。-RHEL/CentOS中已经有内置的ftp用户了
+user_config_dir=/etc/vsftpd/vuser_conf #设定虚拟用户个人vsftp的RHEL/CentOS FTP服务文件存放路径。存放虚拟用户个性的CentOS FTP服务文件(配置文件名=虚拟用户名)
+
+3.2 创建chroot list，将ftp用户加入其中：
+touch /etc/vsftpd/chroot_list
+echo ftp >> /etc/vsftpd/chroot_list
+
+3.3 进行认证：
+首先，安装Berkeley DB工具，很多人找不到db_load的问题就是没有安装这个包。
+yum install db4 db4-utils
+然后，创建用户密码文本/etc/vsftpd/vuser_passwd.txt ，注意奇行是用户名，偶行是密码
+ftpuser1
+ftppass1
+ftpuser2
+ftppass2
+接着，.生成虚拟用户认证的db文件
+db_load -T -t hash -f /etc/vsftpd/vuser_passwd.txt /etc/vsftpd/vuser_passwd.db
+随后，编辑认证文件/etc/pam.d/vsftpd，全部注释掉原来语句
+再增加以下两句
+auth required pam_userdb.so db=/etc/vsftpd/vuser_passwd
+account required pam_userdb.so db=/etc/vsftpd/vuser_passwd
+最后，创建虚拟用户个性RHEL/CentOS FTP服务文件
+mkdir /etc/vsftpd/vuser_conf/
+vi /etc/vsftpd/vuser_conf/ftpuser1
+内容如下：
+local_root=/opt/var/ftp1 虚拟用户的根目录(根据实际修改)
+write_enable=YES 可写
+anon_umask=022 掩码
+anon_world_readable_only=NO
+anon_upload_enable=YES
+anon_mkdir_write_enable=YES
+anon_other_write_enable=YES
+
+4. 为目录附权限并重启动vsftp服务:
+mkdir /opt/var/ftp/ftpuser1
+chmod 777 /opt/var/ftp/ftpuser1
+service vsftpd restart
+
+5. 常见问题：
+5.1 553 Could not create file
+一般都是SELinux的问题，设置SELinux的一个值，重启服务器即可。
+setsebool -P ftpd_disable_trans 1
+service vsftpd restart
+
+5.2 500 OOPS: bad bool value in config file for: write_enable
+注意你的CentOS FTP服务文件中保证每一行最后没有任何空格，一般出错就是在多余的空格上。
+
+5.3 虚拟用户上传后默认权限为：600，用户无法下载文件
+在配置文件中添加或修改anon_umask项的值。如anon_umask=022或000
+
+6. 使用命令添加ftp用户（与3.3类似）
+6.1 添加ftp用户，命令格式：
+#adduser -d /目录路径 -g ftp -s /sbin/nologin 用户名
+如使用：#adduser -d /opt/dongge -g ftp -s /sbin/nologin dongge
+增加了一个名为dongge的用户，它的目录属于/opt/dongge下面，属于ftp用户组。此用户是不可以登陆我们终端服务器的。
+
+6.2 添加密码：
+#passwd dongge
+设置用户名为FTPUSER的用户在目录下可以读写的权限
+#chown -R dongge:ftp /opt/dongge/
+
+6.3 目录挂载：
+如果我们想把/opt/dongge目录挂到我们的ftp目录下面，可以使用mount命令
+#mount –-bind /opt/dongge /var/ftp/dongge
+这样我们就完成了添加用户与挂载目录的配置。
+
+7. 支持http下载
+编辑/etc/httpd/conf/httpd.conf文件：
+#vi /etc/httpd/conf/httpd.conf
+
+添加如下代码：
+Alias /fileshare "/var/ftp/ftpuser1"
+<Directory "/var/ftp/ftpuser1">
+    Options Indexes MultiViews
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+</Directory>
+
+重启httpd服务，即可使用http://your_ip/fileshare来访问并下载所需要文件：）
+
+8. 偷懒vsftp的配置方法
+完成步骤1，2，3.1后，直接将如下代码添加到/etc/vsftpd/vsftpd.conf文件中：
+write_enable=YES 可写
+anon_umask=022 掩码
+anon_world_readable_only=NO
+anon_upload_enable=YES
+anon_mkdir_write_enable=YES
+anon_other_write_enable=YES

@@ -1,0 +1,155 @@
+ JSONP 与 AJAX
+
+http://blog.csdn.net/black_ox/article/details/8511739
+
+JSONP
+JSONP = JSON with padding，但JSONP和JSON不一样，它并不是一种数据格式。JSONP是一种JavaScript实现跨域cross-domain数据访问的方法。
+基于same origin policy，浏览器要求javascript/ajax只能够进行同域数据请求，该安全原因的限制使得使用开放API的数据不是非常方便。例如：Site1提供API: http://site1.com/api/user.php，输出内容为JSON格式的数据：
+    {"Name": "Min", "Id" : 1983, "Rank": 7}
+在site2.com/test.html使用javascript代码将无法获取site1提供的API的数据，因为是跨域的。
+
+JSONP利用HTML的<script>标签可获取任何来源JavaScript代码的特点，实现数据的跨域访问：
+
+site2.com/test.html的代码如下：
+[html] view plaincopyprint?
+<html>  
+<script type="text/javascript">  
+    function jsonpCallback(result) {  
+        alert(result.Name);  
+    }  
+</script>  
+<script type="text/javascript" src="http://site1.com/api/user.php?cb=jsonpCallback"></script>  
+</html>  
+将site1.com/api/user.php的代码稍微进行修改，结果如下：
+[php] view plaincopyprint?
+<?php  
+$data = '{"Name": "Min", "Id" : 1983, "Rank": 7}';  
+if (isset($_REQUEST['cb'])) {  
+    print $_REQUEST['cb']."(".$data.")";    //相当于输出了jsonpCallback({"Name": "Min", "Id" : 1983, "Rank": 7});  
+} else {  
+    print $data;  
+}  
+?>  
+
+这样当运行site2.com/test.html的时候，代码<script type="text/javascript" src="http://site1.com/api/user.php?cb=jsonpCallback"></script>的结果变为：
+[javascript] view plaincopyprint?
+<script type="text/javascript">  
+    jsonpCallback({"Name": "Min", "Id" : 1983, "Rank": 7});  
+</script>  
+
+然后调用本地定义的jsonpCallback函数，输出result.Name即为Min。最终实现跨域数据访问。
+
+因此总结JSONP的基本原理即是：在本地定义一个callback，通过<script>标签的src属性获取远程API的数据(将callback函数名传递过去)，远程服务器的API需要符合JSONP的规范，即将原本JSON格式的输出数据改写为javascript的函数调用代码(callback为函数，原JSON数据为参数)；这样API返回的不再是JSON格式的数据而是JavaScript的代码。
+    JSONP is script tag injection, passing the response from the server in to a user specified function.
+
+
+
+[JSONP]使用实例：
+使用Flickr的API：
+[javascript] view plaincopyprint?
+<html>  
+<head>  
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>  
+</head>  
+<body></body>  
+<script type="text/javascript">  
+function showPictures(pictures){  
+    $.each(pictures.photos.photo, function(index, pic){  
+        //{"id":"5953295109", "owner":"36456011@N07", "secret":"b847e26995", "server":"6023", "farm":7, "title":"DSC02569", "ispublic":1, "isfriend":0, "isfamily":0, "url_s":"http:\/\/farm7.static.flickr.com\/6023\/5953295109_b847e26995_m.jpg", "height_s":"160", "width_s":"240"}  
+        var path = pic.url_s;  
+        if (pic.url_o != undefined) {  
+            path = pic.url_o;  
+        }  
+        var img = "<a href='"+path+"'><img src='"+pic.url_s+"' style='border: 0;'/></a>";  
+        $('body').append(img);  
+   });  
+}  
+</script>  
+<script type="text/javascript" src="http://www.flickr.com/services/rest/?method=flickr.photos.getRecent&format=json&api_key=10ce77eec0bce44c7238e52cac7a1afa&extras=url_o,url_s&jsoncallback=showPictures"></script>  
+</html>  
+
+使用jQuery.ajax提供的JSONP功能：
+jQuery的ajax实现了JSONP方法，具体实现原理是：jQuery attaches a global function to the window object that is called when the script is injected, then the function is removed on completion.，参看如下实例：
+[javascript] view plaincopyprint?
+<html>  
+<head>  
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>  
+</head>  
+<body></body>  
+<script type="text/javascript">  
+$(document).ready(function(){  
+    $.ajax({  
+        url: "http://test.54min.com/jsonp.php",  
+        dataType: "jsonp",  
+        error: function(jqXHR, textStatus, errorThrown) {  
+            if (textStatus == "error") {  
+                alert(textStatus + " : " +errorThrown);  
+            } else {  
+                alert(textStatus);  
+            }  
+        },  
+        success: function(data, textStatus, jqXHR) {  
+            alert(data.msg);  
+        }  
+    });  
+});  
+</script>  
+</html>  
+
+
+jsonp.php的代码如下：
+    <?php
+        echo $_GET['callback'] . "({'msg':'this is the remote msg'});";
+    ?>
+当在$.ajax中设置dataType:"jsonp"的时候，jQuery会自动在url之后添加?callback=?，因此server端的API需要接受参数名为callback的值，且callback=?表示jQuery为该回调函数分配一个随机的唯一的名称。如果需要使用别的参数名而不是callback，可以设置jsonp选项；也可以使用jsonpCallback指定回调函数名。具体参看：http://api.jquery.com/jQuery.ajax/
+
+jQuery使用JSONP的简化方法：
+jQuery.getJSON(url, [data,] [success(data, textStatus, jqXHR)])相当于：
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        data: data,
+        success: callback
+    });
+
+
+且$.getJSON规定如果url选项指定了诸如callback=?的字符串的话，会将其看作是JSONP方法，因此，简化使用如下：
+[javascript] view plaincopyprint?
+<html>  
+<head>  
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>  
+</head>  
+<body></body>  
+<script type="text/javascript">  
+$(document).ready(function(){     
+    $.getJSON("http://www.flickr.com/services/rest/?method=flickr.photos.getRecent&format=json&api_key=10ce77eec0bce44c7238e52cac7a1afa&extras=url_o,url_s&jsoncallback=?", function(data, textStatus, jqXHR) {  
+        $.each(data.photos.photo, function(index, pic) {  
+            var path = pic.url_s;  
+            if (pic.url_o != undefined) {  
+                path = pic.url_o;  
+            }  
+            var img = "<a href='"+path+"'><img src='"+pic.url_s+"' style='border: 0;'/></a>";  
+            $('body').append(img);    
+        });  
+    });  
+});  
+</script>  
+</html>  
+
+例子二
+
+[javascript] view plaincopyprint?
+function aa() {    
+    $.ajax({    
+        url: "http://localhost:12079/WebForm2.aspx",    
+        data: "p1=1&p2=2&callback=?",    
+        type: "post",    
+        processData: false,    
+        timeout: 15000,    
+        dataType: "jsonp",  // not "json" we'll parse    
+        jsonp: "jsonpcallback",    
+        success: function(result) {    
+        alert(result.value1);    
+        }    
+    });    
+}    

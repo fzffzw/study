@@ -1,0 +1,146 @@
+<?php
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>6.2 字体尺寸：font-size属性 :: 第6章：字体</title>
+<link href="../samplecss/show.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+div{
+width: 500px;
+}
+#fontSize {
+font-size:24px;
+line-height:1em;
+}
+.font1 {
+font-family:amaze;
+}
+.font2 {
+font-family:arial;
+}
+.font3 {
+font-family:courier;
+}
+
+/* 绝对尺寸 */
+#fontSize2 {
+line-height:1;
+}
+
+/* 相对尺寸 */
+#fontSize3 {
+width:500px;
+}
+#fontSize3 p {
+font-size:medium;
+}
+#fontSize3 .larger {
+font-size:larger;
+}
+#fontSize3 .smaller {
+font-size:smaller;
+}
+#fontSize3 span {
+color:#00f;
+font-size:larger;
+}
+#fontSize3 em {
+color:#f00;
+font-size:larger;
+}
+#fontSize3 p.font4 {
+font-size:14px;
+}
+
+/* 百分比和em尺寸 */
+#fontSize4 p{
+font-size:12px;
+}
+#fontSize4 .font5 {
+font-size:140%;
+}
+#fontSize4 .font6 {
+font-size:1.4em;
+}
+
+/* 尺寸的继承 */
+#fontSize5 {
+font-size:12px;
+}
+#fontSize5 .size1 {
+color:#f00;
+font-size:24px;
+}
+#fontSize5 .size2 {
+color:#F90;
+font-size:24.4px;
+}
+#fontSize5 .size3 {
+color:#33C;
+font-size:24.5px;
+}
+#fontSize5 .size4 {
+color:#909;
+font-size:25px;
+}
+#fontSize5 p {
+font-size:140%;
+}
+#fontSize5 span {
+color:#f00;
+}
+#fontSize5 strong {
+font-size:120%;
+display:block;
+}
+#fontSize5 em {
+font-size:130%;
+display:block;
+color:#F90;
+}
+-->
+</style>
+</head>
+
+<body id="c_font">
+<h1>第6章：字体</h1>
+<h2>6.2 字体尺寸：font-size属性</h2>
+<div id="fontSize">
+  <h3><a name="font">不同字体的实际尺寸</a></h3>
+  <p class="font1">This property describes the size of the font when set solid.</p>
+  <p class="font2">This property describes the size of the font when set solid.</p>
+  <p class="font3">This property describes the size of the font when set solid.</p>
+</div>
+<div id="fontSize2">
+  <h3><a name="size1">6.2.2 绝对尺寸</a></h3>
+  <p style="font-size:xx-small;">绝对尺寸font-size:xx-small</p>
+  <p style="font-size:x-small;">绝对尺寸font-size:x-small</p>
+  <p style="font-size:small;">绝对尺寸font-size:small</p>
+  <p style="font-size:medium;">绝对尺寸font-size:medium</p>
+  <p style="font-size:large;">绝对尺寸font-size:large</p>
+  <p style="font-size:x-large;">绝对尺寸font-size:x-large</p>
+  <p style="font-size:xx-large;">绝对尺寸font-size:xx-large</p>
+</div>
+<div id="fontSize3">
+  <h3><a name="size2">6.2.3 相对尺寸</a></h3>
+  <p>p元素font-size:medium，<strong class="larger">larger 比父元素的尺寸大</strong></p>
+  <p>p元素font-size:medium，<strong class="smaller">smaller 比父元素的尺寸小</strong></p>
+  <p>p元素font-size:medium，<span>span为larger，<em>em也为larger</em></span></p>
+  <p class="font4">p元素font-size:14px，<span>span为larger，<em>em也为larger</em></span></p>
+</div>
+<div id="fontSize4">
+  <h3><a name="size3">6.2.4 百分比和em</a></h3>
+  <p>段落12px，<span class="font5">字font-size:140%</span>等于<span class="font6">字font-size:1.4em</span></p>
+</div>
+<div id="fontSize5">
+  <h3><a name="inherited">6.2.5 尺寸的继承与浏览器的显示</a></h3>
+  <p>p 12px*140% = 16.8px，<span>span 继承16.8px，</span>而不是140%</p>
+  <p><span class="size1">字24px</span>，<span class="size2">字24.4px</span>，<span class="size3">字24.5px</span>，<span class="size4">字25px</span></p>
+  <p>p 12px*140%=16.8px,<strong>strong 16.8px*120%=20.16px,<em>em 20.16px*130%=26.208px</em></strong></p>
+</div>
+<div class="gotoIndex"><a href="../../index.html#chapter6" title="返回示例代码目录">返回代码目录</a></div>
+</body>
+</html>

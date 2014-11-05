@@ -1,0 +1,175 @@
+什么是 RPM 与 SRPM
+rp-pppoe 这个 ADSL 拨接套件，他必须要在 ppp 这个套件存在的环境下才能进行安装！
+如果你的主机并没有 ppp 这个套件，那么很抱歉，除非您先安装 ppp 否则 rp-pppoe 就是不让你安装的
+( 当然您可以强制安装，但是通常都会有点问题发生就是了！ )。
+
+rpm缺点
+因此，这样可以发现他的缺点是：
+
+   1. 安装的环境必须与打包时的环境需求一致或相当；
+   2. 需要满足套件的相依属性需求；
+   3. 反安装时需要特别小心，最底层的套件不可先移除，否则可能造成整个系统的问题！ 
+   
+   
+   SRPM 是什么呢？顾名思义，他是 Source RPM 的意思，也就是这个 RPM 档案里面含有原始码( Source Code )哩！
+   特别注意的是，这个 SRPM 所提供的套件内容『并没有经过编译』，他提供的是原始码喔！
+   通常 SRPM 的附檔名是以 ***.src.rpm 这种格式来命名的。不过，既然 SRPM 提供的是原始码，
+   那么为什么我们不使用 Tarball 直接来安装就好了？！这是因为 SRPM 虽然内容是原始码，
+   但是他仍然含有该套件所需要的相依性套件说明、以及所有 RPM 档案所提供的数据，同时，他与 RPM 不同的是，
+   他也提供了参数设定档( 就是 configure 与 makefile 啦！ )。所以，如果我们下载的是 SRPM ，
+   那么要安装该套件时，RPM 套件管理员将会(1)先将该套件以 RPM 管理的方式编译，
+   (2)然后将编译完成的 RPM 档案安装到 Linux 系统当中。与 RPM 档案相比， 
+   SRPM 多了一个重新编译的动作，而且 SRPM 编译完成会产生 RPM 档案。
+   
+   
+   例如目前 SSH 这个远程联机软件( 请参考服务器篇 )使用的是 OpenSSL 的加密机制，所以，要安装 SSH 的时候，
+   就得要先安装好 OpenSSL 才行啊，如果没有安装 OpenSSL 的话， SSH 就不让您安装了！
+   
+   
+  一般来说，由于 RPM 有数据库来纪录套件相关的信息，
+  所以 RPM 类型的套件所拥有的档案都放置在系统预设放置的目录底下，
+  亦即如同我们在 档案属性与目录配置 一文当中提到的：  
+  
+  /etc 	一些设定文件放置的目录，例如 /etc/crontab
+/usr/bin 	一些可执行档案
+/usr/lib 	一些程序使用的动态函式库
+/usr/share/doc 	一些基本的软件使用手册与说明文件
+/usr/share/man 	一些 man page 档案
+
+[root@test root]# rpm -ivh rp-pppoe-3.1-5.i386.rpm
+Preparing...     ####################################### [100%]
+   1:rp-pppoe    ####################################### [100%]
+# -i ：install 的意思
+# -v ：察看更细部的安装信息画面
+# -h ：以安装信息列显示安装进度，例如上面的 # 字符号！
+　
+# 如果要安装两个以上的套件时，可以这样：
+[root@test root]# rpm -ivh a.i386.rpm b.i386.rpm *.rpm
+# 后面可以接多个套件！ 
+
+# 也可以直接由网络上面安装，例如：
+[root@test root]# rpm -ivh http://website.name/path/pkgname.rpm
+
+--nodeps 	使用时机：如果您在安装某个套件时，老是发现 rpm 告诉你『有属性相依的套件尚未安装』，而您又想要直接强制安装这个套件时，可以加上 --nodeps 告知 RPM 不要去检查套件的相依性。
+危险性：套件会有相依性的原因是因为彼此会使用到对方的机制或功能，如果强制安装而不考虑套件的属性相依，则可能会造成该套件的无法正常使用！
+--nomd5 	使用时间：不想检查 RPM 档案所含的 MD5 信息时。
+说明：还记得我们在前一章有提到的 MD5 这个指纹辨识吧？！没错，这里指的就是不要检查 RPM 套件的 MD5 信息。但除非您很清楚这个套件的来源，否则不建议使用这个参数。
+--noscripts 	使用时机：不想让该套件自行启用或者自行执行某些系统指令。
+说明：RPM 的优点除了可以将档案放置到定位之外，还可以自动执行一些前置作业的指令，例如数据库的初始化。如果您不想要让 RPM 帮您自动执行这一类型的指令，就加上他吧！
+--replacefiles 	使用时机：如果在安装的过程当中出现了『某个档案已经被安装在您的系统上面』的信息，又或许出现版本不合的讯息( confilcting files )时，可以使用这个参数来直接覆盖档案。
+危险性：覆盖的动作是无法复原的！所以，您必须要很清楚的知道被覆盖的档案是真的不重要喔！否则会欲哭无泪！
+--replacepkgs 	使用时机：重新安装某个已经安装过的套件！
+--force 	这个参数其实就是 --replacefiles 与 --replacepkgs 的综合体！
+--test 	使用时机：想要测试一下该套件是否可以被安装到使用者的 Linux 环境当中。范例为：
+rpm -ivh pkgname.i386.rpm --test
+
+使用 RPM 来升级真是太简单了！就以 -Uvh 或 -Fvh 来升级即可( 注：vh 的功能仍是在于显示细部信息与安装进度而已 )！不过，这两种升级方式是不太一样的：
+
+      　
+      -Uvh 	后面接的套件即使没有安装过，则系统将予以直接安装；若后面接的套件有安装过旧版，则系统自动更新至新版；
+      -Fvh 	如果后面接的套件并未安装到您的 Linux 系统上，则该套件不会被安装；亦即只有安装至您 Linux 系统内的套件会被『升级』！
+　 
+
+
+ rpm查询　
+      -q  套件 	单纯的查询该套件的版本与是否存在而已，例如：
+      rpm -q logrotate
+      -ql 套件 	列出该套件的所有相关目录与档案喔！例如：
+      rpm -ql logrotate
+      -qi 套件 	列出该套件的 information (信息)，里面的信息可多着呢，包括了套件名称、版本、开发商、SRPM文件名称、打包次数、简单说明信息、套件打包者、安装日期等等！如果想要详细的知道该套件的数据，用这个参数来了解一下。例如：
+      rpm -qi logrotate
+      -qf 档案 	这个参数后面接的可是『档案』吶！不像前面都是接套件喔！这个功能在查询系统的某个档案属于哪一个套件所有的。举例来说，如果想要知道 /etc/logrotate.conf 是那个套件所提供的，可以这样：
+      rpm -qf /etc/logrotate.conf
+      -qc 套件 	查询该套件的设定文件放置的完整目录名称，例如：
+      rpm -qc logrotate
+      -qd 套件 	查询该套件的文件说明数据文件放置的完整路径名称，例如：
+      rpm -qd logrotate
+      -qR 套件 	列出该套件需要预先安装的档案，亦即有属性相依套件的档案！例如：
+      rpm -qR logrotate
+      -qa 	后面什么都不必加入，直接输入 rpm -qa 即可得知目前 Linux 系统上面共以 RPM 的方式安装了多少的套件！
+      -qp[licdR] 档案 	上面提到的都与系统的 /var/lib/rpm 内的数据库有关，而这里提到的则是与 RPM 档案本身有关。举例来说，如果我下载了一个档名为 pkgname.i386.rpm 的档案，我想要知道他里面主要的讯息，则：
+      rpm -qpi pkgname.i386.rpm
+      想要知道与他有关的套件，则：
+      rpm -qpR pkgname.i386.rpm
+       
+
+常见的查询就是这些了！ 
+
+ 先看一下 logrotate 有几个档案？
+[root@test root]# rpm -ql logrotate
+/etc/cron.daily/logrotate
+/etc/logrotate.conf
+/etc/logrotate.d
+/usr/sbin/logrotate
+/usr/share/doc/logrotate-3.6.8
+/usr/share/doc/logrotate-3.6.8/CHANGES
+/usr/share/man/man8/logrotate.8.gz
+/var/lib/logrotate.status
+# 呵呵！共有 8 个档案喔！
+　
+# 再来看一下有几个档案被动过了？！
+[root@test root]# rpm -V logrotate
+..5....T c /etc/logrotate.conf
+　
+# 怪怪！前面的几个咚咚是什么呢？！底下说明喔！
+S ：file Size differs
+　　档案的容量大小是否被改变
+M ：Mode differs (includes permissions and file type)
+　　档案的类型或档案的属性，如是否可执行等参数已被改变
+5 ：MD5 sum differs
+　　MD5 这一种加密防骇的属性已被改变
+D ：Device major/minor number mis-match
+　　装置名称已被改变
+L ：readLink(2) path mis-match
+　　Link 属性已被改变
+U ：User ownership differs
+　　档案的所属人已被改变
+G ：Group ownership differs
+　　档案的所属群组已被改变
+T ：mTime differs
+　　档案的建立时间已被改变
+
+
+
+
+
+，新版的 rpm 已经将 RPM 与 SRPM 的指令分开了，SRPM 使用的是 rpmbuild 这个指令，而不是 rpm 喔！如果您是 Red Hat 7.3 以前的用户，
+那么请使用 rpm 来替代 rpmbuild 啦！
+
+rpmbuild 配合参数即可。参数主要有底下两个：
+
+    --rebuild 	这个参数会将后面的 SRPM 进行『编译』与『打包』的动作，最后会产生 RPM 的档案，
+    但是产生的 RPM 档案并没有安装到系统上。当您使用 --rebuild 的时候，最后通常会发现一行字体：
+    Wrote: /usr/src/RPM/RPMS/i386/pkgname.i386.rpm
+    这个就是编译完成的 RPM 档案啰！那么这个档案就可以用来安装啦！安装的时候请加绝对路径来安装即可！
+    --recompile 	这个动作会直接的『编译』『打包』并且『安装』啰！请注意，
+     rebuild 仅『编译并打包』而已，而 recompile 不但进行编译跟打包，还同时进行『安装』了！
+     
+     
+再来则是要编辑那个很重要的*.spec档案啰！你可以这样简单的编写一下：
+　
+[root@test root]# cd /usr/src/redhat/SPECS
+[root@test SPECS]# vi showvbird.spec
+Summary:   This is a demo RPM package.
+Name:      showvbird
+Version:   1.0
+Release:   1
+Copyright: GPL
+Group:     VBird's Home
+Source:    showvbird.tar.gz   <==这个就是刚刚建立起来的Tarball档案！
+Url:       http://linux.vbird.org
+Packager:  VBird
+
+%description
+This package is just a demo RPM.
+
+%prep
+%setup –c
+%install
+install -m 755 showvbird.sh /usr/local/bin/showvbird.sh
+
+%files
+/usr/local/bin/showvbird.sh
+　
+好了！开始给他编译并打包成为RPM档案啦！ 
+

@@ -1,0 +1,7 @@
+td设置background tr设置background无效
+tr的颜色没有显示出来...
+
+http://bbs.csdn.net/topics/380049135
+你要知道 td是在tr里面的 你这样设置 tr的颜色当然会被覆盖掉 
+
+只设置td就好了 一般是用th和td来区分表头和内容的 没必要设置tr的背景

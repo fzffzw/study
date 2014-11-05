@@ -1,0 +1,10 @@
+./configure   --enable-shared   --with-php-config=$PHP_PREFIX/bin/php-config
+ 1017  make
+ 1018  make test
+ 1019  make install
+ 1020  find / -name eaccelerator
+ 1021  chmod 0777 /tmp/eaccelerator
+ 1022  find / -name php.d
+ 1023  find / -name eaccelerator.ini
+ 1024  copy eaccelerator.ini /etc/php.d
+ 1025  cp eaccelerator.ini /etc/php.d

@@ -1,0 +1,13 @@
+ie6下并排的li宽度无法自适应
+下面是网页设计中最常用的导航栏设计代码
+ 
+Java代码  
+<ul>  
+        <li><a href="#">xxxxxxx</a></li>  
+        <li><a href="#">xxxxxx</a></li>  
+        <li><a href="#">xxxxx</a></li>  
+        <li><a href="#">xxxxx</a></li>  
+        <li><a href="#">xxxxxxxx</a></li>  
+</ul>  
+ 
+当上面代码的<li>标签设置float:left属性后，在IE6下li的宽度不能自动适应，解决的方法就是将<a>标签也添加float:left属性

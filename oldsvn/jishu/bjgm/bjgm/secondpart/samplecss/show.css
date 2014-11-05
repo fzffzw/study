@@ -1,0 +1,17 @@
+@import url(default.css);
+p {
+background:#ff9;
+}
+strong {
+color:#C30;
+}
+div {
+background: #6C3;
+}
+
+body#c_font {
+font-size: medium;
+}
+body#c_text {
+font-size: 12px;
+}

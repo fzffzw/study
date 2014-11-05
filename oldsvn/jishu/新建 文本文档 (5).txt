@@ -1,0 +1,7 @@
+精通javascript笔记第二章：引用：指向对象实际位置的指针
+作用域:javascript中作用域是由函数划分，局部变量和全局变量 注：全局变量是window的一个属性 
+闭包：内层函数可以引用存在于包围它函数内的变量，即使外层函数执行已经终止闭包可以用在许多地方。它的最大用处有两个，一个是前面提到的可以读取函数内部的变量，另一个就是让这些变量的值始终保持在内存中。http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.htmlfunction out(){    var out='out';    function inline()    {        var inine='in';        alert(out);   
+}    return inline; }var test=out();test();function f1(){　　　　var
+n=999;　　　　nAdd=function(){n+=1}　　　　function f2(){
+　　　　　　alert(n);
+　　　　}　　　　return f2;　　}　　var result=f1();　　result(); // 999　　nAdd();　　result(); // 1000

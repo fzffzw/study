@@ -1,0 +1,45 @@
+<?php
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>完整的DTD :: 16.1.3 浏览器的的工作模式 :: 16.1 浏览器简介 :: 第16章：浏览器与Hack</title>
+<style type="text/css">
+<!--
+body {
+font: normal "宋体", serif;
+background:#FFF;
+}
+.gotoIndex {
+margin-top:30px;
+background:#ccc;
+font-size:12px;
+text-align:center;
+padding:4px;
+border:none;
+width:auto;
+height:auto;
+}
+
+/* 以下是正式示例代码 */
+div{
+width:200px;
+border:30px #F93 solid;
+padding:30px;
+background: #FFC;
+}
+p {
+background: #9CF;
+}
+-->
+</style>
+</head>
+
+<body>
+  <div>
+    <p>HTML</p>
+  </div>
+<div class="gotoIndex"><a href="../../index.html#chapter16" title="返回示例代码目录">返回代码目录</a></div>
+</body>
+</html>

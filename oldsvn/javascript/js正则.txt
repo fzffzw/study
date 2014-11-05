@@ -1,0 +1,286 @@
+js正则函数match、exec、test、search、replace、split使用介绍集合
+
+match 方法 
+使用正则表达式模式对字符串执行查找，并将包含查找的结果作为数组返回。 
+stringObj.match(rgExp) 
+参数 
+stringObj 
+必选项。对其进行查找的 String 对象或字符串文字。 
+rgExp 
+必选项。为包含正则表达式模式和可用标志的正则表达式对象。也可以是包含正则表达式模式和可用标志的变量名或字符串文字。 
+其余说明与exec一样，不同的是如果match的表达式匹配了全局标记g将出现所有匹配项，而不用循环，但所有匹配中不会包含子匹配项。 
+例子1： 
+function MatchDemo(){ var r, re; // 声明变量。 var s = "The rain in Spain falls mainly in the plain"; re = /(a)in/ig; // 创建正则表达式模式。 r = s.match(re); // 尝试去匹配搜索字符串。 document.write(r); // 返回的数组包含了所有 "ain" 出现的四个匹配，r[0]、r[1]、r[2]、r[3]。 // 但没有子匹配项a。}输出结果：ain,ain,ain,ain 
+exec 方法 
+用正则表达式模式在字符串中查找，并返回该查找结果的第一个值（数组），如果匹配失败，返回null。 
+rgExp.exec(str) 
+参数 
+rgExp 
+必选项。包含正则表达式模式和可用标志的正则表达式对象。 
+str 
+必选项。要在其中执行查找的 String 对象或字符串文字。 
+返回数组包含： 
+input：整个被查找的字符串的值； 
+index：匹配结果所在的位置（位）； 
+lastInput：下一次匹配结果的位置； 
+arr：结果值，arr[0]全匹配结果，arr[1,2...]为表达式内()的子匹配，由左至右为1,2...。 
+例子2： 
+复制代码 代码如下:
+
+function RegExpTest(){ 
+var src="http://sumsung753.blog.163.com/blog/I love you!"; 
+var re = /\w+/g; // 注意g将全文匹配，不加将永远只返回第一个匹配。 
+var arr; 
+while((arr = re.exec(src)) !=null){ //exec使arr返回匹配的第一个，while循环一次将使re在g作用寻找下一个匹配。 
+document.write(arr.index + "-" + arr.lastIndex + ":" + arr + "<br/>"); 
+for(key in arr){ 
+document.write(key + "=>" + arr[key] + "<br/>"); 
+} 
+document.write("<br/>"); 
+} 
+} 
+window.onload = RegExpTest(); 
+
+输出结果： 
+0-1:I //0为index，i所在位置，1为下一个匹配所在位置 
+input=>I love you! 
+index=>0 
+lastIndex=>1 
+0=>I 
+2-6:love 
+input=>I love you! 
+index=>2 
+lastIndex=>6 
+0=>love 
+7-10:you 
+input=>I love you! 
+index=>7 
+lastIndex=>10 
+0=>you 
+说明：根据手册，exec只返回匹配结果的第一个值，比如上例如果不用while循环，将只返回'I'（尽管i空格后的love和you都符合表达式），无论re表达式用不用全局标记g。但是如果为正则表达式设置了全局标记g，exec 从以 lastIndex 的值指示的位置开始查找。如果没有设置全局标志，exec 忽略 lastIndex 的值，从字符串的起始位置开始搜索。利用这个特点可以反复调用exec遍历所有匹配，等价于match具有g标志。 
+当然，如果正则表达式忘记用g，而又用循环（比如：while、for等)，exec将每次都循环第一个，造成死循环。 
+exec的输出将包含子匹配项。 
+例子3： 
+复制代码 代码如下:
+
+function execDemo(){ 
+var r, re; // 声明变量。 
+var s = "The rain in Spain falls mainly in the plain"; 
+re = /[\w]*(ai)n/ig; 
+r = re.exec(s); 
+document.write(r + "<br/>"); 
+for(key in r){ 
+document.write(key + "-" + r[key] + "<br/>"); 
+} 
+} 
+window.onload = execDemo(); 
+
+输出： 
+rain,ai 
+input-The rain in Spain falls mainly in the plain 
+index-4 
+lastIndex-8 
+0-rain 
+1-ai 
+test 方法 
+返回一个 Boolean 值，它指出在被查找的字符串中是否匹配给出的正则表达式。 
+rgexp.test(str) 
+参数 
+rgexp 
+必选项。包含正则表达式模式或可用标志的正则表达式对象。 
+str 
+必选项。要在其上测试查找的字符串。 
+说明 
+test 方法检查字符串是否与给出的正则表达式模式相匹配，如果是则返回 true，否则就返回 false。 
+例子4： 
+复制代码 代码如下:
+
+function TestDemo(re, s){ 
+var s1; 
+if (re.test(s)) 
+s1 = " 匹配正则式 "; 
+else 
+s1 = " 不匹配正则式 "; 
+return("'" + s + "'" + s1 + "'"+ re.source + "'"); 
+} 
+window.onload = document.write(TestDemo(/ab/,'cdef')); 
+
+输出结果：'cdef' 不匹配正则式 'ab' 
+注意：test()继承正则表达式的lastIndex属性，表达式在匹配全局标志g的时候须注意。 
+例子5： 
+复制代码 代码如下:
+
+function testDemo(){ 
+var r, re; // 声明变量。 
+var s = "I"; 
+re = /I/ig; // 创建正则表达式模式。 
+document.write(re.test(s) + "<br/>"); // 返回 Boolean 结果。 
+document.write(re.test(s) + "<br/>"); 
+document.write(re.test(s)); 
+} 
+testDemo(); 
+
+输出结果： 
+true 
+false 
+true 
+当第二次调用test()的时候，lastIndex指向下一次匹配所在位置1，所以第二次匹配不成功，lastIndex重新指向0，等于第三次又重新匹配。下例显示test的lastIndex属性： 
+例子6： 
+复制代码 代码如下:
+
+function testDemo(){ 
+var r, re; // 声明变量。 
+var s = "I"; 
+re = /I/ig; // 创建正则表达式模式。 
+document.write(re.test(s) + "<br/>"); // 返回 Boolean 结果。 
+document.write(re.lastIndex); // 返回 Boolean 结果。 
+} 
+testDemo(); 
+
+输出： 
+true 
+1 
+解决方法：将test()的lastIndex属性每次重新指向0，re.lastIndex = 0; 
+
+search 方法 
+返回与正则表达式查找内容匹配的第一个子字符串的位置（偏移位）。 
+stringObj.search(rgExp) 
+参数 
+stringObj 
+必选项。要在其上进行查找的 String 对象或字符串文字。 
+rgExp 
+必选项。包含正则表达式模式和可用标志的正则表达式对象。 
+说明：如果找到则返回子字符至开始处的偏移位，否则返回-1。 
+例子6： 
+复制代码 代码如下:
+
+function SearchDemo(){ 
+var r, re; // 声明变量。 
+var s = "The rain in Spain falls mainly in the plain."; 
+re = /falls/i; // 创建正则表达式模式。 
+re2 = /tom/i; 
+r = s.search(re); // 查找字符串。 
+r2 = s.search(re2); 
+return("r：" + r + "；r2：" + r2); // 返回 Boolean 结果。 
+} 
+document.write(SearchDemo()); 
+
+输出：r：18；r2：-1 
+replace 方法 
+返回根据正则表达式进行文字替换后的字符串的复制。 
+stringObj.replace(rgExp, replaceText) 
+参数 
+stringObj 
+必选项。要执行该替换的 String 对象或字符串文字。该字符串不会被 replace 方法修改。 
+rgExp 
+必选项。为包含正则表达式模式或可用标志的正则表达式对象。也可以是 String 对象或文字。如果 rgExp 不是正则表达式对象，它将被转换为字符串，并进行精确的查找；不要尝试将字符串转化为正则表达式。 
+replaceText 
+必选项。是一个String 对象或字符串文字，对于stringObj 中每个匹配 rgExp 中的位置都用该对象所包含的文字加以替换。在 Jscript 5.5 或更新版本中，replaceText 参数也可以是返回替换文本的函数。 
+说明 
+replace 方法的结果是一个完成了指定替换的 stringObj 对象的复制。意思为匹配的项进行指定替换，其它不变作为StringObj的原样返回。 
+ECMAScript v3 规定，replace() 方法的参数 replacement 可以是函数而不是字符串。在这种情况下，每个匹配都调用该函数，它返回的字符串将作为替换文本使用。该函数的第一个参数是匹配模式的字符串。接下来的参数是与模式中的子表达式匹配的字符串，可以有 0 个或多个这样的参数。接下来的参数是一个整数，声明了匹配在 stringObject 中出现的位置。最后一个参数是 stringObject 本身。结果为将每一匹配的子字符串替换为函数调用的相应返回值的字符串值。函数作参可以进行更为复杂的操作。
+例子7： 
+复制代码 代码如下:
+
+function f2c(s) { 
+var test = /(\d+(\.\d*)?)F\b/g; // 说明华氏温度可能模式有：123F或123.4F。注意，这里用了g模式 
+return(s.replace 
+(test, 
+function(Regstr,$1,$2,$3,newstrObj) { 
+return(("<br/>" + Regstr +"<br/>" + ($1-32) * 1/2) + "C" +"<br/>" + //以下两行进行替换 
+$2 +"<br/>" + $3 +"<br/>" + newstrObj +"<br/>" ); 
+} 
+) 
+); 
+} 
+document.write(f2c("Water: 32.2F and Oil: 20.30F.")); 
+
+输出结果： 
+Water: //不与正则匹配的字符，按原字符输出 
+32.2F //与正则相匹配的第一个字符串的原字符串 Regstr 
+0.10000000000000142C //与正则相匹配的第一个字符串的第一个子模式匹配的替换结果 $1 
+.2 //与正则相匹配的第一个字符串的第二个子模式匹配项的替换结果，这里我们没有将它替换 $2 
+7 //与正则相匹配的第一个字符串的第一个子匹配出现的偏移量 $3 
+Water: 32.2F and Oil: 20.30F. //原字符串 newstrObj 
+and Oil: //不与正则匹配的字符 
+20.30F //与正则相匹配的第二个字符串的原字符串 
+-5.85C //与正则相匹配的第二个字符串的第一个子模式与匹配的替换结果 
+.30 //与正则相匹配的第二个字符串的第二个子模式匹配项的替换结果，这里我们没有将它替换 
+22 //与正则相匹配的第二个字符串的第一个子匹配出现的偏移量 
+Water: 32.2F and Oil: 20.30F. //原字符串 
+. //不与正则匹配的字符 
+上面的函数参数我们全部用到了。在实际中，我们只须用将xxF替换为xxC，根据要求，我们无须写这么多参数。 
+例子8： 
+复制代码 代码如下:
+
+function f2c(s) { 
+var test = /(\d+(\.\d*)?)F\b/g; // 说明华氏温度可能模式有：123F或123.4F 
+return(s.replace 
+(test, 
+function(strObj,$1) { 
+return((($1-32) * 1/2) + "C"); 
+} 
+) 
+); 
+} 
+document.write(f2c("Water: 32.2F and Oil: 20.30F.")); 
+
+输出：Water: 0.10000000000000142C and Oil: -5.85C. 
+更多的应用： 
+例子9： 
+复制代码 代码如下:
+
+function f2c(s) { 
+var test = /([\d]{4})-([\d]{1,2})-([\d]{1,2})/; 
+return(s.replace 
+(test, 
+function($0,$1,$2,$3) { 
+return($2 +"/" + $1); 
+} 
+) 
+); 
+} 
+document.write(f2c("today: 2011-03-29")); 
+
+输出：today: 03/2011 
+split 方法 
+将一个字符串分割为子字符串，然后将结果作为字符串数组返回。 
+stringObj.split([separator[, limit]]) 
+参数 
+stringObj 
+必选项。要被分解的 String 对象或文字。该对象不会被 split 方法修改。 
+separator 
+可选项。字符串或 正则表达式 对象，它标识了分隔字符串时使用的是一个还是多个字符。如果忽略该选项，返回包含整个字符串的单一元素数组。 
+limit 
+可选项。该值用来限制返回数组中的元素个数。 
+说明 
+split 方法的结果是一个字符串数组，在 stingObj 中每个出现 separator 的位置都要进行分解。separator 不作为任何数组元素的部分返回。 
+例子10： 
+复制代码 代码如下:
+
+function SplitDemo(){ 
+var s, ss; 
+var s = "The rain in Spain falls mainly in the plain."; 
+// 正则表达式，用不分大不写的s进行分隔。 
+ss = s.split(/s/i); 
+return(ss); 
+} 
+document.write(SplitDemo()); 
+
+输出：The rain in ,pain fall, mainly in the plain. 
+
+js正则表达式之exec()方法、match()方法以及search()方法 
+先看代码：
+var sToMatch = "test, Tes, tst, tset, Test, Tesyt, sTes";
+var reEs = /es/gi;
+alert(reEs.exec(sToMatch));
+alert(sToMatch.match(reEs));
+alert(sToMatch.search(reEs));
+三个弹出框内容如下：
+
+
+
+结果分析如下：
+1、RegExp的exec()方法，有一个字符串参数，返回一个数组，数组的第一个条目是第一个匹配；其他的是反向引用。所以第一个返回的结果是第一个匹配的值es（不区分大小写）。
+2、String对象有一个match()方法，它返回一个包含在字符串中所有匹配的数据。这个方法调用string对象，同时传给它一个RegExp对象。所以第二个弹出语句返回的是所有符合正则表达式的数组。
+3、search()的字符串方法与indexOf()有些类似，但是它使用一个RegExp对象而非仅仅一个子字符串。search()方法返回第一个匹配值的位置。所以第三处弹出的是“1”，即第二个字符就匹配了。注意的是search()方法不支持全局匹配正规表达式（带参数g）。

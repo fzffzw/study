@@ -1,0 +1,38 @@
+# uname -a
+x86_64则说明你是64位内核, 跑的是64位的系统.
+i386, i686说明你是32位的内核, 跑的是32位的系统
+
+
+有以下命令可以查看：
+
+# lsb_release -a
+LSB Version:    :core-3.1-ia32:core-3.1-noarch:graphics-3.1-ia32:graphics-3.1-noarch
+Distributor ID: CentOS
+Description:    CentOS release 5.4 (Final)
+Release:        5.4
+Codename:       Final
+
+这个命令适用于所有的linux，包括Redhat、SuSE、Debian等发行版。
+
+
+root@MyMail ~ # uname
+Linux
+root@MyMail ~ # uname -r
+2.6.18-164.el5
+
+以下二种方法适用于RedHat,CentOS
+
+root@MyMail ~ # cat /etc/redhat-release
+CentOS release 5.4 (Final)
+
+
+
+登录到linux执行rpm -q redhat-release 
+
+#rpm -q redhat-release
+或CentOS
+
+root@MyMail ~ # rpm -q centos-release
+centos-release-5-4.el5.centos.1
+
+一个不会敲代码的程序员

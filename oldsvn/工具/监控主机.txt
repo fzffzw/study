@@ -1,0 +1,19 @@
+监控服务器、VPS 的工具和服务有很多，比如开源工具就有 Nagios, Cacti, Zabbix, Zenoss, Ganglia, … 如果自己不想 host 这些监控软件的话，可以考虑外包给第三方服务，比如 Pingdom, ServerDensity, ScoutApp, PagerDuty 等都做的很棒。如果自己要求不多、只是想监控一下网站（而不是整个服务器的各个性能指标的话）可以考虑一些免费监控服务，比如 monitor.us, SiteUptime, Montastic, site24x7 … 这里介绍的是完全不同的另类办法，用 Google Docs 来监控网站，还包括免费的手机报警功能哦～
+
+点击 这里 会新建一个页面询问是否要拷贝一个文档：
+
+Google Docs
+
+Make a new copy of this document?
+This copy will appear in your document list.
+
+Yes, make a copy.
+
+选择 Yes, make a copy. 后就会在自己的 Google Docs 里面生成一个名为 Copy of Website Monitor 的文件，按照提示填写要监控的Wbsite URLs，监控报警用的 Email Address，短信提示 SMS Notifications 就可以了。
+
+Website URLs ::
+Email Address ::
+SMS Notifications ::
+Help ::
+
+填写完后再运行菜单上的 Website Monitor 的 Step1: Initialize 和 Step2: Start，不用了的话就 Uninstall (Stop). 默认的监控频率是每5分钟检查网站一次。

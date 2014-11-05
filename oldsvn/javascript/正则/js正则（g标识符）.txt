@@ -1,0 +1,144 @@
+http://www.cnblogs.com/sooj/
+
+js中几个正则表达式相关函数使用时g标志的作用
+首先，javascript中涉及到正则表达式的函数总共有6个，可分为两种：
+
+1、第一种是作为字符串对象的方法，即以
+
+String.fun();
+形式调用，这里包括 split、search、match、replace 这四个函数。
+
+2、第二种是作为正则表达式对象的方法，即以
+
+RegExp.fun();
+形式调用，这里包括 exec、test 这两个函数。
+
+ 
+
+我们知道，正则表达式从结构上划分的话可以简单的划分为三部分：分隔符、表达式 和 标志符。
+
+如正则表达式
+
+?
+/^abc$/is
+中，前后两个斜杠就是分隔符，分隔符中间的内容为表达式，第二个分隔符后的is就是标志符。
+
+本文重点讨论g标志符在js的几个正则表达式相关函数中的作用。g标志符是正则表达式标志符中点击率较高的一个标志符，其作用为让该正则表达式进行全局匹配。
+
+什么时候该进行全局匹配，什么时候不该进行全局匹配，哪些函数支持全局匹配标志g，哪些函数又不支持？手册上没有清楚的讲述这些琐碎的知识点，那就动手写测试代码，让程序说话。
+
+1）split：将一个字符串分割为子字符串，然后将结果作为字符串数组返回。
+
+1）split：将一个字符串分割为子字符串，然后将结果作为字符串数组返回。
+
+复制代码
+<script>
+var p = /ab/,
+    pg = /ab/g,
+    str = 'abcabcabc';
+
+// split 函数
+var a = str.split(p);
+console.log(a); // ['','c','c','c']
+console.log(p.lastIndex); // 0
+var ag = str.split(pg);
+console.log(ag); // ['','c','c','c']
+console.log(pg.lastIndex); // 0
+</script>
+复制代码
+可以看到使用g标志和不使用g标志的结果一模一样，所以可以认为g标志在split函数中是无意义的。
+
+2）search：返回与正则表达式查找内容匹配的第一个子字符串的位置。
+
+复制代码
+<script>
+var p = /ab/,
+    pg = /ab/g,
+    str = 'abcabcabc';
+
+// search 函数
+a = str.search(p);
+console.log(a); // 0,'ab'字符串第一次出现的位置
+console.log(p.lastIndex); // 0
+ag = str.search(pg);
+console.log(ag); // 0,'ab'字符串第一次出现的位置
+console.log(pg.lastIndex); // 0
+</script>
+复制代码
+可以看到使用g标志和不使用g标志的结果一模一样，所以可以认为g标志在search函数中是无意义的。
+
+3）match：使用正则表达式模式对字符串执行查找，并将包含查找的结果作为数组返回。
+
+<script>
+var p = /ab/,
+    pg = /ab/g,
+    str = 'abcabcabc';
+
+// match 函数
+a = str.match(p);
+console.log(a); // ['ab'],如果没有设置全局标志g，数组的0元素包含整个匹配，而第 1 到 n 元素包含了匹配中曾出现过的任一个子匹配。
+console.log(p.lastIndex); // 0
+ag = str.match(pg);
+console.log(ag); // ["ab", "ab", "ab"],这块手册上说的很清楚，当正则含有g标志时，全局查找，结果数组的元素0到n中包含所有匹配。
+console.log(pg.lastIndex); // 0
+</script>
+
+
+
+4）replace：返回根据正则表达式进行文字替换后的字符串的复制。
+<script>
+var p = /ab/,
+    pg = /ab/g,
+    str = 'abcabcabc';
+
+// replace 函数
+a = str.replace(p,'#');
+console.log(a); // #cabcabc
+console.log(p.lastIndex); // 0
+ag = str.replace(pg,'#'); 
+console.log(ag); // #c#c#c
+console.log(pg.lastIndex); // 0
+</script>
+
+可以看到有g标志跟没g标志的结果完全不同，没有g标志的情况下只替换第一个匹配项。
+
+5）exec：用正则表达式模式在字符串中运行查找，并返回包含该查找结果的一个数组。
+
+<script>
+var p = /ab/,
+    pg = /ab/g,
+    str = 'abcabcabc';
+
+// exec 函数
+a = p.exec(str);
+console.log(a); // ['ab']
+console.log(p.lastIndex); // 0
+ag = pg.exec(str);
+console.log(ag); // ['ab']
+console.log(pg.lastIndex); // 2
+</script>
+
+exec函数手册上也说的很清楚，如果为正则表达式设置了全局标志，exec 从以 lastIndex 的值指示的位置开始查找。
+如果没有设置全局标志，exec 忽略 lastIndex 的值，从字符串的起始位置开始搜索。每次查找返回一个数组，
+数组元素除了0,1,2 ...外还包含3个属性 input、index 和 lastIndex。Input 属性包含了整个被查找的字符串。
+Index 属性中包含了整个被查找字符串中被匹配的子字符串的位置。
+LastIndex 属性中包含了匹配中最后一个字符的下一个位置。
+
+6）test：返回一个 Boolean 值，它指出在被查找的字符串中是否存在模式。
+<script>
+var p = /ab/,
+    pg = /ab/g,
+    str = 'abcabcabc';
+
+// test 函数
+a = p.test(str);
+console.log(a); // true 
+console.log(p.lastIndex); // 0
+ag = pg.test(str);
+console.log(ag); // true 
+console.log(pg.lastIndex); // 2
+</script>
+
+同样的代码第一次结果为true，第二次结果为false，原因就是g标志改变了lastIndesx属性的值，
+而带g标志的test查找时又依靠lastIndex。
+

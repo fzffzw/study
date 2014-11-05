@@ -1,0 +1,179 @@
+<?php
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>14.3 页框：@page规则 :: 第14章：页面媒体</title>
+<style type="text/css">
+<!--
+img {
+border:0;
+}
+body {
+font: 10pt/2 "宋体", serif;
+padding: 10px 0;
+}
+h1 {
+font:1.5em/2 "黑体", sans-serif;
+text-align:center;
+}
+h2 {
+font-size:1.2em;
+text-align:center;
+}
+h3 {
+font-size:1em;
+}
+p {
+text-indent:2em;
+}
+code {
+display:block;
+margin:0 3em;
+padding:0 1em;
+white-space:pre;
+}
+.tips {
+color:#777;
+border: 1px dotted #999;
+background: #eee;
+font-size: 0.85em;
+margin: 0 3em;
+}
+.image {
+text-align: center;
+}
+.image em{
+display: block;
+color:#777;
+font-size: 0.85em;
+font-style: normal;
+}
+-->
+</style>
+<style type="text/css" media="screen">
+<!--
+* {
+margin:0;
+padding:0;
+}
+body {
+background: #eee;
+color: #069;
+font-size: small;
+}
+#wrap {
+width: 600px;
+margin: auto;
+padding: 1em;
+border: 2px solid #FC0;
+background: #FFF;
+}
+h1 {
+background: #FF9;
+}
+h2 {
+border-bottom: 3px double #FC6;
+}
+h3 {
+border-bottom:1px dotted #CCC;
+}
+p {
+margin:1em;
+}
+ul {
+list-style:inside circle;
+margin:1em 1em 1em 4em;
+}
+code {
+font-size:1em;
+border: 1px solid #06F;
+background: #9CF;
+color: #900;
+}
+-->
+</style>
+<style type="text/css" media="print">
+<!--
+@page :right{
+margin: 2cm 1.5cm 2cm 2.5cm;
+}
+@page :left{
+margin: 2cm 2.5cm 2cm 1.5cm;
+}
+@page :first {
+margin-top: 10cm;
+}
+body {
+border:1px dashed #666;
+}
+.tips {
+border: 1px dotted #999;
+font-size: 0.85em;
+margin: 0 3em;
+}
+code {
+border: 1px solid #999;
+background: #eee;
+}
+#c_14_3_2 {
+page-break-before: always;
+}
+/*.image em {
+page-break-before: avoid;
+}*/
+.image {
+page-break-inside: avoid;
+}
+-->
+</style>
+</head>
+
+<body id="c_page">
+<div id="wrap">
+  <h1>第14章：页面媒体</h1>
+  <h2>14.3 页框：@page规则</h2>
+  <div id="c_14_3_1">
+    <h3><a name="margin">14.3.1 页边距</a></h3>
+    <p>在CSS 2.1中，只有margin属性（包括4个方向和缩写属性）可以应用在页面上下文（page context）中。纸张、页框和页边距的关系如图14-1所示。</p>
+    <p class="tips">提示：关于margin属性，请参见本书[8.9 边距：margin属性]一节。</p>
+    <p class="image"><img src="img/1401.gif" alt="图14-1" title="图14-1 纸张、页框和页边距的关系" width="310" height="287" /><em>图14-1 纸张、页框和页边距的关系</em></p>
+    <p>可以使用@page规则设定页框的边距。@page规则以“@page”关键字开始，后面是页面选择器（可选），然后是声明块。页面选择器指定了声明所适用的页面，在CSS 2.1中，通过页面选择器可以设置第一页、所有左边的页或者所有右边的页。例如：</p>
+    <code>@page { margin: 3cm; }</code>
+	<p>值得注意的是，页框（或者说页面上下文）和字体没有关系，因此不能使用“em”和“ex”单位来定义边距区域或者页面区域。百分比值的计算则是基于页框的尺寸，左右边距以页框的宽度为基数，而上下边距以页框的高度为基数。当然，还可以使用“in”、“cm”等绝对单位。</p>
+    <p class="tips">提示：关于绝对单位，请参见本书[5.3.2 长度单位]一节。</p>
+	<p>由于负的边距值（页框或者元素的），或绝对定位的缘故，内容可能会在页框之外，但是这样的内容会被“剪切”掉——用户端、打印机或者最后由裁纸机来完成。
+如果一个页框不匹配目标页的尺寸，用户端可以选择：</p>
+    <ul>
+	  <li>将页框旋转90度，如果这样可以使页框和页面匹配；</li>
+      <li>放缩页面使之与目标匹配。</li>
+	</ul>
+	<p>如果页框小于目标页尺寸，用户端可以自由地在页上放置页框。不过，推荐的方法是将页框放置在页的中央，因为这样做有利于对齐双面的页，也避免了错误丢失那些打印在靠近页边的信息。</p>
+  </div>
+  <div id="c_14_3_2">
+    <h3><a name="selector">14.3.2 页面选择器</a></h3>
+    <p>当文档需要双面打印的时候，左页和右页的页框可能会不同。例如要留出装订线的位置，因此右页的左边距需要宽一些，对应到左页，则应该是右边距宽一些。通过CSS的页面选择器中的:left和:right伪类，可以完成这个需求。</p>
+    <p class="tips">提示：书籍的第1页是从右页开始的。</p>
+	<p>所有的页都自动地被用户端归为:left或:right伪类。例如如下代码，其效果如图14-2所示。</p>
+	<code>&lt;style type=&quot;text/css&quot; media=&quot;print&quot;&gt;
+&lt;!--
+@page :right{
+margin: 2cm 1.5cm 2cm 2.5cm;
+}
+@page :left{
+margin: 2cm 2.5cm 2cm 1.5cm;
+}
+……
+--&gt;
+&lt;/style&gt;
+&lt;body&gt;
+……
+&lt;/body&gt;
+</code>
+    <p class="image"><img src="img/1402.gif" alt="图14-2" title="图14-2 利用:left和:right伪类为设置不同的边距" width="502" height="347" /><em>图14-2 利用:left和:right伪类为设置不同的边距</em></p>
+  </div>
+</div>
+<div class="gotoIndex"><a href="../../index.html#chapter14" title="返回示例代码目录">返回代码目录</a></div>
+</body>
+</html>

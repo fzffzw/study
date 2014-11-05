@@ -1,0 +1,203 @@
+http://hi.baidu.com/leejun_2005/item/1eb0fb290b7987fc50fd878d
+http://my.oschina.net/leejun2005/blog
+
+(一)安装mysql5.5的要求
+编译安装mysql5.5与5.1还是有一点不同，因为mysql现在用cmake来作编译工程工具。
+这是与mysql5.1最大不同的地方，因此在安装mysql5.5时所要求的工具包也不同。发现用cmake编译mysql比以前的速度还是快了不少。
+（1）cmake包是必有的，在ubuntu上面可以用apt-get  install cmake来安装cmake。
+（2）bazaar这一个包也是必须的，在ubuntu上面可以用这样安装apt-get install bzr
+有关于bazaar的详细介绍，请看bazaar。
+（3）bison是必须的，可以用如下方式来安装，apt-get  install bison
+（4）apt-get  install libncurses5-dev这一个包也是必须的。
+（5）apt-get  install gcc g++
+（二）安装mysql5.5
+（1）解压mysql如  tar zxvf  mysql-5.5.8.tar.gz
+（2）cd  mysql -5.58
+（3）groupadd  mysql
+（4）useradd  -g mysql mysql
+（5）cmake  .  -DCMAKE_INSTALL_PREFIX=/usr/local/lamp/mysql5.5.8/
+（6）假设在没有报任何错误的前提下，那证明cmake已经顺利完成，可以运行如下命令
+make
+（7）make
+（8）如果没有任何错误，可运行make install
+（9）cd  /usr/local/lamp/mysql5.5.8/
+（10）chown -R mysql .
+（11）chgrp -R mysql .
+（12）# chown -R root .
+（13）chown -R mysql data
+（14）cp   support-files/my-medium.cnf  /etc/my.cnf
+（15）如果安装没有什么错误，那可以启动mysql，用bin/mysqld_safe --user=mysql &     （ubuntu下可以设置 /etc/rc.local 自动启动）
+（17）进入mysql用bin/mysql -u root
+ 
+（三）注意事项
+（1）如果自己指定了安装目录，那么此目录一定要存在，且有权限读写。
+（2）如果cmake失败，那一定要运行如下命令
+rm  CmakeCache.txt
+make  clean
+在解决错误问题之后，再重新cmake
+（四）CMake的一些错误
+在安装cmake .的过程中，有可能会出现错误：
+（1）CMake Error at cmake/readline.cmake:83 (MESSAGE):
+  Curses library not found.  Please install appropriate package,
+      remove CMakeCache.txt and rerun cmake.On Debian/Ubuntu, package name islibncurses5-dev, on Redhat and derivates it is ncurses-devel.
+Call Stack (most recent call first):
+  cmake/readline.cmake:127 (FIND_CURSES)
+  cmake/readline.cmake:217 (MYSQL_USE_BUNDLED_LIBEDIT)
+  CMakeLists.txt:257 (MYSQL_CHECK_READLINE)
+我这里是缺少libncurses5-dev这个数据包，可以通过apt-get install libncurses5-dev来安装。
+（2）如果没有安装上面提到的gcc、g++，有可能会提示下面的错误：
+CMake Error: CMAKE_CXX_COMPILER not set, after EnableLanguage
+CMake Error: Internal CMake error, TryCompile configure of cmake failed
+– Performing Test HAVE_PEERCRED – Failed
+Warning: Bison executable not found in PATH
+– Configuring incomplete, errors occurred!
+如果在make中提示错误，也是缺少软件包造成的。我碰到的就是上面两种错误。
+（3）CMake Error: The source directory ;/usr/local/lamp/mysql-5.5.8-linux2.6-x86_64 ; does not appear to contain CMakeLists.txt.
+你一定是忘记加目录了，在cmake 后面一定有源码的目录 ，如当前目录就是 .
+（4）mysql启动错误: [ERROR] Can't find messagefile '/usr/share/errmsg.sys'
+我的mysql是安装在/usr/local/mysql目录下，bin/mysqld_safe --user=mysql &启动后，从日志文件中发现如下错误:
+ 
+110623 21:49:41 mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
+110623 21:49:41 [ERROR] Can't find messagefile '/usr/share/errmsg.sys'
+110623 21:49:41 [Warning] Can't create test file /var/lib/mysql/ubuntu.lower-test
+110623 21:49:41 [Warning] Can't create test file /var/lib/mysql/ubuntu.lower-test
+/usr/local/mysql/bin/mysqld: Can't change dir to '/var/lib/mysql/' (Errcode: 2)
+110623 21:49:41 [ERROR] Aborting
+ 
+从日志上发现，mysql的启动目录不对。
+ 
+修改启动命令：
+ 
+sudo mysqld_safe --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data --user=mysql &
+ 
+即可启动成功。
+（5）启动Mysql时报错：mysqld_safe mysqld from pid file /usr/local/mysql/data/Linux.pid ended
+由于登陆使用了如下命令：
+shell> ./bin/mysqld_safe --user=root &
+导致再次登陆时候使用
+shell> ./bin/mysqld_safe --user=mysql &
+报错：
+mysqld_safe Logging to '/usr/local/mysql/data/Linux.err'.
+mysqld_safe Starting mysqld daemon with databases from /usr/local/mysql/data
+mysqld_safe mysqld from pid file /usr/local/mysql/data/Linux.pid ended
+ 
+解决方法：初始化mysql
+/usr/local/mysql/scripts/mysql_install_db --user=mysql
+
+FATAL ERROR: Could not find ./bin/my_print_defaults解决
+
+/usr/local/mysql/scripts/mysql_install_db --defaults-file=/var/mysql/my.cnf --basedir=/usr/local/mysql --datadir=/mnt/mysql --user=mysql
+
+（6）Ubuntu下安装MySQL出现FATAL ERROR: Could not find mysqld的处理
+Ubuntu下安装MySQL出现FATAL ERROR: Could not find mysqld的处理
+错误信息:
+#./bin/mysql_install_db –user=mysql
+FATAL ERROR: Could not find mysqld
+The following directories were searched:
+/usr/libexec
+/usr/sbin
+/usr/bin
+If you compiled from source, you need to run ‘make install’to copy the software into the correct location ready for operation.
+If you are using a binary release, you must either be at the top of the level of the extracted archivem or pass the –basedir option pointing to that location.
+解决办法：
+scripts/mysql_install_db --user=mysql --basedir=/usr/local/mysql
+（这里mysql是所使用的用户名，basedir是mysql的安装目录）
+
+（7）
+安装mysql数据库后，启动mysql都要读取my.cnf这个文件，一般情况下读取顺序如下：
+     /etc/my.cnf ---- > /etc/mysql/my.cnf --> /opt/mysql5154/my.cnf  --> ~ ./my.cnf
+
+linux/unix下,mysql按顺序在下列位置找配置文件
+1.在/etc/my.cnf文件,mysql查找的第一个位置是全局选项文件,一般用于所有用户和所有服务器的默认选项放在此文件中
+2.在DATADIR/my.cnf文件,DATADIR是mysql服务器保存其数据文件的目录.这个配置文件只应用于给定服务器的配置参数
+3.通过--defaults-extra-file=filename命令行选项指定的位置,这个命令选项,使mysql服务器或客户实用程序任意位置查找配置文件
+4.在$HOME/.my.cnf文件,$HOME是当前用户主目录的unix环境变量.这个只给各用户其特定的选项
+这是指定客户选项的位置
+
+如果一个选项出现在多个文件中,则最后被读取的将覆盖其它的
+
+（8）120901 16:46:17 [ERROR] Can't find messagefile '/usr/share/errmsg.sys'
+
+拷贝一个过去即可：
+sudo cp /home/june/download/mysql-5.5.22/sql/share/english/errmsg.sys /usr/share/errmsg.sys
+或者：
+在[mysqld]里面增加：language        = /opt/LAMP/MySQL5.1/share/mysql/english。即：
+[mysqld]
+port            = 3306
+socket          = /tmp/mysql.sock
+language        = /opt/LAMP/MySQL5.1/share/mysql/english
+（9）[ERROR] Can't open the mysql.plugin table. Please run mysql_upgrade to create it.
+# 启用 --skip-grant-tables参数避开检查，先启动再说root@Server[0]l11:36:01# /usr/local/mysql/bin/mysqld --datadir=/var/data/ --user=mysql --skip-grant-tables &
+# 到这里，服务竟然起来了，真高兴啊，继续下一步升级root@Server[0]11:36:01# mysql_upgrade
+解决方案总结
+1. 备份数据，这个就不用说了
+2. 首先更新二进制程序到新的版本
+3. 启动mysqld时使用skip grant tables 参数避开系统检查，只需把data目录指定对就好了
+# 例如/usr/local/mysql/bin/mysqld --datadir=/var/data/ --user=mysql --skip-grant-tables &
+4. 执行mysql_upgrade，这时应该就会顺利进行下来了
+5. 停止mysqld
+6. 按照原来的my.cnf运行正常服务（这一步失败很可能由于参数不兼容引起，比如bdb相关的所有参数5.1开始都不再支持，总之这一步很容易处理）
+7. 检查表有没有问题，比如执行mysqlcheck --all-databases 等等
+http://wiki.yfang.cn/bin/view/MyTroubleShooting/MySQL5_0%E5%8D%87%E7%BA%A7%E5%88%B05_1%E4%B8%ADmysql_upgrade%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98 
+（10）忘记密码：
+# /etc/init.d/mysql stop 
+# mysqld_safe --user=mysql --skip-grant-tables --skip-networking & 
+# mysql -u root mysql 
+mysql> UPDATE user SET Password=PASSWORD('root') where USER='root'; 
+mysql> FLUSH PRIVILEGES; 
+mysql> quit 
+# /etc/init.d/mysql restart 
+# mysql -uroot -p 
+Enter password: <输入新设的密码newpassword> 
+mysql> 
+（11）权限：
+权限，grant 权限名（所有权限all） on 库名（*表全部）.表名  to 要授权的用户名@"%"(%表示所有的IP，可以只些一个IP） identified by "密码"；
+
+通常我都是写grant all on *.* to root@"%" identified by "密码";
+
+
+
+
+
+id mysql
+ pstree -up | grep mysql
+./bin/mysqld_safe --user=mysql &
+ pstree -up | grep mysql
+ vim data/localhost.localdomain.err 
+ ll
+ chown -R mysql .
+ chgrp -R mysql .
+  llmysql
+ ./scripts/mysql_install_db --user=
+ ll
+  chown -R root .
+  chown -R mysql data/
+  ll
+  ./bin/mysqld_safe --user=mysql &
+  vim /etc/my.cnf 
+  ./bin/mysqld_safe --user=mysql &
+  pstree -up | grep mysql
+  cp ./support-files/mysql.server /etc/init.d/mysqld 
+  service mysqld restart
+  service mysqld restart
+
+
+  -bash: mysql: command not found
+  ln -s /usr/local/mysql/bin/mysql /usr/bin
+
+
+安装php的问题
+  ./configure --with-apxs2=/usr/local/Apache2/bin/apxs --with-mysql=/usr/local/mysql
+
+  Cannot load /usr/local/apache2/modules/libphp5.so into server: /usr/local/apache2/modules/libphp5.so: cannot restore segment prot after reloc: Permission denied
+
+安装php手册上
+<FilesMatch \.php$>
+    SetHandler application/x-httpd-php
+</FilesMatch>
+<FilesMatch "\.ph(p[2-6]?|tml)$">
+    SetHandler application/x-httpd-php
+</FilesMatch>
+<FilesMatch "\.phps$">
+    SetHandler application/x-httpd-php-source
+</FilesMatch>

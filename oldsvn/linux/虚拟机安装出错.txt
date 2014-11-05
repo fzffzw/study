@@ -1,0 +1,18 @@
+;Error processing drive:的问题
+
+Error processing drive:
+pci-0000:00:10-scsi-0:0:0:0
+20480MB
+VMware,VMware Virtual S
+This device may need to be reinitialized.
+REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!
+This action may also be applied to all other disks
+needing reinitialization.
+
+Device details:
+pci-0000:00:10.0-scsi-0:0:0:0
+
+底下有四个按钮，Ignore、Ignore all、Re-initialize、Re-initialize all
+解决办法如下：
+知道是“虚拟机的内存太小”,不支持图形化界面。我看了我分的虚拟机内存是512M,我把虚拟机的内存改为1G后，再次重新启动运行安装。
+就已经可以正常安装CentOS了！

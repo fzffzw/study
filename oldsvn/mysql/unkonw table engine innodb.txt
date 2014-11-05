@@ -1,0 +1,34 @@
+查看文章 ERROR 1286 (42000): Unknown table engine 'InnoDB'2009-07-17 15:51 从主库复制innodb的所有文件做副库，启动后报ERROR 1286 (42000): Unknown table engine 'InnoDB'
+删ib_logfile*,可能是my.cnf对log的设置不一样造成读不出来。
+
+最近在迁移mysql数据库innodb引擎的过程中，碰到以上错误。把ib_logfile*删除，再启动mysql即可正常。yeah。
+
+案例:
+一台服务器,操作系统centos,使用 yum 安装mysql ,之前innodb存储引擎一直是可以用的,某天之后,突然不能用了,使用innodb存储引擎的数据库导入后存储引擎全部变成了myisam.进入mysql,
+mysql > show engines;
+show engineS\G
+*************************** 1. row ***************************
+Engine: MyISAM
+Support: DEFAULT
+Comment: Default engine as of MySQL 3.23 with great performance
+*************************** 2. row ***************************
+Engine: MEMORY
+Support: YES
+Comment: Hash based, stored in memory, useful for temporary tables
+*************************** 3. row ***************************
+Engine: InnoDB
+Support: NO
+~~~~~~~~~以下内容略~~~~~
+12 rows in set (4.21 sec)
+显示不支持innoDB,
+在/etc/my.cnf 中添加 default-storge-engine=innodb,重启mysql失败,查看mysql日志,报错日志显示:Default storage engine (InnoDB) is not available
+原因:
+设置过的表空间ibdata1文件在Mysql第一次启动时候已经创建,大小为设置的10M，一但新设定的 ibdata1 的大小不一致，就会出现问题.可能是中间改过表空间或innodb日志文件的大小设置,但却没有删除掉表空间文件与innodb日志文件引起.
+解决方法:
+1. 删除在MySQL安装目录下的Data目录中的
+ib_logfile0
+ib_logfile1
+2。找到在配置MySQL服务器时指定的InfoDB目录删除掉
+ibdata1
+3。重新启动MySQL
+ 

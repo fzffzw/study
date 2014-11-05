@@ -1,0 +1,577 @@
+http://code.mianwww.com/category/php
+
+http://www.cnblogs.com/kaixin110/archive/2010/04/13/1710950.html
+
+
+PHP开发工程师面试题 XUNLEI
+
+1． 请对POSIX风格和兼容Perl风格两种正则表达式的主要函数进行类比说明
+ereg
+preg_match
+
+ereg_replace
+preg_replace
+
+
+2． 请说明在php.ini中safe_mode开启之后对于PHP系统函数的影响
+A:system,passthru,exec,shell_exec,popen,phpinfo等等大部分的文件操作函数。因为Safe_mode是php非常重要的内嵌的安全机制。默认是关闭的。
+
+3． PHP5中魔术方法函数有哪几个，请举例说明各自的用法
+__sleep
+__wakeup
+__toString
+__set_state
+__construct, 
+__destruct 
+__call, 
+__get, 
+__set, 
+__isset, 
+__unset 
+__sleep,
+__wakeup,
+__toString,
+__set_state, 
+__clone
+__autoload
+4． 请写出让，并说明如何在命令行下运行PHP脚本（写出两种方式）同时向PHP脚本传递参数？
+1. Php filename.php $agr1 $agr2
+2. php –r “”
+5． PHP的垃圾收集机制是怎样的
+A:PHP 有一个非常简单的垃圾收集器，它实际上将对不再位于内存范围（scope）中的对象进行垃圾收集。垃圾收集的内部方式是使用一个引用计数器，因此当计数器达到 0 时（意味着对该对象的引用都不可用），对象将被当作垃圾收集并从内存中删除。
+在PHP中，没有任何变量指向这个对象时，这个对象就成为垃圾。PHP会将其在内存中销毁；这是PHP 的GC垃圾处理机制，防止内存溢出。
+
+当一个 PHP线程结束时，当前占用的所有内存空间都会被销毁，当前程序中所有对象同时被销毁。GC进程一般都跟着每起一个SESSION而开始运行的.gc目的是为了在session文件过期以后自动销毁删除这些文件.
+PHP可以自动进行内存管理，清除不再需要的对象。PHP使用了引用计数(reference counting)这种单纯的垃圾回收(garbage collection)机制。每个对象都内含一个引用计数器，每个reference连接到对象，计数器加1。当reference离开生存空间或被设为NULL，计数器减1。当某个对象的引用计数器为零时，PHP知道你将不再需要使用这个对象，释放其所占的内存空间。
+6．使对象可以像数组一样进行foreach循环，要求属性必须是私有。
+(Iterator模式的PHP5实现，写一类实现Iterator接口)
+7．请写一段PHP代码，确保多个进程同时写入同一个文件成功
+8． 用PHP实现一个双向队列
+9． 使用正则表达式提取一段标识语言（html或xml）代码段中指定标签的指定属性值（需考虑属性值对不规则的情况，如大小写不敏感，属性名值与等号间有空格等）。此处假设需提取test标签的attr属性值，请自行构建包含该标签的串
+
+
+10．请使用socket相关函数（非curl）实现如下功能：构造一个post请求，发送到指定http server的指定端口的指定请求路径（如http://www.example.com:8080/test）。请求中包含以下变量：
+用户名（username）：温柔一刀
+密码（pwd）：&123=321&321=123&
+个人简介（intro）：Hello world!
+且该http server需要以下cookie来进行简单的用户动作跟踪：
+cur_query：you&me
+last_tm：...（上次请求的unix时间戳，定为当前请求时间前10分钟）
+cur_tm：...（当前请求的unix时间戳）
+设置超时为10秒，发出请求后，将http server的响应内容输出。
+Function encode($data, $sep = ‘&’){
+while (list($k,$v) = each($data)) {
+$encoded .= ($encoded ? "$sep" : "");
+$encoded .= rawurlencode($k)."=".rawurlencode($v);
+}
+Return $encoded;
+}
+Function post($url, $post, $cookie){
+$url = parse_url($url);
+$post = encode($data, ‘&’);
+$cookie = encode($cookieArray, ‘;’);
+$fp = fsockopen($url['host'], $url['port'] ? $url['port'] : 80, $errno, $errstr, 10);
+if (!$fp) return "Failed to open socket to $url[host]";
+fputs($fp, sprintf("POST %s%s%s HTTP/1.0\n", $url['path'], $url['query'] ? "?" : "", $url['query']));
+fputs($fp, "Host: $url[host]\n");
+fputs($fp, "Content-type: application/x-www-form-urlencoded\n");
+fputs($fp, "Content-length: " . strlen($encoded) . "\n");
+fputs($fp, "Cookie: $cookie\n\n");
+fputs($fp, "Connection: close\n\n");
+fputs($fp, "$post \n");
+while (!feof($fp)) {
+echo fgets($fp, 128);
+}
+fclose($fp);
+}
+$url = ‘http://www.szcpost.com:8080/test’;
+$encoded = username=温柔一刀& pwd=
+$post = array(
+‘username’=> ‘温柔一刀’,
+‘pwd => ‘&123=321&321=123&’,
+‘intro => ‘Hello world!’ 
+);
+$cookie = array(
+‘cur_query’ => ‘you&me,
+‘last_tm’ => time() - 600,
+‘cur_tm ‘=> time()
+);
+Post($url, $post, $cookie);
+11．你用什么方法检查PHP脚本的执行效率（通常是脚本执行时间）和数据库SQL的效率（通常是数据库Query时间），并定位和分析脚本执行和数据库查询的瓶颈所在？
+1．脚本执行时间，启用xdebug，使用WinCacheGrind分析。
+2．数据库查询，mysql使用EXPLAIN分析查询，启用slow query log记录慢查询。
+
+
+
+
+
+
+
+
+
+
+
+2012腾讯实习招聘笔试附加题1求解方法
+分类： 数据结构与算法 面试 2012-04-07 19:50 331人阅读 评论(5) 收藏 举报
+
+附加题1：问题描述大致如下：
+
+一个数组a[n],求构造出一个b[n],使得b[i]=a[0]*a[1]*...a[n-1]/a[i];不能用除法，除了循环变量外 不能用额外的变量 ，要求O（1）的空间复杂度，O(n)的时间复杂度。
+
+首先我对题目是有点疑问的：题目所说的O（1）的空间复杂度，那么意思是：
+
+1、b数组占用的空间是原来a的空间？
+
+2、还是b另外申请一个数组空间，而不用包括在O（1）中呢？
+
+对于第一种假设，本身愚钝，万想不得其解，希望各位高手给予指点
+
+对于第二种假设，自己实现代码余下：
+
+想了N久自己写下如下代码：
+
+publicclass TecentTest {
+
+    publicvoid change(int[] a, int[] b) {
+
+       b[0] = 1;
+
+       int temp = 1;
+
+       for (int i = 1; i < a.length; i++) {/* b[i]表示0-->i-1的乘值 */
+
+           temp = temp * a[i - 1];
+
+           b[i] = temp;
+
+       }
+
+       temp = 1;
+
+       for (int j = a.length - 2; j >= 0; j--) {
+
+           temp = temp * a[j+1];/*temp记录j+1-->n-1的乘值 */
+
+           b[j]=b[j]*temp;     /* b[j]结果值 */
+
+       }
+
+       b[a.length - 1] = b[a.length - 1];
+
+    }
+
+    publicstaticvoid main(String[] args) {
+
+       TecentTest tt = new TecentTest();
+
+       int[] a = { 1, 2, 3, 4, 5,6 };
+
+       int[] b =newint[a.length];
+
+       tt.change(a, b);
+
+       for (int i = 0; i < b.length; i++) {
+
+           System.out.print(b[i] +" ");
+
+       }
+
+    }
+
+}
+
+/*测试结果：
+
+* 720 360 240 180 144 120
+
+* */
+以上代码空间复杂度O（1），时间复杂度O（n）
+
+
+
+
+　　该题目来自前两天腾讯实习生的招聘笔试，题目给出如下的递归函数，求ack(3,3)的值。
+
+int ack(int m,int n)
+{
+     if(m == 0)
+     {
+         return n+1;
+     }
+     else if(n == 0)
+     {
+         return ack(m - 1, 1);
+     }
+     else
+     {
+         return ack(m - 1, ack(m, n - 1));
+     }
+}
+
+问题解答：
+
+　　这是一道看起来极其简单的题目，但是通过简单的几步递归之后发现，其实预算量并没有想象中的那么小，笔者在接到这道题后做了大约有8分钟左右的时间就做不下去了，不得不直接先让计算机代劳了。运行环境：WIN7+VS2010
+
+
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+//ack function definition
+int ack(int m,int n)
+{
+     if(m == 0)
+     {
+         return n+1;
+     }
+     else if(n == 0)
+     {
+         return ack(m - 1, 1);
+     }
+     else
+     {
+         return ack(m - 1, ack(m, n - 1));
+     }
+}
+
+int main()
+{
+     cout<<"***********************************"<<endl;
+     cout<<"下面矩阵中第i行第j列的值为ack(i,j)"<<endl;
+     cout<<"i,j的取值从0开始,第一个为ack(0,0)"<<endl;
+     cout<<"***********************************"<<endl;
+     for(int i = 0;i <= 3;i++)
+     {
+         for(int j = 0;j <= 4;j++)
+         {
+             cout<<ack(i,j)<<"\t";
+         }
+         cout<<endl;
+     }
+
+     return 0;
+}
+
+
+
+　　由上面的矩阵很容易看出ack(3,3)=61。现在的问题是，面对这样的一道笔试题，我们应该如何求解？显然直接递归运算量是最大的，因为我们会重复的计算很多值（还记得斐波那契数列的计算？），稍微快一点的方法是直接列出二维表，从头开始计算，这样对于计算过的值可以直接使用，不过效率依然不会很高。笔者暂时还没有发现通项公式或者更快的计算方法，如果有牛人知道，还望不吝赐教！
+
+
+
+
+1.setcookie('a','value');print $_COOKIE['a'];输出结果是啥?
+
+答：value  第一次访问为空！第二次访问$_COOKIE['a']已经被赋值完输出value！
+
+----------------------------------------
+
+2.
+
+try {
+
+    require_once "aaa";
+
+    print "aaa";
+
+} catch (Exception $e) {
+
+    echo 'dddd';
+
+}
+
+结果是啥?
+
+答：没有输出。程序退出。
+
+如果修改为：
+
+try {
+
+    include_once "aaa";
+
+    print "aaa";
+
+} catch (Exception $e) {
+
+    echo 'dddd';
+
+}
+
+则输出aaa
+
+或者修改为：
+
+try {
+
+    if(!include_once "aaa") {
+
+    throw new Exception;
+
+    }
+
+    print "aaa";
+
+} catch (Exception $e) {
+
+    echo 'dddd';
+
+}
+
+则输出dddd
+
+
+
+本人测试,原题的代码输出就是aaa 或者aaa文件不存在时报警告信息
+
+------------------------------
+
+3.
+
+用JS实现trim函数
+
+答：虽然javascript中没有trim()函数，但是可以使用正则表达式实现trim()函数的功能。
+
+<script type="text/javascript">
+
+String.prototype.trim = function() {
+
+   var reg = /^\s*(.*?)\s*$/;
+
+   return this.replace(reg,"$1");
+
+}
+
+function Testtrim() {
+
+   var TestStr = " yingfm ";
+
+   alert("("+TestStr.trim()+")");
+
+}
+
+Testtrim();
+
+</script>
+
+------------------------------
+
+4.
+
+<script src="1.js" >alert(1);</script>
+
+输出啥?
+
+答：本人觉得应该输出1.js中输出的内容
+
+------------------------------
+
+5.
+
+<script type="text/javascript">alert(["a","b","c","d","e"][[1,2],3,4]);</script>
+
+输出啥?
+
+答：e       经测试，确实输出e,看看alert(["a","b","c","d","e"][4,3,2])的输出是什么
+
+------------------------------
+
+6.
+
+类似这样的aaa<em>sss</em>ddd字符串，写个函数CutStr($str,$max)实现截取：
+
+1)如果$max大于$str的长度则返回$str
+
+2)<em>和</em>不包含在长度计算范围。
+
+例:
+
+如果CutStr("aaa<em>sss</em>ddd",6) 则返回aaa<em>sss</em>.
+
+如果CutStr("aaa<em>sss</em>ddd",4) 则返回aaas，不包含<em>标签
+
+function CutStr($str,$max){
+    $str_o=$str;
+    $str=str_replace("<em>",'',$str);
+    $str=str_replace("</em>",'',$str);
+    #strlen($str)
+    $empos=strpos($str_o,"<em>");
+
+    $endempos=strpos($str_o,"</em>");
+    //echo $endempos,$empos;
+    if($max>=strlen($str)){
+        return $str_o;
+    } else{
+        if($max>$empos){
+            $gap=abs($endempos-$empos-4);
+            if($max-$empos<$gap){
+                return substr($str,0,$max);
+            } else{
+                return substr($str_o,0,$max+9);
+            }
+
+        } else{
+            return substr($str_o,0,$max);
+        }
+    }
+    echo $str;
+}
+
+
+------------------------------
+
+7. 
+
+不使用php内置函数实现数组排序，如果value相等，比较key的值。例: array("d" => 100,"c" => 22, "a" => 22);
+
+答：
+
+简单排序：
+
+<?php
+
+$data = array(5,8,1,7,2);
+
+sort($data);//从低到高排序
+
+print_r($data);
+
+rsort($data);//从高到低排序
+
+?>
+
+输出：
+
+Array ( [0] => 1 [1] => 2 [2] => 5 [3] => 7 [4] => 8 ) 
+
+Array ( [0] => 8 [1] => 7 [2] => 5 [3] => 2 [4] => 1 ) 
+
+根据关键字排序：
+
+<?php
+
+$data = array("US"=>"United States","IN"=>"India","DE"=>"Germany","ES"=>
+
+"Spain");
+
+ksort($data);//它的相反排序函数krsort()
+
+print_r($data);
+
+?>
+
+输出：
+
+Array ( [DE] => Germany [ES] => Spain [IN] => India [US] => United States )
+
+根据值排序：使用asort()代替ksort()就可以。它的相反排序arsort()
+
+Array ( [DE] => Germany [IN] => India [ES] => Spain [US] => United States ) 
+
+自然语言排序： natsort(),对它的相反操作可以使用array_reverse()
+
+<?php
+
+$data = array("book-1","book-10","book-100","book-5");
+
+sort($data);
+
+print_r($data);
+
+natsort($data);
+
+print_r($data);
+
+?>
+
+输出结果：
+
+Array ( [0] => book-1 [1] => book-10 [2] => book-100 [3] => book-5 ) 
+
+Array ( [0] => book-1 [3] => book-5 [1] => book-10 [2] => book-100 )
+
+根据用户自己定义的规则排序：
+
+<?php 
+
+function sortByLen($a, $b) {
+
+if (strlen($a) == strlen($b)) {
+
+   return 0;
+
+} else {
+
+   return (strlen($a) > strlen($b)) ? 1 : -1;
+
+}
+
+}
+
+$data = array("joe@", "@", "asmithsonian@", "jay@");
+
+usort($data, 'sortByLen');
+
+print_r($data); 
+
+?>
+
+多维排序：
+
+<?php 
+
+$data = array(array("id" => 1, "name" => "Boney M", "rating" => 3),
+
+array("id" => 2, "name" => "Take That", "rating" => 1),
+
+array("id" => 3, "name" => "The Killers", "rating" => 4),
+
+array("id" => 4, "name" => "Lusain", "rating" => 3)
+
+); 
+
+foreach ($data as $key => $value) {
+
+$name[$key] = $value['name'];
+
+$rating[$key] = $value['rating'];
+
+}
+
+array_multisort($rating, $name, $data); 
+
+print_r($data);
+
+?>
+
+------------------------------
+
+8.
+
+数据库中有两个字段 id, sorce.假设sorce的取值范围是 5-10.
+
+按照以下概率实现sorce数据的更新。
+
+5(25%) => 6 5(25%) => 7
+
+6(20%) => 7 
+
+7(25%) => 8 7(25%) => 6
+
+8(10%) => 6 8(25%) => 9
+
+9(15%) => 8 9(20%) => 10
+
+10(25%) => 9
+
+要求考虑性能及扩展性。写出概率分布相关代码。
+
+------------------------------
+
+9.
+
+设计一个缓存系统。写出思路。画出图。考虑命中，生存期等多种要素。
+
+答：可以参考memcached
+
+小弟不才，违背了题目“除了循环变量外 不能用额外的变量”的条件，不知道怎样改进，希望各位高手来指点指点，谢谢先！　　代码：     　　运行结果：         

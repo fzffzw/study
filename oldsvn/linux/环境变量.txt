@@ -1,0 +1,6 @@
+﻿环境变量路径
+/etc/profile
+/etc/profile.d/*.sh
+~/.bash_profile
+~/.bashrc
+/etc/bashrc

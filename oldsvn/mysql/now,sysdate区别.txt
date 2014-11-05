@@ -1,0 +1,12 @@
+select now();
+select SYSDATE();
+select CURRENT_DATE();
+select CURDATE();
+select now(),sleep(2),now();
+select sysdate(),sleep(2),sysdate();  
+select now(),sysdate(),curdate(),curtime(),unix_timestamp()
+
+SELECT now(), now()+0, sysdate(), sysdate()+0;
+
+
+select now(),sleep(2),SYSDATE(),sleep(1),now();

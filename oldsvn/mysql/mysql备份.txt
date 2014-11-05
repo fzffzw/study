@@ -1,0 +1,10 @@
+备份
+cd /tmp
+mkdir gmbak
+chown mysql:mysql gmbak
+mysqldump -u root -p --tab=/tmp/gmbak gm
+恢复
+cd /tmp
+cat gmbak/*.sql | grep mysql -uroot -p gm           //恢复表结构
+mysqlimport -uroot -p gm gmbak/*.txt --local        //恢复数据
+上例中gm 是db name

@@ -1,0 +1,5 @@
+#!/bin/sh
+export LANG=zh_CN.UTF-8
+SVN=/usr/bin/svn
+WEB=/var/www/html/cargotms
+svn update --username resync --password cargosync --no-auth-cache /var/www/html/cargotms

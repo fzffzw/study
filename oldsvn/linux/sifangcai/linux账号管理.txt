@@ -1,0 +1,100 @@
+﻿ UID、GID、SUID与SGID：
+ passwd 的构造
+ 例如：root:x:0:0:root:/root:/bin/bash共分为以下几个部分
+ 
+   1. 账号名称：就是账号名称啦！对应 UID 用的！例如 root 就是预设的系统管理员的账号名称；
+      　
+   2. 密码：早期的 Unix 系统的密码是放在这个档案中的，不过由于这样一来很容易造成数据的被窃取，
+   	所以后来就将数据给他改放到 /etc/shadow 中了，这一部份等一下再说，而这里你会看到一个 x 
+   	，呵呵！别担心密码已经被移动到 shadow 这个加密过后的档案啰；
+      　
+   3. UID：这个就是使用者识别码（ID）啰！通常 Linux 对于 UID 有几个限制需要说给您了解一下：
+          * 0 系统管理员，所以当你要作另一个系统管理员账号时，你可以将该账号的 UID 改成 0 即可；
+          * 1~500 保留给系统使用的ID，其实 1~65534 之间的账号并没有不同，
+          	也就是除了 0 之外，其它的 UID 并没有不一样，预设 500 以下给系统作为保留账号只是一个习惯。这样的好处是，以 named 为例，这个程序的预设所有人 named 的账号 UID 是 25 ，当有其它的账号同样是 25 时，很可能会造成系统的一些小问题！为了杜绝这样的问题，建议保留 500 以前的 UID 给系统吧！
+          * 500~65535 给一般使用者用的！ 
+      上面这样说明可以了解了吗？是的， UID 为 0 的时候，就是 root 呦！
+      所以请特别留意一下你的 /etc/passwd 档案！
+      　
+   4. GID：这个与 /etc/group 有关！其实 /etc/group 的观念与 /etc/passwd 差不多，
+   	只是他是用来规范 group 的而已！
+      　
+   5. 说明：这个字段基本上并没有什么用途，只是用来解释这个账号的意义而已！
+   	不过，如果您提供使用 finger 的功能时，这个字段可以提供很多的讯息呢！
+   	底下的 chfn 可以解释一下啰！
+      　
+   6. 家目录：这是使用者的家目录，以上面为例， root 的家目录在 /root ，
+   	所以当 root 登入之后，马上在的所在就是 /root 里头啦！
+   	呵呵！如果你有个账号的使用空间特别的大，你想要将该账号的家目录移动到其它的硬盘去，
+   	没有错！可以在这里进行修改呦！预设的使用者家目录在 /home/yourIDname
+      　
+   7. Shell ：所谓的 shell 是用来沟通人类下达的指令与硬件之间真正动作的界面！
+	   我们通常使用 /bin/bash 这个 shell 来进行指令的下达！
+   	关于 shell 的用法我们会在后面再提及的！这里比较需要注意的是，
+   	有一个 shell 可以用来替代成让账号无法登入的指令！那就是 /bin/false 这个东西！
+   	这也可以用来制作纯 pop 邮件账号者的数据呢！ 
+
+
+useradd [-u UID] [-g GID] [-d HOME] [-mM] [-s shell] username
+参数说明：
+-u   ：直接给予一个 UID
+-g   ：直接给予一个 GID （此 GID 必须已经存在于 /etc/group 当中）
+-d   ：直接将他的家目录指向已经存在的目录（系统不会再建立）
+-M   ：不建立家目录
+-s   ：定义其使用的 shell 
+
+这个指令能够变更的档案可多了！包括了底下的各个档案：
+    * /etc/passwd
+    * /etc/shadow
+    * /etc/group
+    * /etc/gshadow
+    * /etc/skel
+    * /etc/default/useradd
+    * /etc/login.defs 
+
+
+/etc/login.defs 与 /etc/default/useradd 这两个档案中 是预设账户的设置
+
+
+# chsh 
+1 我想知道我机器安装了哪些shell？
+两种方法可以查看：
+
+第一种：
+
+[rocrocket@linuxso.com ~]$ chsh -l
+/bin/sh
+/bin/bash
+/sbin/nologin
+/bin/zsh
+
+第二种：
+
+[rocrocket@linuxso.com ~]$ cat /etc/shells
+/bin/sh
+/bin/bash
+/sbin/nologin
+/bin/zsh
+
+2 我想知道我当前正在使用的shell是哪个阿？
+
+ chsh -s /bin/zsh 修改shell
+
+[rocrocket@linuxso.com ~]$ echo $SHELL
+/bin/bash
+
+cat /etc/passwd|grep ^mysql
+
+这是用来改变使用者自己的 shell 的指令！要注意呦，由于这个档案能够改变 /etc/passwd 的内容，
+所以他的预设属性就有 SUID 的属性了！
+通常 VBird 也都不会使用这个指令，因为直接改 /etc/passwd 就可以啦！
+
+
+chfn 
+修改finger信息 修改的文件时/etc/passwd
+
+userconf 
+
+
+
+

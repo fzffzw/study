@@ -1,0 +1,270 @@
+http://www.ooso.net/archives/522 在生产环境中使用php性能测试工具xhprof
+
+
+http://www.yuansir-web.com/category/web-front-design/
+
+
+太水了，都是照书上读的,呵呵，mysql优化无非就是分表，结构设计，索引的设计
+
+http://www.phppan.com/category/pm/
+http://www.php-internal.com/downloads/
+
+http://sourceforge.net
+http://www.54chen.com
+
+http://yanbin.org/
+
+ice中间件
+PHPRPC NuSOAP与PHPRPC比较
+
+http://www.phpwebgo.com/article/class/id/13/
+
+http://www.oschina.net/news/24456/open-source-php-projects-2011
+
+nosql memcache区别
+
+
+nosql php 链接 nosql视频学习
+
+http://crodas.org/slides/2010/PHPConf/NoSQL/#slide50
+
+http://timyang.net/
+
+http://www.iteye.com/news/23691
+
+http://www.iteye.com/topic/1118899
+
+http://blog.csdn.net/baiduforum/article/details/7070198
+
+http://www.nhs8.com/tech/18185.html
+
+http://www.oschina.net/news/24339/strangest-language-feature
+http://www.gsm8.cn/bbs/forum.php
+
+
+ibm php试题(搜索) http://www.phperz.com/browse/life/020GO020091790.htmlhttp://wenku.baidu.com/view/b3d071244b35eefdc8d33306.html
+
+http://www.iteye.com/topic/1120476 (云桌面)
+
+
+ERwin （数据库建模）
+
+
+mysql master-master master-slave区别应用
+http://blog.xiuwz.com/2012/01/10/talk-nginx-with-http/
+
+http://www.cnblogs.com/jackyrong/archive/2008/03/29/1129212.html
+
+http://www.taobaodba.com/html/tag/innotop
+
+大规模Web服务开发技术 书
+mysql js面试
+http://www.uml.net.cn
+
+
+http://www.techinterviews.com/?s=php&searchsubmit=Search
+
+http://www.pztai.com/index.php
+
+Ocean base
+
+精通CSS,DIV+CSS 别具风格 pdf
+
+Goagent
+
+防盗链 淘宝技术团队
+
+
+
+
+
+
+
+
+聚集索引 聚簇索引
+
+
+http://www.cnblogs.com/hustcat/archive/2009/10/28/1591648.html
+
+
+http://oneoo.com/
+
+
+http://www.ccvita.com
+
+
+http://www.blags.org/php-sphinxapi-use-method/comment-page-1/
+
+http://blog.s135.com (高性能相关网站)
+
+http://code.google.com/p/httpcws/
+
+http://www.mysqlops.com （mysql源码及优化相关）
+
+http://www.open-open.com/home/space-2869-do-blog-id-5489.html (mysql松散索引)
+
+lucene php 
+
+
+http://www.sphinxsearch.org/archives/17
+
+
+http://www.rocing.cn/category-8-1.html
+
+http://www.cnblogs.com/picaso/category/301439.html
+
+php 算法 （搜索）
+
+http://7567567.blog.51cto.com/706378/d-1 （技术相关 mysql主从）
+
+
+http://www.oschina.net/news/27272/google-interview-strange-questions (google面试)
+
+Sqoop 成为 Apache 顶级项目
+
+http://www.fuchaoqun.com/2008/11/sphinx-on-windows-xp/
+
+http://www.fuchaoqun.com/2008/11/sphinx-on-windows-xp/ sphinx 配置
+
+
+http://www.blogjava.net/dongbule/archive/2010/08/22/329602.html  mysql主从
+http://2526575.blog.51cto.com/2516575/689199  mysql主从
+
+http://blog.csdn.net/jtlyuan/article/details/7435857 tencent面试
+
+
+http://c.chinaitlab.com/special/cpxsf/index.html
+http://www.cnblogs.com/kkun/archive/2011/11/23/2260312.html
+
+http://www.cnblogs.com/python27/archive/2012/04/09/2438614.html tencent题目
+
+http://www.sziwap.com/ 高性能php
+
+http://www.uml.org.cn
+
+http://www.ooso.net
+
+
+
+
+
+（中文分词） 排序
+
+
+
+http://www.iteye.com/topic/1119694
+
+https://github.com/zzdhidden/12306/blob/master/login.jpg
+
+
+http://cdc.tencent.com/
+
+http://www.hemono.com/?m=201110
+
+
+http://www.oschina.net/news/25225/10-fresh-jquery-plugins-january-2012 (jquery插件)
+
+
+
+scriptish
+
+03cyqaaabdCbiiAfhfheaahFaagbaaaEaahDaafBaaebaadaaaejaafeaaeCaaegaaafaaaiaaaBaahAaaab
+
+cyq19890
+
+
+
+http://coolshell.cn/articles/4951.html 技术文章
+http://highscalability.com/blog/2011/8/8/tagged-architecture-scaling-to-100-million-users-1000-server.html 高性能网站
+http://jobs.freelanceswitch.com/jobs/19652
+http://coolshell.cn/tag/php
+
+
+http://bbs.phpchina.com/forum.php?mod=viewthread&tid=89290 php题目
+
+
+http://hi.baidu.com/mozhihuidage/blog/item/b17ebb8bd4185b739f2fb43e.html mysql group by
+
+数学之美 书
+
+
+
+http://www.php100.com/html/itnews/it/2012/0724/10731.html phpexcel
+
+http://www.onexin.net
+
+
+http://www.cnblogs.com/phphuaibei/archive/2011/09/04/2166628.html
+
+http://www.phpddt.com/php/421.html php算法
+
+http://blog.csdn.net/ibmfahsion/article/details/7785122 php安装phpunit
+
+
+
+fiddler2 ie bug tool 
+
+
+
+
+http://www.phpddt.com/tag/php%E9%9D%A2%E8%AF%95%E9%A2%98/ 
+
+http://huoding.com/
+http://hi.baidu.com/thinkinginlamp/blog/item/31690cd7c4bc5cdaa144df9c.html
+
+http://mysql.taobao.org/index.php/MySQL%E5%B9%B3%E5%8F%B0%E5%8C%96 淘宝mysql
+
+
+http://www.phpv.net/html/1521.html php技术文章
+
+
+深入理解MySQL核心技术 (下载这本书)
+
+http://blog.s135.com/nginx_php_v6/ fastcgi 安装
+
+
+http://imcat.in/teach-you-step-by-step-install-nginx-php-mysql/ 安装mysql php nginx code
+
+
+http://www.ha97.com/category/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E6%9E%84
+
+数学之美 书
+
+http://simpleframework.net/blog/v/125421.html
+
+http://zhb1208.iteye.com/blog/796576  防止重复提交
+
+
+http://ishare.iask.sina.com.cn/f/7269343.html 构建高性能web
+
+http://ourmysql.com/archives/category/optimize mysql优化
+
+http://www.yindaoxian.com/html/program/MySQL-19126.html mysql优化
+
+http://www.cellphp.com/ 技术文章
+
+http://bbs.phpchina.com/forum.php?mod=viewthread&tid=238813 百度
+
+http://zhaogege.com/cat/tech/php 技术文章
+
+
+http://www.cnblogs.com/leadzen/archive/2008/02/25/1073404.html javascript真经
+
+http://www.cnblogs.com/leadzen/archive/2008/02/25/1073404.html
+
+http://www.phpv.net php5研究
+
+
+http://www.liubonan.com/articles/397.html linux练习
+
+
+
+
+
+
+http://www.blogguy.cn/show-768-1.html
+
+
+cmake
+
+http://hi.baidu.com/jiaozhu/item/9c67381405ccdc721109b529

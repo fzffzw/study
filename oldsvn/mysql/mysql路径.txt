@@ -1,0 +1,11 @@
+locate my.cnf;
+find / -name
+
+mysql --help | grep my.cnf
+
+登录mysql进行如下命令
+show global variables;
+
+
+
+ps -au | grep mysqld

@@ -1,0 +1,73 @@
+http://sndapk.blog.51cto.com/5385144/964289
+
+1. 首先点击HP官方下载LoadRunner地址
+
+
+配置rstatd使用LoadRunner监控Linux系统资源
+2012-08-15 17:04:17
+标签：配置rstatd LoadRunner Linux 系统资源
+1。首先查看rpc.rstatd是否安装：
+
+[root@localhost bin]# whereis rpc.rstatd
+
+2。在Linux系统中安装rpc.rstatd：
+
+1）下载rpc.rstatd-4.0.1.tar.gz安装包。下载地址：http://sourceforge.net/projects/rstatd
+
+2） 执行安装程序包：
+
+tar -zxvf  rpc.rstatd-4.0.1.tar.gz
+
+cd  rpc.rstatd-4.0.1
+
+./configure
+
+make
+
+make install
+
+ 
+
+3）重启xinetd
+
+       /etc/init.d/xinetd restart
+5）启动rpc.rstatd和检测
+
+  rpc.rstatd                //启动rpc.rstatd进程
+
+  rpcinfo -p              // 执行此命令检查rpc服务的状态
+ 简单配置完成，locadrunner 可以正常监控
+注：本次没有使用rsh服务，没有以下的三个文件，关闭了防火墙，，任何主机都可以测试，不安全！所以要做好控制访问，线上服务器使用完及时关掉此服务，内网可以使用此简单配置。
+ 
+
+-----------------------------------------------------------------------
+ 
+【不同版本的Linux，可能同时也要保证portmap 服务也已开启：/etc/rc.d/init.d/portmap start  】
+
+4）修改etc/xinetd.d目录下面的3个conf (rlogin, rsh, rexec)中的disable置均设置为no
+
+cd /etc/xinetd.d   //进入到etc/xinetd.conf目录中 
+
+Vi    rlogin //编辑disable=no，保存
+
+Vi    rsh    // 编辑disable=no，保存
+
+Vi    rexec //编辑disable=no，保存
+
+【不同版本的Linux，可能不需要修改以上文件】
+
+
+     
+
+ 
+
+     [root@localhost xinetd.d]# rpcinfo -p
+     程序版本协议   端口
+    100000    2   tcp    111  portmapper
+    100000    2   udp    111  portmapper
+    100024    1   udp  32768  status
+    100024    1   tcp  32769  status
+    100001    5   udp    867  rstatd
+    100001    3   udp    867  rstatd
+    100001    2   udp    867  rstatd
+    100001    1   udp    867  rstatd

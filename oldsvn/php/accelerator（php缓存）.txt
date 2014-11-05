@@ -1,0 +1,98 @@
+﻿400 0 0
+300
+
+
+300 
+300
+
+
+./configure \
+  --enable-shared \
+  --with-php-config=$PHP_PREFIX/bin/php-config
+
+/etc/httpd/conf.d/php.conf
+
+./configure \
+  --enable-shared \
+  --with-php-config=/etc/httpd/conf.d/php.conf
+
+
+
+   export PHP_PREFIX="/usr"
+ 1015  $PHP_PREFIX/bin/phpize
+ 1016  ./configure   --enable-shared   --with-php-config=$PHP_PREFIX/bin/php-config
+ 1017  make
+ 1018  make test
+ 1019  make install
+ 1020  find / -name eaccelerator
+ 1021  chmod 0777 /tmp/eaccelerator
+
+
+
+myoms.cargo.com/merchant/ftp/create-order
+
+
+
+alter table product add index sku_customerCode (product_sku,customer_code);
+
+
+
+select * from product where customer_code='E0135';
+
+
+select * from orders where customer_code ='e0135';
+
+select CONCAT('E0135',SUBSTR(product_barcode,6)),product_id,product_sku,product_barcode,customer_code from product where customer_code='e0135';
+
+
+select CONCAT('E0135',SUBSTR(product_barcode,5)) from product;
+
+update product set product_barcode = CONCAT('E0135',SUBSTR(product_barcode,6)) where  customer_code='e0135' and product_barcode not like '%e0135';
+
+
+select * from hs_element_map;
+
+
+show PROCESSLIST; 
+
+select * from hs_element;
+
+#alter table product add index sku_customerCode (product_sku,customer_code);
+
+
+
+hs_code	8471414000
+product_id	21475
+
+alter table orders add index reference_no (reference_no);
+
+alter table orders add index order_status (order_status);
+
+alter table orders add index customer_id (customer_id);
+
+alter table orders add index customer_code (customer_code);
+
+
+
+SOE01351308030038158
+
+
+
+1 requests  ❘  816 B transferred
+10
+/receiving/putaway-detail/location/page/1/pageSize
+129 ms1 ms
+
+
+
+
+SELECT count(*), `inventory_batch`.`product_id`, `inventory_batch`.`product_barcode` FROM `location`
+ LEFT JOIN `inventory_batch` ON inventory_batch.lc_code=location.lc_code and inventory_batch.warehouse_id=location.warehouse_id
+ LEFT JOIN `warehouse_area` ON warehouse_area.wa_code=location.wa_code WHERE (1 =1) AND (location.warehouse_id = '1') AND (inventory_batch.lc_code is null ) OR (product_id = '127126')
+
+
+hp load runer
+apache-jmeter-2.9
+
+1. 首先点击HP官方下载LoadRunner地址
+

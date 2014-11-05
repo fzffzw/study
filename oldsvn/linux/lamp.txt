@@ -1,0 +1,1240 @@
+apache->mysql->php5, 正如楼上所说, apache一定是最先安装的..
+
+用vi编辑器打开/etc/sysconfig/目录下的i18n文件，命令如下： 
+[root@localhost ~]# vi /etc/sysconfig/i18n 
+LANG=”zh_CN.GB18030″
+
+
+http://hi.baidu.com/jiaozhu/item/9c67381405ccdc721109b529
+
+tar zxvf mysql5.1.42.tar.gz
+
+
+
+
+
+
+
+源码安装mysql
+
+1) 安装gcc
+接下来安装步骤如下：  
+
+   rpm -ivh cpp-4.1.2-48.el5.i386.rpm 回车
+   rpm -ivh kernel-headers-2.6.18-194.el5.i386.rpm 回车
+   rpm -ivh glibc-headers-2.5-49.i386.rpm    回车
+   rpm -ivh glibc-devel-2.5-49.i386.rpm     回车
+   rpm -ivh libgomp-4.4.0-6.el5.i386.rpm 回车
+   rpm -ivh gcc-4.1.2-48.el5.i386.rpm
+   rpm -ivh gcc-c++-4.1.2-48.el5.i386.rpm   回车 
+
+g++：
+
+安装步骤如下：
+   rpm -ivh libstdc++-devel-4.1.2-48.el5.i386.rpm
+   rpm -ihv gcc-c++-4.1.2-48.el5.i386.rpm
+
+安装完成后 用 rpm -qa | grep gcc 检查安装包
+
+
+也可以：
+
+如果可以上网用  yum install gcc
+如果不能上网 rpm -i gcc 安装提示依次安装所有依赖包，记得挂载光盘先
+
+
+
+对于新手来说直接复制如果会出错那一定是版本不一样，或者升级过。
+
+没关系，可以进行目录后，用 LS -A | GREP CPP 
+
+查看对应的版本号。修改上面的包即可。
+
+
+
+2）安装cmake 安装
+yum install cmake
+
+下载源代码http://www.cmake.org/cmake/resources/software.html
+如果还没有安装CMake，源码树中提供了一个 bootstrap 脚本：
+./bootstrap
+make
+make install
+
+
+5.#安装MySQL 5.5.25a
+a:)添加mysql用户组
+/usr/sbin/groupadd mysql  
+/usr/sbin/useradd -g mysql mysql 
+b:)开始安装
+tar xvf mysql-5.5.25a.tar.gz
+cd  mysql-5.5.25a/  
+
+mkdir /usr/local/mysql 
+
+
+cmake -DCMAKE_INSTALL_PREFIX=/opt/mysql \
+-DDEFAULT_CHARSET=utf8 \
+-DDEFAULT_COLLATION=utf8_general_ci \
+-DWITH_EXTRA_CHARSETS:STRING=utf8,gbk \
+-DWITH_MYISAM_STORAGE_ENGINE=1 \
+-DWITH_INNOBASE_STORAGE_ENGINE=1 \
+-DWITH_MEMORY_STORAGE_ENGINE=1 \
+-DWITH_READLINE=1 \
+-DENABLED_LOCAL_INFILE=1 \
+-DMYSQL_USER=mysql
+
+
+cmake . \
+-DCMAKE_INSTALL_PREFIX=/usr/local/mysql5.5.9/ \
+-DMYSQL_DATADIR=/usr/local/mysql5.5.9/data \
+-DWITH_INNOBASE_STORAGE_ENGINE=1 \
+-DMYSQL_TCP_PORT=3306 \
+-DMYSQL_UNIX_ADDR=/usr/local/mysql5.5.9/data/mysql.sock \
+-DMYSQL_USER=mysql \
+-DWITH_DEBUG=0
+
+cmake .
+
+
+make  
+make install
+
+编译出现以下错误
+ Curses library not found
+
+利用
+yum -y install ncurses-devel
+http://space.itpub.net/8183550/viewspace-682189 提供解决方案
+
+CMake Error: CMAKE_CXX_COMPILER not set
+install gcc-c++
+
+
+6.#安装告一段落,设置运行目录权限
+mkdir /usr/local/mysql  
+chmod +w /usr/local/mysql  
+chown -R mysql:mysql /usr/local/mysql  
+mkdir -p /var/mysql/  
+mkdir -p /var/mysql/data/  
+mkdir -p /var/mysql/log/  
+chown -R mysql:mysql /var/mysql/  
+
+cd support-files/  
+cp my-large.cnf /var/mysql/my.cnf  
+cp mysql.server /etc/init.d/mysqld  
+ 
+/usr/local/mysql/scripts/mysql_install_db \  
+--defaults-file=/var/mysql/my.cnf \  
+--basedir=/usr/local/mysql \  
+--datadir=/var/mysql/data \  
+--user=mysql  
+
+
+/opt/mysql/scripts/mysql_install_db --defaults-file=/var/mysql/3306/my.cnf --basedir=/opt/mysql --datadir=/var/mysql/3306/data --user=mysql
+
+/opt/mysql/bin/mysqld_safe --defaults-file=/var/mysql/3306/my.cnf
+
+/opt/mysql/bin/mysqld --defaults-file=/var/mysql/3306/my.cnf --basedir=/opt/mysql --datadir=/var/mysql/3306/data --plugin-dir=/opt/mysql/lib/plugin --user=mysql --log-error=/var/mysql/3306/log/mysqld.log --pid-file=/var/mysql/3306/log/mysqld.pid --socket=/var/mysql/3306/log/mysql.sock --port=3306
+
+
+/opt/mysql/bin/mysqladmin  --socket=/var/mysql/3306/log/mysql.sock -u root password 123456
+  --socket=/var/mysql/3306/log/mysql.sock -uroot
+
+
+ln -s /var/mysql/3306/log/mysql.sock /tmp/mysql.sock
+
+
+
+
+/opt/mysql
+
+7.为root帐户设置初始密码
+/usr/local/mysql/bin/mysqladmin -u root -h 'localhost' password '你的密码'
+
+chmod +x /etc/init.d/mysqld  
+/etc/init.d/mysqld start  
+
+
+/opt/mysql/bin/mysqld --defaults-file=/var/mysql/3306/my.cnf --basedir=/opt/mysql --datadir=/var/mysql/3306/data --plugin-dir=/opt/mysql/lib/plugin --user=mysql --log-error=/var/mysql/3306/log/mysqld.log --pid-file=/var/mysql/3306/log/mysqld.pid --socket=/var/mysql/3306/log/mysql.sock --port=3306
+
+
+# mysql 将被安装在 /usr/local/mysql/ 目录下  
+# mysql 默认安装使用 utf8 字符集  
+# mysql 的数据文件保存在 /var/mysql/ 对应目录下  
+# mysql 的配置文件保存于/var/mysql/my.cnf 
+
+
+
+返回上次目录 用cd -
+删掉这个文件在重新做下
+delete CMakeCache.txt 
+
+请看以下错误
+警告：类型双关作用在不完全类型上可能破坏强重叠规则 
+
+/usr/local/src/mysql-5.5.25a/sql/sql_view.cc:1635: 警告：提领类型双关的指针将破坏强重叠规则
+
+php 安装
+Centos 5.3安装PHP 5.2.9  
+
+PHP( Vserion: 5. 2.9 ) ===安装gd库成功与否，与下面的安装顺序有一定的关系
+1. 安装libpng、libxml、jpeg 、freeType、GD
+① (Version: libpng 1.2.39) #gd库的png支持
+1.1    Wget http://prdownloads.sourceforge.net/libpng/libpng-1.2.39.tar.gz
+1.2     tar -jxvf libpng-1.2.39.tar.bz2
+1.3     cd libpng-1.2.39
+1.4     ./configure --prefix=/usr/
+1.5     make && make install
+         和(Version: Zlib 1.2.3)  ==后加
+             wget  http://www.imagemagick.org/download/delegates/zlib-1.2.3.tar.gz
+ tar -zxvf zlib-1.2.3.tar.gz
+cd zlib-1.2.3
+./configure --prefix=/usr/local/zlib
+make
+make install
+ 
+② (Version: libxml 2.7.2 ) #libxml2支持，php依赖需要它
+1.1    wget http://m2sc.googlecode.com/files/libxml2-2.7.2.tar.gz
+1.2    tar -zxvf libxml2-2.7.2.tar.gz
+1.3    cd libxml2-2.7.2
+1.4    ./configure --prefix=/usr/
+1.5 make && make install
+ 
+③ (Version: jpegsrc ) #phpmyadmin支持
+1.1    wget ftp://ftp.aai.ee/pub/unix/jpegsrc.v6b.tar.gz
+1.2    tar -zxvf jpegsrc.v6b.tar.gz
+1.3    cd jpeg-6b
+1.4    mkdir -p /usr/local/jpeg
+mkdir -p /usr/local/jpeg/bin
+mkdir -p /usr/local/jpeg/lib
+mkdir -p /usr/local/jpeg/include
+mkdir -p /usr/local/jpeg/man
+mkdir -p /usr/local/jpeg/man1
+mkdir -p /usr/local/jpeg/man/man1
+1.5    ./configure --prefix=/usr/local/jpeg/ --enable-shared -enable-static
+1.6    make && make install
+1.7    cd /usr/lib/
+1.8    ln -sf libjpeg.so.62.0.0 libjpeg.so
+ 
+  ④ (Version: freetype2.3.8 )
+             1.1 wget
+ http://downloads.sourceforge.net/freetype/freetype-2.3.8.tar.bz2
+             1.2 tar -jxvf freetype-2.3.8.tar.bz2
+             1.3 cd  freetype-2.3.8
+             1.4 ./configure  --prefix=/usr/local/freetype/
+             1.5  make
+             1.6  make  install
+ 
+⑤ (Version: gd 2.0.35 ) #php的gd库支持
+1.1       wget http://www.libgd.org/releases/gd-2.0.35.tar.gz
+1.2       tar -zxvf gd-2.0.35.tar.gz
+1.3       cd gd-2.0.35
+1.4       ./configure --prefix=/usr/local/libgd --with-jpeg=/usr/local/jpeg --with-freetype=/usr/local/freetype
+1.5       make
+1.6       make install
+ 
+ 
+2. 安装PHP 5.2.9（FastCGI模式）
+2. 1、编译安装PHP 5.2.9所需的支持库：
+    ① (Version: libiconv-1.13.1)
+        1.1 wget http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.13.1.tar.gz
+1.2 tar -zxvf libiconv-1.13.1.tar.gz
+1.3 cd libiconv-1.13.1/
+1.4. ./configure --prefix=/usr/local/libiconv
+1.5  make
+1.6  make install
+ 
+         ② (Version: libmcrypt 2.5.8 )
+  1.1 wget
+http://downloads.sourceforge.net/mcrypt/libmcrypt-2.5.8.tar.gz
+          1.2 tar -zxvf libmcrypt-2.5.8.tar.gz
+          1.3 cd libmcrypt-2.5.8/
+          1.4 ./configure
+          1.5  make
+          1.6  make install
+          1.7  /sbin/ldconfig
+          1.8  cd libltdl/
+          1.9  ./configure --prefix=/usr/local/libmcrypt --enable-ltdl-install
+          2.0  make
+          2.1  make install
+         
+         ③ (Version: mhash 0.9.9.9 )
+1.1 wget http://downloads.sourceforge.net/mhash/mhash-0.9.9.9.tar.gz
+1.2 tar -zxvf mhash-0.9.9.9.tar.gz
+1.3 cd mhash-0.9.9.9/
+1.4 ./configure
+1.5 make
+1.6 make install
+1.7 增加软连接:
+ln -s /usr/local/lib/libmcrypt.la /usr/lib/libmcrypt.la
+ln -s /usr/local/lib/libmcrypt.so /usr/lib/libmcrypt.so
+ln -s /usr/local/lib/libmcrypt.so.4 /usr/lib/libmcrypt.so.4
+ln -s /usr/local/lib/libmcrypt.so.4.4.8 /usr/lib/libmcrypt.so.4.4.8
+ln -s /usr/local/lib/libmhash.a /usr/lib/libmhash.a
+ln -s /usr/local/lib/libmhash.la /usr/lib/libmhash.la
+ln -s /usr/local/lib/libmhash.so /usr/lib/libmhash.so
+ln -s /usr/local/lib/libmhash.so.2 /usr/lib/libmhash.so.2
+ln -s /usr/local/lib/libmhash.so.2.0.1 /usr/lib/libmhash.so.2.0.1
+ 
+         ④ (Version: mcrypt 2.6.8 )
+          1.1 wget http://downloads.sourceforge.net/mcrypt/mcrypt-2.6.8.tar.gz
+1.2 tar -zxvf mcrypt-2.6.8.tar.gz
+1.3 cd mcrypt-2.6.8/
+1.4 /sbin/ldconfig
+1.5 ./configure
+1.6 make
+1.7 make install
+ 
+3、编译安装PHP5.2.9（FastCGI模式）
+⑩  配置PHP 5.2.9
+1.1 wget  hhttp://museum.php.net/php5/php-5.2.9.tar.gz
+1.2  tar -zvxf  php-5.2.9.tar.gz
+1.3  cd  php-5.2.9
+1.4 ./configure --prefix=/usr/local/php --with-apxs2=/usr/local/apache2/bin/apxs --with-mysql=/usr/local/mysql --with-mcrypt=/usr/local/libmcrypt --with-gd=/usr/local/libgd --enable-gd-native-ttf --with-ttf --enable-gd-jis-conv --with-freetype-dir=/usr/local/freetype --with-jpeg-dir=/usr/local/jpeg --with-iconv=/usr/local/libiconv --with-png-dir=/usr --with-zlib-dir=/usr/ --enable-xml --enable-mbstring --enable-sockets --enable-fastcgi --enable-force-cgi-redirect
+                   错误（1）: 如果有以下提示,说明 ./configure 有错误
+                   
+ 
+
+./configure --prefix=/opt/php --with-apxs2=/opt/apache2/bin/apxs --with-mysql=/opt/mysql --with-gd=/usr/local/libgd
+
+错误（2）: 如果出现以下错误，需  yum -y install libtool  libtool-ltdl-devel
+
+1.7         make
+1.8         make  install
+1.9         cp  php.ini-recommended  /usr/local/php/lib/php.ini
+1.10     [ php-5.2.9]#  vi /usr/local/apache2/conf/httpd.conf
+//查找
+    AddType application/x-compress .Z
+    AddType application/x-gzip .gz .tgz
+//加入
+    AddType application/x-tar .tgz
+    AddType application/x-httpd-php .php
+AddType image/x-icon .ico
+1.11     测试php文档
+<?php
+phpinfo();
+?>             
+保存 index. php文件
+ 
+2.0        apache 服务启动错误(1)
+httpd: Syntax error on line 109 of /usr/local/apache2/conf/httpd.conf: Cannot load /usr/local/apache2/modules/libphp5.so into server: /usr/local/apache2/modules/libphp5.so: cannot restore segment prot after reloc: Permission denied
+解决办法:  原来这是SELinux搞的鬼，解决办法:
+(1)、 关闭SELINX，执行：/usr/sbin/setenforce  0
+                     (2)、禁止掉SELinux
+    更改/etc/sysconfig/selinux 文件的内容为 SELINUX=disabled
+    
+    
+    
+    
+    
+    
+    
+[置顶] Linux（centOS）手动安装删除Apache+MySQL+PHP+Memcached原创无错版
+分类： Apache 2011-07-03 13:21 2417人阅读 评论(1) 收藏 举报
+最后更新时间：2012.3.21
+
+===================
+
+第一步：Apache安装(已更新到2.2.22)
+
+===================
+
+ 
+
+下载 去 http://www.apache.org 自己找最新的 国内有很多镜像点例如"人人"和"163"
+
+英文文档：http://httpd.apache.org/docs/2.2/
+
+中文文档： http://www.php100.com/manual/apache2/index.html
+
+-------------------------------------------------
+
+#wget http://labs.renren.com/apache-mirror/httpd/httpd-2.2.22.tar.gz
+
+#tar zxvf httpd-2.2.22.tar.gz
+
+#cd ./httpd-2.2.22
+
+#./configure --prefix=/usr/local/apache2/ --enable-proxy --enable-ssl --enable-cgi --enable-rewrite --enable-so --enable-module=so
+
+#make
+
+#make install
+
+说明：如果make不成功，那么是configure不成，例如你缺少ssl组件，可以去掉
+
+--enable-ssl 
+-----------------------------------------------
+
+如果出现“No recognized SSL/TLS toolkit detected”错误
+
+#yum -y install openssl openssl-devel
+
+------------------------
+
+如果Make: command not found
+
+看看是不是make没装
+
+# rpm -qa|grep make   
+
+如果没有信息那么说明make没装
+
+#yum install make 即可
+-------------------
+
+手动启动
+
+# /usr/local/apache2/bin/apachectl start
+
+ 
+
+重启
+
+# /usr/local/apache2/bin/apachectl restart
+
+
+开机启动
+# cp /usr/local/apache2/bin/apachectl /etc/rc.d/init.d/httpd
+# cd /etc/rc.d/rc3.d
+# ln –s ../init.d/httpd S80httpd
+  ln -s ../init.d/httpd S80httpd
+
+
+ 如果报错说：
+
+Could not reliably determine the server’s fully qualified domain name, using 127.0.1.1 for ServerName
+需要修改/usr/local/apache2/httpd.conf在
+
+#serverName www.example.com:80
+
+这个位置修改为：
+
+serverName localhost:80
+
+--------------------------
+
+YUM自动安装的启动
+#service httpd restart
+
+输入这个会提示出错 httpd未被被识别的服务
+
+这个请见本博客另一篇介绍
+
+-------------------------
+
+
+
+这就说明安装成功了。
+
+自己在浏览器输入：http://localhost/
+
+
+
+ 
+
+ 
+
+这样就说明成功了！
+
+------------------------------------------
+
+防火墙配置
+
+注意如果你希望在本地机器例如xp访问虚拟机的网页，如果是centos6需要修改防火墙启动80端口
+
+/etc/sysconfig
+
+[root@centos6 ~]# vim /etc/sysconfig/iptables
+
+添加下面一行，打开防火墙80端口:
+
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+
+重启防火墙
+#/etc/init.d/iptables restart
+
+查看CentOS防火墙信息：/etc/init.d/iptables status
+
+关闭CentOS防火墙服务：/etc/init.d/iptables stop
+
+------------------------
+
+开机加入自动启动服务
+
+编辑rc.local文件
+#vi /etc/rc.d/rc.local
+
+加入如下启动命令
+/usr/sbin/apachectl start
+/etc/rc.d/init.d/mysqld start
+/etc/rc.d/init.d/smb start
+/usr/local/subversion/bin/svnserve -d
+
+注意：我的这个路径是yum安装这些服务得到的路径，填写时要根据自己的安装路径，找不到可以借助whereis命令，主要是找到apachectl 、mysqld 、smb 这三个启动文件。
+
+------------------------------------------
+
+增加权限和文件格式转换（不然apache会报没权限执行文件）
+#chmod +x   文件
+#dos2unix   文件
+ ----------------------------------------
+
+ab测试
+
+#ab -n 1000  -c  10 http://localhost/
+
+------------------------------------------
+
+卸载apache
+
+如果是源码安装
+
+#rm   -rf   你的apache安装路径
+
+同样作用于其他
+
+========================
+
+httpd启用虚拟主机
+#Include conf/extra/httpd-vhosts.conf
+
+httpd-vhosts.conf
+<VirtualHost *:80>
+    ServerAdmin webmaster@dummy-host.example.com
+    DocumentRoot "/www/"
+<Directory />
+#拒绝所有请求
+#    Deny from all
+#是否显示列表
+#    Options Indexes FollowSymLinks
+#是否启用rewrite
+#    AllowOverride all
+
+========================
+
+YUM方式安装的，这样卸载：
+#yum remove httpd
+
+否则要用
+
+#rpm -qa|grep httpd
+
+一个个删除
+# rpm -e  ......
+
+ 
+
+ 
+
+===================
+
+第二步 Mysql安装
+
+===================
+
+第一种方法：使用yum自动安装
+
+#yum -y install mysql-server
+
+----------------------------------------
+
+第二种：下载源码编译安装
+
+#wget http://mysql.cdpa.nsysu.edu.tw/Downloads/MySQL-5.1/mysql-5.1.57.tar.gz
+
+#tar zxvf mysql-5.1.57.tar.gz
+
+#cd mysql-5.1.57
+
+#./configure --prefix=/usr/local/mysql --with-mysqld-user=mysql --with-charset=gbk --bindir=/usr/local/bin --sbindir=/usr/local/sbin --with-plugins=innobase --with-partition
+
+#make
+
+#make install
+
+#cd /usr/local/mysql
+
+#mysql_install_db
+
+#chown -R mysql:mysql *
+
+#cp /usr/local/mysql/share/mysql/mysql.server /etc/init.d/mysql
+
+#/etc/rc.d/mysql start (加入到/etc/rc.local 以便系统重启后自动启动mysql)
+
+修改/etc/rc.local
+
+ 
+
+说明：请修改mysql配置文件my.cnf中wait_timeout = 600（有些程序执行时间较长，mysql超时时间如果太短的话，容易发生mysql server has go away的错误）
+
+注意事项：
+
+安装完成后，需要拷贝一份my.cnf到ect目录下，使用support-files目录中的一个作为模板。在这个目录中有4个模板文件，是根据不同机器的内存定制的。
+
+#cp support-files/my-medium.cnf /etc/my.cnf
+
+ 
+
+ 
+
+ 
+
+===================
+
+第三步 PHP安装(已更新到5.4.0版)
+
+===================
+
+去www.php.net找最新的版本
+
+5.4安装
+
+#wget  http://cn2.php.net/get/php-5.4.0.tar.gz/from/cn.php.net/mirror
+
+#tar zxvf  php-5.4.0.tar.gz
+
+#cd php-5.4.0
+
+ 
+
+如果是5.3.8
+
+#wget  http://cn2.php.net/get/php-5.3.8.tar.gz/from/this/mirror
+
+#tar zxvf  php-5.3.8.tar.gz
+
+#cd php-5.3.8
+
+ 
+
+#./configure --prefix=/usr/local/php --with-apxs2=/usr/local/apache2/bin/apxs --with-mysql=/usr/local/mysql
+
+如果失败 可能原因有各种各样
+
+-------------------------------
+
+如果提示：Cannot find MySQL header files under /date/mysql.
+
+
+这个是缺少了 mysql-devel 安装包，用
+yum -y install mysql-devel 即可解决！
+
+#yum -y install mysql-devel
+
+-------------------------------
+
+如果提示：xml2-config not found. Please check your libxml2 installation.
+
+需要安装libxml2
+
+#yum install libxml2-devel
+
+-------------------------------
+
+如果提示：Try adding --with-zlib-dir=<DIR>试着添加一下 zlib的路径，如下
+
+#./configure --prefix=/usr/local/php --with-apxs2=/usr/local/apache2/bin/apxs --with-mysql-dir=/usr/local/mysql --with-zlib-dir=/usr/local/zlib
+
+------------------------------
+
+完全成功才可以编译安装
+
+#make
+
+#make install
+
+------------------------------------------------------
+
+安装失败如果提示：Cannot load /usr/local/apache2/modules/libphp5.so into server:
+
+原因：是Linux有一个SELinux保护模式引起的。
+
+ 解决办法：
+1关闭SELINUX的方法:
+vi /etc/selinux/config 将SELINUX=enforcing 改成SELINUX=disabled 需要重启
+这个方法可能会对服务器带来风险。
+
+
+2不关闭SELINUX的方法:
+# setenforce 0
+# chcon -c -v -R -u system_u -r object_r -t textrel_shlib_t /usr/local/apache2/modules/libphp5.so
+# service httpd restart
+# setenforce 1
+
+--------------------------------------
+
+
+我的解决方法在
+php源文件目录下执行
+make clean
+然后再make && make install
+
+ 
+
+复制php.ini配置文件
+
+参考此文http://blog.csdn.net/21aspnet/article/details/7001344
+
+注意php新版本此文件名有变更
+
+#cp php.ini-production /usr/local/php/lib/php.ini
+
+------------------------------
+
+在apache的配置文件httpd.conf
+
+增加
+LoadModule php5_module modules/libphp5.so
+AddType application/x-httpd-php .php
+
+
+AddType application/x-httpd-php4 .php4
+AddType application/x-httpd-php4-source .phps
+AddType application/x-httpd-php .php
+AddType application/x-httpd-php-source .phps
+
+
+---------------------------------
+
+ 执行php文件
+
+#/usr/local/php/bin/php    xx.php
+
+===================
+
+第四步 Memcached安装
+
+===================
+
+可以参考http://timke.blog.163.com/blog/static/1015873062009111094715315/
+
+说明必须先安装libevent
+
+官网   http://libevent.org/  找最新的版本
+
+#wget https://github.com/downloads/libevent/libevent/libevent-2.0.16-stable.tar.gz
+
+#tar xzvf libevent-2.0.16-stable.tar.gz
+
+#cd libevent-2.0.16-stable
+
+#./configure --prefix=/usr
+
+#make
+
+#make install
+
+-------------------------------------------- 
+
+第二步 安装memcached
+
+# wget http://memcached.googlecode.com/files/memcached-1.4.9.tar.gz
+
+#tar xzvf memcached-1.4.9.tar.gz
+
+#cd memcached-1.4.9
+
+#./configure --prefix=/usr/local/memcached --with-libevent=/usr
+
+#make
+
+#make install
+
+启动
+
+#/usr/local/memcached/bin/memcached -d -m 100 -uroot -l 0.0.0.0 -p 11211 -c 512 -P /usr/local/memcached/memcached.pid
+
+查看详情
+
+#ps aux|grep mem   
+
+输出pid
+
+#cat /usr/local/memcached/memcached.pid
+
+ 
+
+查看内存使用
+
+#top -n 1 |grep Mem
+
+-------------------------------------------
+
+第三步  安装memcached的php扩展memcache
+
+#wget http://pecl.php.net/get/memcache-2.2.6.tgz
+
+#tar vxzf memcache-2.2.6.tgz
+
+#cd memcache-2.2.6
+
+#/usr/local/php/bin/phpize
+
+此处出错可以参考 http://blog.csdn.net/21aspnet/article/details/7001182
+
+#./configure --enable-memcache --with-php-config=/usr/local/php/bin/php-config --with-zlib-dir
+
+或者
+
+#./configure --enable-memcache --with-php-config=/usr/local/php/bin/php-config --with-zlib-dir=/usr
+
+#make
+
+#make install 
+
+#vi /usr/local/php/lib/php.ini
+
+php.ini添加
+
+extension=memcache.so
+
+<完>
+
+ 
+
+-------------------
+
+重启
+
+# /usr/local/apache2/bin/apachectl restart
+
+---------------
+
+测试
+
+[php] view plaincopy
+$memcache = new Memcache; //创建一个memcache对象     
+$memcache->connect('localhost', 11211) or die ("Could not connect"); //连接Memcached服务器     
+$memcache->set('key', 'test'); //设置一个变量到内存中，名称是key 值是test     
+$get_value = $memcache->get('key'); //从内存中取出key的值     
+echo $get_value;    
+
+ 
+
+--------------
+
+或者手动指定
+
+extension_dir = "/usr/local/php/lib/php/extensions/no-debug-non-zts-20060613/"
+
+[php] view plaincopy
+class MemCache {  
+    var $mem = null;  
+      
+    private static $isLibLoad = false;  
+    //put your code here  
+    public function Com_MemCache(){  
+        if(!self::$isLibLoad){  
+            dl("memcache.so");  
+            self::$isLibLoad = true;  
+        }  
+          
+        $this->mem = new Memcache();  
+        $this->mem->connect("127.0.0.1", 11211);  
+    }  
+  
+    public function set($key,$value,$flag = null,$expire = 5000){  
+        $this->mem->set($key, $value, $flag, $expire);  
+    }  
+  
+    public function get($key){  
+        return $this->mem->get($key);  
+    }  
+  
+    function __destruct(){  
+        $this->mem->close();  
+    }  
+}  
+调用
+
+[php] view plaincopy
+$cache = new MemCache();  
+           $mm = $cache ->get("A");  
+           if($mm==null){  
+             $cache->set('A', date('Y-m-j').' '.date('G:i:s'),null,15);  
+           }  
+echo $mm;  
+
+
+ 
+
+因为MemCache.php有 dl("memcache.so");所以在php.ini中不需要extension=memcache.so了，但是前一句extension_dir是要的。
+
+=========================================================================
+
+Linux+Nginx+Php5.29架设高性能WEB服务器
+系统环境
+Linux version 2.6.9（CentOS release 4.7(Final)）
+
+软件环境
+nginx-0.6.35.tar.gz
+当前稳定版: Nginx 0.6.35 (2009年1月26日)
+官方Wiki：http://wiki.nginx.org
+官方下载：http://sysoev.ru/nginx/nginx-0.6.35.tar.gz
+
+php-5.2.9.tar.gz
+官方下载：http://www.php.net/get/php-5.2.9.tar.gz/from/this/mirror
+
+php-5.2.9-fpm-0.5.10.diff.gz
+官方下载：http://php-fpm.anight.org/downloads/archive/
+
+mysql-5.1.34.tar.gz
+
+libiconv-1.13.tar.gz
+
+libmcrypt-2.5.8.tar.gz
+
+mcrypt-2.6.8.tar.gz
+
+mhash-0.9.9.9.tar.gz
+
+
+Nginx0.6.35+Php5.2.9所有相关安装包下载 http://www.w3cgroup.com/code/nginx_php.rar
+
+安装步骤
+一、 编译安装PHP5.2.9所需的支持库
+
+tar zxvf libiconv-1.13.tar.gz
+cd libiconv-1.13/
+./configure --prefix=/usr/local
+make
+make install
+cd ../
+
+tar zxvf libmcrypt-2.5.8.tar.gz
+cd libmcrypt-2.5.8/
+./configure
+make
+make install
+/sbin/ldconfig
+cd libltdl/
+./configure --enable-ltdl-install
+make
+make install
+cd ../../
+
+tar zxvf mhash-0.9.9.9.tar.gz
+cd mhash-0.9.9.9/
+./configure
+make
+make install
+cd ../
+
+ln -s /usr/local/lib/libmcrypt.la /usr/lib/libmcrypt.la
+ln -s /usr/local/lib/libmcrypt.so /usr/lib/libmcrypt.so
+ln -s /usr/local/lib/libmcrypt.so.4 /usr/lib/libmcrypt.so.4
+ln -s /usr/local/lib/libmcrypt.so.4.4.8 /usr/lib/libmcrypt.so.4.4.8
+ln -s /usr/local/lib/libmhash.a /usr/lib/libmhash.a
+ln -s /usr/local/lib/libmhash.la /usr/lib/libmhash.la
+ln -s /usr/local/lib/libmhash.so /usr/lib/libmhash.so
+ln -s /usr/local/lib/libmhash.so.2 /usr/lib/libmhash.so.2
+ln -s /usr/local/lib/libmhash.so.2.0.1 /usr/lib/libmhash.so.2.0.1
+
+tar zxvf mcrypt-2.6.8.tar.gz
+cd mcrypt-2.6.8/
+/sbin/ldconfig
+./configure
+make
+make install
+cd ../
+
+
+二、编译安装MySQL 5.1.34扩展库
+
+/usr/sbin/groupadd mysql
+/usr/sbin/useradd -g mysql mysql
+tar zxvf mysql-5.1.34.tar.gz
+cd mysql-5.1.34/
+./configure --prefix=/usr/local/webserver/mysql/ --enable-assembler --with-extra-charsets=complex --enable-thread-safe-client --with-big-tables --with-readline --with-ssl --with-embedded-server --enable-local-infile --with-plugins=innobase
+make && make install
+chmod +w /usr/local/webserver/mysql
+chown -R mysql:mysql /usr/local/webserver/mysql
+cd ../
+
+MySql的安装此处就省略
+
+
+三、编译安装PHP（FastCGI模式）
+
+tar zxvf php-5.2.9.tar.gz
+gzip -cd php-5.2.9-fpm-0.5.10.diff.gz | patch -d php-5.2.9 -p1
+cd php-5.2.9/
+./configure --prefix=/usr/local/webserver/php --with-config-file-path=/usr/local/webserver/php/etc --with-mysql=/usr/local/webserver/mysql --with-mysqli=/usr/local/webserver/mysql/bin/mysql_config --with-iconv-dir=/usr/local --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-discard-path --enable-safe-mode --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-fastcgi --enable-fpm --enable-force-cgi-redirect --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-ldap --with-ldap-sasl
+make ZEND_EXTRA_LIBS='-liconv'
+make install
+cp php.ini-dist /usr/local/webserver/php/etc/php.ini
+cd ../
+
+
+四、修改php-fpm配置文件
+
+rm -f /usr/local/webserver/php/etc/php-fpm.conf
+vi /usr/local/webserver/php/etc/php-fpm.conf
+
+输入以下内容：
+
+<?xml version="1.0" ?> 
+<configuration> 
+<section name="global_options"> 
+<value name="pid_file">/usr/local/webserver/php/logs/php-fpm.pid</value> 
+<value name="error_log">/usr/local/webserver/php/logs/php-fpm.log</value> 
+<value name="log_level">notice</value> 
+<value name="emergency_restart_threshold">10</value> 
+<value name="emergency_restart_interval">1m</value> 
+<value name="process_control_timeout">5s</value> 
+<value name="daemonize">yes</value> 
+</section> 
+<workers> 
+<section name="pool"> 
+<value name="name">default</value> 
+<value name="listen_address">127.0.0.1:9000</value> 
+<value name="listen_options"> 
+<value name="backlog">-1</value> 
+<value name="owner"></value> 
+<value name="group"></value> 
+<value name="mode">0666</value> 
+</value> 
+<value name="php_defines"> 
+<value name="sendmail_path">/usr/sbin/sendmail -t -i</value> 
+<value name="display_errors">1</value> 
+</value> 
+<value name="user">www</value> 
+<value name="group">www</value> 
+<value name="pm"> 
+<value name="style">static</value> 
+<value name="max_children">128</value> 
+<value name="apache_like"> 
+<value name="StartServers">20</value> 
+<value name="MinSpareServers">5</value> 
+<value name="MaxSpareServers">35</value> 
+</value> 
+</value> 
+<value name="request_terminate_timeout">0s</value> 
+<value name="request_slowlog_timeout">0s</value> 
+<value name="slowlog">logs/slow.log</value> 
+<value name="rlimit_files">51200</value> 
+<value name="rlimit_core">0</value> 
+<value name="chroot"></value> 
+<value name="chdir"></value> 
+<value name="catch_workers_output">yes</value> 
+<value name="max_requests">500</value> 
+<value name="allowed_clients">127.0.0.1</value> 
+<value name="environment"> 
+<value name="HOSTNAME">$HOSTNAME</value> 
+<value name="PATH">/usr/local/bin:/usr/bin:/bin</value> 
+<value name="TMP">/tmp</value> 
+<value name="TMPDIR">/tmp</value> 
+<value name="TEMP">/tmp</value> 
+<value name="OSTYPE">$OSTYPE</value> 
+<value name="MACHTYPE">$MACHTYPE</value> 
+<value name="MALLOC_CHECK_">2</value> 
+</value> 
+</section> 
+</workers> 
+</configuration>
+
+五、创建www用户组及www用户
+
+/usr/sbin/groupadd www
+/usr/sbin/useradd -g www www
+
+
+六、编译安装Nginx
+
+tar zxvf nginx-0.6.35.tar.gz
+cd nginx-0.6.35/
+默认安装：
+./configure
+make && make install
+默认情况下，Nginx 会被安装在 /usr/local/nginx。通过设定编译选项，你可以改变这个设定。
+
+指定编译选项安装，如：
+./configure --user=www --group=www --prefix=/usr/local/webserver/nginx --with-http_stub_status_module --with-http_ssl_module
+make && make install
+cd ../
+
+七、创建fcgi.conf文件
+
+rm -f /usr/local/webserver/nginx/conf/fcgi.conf
+vi /usr/local/webserver/nginx/conf/fcgi.conf
+
+输入以下内容：
+
+fastcgi_param GATEWAY_INTERFACE CGI/1.1;
+fastcgi_param SERVER_SOFTWARE nginx;
+
+fastcgi_param QUERY_STRING $query_string;
+fastcgi_param REQUEST_METHOD $request_method;
+fastcgi_param CONTENT_TYPE $content_type;
+fastcgi_param CONTENT_LENGTH $content_length;
+
+fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+fastcgi_param SCRIPT_NAME $fastcgi_script_name;
+fastcgi_param REQUEST_URI $request_uri;
+fastcgi_param DOCUMENT_URI $document_uri;
+fastcgi_param DOCUMENT_ROOT $document_root;
+fastcgi_param SERVER_PROTOCOL $server_protocol;
+
+fastcgi_param REMOTE_ADDR $remote_addr;
+fastcgi_param REMOTE_PORT $remote_port;
+fastcgi_param SERVER_ADDR $server_addr;
+fastcgi_param SERVER_PORT $server_port;
+fastcgi_param SERVER_NAME $server_name;
+
+# PHP only, required if PHP was built with --enable-force-cgi-redirect
+fastcgi_param REDIRECT_STATUS 200;
+
+
+八、编辑Nginx配置文件
+
+rm -f /usr/local/webserver/nginx/conf/nginx.conf
+vi /usr/local/webserver/nginx/conf/nginx.conf
+
+输入以下内容：
+
+user www www;
+worker_processes 8;
+error_log /usr/local/webserver/nginx/logs/logs/nginx_error.log crit;
+pid /usr/local/webserver/nginx/logs/nginx.pid;
+worker_rlimit_nofile 51200;
+events {
+use epoll;
+worker_connections 51200;
+}
+
+http {
+include mime.types;
+default_type application/octet-stream;
+charset utf-8;
+server_names_hash_bucket_size 128;
+client_header_buffer_size 32k;
+large_client_header_buffers 4 32k;
+client_max_body_size 8m;
+sendfile on;
+tcp_nopush on;
+keepalive_timeout 60;
+tcp_nodelay on;
+
+fastcgi_connect_timeout 300;
+fastcgi_send_timeout 300;
+fastcgi_read_timeout 300;
+fastcgi_buffer_size 64k;
+fastcgi_buffers 8 64k;
+fastcgi_busy_buffers_size 128k;
+fastcgi_temp_file_write_size 128k;
+
+gzip on;
+gzip_min_length 1k;
+gzip_buffers 4 16k;
+gzip_http_version 1.0;
+gzip_comp_level 2;
+gzip_types text/plain application/x-javascript text/css application/xml;
+gzip_vary on;
+
+#limit_zone crawler $binary_remote_addr 10m;
+#多个站点设置，站点文件夹必须放在Nginx的html目录，否则不支持多站点
+server {
+listen 80;
+server_name www.v-ec.com;
+root /usr/local/webserver/nginx/html/www.v-ec.com;
+index index.php index.html;
+
+location ~ .*\.(php|php5)?$ { 
+#fastcgi_pass unix:/tmp/php-cgi.sock;
+fastcgi_pass 127.0.0.1:9000;
+fastcgi_index index.php;
+include fcgi.conf;
+}
+location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ {
+expires 30d;
+}
+
+location ~ .*\.(js|css)?$ {
+expires 6h;
+}
+
+log_format veclog '$remote_addr - $remote_user [$time_local] "$request" '
+'$status $body_bytes_sent "$http_referer" '
+'"$http_user_agent" $http_x_forwarded_for';
+access_log logs/vec.log veclog;
+}
+#多个站点设置，站点文件夹必须放在Nginx的html目录，否则不支持多站点
+server {
+listen 80;
+server_name www.w3cgroup.com;
+root /usr/local/webserver/nginx/html/www.w3cgroup.com;
+index index.php index.html;
+
+location ~ .*\.(php|php5)?$ { 
+#fastcgi_pass unix:/tmp/php-cgi.sock;
+fastcgi_pass 127.0.0.1:9000;
+fastcgi_index index.php;
+include fcgi.conf;
+}
+location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ {
+expires 30d;
+}
+
+location ~ .*\.(js|css)?$ {
+expires 6h;
+}
+
+log_format w3cclog '$remote_addr - $remote_user [$time_local] "$request" '
+'$status $body_bytes_sent "$http_referer" '
+'"$http_user_agent" $http_x_forwarded_for';
+access_log logs/w3c.log w3clog;
+}
+}
+
+九、配置开机自动启动Nginx + PHP
+
+vi /etc/rc.local
+
+在末尾增加以下内容：
+
+ulimit -SHn 51200
+/usr/local/webserver/php/sbin/php-fpm start
+/usr/local/webserver/nginx/sbin/nginx
+
+
+十、优化Linux内核参数
+
+vi /etc/sysctl.conf
+
+在末尾增加以下内容：
+
+net.ipv4.tcp_fin_timeout = 30
+net.ipv4.tcp_keepalive_time = 300
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_tw_recycle = 1
+
+使配置立即生效：
+
+/sbin/sysctl –p
+
+做到这里，可以reboot重启Linux了，不出意外的话应该可以顺利开启Nginx
+
+平滑重启Nginx
+Ps aux | grep nginx
+找到Nginx的master process，假如为：5800，然后kill
+Kill –HUP 5800
+
+平滑重启Php
+/usr/local/webserver/php/sbin/php-fpm restart
+
+php-fpm的其他命令：start | stop | quit | restart | reload | logrotate    
+    
+    
+    chkconfig --levels 235 mysqld on /etc/init.d/mysqld start 
+    
+
+
+/opt/php/bin/phpize && ./configure --with-php-config=/opt/php/bin/php-config --with-amqp
+
+
+yum install unixODBC unixODBC-devel
+

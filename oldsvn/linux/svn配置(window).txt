@@ -1,0 +1,121 @@
+http://sjsky.iteye.com/blog/850804
+
+由于公司的安装svn的server down了，为了手上在建项目的代码管理，决定临时在自己的本本上搭建一个SVN服务端。 
+具体的安装配置过程如下： 
+
+一、首先需要获取服务端和客户端 
+1.服务端Subversion 截止2010-12-23最新版位1.6.15 
+官网：http://subversion.tigris.org/ or http://subversion.apache.org/ 
+下载地址：win32svn http://sourceforge.net/projects/win32svn/ 
+2.客户端tortoisesvn 截止2010-12-23最新版位1.6.12 
+官网：http://tortoisesvn.tigris.org/ or http://tortoisesvn.net 
+下载地址：http://sourceforge.net/projects/tortoisesvn 
+
+二、软件的安装 
+服务端是以.msi后缀名的安装文件，安装过程就不详细介绍了，按照它的提示一步步操作即可。 
+我的实际安装路径是D:\Program Files\Subversion 
+TortoiseSVN 客户端的安装完成后会提示系统需要重启。 
+
+三、配置过程 
+1.创建repository :有两种方法 
+方法一：命令行创建 
+打开命令窗口， 键入 svnadmin create D:\svnroot\test1 回车， 
+会在 目录 D:\svnroot\生成test1文件夹以及文件夹下相应的文件 
+方法二：图形化创建 
+新建文件夹 D:\svnroot\test2(文件夹下必须是空的)，在该文件夹下右击选中TortoiseSVN，如下图 
+ 
+ 
+上面两种方法都能创建repository ，创建好后生成的目录结构如下： 
+ 
+2.修改配置文件（以上面创建的test1为例：） 
+在D:\svnroot\test1\conf\ 目录下会看到 svnserver.conf和passwd两个文件，需要对两个文件作如下修改: 
+svnserve.conf 
+Java代码  收藏代码
+[general]  
+### These options control access to the repository for unauthenticated  
+### and authenticated users.  Valid values are "write", "read",  
+### and "none".  The sample settings below are the defaults.  
+anon-access = read  
+auth-access = write  
+### The password-db option controls the location of the password  
+### database file.  Unless you specify a path starting with a /,  
+### the file's location is relative to the directory containing  
+### this configuration file.  
+### If SASL is enabled (see below), this file will NOT be used.  
+### Uncomment the line below to use the default password file.  
+password-db = passwd  
+### The authz-db option controls the location of the authorization  
+### rules for path-based access control.  Unless you specify a path  
+### starting with a /, the file's location is relative to the the  
+### directory containing this file.  If you don't specify an  
+### authz-db, no path-based access control is done.  
+### Uncomment the line below to use the default authorization file.  
+# authz-db = authz  
+### This option specifies the authentication realm of the repository.  
+### If two repositories have the same authentication realm, they should  
+### have the same password database, and vice versa.  The default realm  
+### is repository's uuid.  
+# realm = My First Repository  
+
+这段配置文件的基本含义为： 
+anon-access = read 匿名用户的权限，文件中为read表示拥有只读权限
+auth-access = write 验证通过用户的权限 ，文件中为write表示拥有写的权限
+权限包括none、read、write三个值可选，none没有权限，写包含了读权限
+去掉#注释时，前面不要有空格
+password-db = passwd密码数据存放到passwd文件中
+authz-db = authz 表示版本库中访问路径的规则，即谁只能访问哪个目录下的文件，其他目录下的文件无法访问
+
+passwd 
+Java代码  收藏代码
+### This file is an example password file for svnserve.  
+### Its format is similar to that of svnserve.conf. As shown in the  
+### example below it contains one section labelled [users].  
+### The name and password for each user follow, one account per line.  
+[users]  
+# harry = harryssecret  
+# sally = sallyssecret  
+michael=michael  
+
+PS：passwd 文件中的配置，如:michael=michael表示用户名为michael，密码为michael 
+
+四、启动subversion服务 
+   两种方法：命令启动和服务启动 
+1.命令行启动介绍： 
+svnserve -d -r D:\svnroot\test1 
+默认端口是3690,如果这个端口号已经被占用，则可以通过选项 --listen-port=端口号.
+
+netstat -aon|findstr "9050"
+
+2.服务启动介绍： 
+安装程序还不能把自己安装成windows服务，需要自己进行手动安装，方法如下： 打开命令窗口，执行如下命令：
+Java代码  收藏代码
+sc create svnserve binPath= "\"d:\Program Files\Subversion\bin\svnserve.exe\" --service -r d:\svnroot\test1" displayname= "Subversion" depend= Tcpip start= auto  
+执行成功会显示：[SC] CreateService 成功 
+打开命令窗口键入：services.msc  回车，会在windows的服务中看到刚创建的： 
+
+sc create svnserve binPath= "\"d:\Program Files\Subversion\bin\svnserve.exe\" --service -r /"E:/svnck/OMS/"" displayname= "Subversion" depend= Tcpip start= auto
+ 
+命令的简单解释： 
+sc是windows自带的服务配置程序，
+参数binPath表示svnserve可执行文件的安装路径，由于路径中的"Program Files"带有空格，因此整个路径需要用双引号引起来。而双引号本身是个特殊字符，需要进行转移，因此在路径前后的两个双引号都需要写成\"
+--service参数表示以windows服务的形式运行，
+-r/--root指明svn repository的位置，service参数与root参数都作为binPath的一部分，因此与svnserve.exe的路径一起被包含在一对双引号当中，而这对双引号不需要进行转义。
+displayname表示在windows服务列表中显示的名字
+depend =Tcpip 表示svnserve服务的运行需要tcpip服务
+start=auto表示开机后自动运行
+若要卸载svn服务，则执行 sc delete svnserve 即可
+　 
+安装服务后，svnserve要等下次开机时才会自动运行。　　 
+
+五、导入项目 
+图形化操作即可实现具体步骤如下： 
+选中需要导入的项目： 
+ 
+输入URL和message 
+ 
+输入用户名和密码 
+ 
+成功导入文件 
+ 
+
+到此基本完成了svn服务端的安装、配置、启、导入项目等一系列操作。

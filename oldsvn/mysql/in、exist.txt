@@ -1,0 +1,4 @@
+select * from customer where customer_code in(select distinct customer_code COLLATE utf8_unicode_ci from customer_balance_log);
+
+
+explain select * from customer where customer_code in(select customer_code collate utf8_unicode_ci from customer_balance_log where customer_balance_log.customer_code collate utf8_unicode_ci=customer.customer_code);

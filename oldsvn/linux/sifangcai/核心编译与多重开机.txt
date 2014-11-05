@@ -1,0 +1,80 @@
+还记得我们在开机的流程里头有说明过，那个开机的顺序是：
+　
+
+   1. BIOS
+   2. MBR ( 就是 Lilo 或 Grub ) 取得 boot loader；
+   3. 取得核心 kernel 的资料并加载
+   4. init
+   5. 很多 scripts
+   6. login 与 shell 
+
+
+编译核心的时机可以归纳为几大类：
+　
+    * 新功能的需求：
+ 	* 原本核心太过臃肿：   
+ 	* 与硬件的搭配稳定性： 
+ 	
+ 	
+核心的版本与何处下载最新核心
+      　
+      (事前声明：请特别留意！不同版本的核心之间，最好不要互相升级！否则及容易发生问题！
+      例如： Red Hat 6.x 使用的是 2.2.xx 版本的核心，那么就不要使用 2.4.xx 的核心来编译他！
+      如果误用的话，很有可能造成您系统上面的服务无法正常的工作！还请特别留意呢！)  	
+      
+ kernel 的版本可以区分为：
+　
+[主版本].[次版本].[修订版本]-[附版本]
+　
+在这当中，需要特别留意的属于第二个那个[次版本]啰！ 
+
+    * 如果次版本是奇数的话，例如 2.3, 2.5 等等，那表示他是一个『测试性质功能的核心版本』，
+    这种核心通常是在推出稳定版本的核心之前，用来给 developer ( 核心维护更新测试者！) 测试用的！
+    虽然功能较为强大，但是由于是属于测试性质，所以可能会有些许的 bug 也说不定；
+    * 如果次版本是偶数的话，例如 2.2, 2.4, 2.6 等等，那表示他是一个经过测试之后才释出的稳定核心版本，
+    这种核心较为稳定不容易出错，比较适合一般个人或者是商业使用！      
+　 
+
+1. 下载核心：
+[root @test /root]# wget http://aerosol.ev.ncku.edu.tw/~vbird/download/linux-2.4.18.tar.gz <==由本站下载核心
+--02:55:31--  http://aerosol.ev.ncku.edu.tw/%7Evbird/download/linux-2.4.18.tar.gz
+           => `linux-2.4.18.tar.gz'
+Connecting to aerosol.ev.ncku.edu.tw:80... connected!
+HTTP request sent, awaiting response... 200 OK
+Length: 30,108,170 [application/x-gzip]
+
+    0K .......... .......... .......... .......... ..........  0% @  49.65 KB/s
+   50K .......... .......... .......... .......... ..........  0% @  26.25 KB/s
+  100K .......... .......... .......... .......... ..........  0% @  39.90 KB/s
+
+最后在您的 /root 底下会产生一个名为 linux-2.4.18.tar.gz 的档案！那就适合新的 source 了！
+
+2. 解压缩：
+[root @test /root]# cd /usr/src　　　　　　　 　　　　　　<==kernel 的预设 source 档案放置目录
+[root @test /src]# mv linux linux.old　　　　　　　　　　 <==将旧的核心编译的目录搬移成其它目录
+[root @test /src]# tar -zxvf /root/linux-2.4.18.tar.gz　　<==将核心档案解压缩吧！
+[root @test /src]# mv linux linux-2.4.18
+[root @test /src]# ln -s linux-2.4.18 linux　　　　　　　 <==建立连结！
+
+ 
+       
+    o make config ：这种模式需要逐行输入所需要设定的项目，无法往前修改设定，所以目前很少使用这种方式来设定 Kernel 的项目了；
+    o make xconfig ：这种模式则是使用 X-Window 为主要环境的设定模式！除非你有 X-Window 在执行，否则没有办法使用这种模式；
+    o make menuconfig ：这种模式有点像是文字界面的选单模式，较为简便，而且可以在纯文字界面下面执行编辑动作！是目前最常使用的模式。 
+
+      由于我们是在文字接口下工作，因此，我们就使用 make
+      
+  
+  depmod
+　
+[root @test /root]# depmod [-aens] 
+参数说明： 
+-a ：将 /etc/modules.conf 可以查询到的模块的相关性都写入 /lib/modules/`uname -r`/当中 
+-e ：显示出目前已加载的不可执行的模块名称 
+-n ：将各模块的相依性直接输出屏幕上，而不是输出到 /lib/modules/`uname -r` 当中 
+-s ：将一些讯息结果输出到 syslog 的登录档中！ 
+范例： 
+[root @test /root]# depmod -a 
+[root @test /root]# depmod -n
+
+    

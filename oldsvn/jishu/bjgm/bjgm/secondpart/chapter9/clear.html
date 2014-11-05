@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>9.4.3 清除浮动：clear属性 :: 9.4 浮动与清除 :: 第9章：浮动、定位与视觉格式化模型</title>
+<link href="../samplecss/show.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+p{
+margin:5px;
+padding:0;
+border:2px solid #090;
+}
+div {
+background: #CF9;
+}
+.sample1 {
+float:left;
+border:2px solid #06C;
+background: #6CF;
+margin:10px;
+width:100px;
+_display:inline;
+}
+.sample2 {
+float:right;
+width:100px;
+border:2px solid #F60;
+background: #FC6;
+_display:inline;
+}
+.clearFloat1 {
+clear:left;
+}
+.clearFloat2 {
+clear:right;
+}
+.clearFloat3 {
+clear:both;
+}
+
+#clear2 .clearFloat1 {
+clear:right;
+}
+#clear3 .clearFloat1 {
+clear: both;
+}
+#clear4,
+#clear5 {
+overflow:hidden;
+}
+#clear4 .sample2 {
+clear:left;
+}
+#clear5 p,
+#clear6 p {
+margin:10px 5px;
+}
+#clear5 .sample1,
+#clear6 .sample1 {
+margin:20px;
+}
+#clear6 .clearFloat1 {
+margin-top:40px;
+}
+#clear7 p{
+border:0;
+margin:0;
+}
+.sample3 {
+margin-bottom:20px;
+width:300px;
+}
+.sample4 {
+float:left;
+border:2px solid #06C;
+background: #6CF;
+width:9em;
+margin:2px 0 2px 10px;
+display:inline;
+}
+.sample5 strong {
+float:left;
+background: #FCC;
+border:2px solid #C6C;
+margin:2px;
+display:inline;
+}
+#clear9 strong,
+#clear11 strong,
+#clear12 strong {
+clear:left;
+}
+#clear12 .sample5 {
+margin-left:160px;
+}
+-->
+</style>
+</head>
+
+<body id="c_visual">
+<h1>第9章：浮动、定位与视觉格式化模型</h1>
+<h3>9.4 浮动与清除</h3>
+<h3>9.4.3 清除浮动：clear属性</h3>
+<h4>1. 属性值详解</h4>
+<h5>未清除浮动</h5>
+<div id="clear0">
+  <p class="sample1">段落1，左浮动</p>
+  <p>段落2</p>
+  <p class="sample2">段落3，右浮动</p>
+  <p>段落4</p>
+</div>
+<h5>clear : left</h5>
+<div id="clear1">
+  <p class="sample1">段落1，左浮动</p>
+  <p class="clearFloat1">段落2</p>
+  <p class="sample2">段落3，右浮动</p>
+  <p class="clearFloat1">段落4</p>
+</div>
+<h5>clear : right</h5>
+<div id="clear2">
+  <p class="sample1">段落1，左浮动</p>
+  <p class="clearFloat1">段落2</p>
+  <p class="sample2">段落3，右浮动</p>
+  <p class="clearFloat1">段落4</p>
+</div>
+<h5>clear : both</h5>
+<div id="clear3">
+  <p class="sample1">段落1，左浮动</p>
+  <p class="clearFloat1">段落2</p>
+  <p class="sample2">段落3，右浮动</p>
+  <p class="clearFloat1">段落4</p>
+</div>
+<h4><a name="clear2">2. 清除本元素前面的浮动元素</a></h4>
+<div id="clear4">
+  <p class="sample1">段落1，左浮动</p>
+  <p class="sample2">段落2，右浮动</p>
+  <p class="sample1">段落3，左浮动</p>
+</div>
+<h4><a name="clear3">3. 浮动与不浮动元素的边距</a></h4>
+<div id="clear5">
+  <p class="sample1">段落1，左浮动</p>
+  <p>段落2，不清除浮动</p>
+  <p class="clearFloat1">段落3，清除浮动</p>
+</div>
+<div id="clear6">
+  <p class="sample1">段落1，左浮动</p>
+  <p>段落2，不清除浮动</p>
+  <p class="clearFloat1">段落3，清除浮动</p>
+</div>
+<div id="clear7">
+  <p class="sample3">段落1，不清除浮动</p>
+  <p class="sample1">段落1，左浮动</p>
+  <p class="sample1">段落1，左浮动</p>
+  <p class="sample1">段落1，左浮动</p>
+  <p class="clearFloat1">段落3，清除浮动</p>
+</div>
+<h4><a name="clear2">4. 元素内的子元素</a></h4>
+<h5>浮动元素内的子元素</h5>
+<h6>未清除浮动</h6>
+<div id="clear8">
+  <p class="sample4">段落1</p>
+  <p class="sample4 sample5"><strong>子元素1</strong><strong>子元素2</strong>段落2</p>
+  <p class="sample4">段落3，左浮动</p>
+  <p>段落4段落4</p>
+</div>
+<h6>清除浮动</h6>
+<div id="clear9">
+  <p class="sample4">段落1</p>
+  <p class="sample4 sample5"><strong>子元素1</strong><strong>子元素2</strong>段落2</p>
+  <p class="sample4">段落3，左浮动</p>
+  <p>段落4段落4</p>
+</div>
+<h5>不浮动元素内的子元素浮动</h5>
+<h6>未清除浮动</h6>
+<div id="clear10">
+  <p class="sample4">段落1</p>
+  <p class="sample5"><strong>子元素1</strong><strong>子元素2</strong>段落2</p>
+  <p class="sample4">段落3，左浮动</p>
+  <p>段落4段落4</p>
+</div>
+<h6>清除浮动</h6>
+<div id="clear11">
+  <p class="sample4">段落1</p>
+  <p class="sample5"><strong>子元素1</strong><strong>子元素2</strong>段落2</p>
+  <p class="sample4">段落3，左浮动</p>
+  <p>段落4段落4</p>
+</div>
+<h6>清除浮动</h6>
+<div id="clear12">
+  <p class="sample4">段落1</p>
+  <p class="sample5"><strong>子元素1</strong><strong>子元素2</strong>段落2</p>
+  <p class="sample4">段落3，左浮动</p>
+  <p>段落4段落4</p>
+</div>
+<div class="gotoIndex"><a href="../../index.html#chapter9" title="返回示例代码目录">返回代码目录</a></div>
+</body>
+</html>

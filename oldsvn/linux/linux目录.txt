@@ -1,0 +1,4 @@
+/etc/rc.d/rc0.d-rc6.d linux各个启动级别的文件
+/etc/rc.d/rc.local linux启动文件配置
+/etc/yum.conf yum配置信息
+/etc/inittab inux系统默认启动级别  七个 0-6

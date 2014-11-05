@@ -1,0 +1,2 @@
+jQuery的.bind()、.live()和.delegate()之间区别
+http://www.gbin1.com/technology/jquery/20120419jqueryeventhandler/

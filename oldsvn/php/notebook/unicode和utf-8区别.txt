@@ -1,0 +1,1 @@
+utf-8是unicode的一种，unicode是字长双字节，utf-8是可变字长，对于汉字unicode是双字节，而utf-8是三字节

@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>8.3 宽度：width属性 :: 第8章：框模型</title>
+<link href="../samplecss/show.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+#width1 p {
+margin: 5px;
+}
+.sample1 strong {
+width: 200px;
+}
+.sample1 img {
+width: 200px;
+}
+.sample2 {
+width:80%;
+}
+#width2 {
+background: #6C3;
+border:1px solid #060;
+width:400px;
+position:relative;
+padding:0 20px;
+}
+#wrap1 {
+width: 300px;
+border: 0;
+margin: 0;
+padding:0 20px;
+background: #FC3;
+}
+#wrap1 p {
+margin-bottom: 5px;
+width:50%;
+}
+.sample4 {
+position:absolute;
+background:#3CF;
+left: 20px;
+top: 30px;
+}
+-->
+</style>
+</head>
+
+<body id="c_box">
+<h1>第8章：框模型</h1>
+<h2>8.3 宽度：width属性</h2>
+<h3><a name="inline">8.3.2 行内元素的宽度</a></h3>
+<div id="width1">
+  <p class="sample1">对strong元素设定<strong>width:200px</strong>无效</p>
+  <p class="sample1">对img元素设定<img src="../../img/ddcat_anim.gif" alt="示例图片" title="示例图片" />width:200px有效</p>
+  <p class="sample1">img有width属性width=&quot;88&quot; <img src="../../img/ddcat_anim.gif" width="88" alt="示例图片" title="示例图片" /></p>
+  <p class="sample2">百分比宽度，width : 80%</p>
+</div>
+<h3><a name="length">8.3.3 长度和百分比</a></h3>
+<div id="width2">
+  <div id="wrap1">
+    <p class="sample3">这个p不是绝对定位</p>
+    <p class="sample4">这个p是绝对定位</p>
+  </div>
+</div>
+<div class="gotoIndex"><a href="../../index.html#chapter8" title="返回示例代码目录">返回代码目录</a></div>
+</body>
+</html>

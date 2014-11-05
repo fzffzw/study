@@ -1,0 +1,2 @@
+adobe
+http://get.adobe.com/cn/flashplayer/download/?installer=Flash_Player_11_for_Other_Browsers&os=XP&browser_type=Gecko&browser_dist=Firefox&d=McAfee_Security_Scan_Plus_FireFox_Browser&dualoffer=false

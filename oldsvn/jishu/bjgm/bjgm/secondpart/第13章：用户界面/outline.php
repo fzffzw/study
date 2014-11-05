@@ -1,0 +1,89 @@
+<?php
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>13.3动态的外廓：outline属性 :: 第13章：用户界面</title>
+<link href="../samplecss/show.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+#outline1 em {
+outline: 15px solid #FC0;
+}
+#outline1 strong {
+outline: dotted 5px #36C;
+}
+#outline2 p strong{
+outline-width: 3px;
+outline-color: invert;
+outline-style: dotted;
+}
+.p1 {
+background: #C00;
+}
+.p2 {
+background: #FC3;
+}
+.p3 {
+background:#000;
+}
+.p4 {
+background:#fff url(../../img/ddcat2.gif);
+}
+#outline3 p {
+border:5px solid #3CF;
+outline: solid 10px #fc0;
+}
+#test_form input[type="text"] {  /* 属性选择器 */
+border: 1px solid #999;
+}
+#test_form input[type="text"]:focus {
+border: 1px solid #09F;
+outline: 2px solid #6CF;
+}
+-->
+</style>
+</head>
+
+<body id="c_UI">
+<h1>第13章：用户界面</h1>
+<h2>13.3动态的外廓：outline属性</h2>
+<h3>13.3.1 外廓与边框的区别</h3>
+<div id="outline1">
+  <p>第1个特征：<em>外廓不占空间。</em></p>
+  <p>第2个特征：<strong>外廓不一定是矩形，有可能随元素内容分布在几行内，例如本例中的strong元素。</strong></p>
+</div>
+<h4><a name="outlineColor">13.3.4 外廓颜色：outline-color属性</a></h4>
+<h5><a name="invert">外廓颜色的invert值</a></h5>
+<div id="outline2">
+  <p class="p1"><strong>invert，翻转颜色</strong></p>
+  <p class="p2"><strong>invert，翻转颜色</strong></p>
+  <p class="p3"><strong>invert，翻转颜色</strong></p>
+  <p class="p4"><strong>invert，翻转颜色</strong></p>
+</div>
+<h4><a name="outline">13.3.5 缩写：outline属性</a></h4>
+<div id="outline3">
+  <p>外廓与边框</p>
+</div>
+<h4><a name="focus">13.3.6 外廓与焦点</a></h4>
+<div id="outline4">
+<form id="test_form" method="post" action="#">
+  <fieldset>
+    <legend>用户基本信息</legend>
+    <p><label for="nikename">昵称：</label>
+       <input name="nikename" id="nikename" type="text" size="16" maxlength="30" tabindex="1" /></p>
+	<p><label>地址：</label>
+	   <input name="address" id="address" type="text" value="" size="30" tabindex="2" /></p>
+    <p><input type="radio" name="sex" id="sex_male" value="male" tabindex="3" />
+       <label for="sex_male">男</label>
+       <input type="radio" name="sex" id="sex_female" value="female" tabindex="4" />
+       <label for="sex_female">女</label></p>
+    <p><input type="submit" name="btn_submit" value="提交" tabindex="5" />
+       <input type="reset" name="btn_reset" value="重置" tabindex="6" /></p>
+  </fieldset>
+</form>
+</div>
+<div class="gotoIndex"><a href="../../index.html#chapter13" title="返回示例代码目录">返回代码目录</a></div>
+</body>
+</html>

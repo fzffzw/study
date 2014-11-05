@@ -1,0 +1,53 @@
+1. 用yum安装Apache,Mysql,PHP.
+1.1安装Apache
+yum install httpd httpd-devel
+安装完成后，用/etc/init.d/httpd start 启动apache
+设为开机启动:chkconfig httpd on
+1.2 安装mysql
+1.2.1 yum install mysql mysql-server mysql-devel
+同样，完成后，用/etc/init.d/mysqld start 启动mysql
+1.2.2 设置mysql密码
+mysql>; USE mysql;
+mysql>; UPDATE user SET Password=PASSWORD('newpassword') WHERE user='root';
+mysql>; FLUSH PRIVILEGES;
+1.2.3 允许远程登录
+mysql -u root -p
+Enter Password: <your new password>
+mysql>GRANT ALL PRIVILEGES ON *.* TO '用户名'@'%' IDENTIFIED BY '密码' WITH GRANT OPTION;
+完成后就能用mysql-front远程管理mysql了。
+1.2.4 设为开机启动
+chkconfig mysqld on
+2. 安装php
+yum install php php-mysql php-common php-gd php-mbstring php-mcrypt php-devel php-xml
+/etc/init.d/httpd start
+3. 测试一下
+3.1在/var/www/html/新建个test.php文件，将以下内容写入，然后保存。
+<?
+phpinfo();
+?>
+3.2 防火墙配置
+a.添加.允许访问端口{21: ftp, 80: http}.
+iptables -I RH-Firewall-1-INPUT -m state –state NEW -m tcp -p tcp –dport 21 -j ACCEPT
+iptables -I RH-Firewall-1-INPUT -m state –state NEW -m tcp -p tcp –dport 80 -j ACCEPT
+b.关闭防火墙{不推荐}.
+service iptables stop
+c.重置加载防火墙
+service iptables restart
+3.3然后在客户端浏览器里打开http://serverip/test.php，若能成功显示，则表示安装成功。
+至此，安装完毕。感慨，yum真是太好用了。
+
+CentOS 打开防火墙80端口
+
+ 
+
+注意：有时安装好可能无法访问，需要打开80端口
+
+很大的原因是防火墙：
+通过/etc/init.d/iptables status命令查询是否有打开80端口，如果没有可通过两种方式处理：
+1.修改vi /etc/sysconfig/iptables命令添加使防火墙开放80端口
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+2.关闭防火墙
+/etc/init.d/iptables stop
+#start 开启
+#restart 重启
+永久性关闭防火墙chkconfig --level 35 iptables off

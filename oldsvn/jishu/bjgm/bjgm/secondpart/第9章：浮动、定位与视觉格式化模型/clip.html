@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>9.6.2 剪切：clip属性 :: 9.6 溢出和剪切 :: 第9章：浮动、定位与视觉格式化模型</title>
+<link href="../samplecss/show.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+h3,
+h4 {
+clear:both;
+border-bottom:1px dashed;
+}
+div {
+padding: 10px;
+height:80px;
+position:relative;
+}
+p  {
+margin:0;
+padding:0;
+border:2px solid #f90;
+position:absolute;  /* 绝对定位的元素才能设定剪切 */
+width:370px;
+top: 5px;
+left: 5px;
+}
+#clip1 p {
+clip:rect(10px 300px 50px 30px);
+}
+#clip2 p {
+clip:rect(auto 300px 50px auto);
+}
+#clip3 p {
+clip:rect(10px auto auto 20px);
+}
+#clip4 p {
+clip:rect(0 300px 50px 0);
+}
+#clip4 span,
+#clip5 span,
+#clip7 span {
+position:absolute;
+border:2px solid #06C;
+background: #CFF;
+top:-10px;
+left:-15px;
+}
+#clip5 p {
+clip:rect(-10px 300px 50px -20px);
+}
+#clip6 p {
+overflow:scroll;
+height:60px;
+clip:rect(10px auto auto 20px);
+}
+#clip7 p {
+overflow:scroll;
+clip:rect(-10px 300px 50px -20px);
+}
+-->
+</style>
+</head>
+
+<body id="c_visual">
+<h1>第9章：浮动、定位与视觉格式化模型</h1>
+<h2>9.6 溢出和剪切</h2>
+<h3>9.6.2 剪切：clip属性</h3>
+<h4>不剪切</h4>
+<div id="clip0">
+  <p>内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。</p>
+</div>
+<h4>偏移量的计算</h4>
+<div id="clip1">
+  <p>内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。</p>
+</div>
+<h4>偏移量的“auto”值</h4>
+<div id="clip2">
+  <p>内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。</p>
+</div>
+<div id="clip3">
+  <p>内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。</p>
+</div>
+<h4>偏移量的负值</h4>
+<div id="clip4">
+  <p><span>p的子元素</span>内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。</p>
+</div>
+<div id="clip5">
+  <p><span>p的子元素</span>内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。</p>
+</div>
+<h4><a name="clip2">9.6.3 clip与overflow属性的关系</a></h4>
+<div id="clip6">
+  <p>内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。</p>
+</div>
+<div id="clip7">
+  <p><span>p的子元素</span>内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。内容文字。</p>
+</div>
+<div class="gotoIndex"><a href="../../index.html#chapter9" title="返回示例代码目录">返回代码目录</a></div>
+</body>
+</html>

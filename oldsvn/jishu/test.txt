@@ -1,0 +1,45 @@
+A id sex par,c1,c2
+B id age c1 c2
+
+
+update
+
+
+UPDATE items,month SET items.price=month.price
+WHERE items.id=month.id;
+
+
+update A,B set A.c1=B.c1,A.c2=B.c2  where A.id=B.id and B.age>=50
+
+
+delete a.* from a,b where a.id = b.aid
+update a,b set a.aaa= ? where a.id = b.aid
+
+
+update orders,oo set orders.order_id=oo.order_id  where oo.order_id=orders.order_id
+
+limit 10
+
+
+
+  一直以来很少看到有多少人使用php的socket模块来做一些事情，大概大家都把它定位在脚本语言的范畴内吧，但是其实php的socket模块可以做很多事情，包括做ftplist,http post提交，smtp提交，组包并进行特殊报文的交互（如smpp协议），whois查询。这些都是比较常见的查询。
+
+特别是php的socket扩展库可以做的事情简直不会比c差多少。
+php的socket连接函数
+1、集成于内核的socket
+这个系列的函数仅仅只能做主动连接无法实现端口监听相关的功能。而且在4.3.0之前所有socket连接只能工作在阻塞模式下。
+此系列函数包括
+fsockopen，pfsockopen
+这两个函数的具体信息可以查询php.net的用户手册
+他们均会返回一个资源编号对于这个资源可以使用几乎所有对文件操作的函数对其进行操作如fgets(),fwrite(), fclose()等单注意的是所有函数遵循这些函数面对网络信息流时的规律，例如：
+fread() 从文件指针 handle 读取最多 length 个字节。 该函数在读取完 length 个字节数，或到达 EOF 的时候，或（对于网络流）当一个包可用时就会停止读取文件，视乎先碰到哪种情况。
+可以看出对于网络流就必须注意取到的是一个完整的包就停止。
+2、php扩展模块带有的socket功能。
+php4.x 以后有这么一个模块extension=php_sockets.dll，Linux上是一个extension=php_sockets.so。
+当打开这个此模块以后就意味着php拥有了强大的socket功能，包括listen端口，阻塞及非阻塞模式的切换，multi-client 交互式处理等
+这个系列的函数列表参看http://www.php.net/manual/en/ref.sockets.php
+看过这个列表觉得是不是非常丰富呢？不过非常遗憾这个模块还非常年轻还有很多地方不成熟，相关的参考文档也非常少：（
+我也正在研究中，因此暂时不具体讨论它，仅给大家一个参考文章
+http://www.zend.com/pecl/tutorials/sockets.php
+
+

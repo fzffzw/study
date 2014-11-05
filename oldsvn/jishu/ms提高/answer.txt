@@ -1,0 +1,341 @@
+7、 0 0 * * * init 6
+10 zip -r myfile.zip ./*
+apache默认使用进程管理还是线程管理？如何判断并设置最大连接数？
+进程管理
+apache本身即支持线程也支持进程。它怎么实现的呢？就是用MPM。
+ps aux | grep httpd | wc -l
+控制最大连接数的MaxClients ，因此可以尝试配置为：
+<IfModule mpm_prefork_module>
+                StartServers                      5
+                MinSpareServers                   5
+                MaxSpareServers                  10
+                ServerLimit                    5500
+                MaxClients                     5000
+                MaxRequestsPerChild               100
+</IfModule>
+
+15 备份文件脚本
+#!/bin/bash 
+cd /home/zqlx
+date=`date -I`;
+# backup NB
+/bin/tar -cjf /usr/local/backup/$date.tar.bz2 NB*
+# romove old data 
+find /usr/local/backup -type f -mtime +7 -exec rm -f {} \
+
+* 3 * * * sh ss.sh
+
+　du：查询档案或目录的磁盘使用空间
+　　a：显示全部目录和其次目录下的每个档案所占的磁盘空间
+　　b：大小用bytes来表示 (默认值为k bytes)
+　　c：最后再加上总计 (默认值)
+　　s：只显示各档案大小的总合
+　　x：只计算同属同一个档案系统的档案
+　　L：计算所有的档案大小  
+
+5. 通过 JS 创建一个当前窗口的子窗口，通过程序实现子窗口对父窗口的操作实例？
+http://www.cnblogs.com/houfeng/archive/2009/06/11/1450617.html
+
+6 通过 JS 实现页面的前进和后退操作？
+用js实现网页中打印、刷新、关闭、前进、后退、返回等操作，js代码如下，直接调用即可：
+ [<a href="#" onclick="window.opener=null;window.open('','_self');window.close();" >关闭</a >]
+ [<a href="javascript:window.print()" target="_self">打印</a>]
+  [<a href='javascript:history.go(-1)'>返回/后退</a>]
+ [<a href='javascript:history.go(1)'>前进</a>]
+ [<a href='javascript:history.go(0)'>刷新</a>]
+ 
+ 7. 浏览器 IE 和非IE 浏览器的划分，区别是什么？
+ var _ua = navigator.userAgent.toLowerCase(),
+	_IE = _ua.indexOf('msie') > -1 && _ua.indexOf('opera') == -1,//ie
+_GECKO = _ua.indexOf('gecko') > -1 && _ua.indexOf('khtml') == -1,//firefox
+"Mozilla/5.0 (Windows NT 5.1; rv:24.0) Gecko/20100101 Firefox/24.0"
+"Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.76 Safari/537.36"
+
+2. 用javascript 取得一个input 的值？取得一个input 的属性？
+document.getElementsByTagName("input")[1].value document.getElementsByTagName("input")[1].getAttribute('class')
+3. 用Jquery 取得一个input 的值？取得一个input 的属性？
+$('input').eq(0).val() $('input').eq(0).attr('class');	
+
+15．
+请写出一个正则表达式,用于匹配一个HTML文件中<img />标记中的图片地址
+self /^src=(['|"])(\S)+(\0)$/
+
+33．
+session.gc_maxlifetime = 86400
+
+如何修改SESSION的生存时间
+session_start(); 
+// 保存一天 
+$lifeTime = 24 * 3600; 
+setcookie(session_name(), session_id(), time() + $lifeTime, "/"); 
+?＞
+　　其实 Session 还提供了一个函数 session_set_cookie_params(); 来设置 Session 的生存期的，该函数必须在 session_start() 函数调用之前调用：
+＜?php 
+// 保存一天 
+$lifeTime = 24 * 3600; 
+session_set_cookie_params($lifeTime); 
+session_start();
+$_SESSION["admin"] = true; 
+?＞
+39．
+请写一个函数将1234567890转换成1,234,567,890 每3位用逗号隔开的形式。
+function ss(){
+	$str = 1234567890;
+	$length = strlen($str);
+	$return= array();
+	for($i=1;$i<=ceil($length/3);$i++){
+		if(3*$i>$length){
+			$substr=substr($str, -3*$i,$length-3*($i-1));
+		}else{
+			$substr=substr($str, -3*$i,3);
+		}
+		array_unshift($return, $substr);
+	}
+	echo implode(',', $return);
+}
+42．
+请用php写出以下程序：假设网络中有一台服务器192.168.1.101，开放端口8899进行侦听，请用php的socket相关知识，写出一个简易的client，连接到server，并发送字符串”hello server!”。程序仅对连接的成功和失败进行简易错误判断和处理即可。
+header('content-type:text/html;charset=utf-8');
+error_reporting(E_ALL);
+set_time_limit(0);
+echo "<h2>TCP/IP Connection</h2>\n";
+
+$port = 80;
+$ip = "127.0.0.1";
+
+/*
+ +-------------------------------
+*    @socket连接整个过程
++-------------------------------
+*    @socket_create
+*    @socket_connect
+*    @socket_write
+*    @socket_read
+*    @socket_close
++--------------------------------
+*/
+
+$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+if ($socket < 0) {
+	echo "socket_create() failed: reason: " . socket_strerror($socket) . "\n";
+}else {
+	echo "OK.\n";
+}
+
+echo "试图连接 '$ip' 端口 '$port'...\n";
+$result = socket_connect($socket, $ip, $port);
+if ($result < 0) {
+	echo "socket_connect() failed.\nReason: ($result) " . socket_strerror($result) . "\n";
+}else {
+echo "连接OK\n";
+}
+
+$in = "Ho\r\n";
+$in .= "first blood\r\n";
+$out = '';
+
+if(!socket_write($socket, $in, strlen($in))) {
+echo "socket_write() failed: reason: " . socket_strerror($socket) . "\n";
+}else {
+echo "发送到服务器信息成功！\n";
+    echo "发送的内容为:<font color='red'>$in</font> <br>";
+}
+
+while($out = socket_read($socket, 80)) {
+echo "接收服务器回传信息成功！\n";
+echo "接受的内容为:",$out;
+}
+
+
+echo "关闭SOCKET...\n";
+socket_close($socket);
+echo "关闭OK\n";
+
+获取url的扩展名
+function getextent(){
+$url=$_SERVER['PHP_SELF'];
+$urlArr=explode('.',$url);
+print_r(array_pop($url));
+}
+封
+符串
+“test_for_test”,指定第四位‘t’为要查找的字符，运行后返回4（出现了4次）
+function getCount($pos,$str){
+	$len = strlen($str);
+	$cishu = 0;
+	if($len>$pos && $pos>0 && is_int($pos)){
+		$zifu = $str{$pos-1};
+		preg_match_all("/{$zifu}/i", $str,$match);
+		echo count($match[0]);
+	}
+}
+
+66 如果发布一条评论限制在120字之内，请写出如何截取多字节字符串，可以用 js或
+php截取。（编码为UTF8，如不清楚可以假设其编码范围）。
+mb_substr
+
+67 加快页面加载速度思路
+1 页面静态化
+2 开启gzip压缩
+3 压缩js/css
+4 优化图片 拼合背景图片 
+  1、减少图片数：要尽量避免使用过多的图片，最好不要使用图片，
+  加载10行文字绝对比加载5行高的图片要快得多。
+
+ 2、降低图像质量：如果不是很必要，尝试降低图像的质量，尤其是jpg格式，
+ 降低5%的质量看起来变化不是很大，但文件大小的变化是比较大的。
+
+3、使用恰当的格式：一般在网页上使用的图片格式有三种，jpg、png、gif，
+有时候使用bmp。我们需要知道在什么时候应该使用什么格式，以减少网页的加载时间。
+      a、JPG/BMP：一般用于展示风景、人物、艺术照的摄影作品。有时也用在电脑截屏上。
+      b、GIF：提供的颜色较少，可用在一些对颜色要求不高的地方，比如网站logo、按钮、表情等等。当然，gif的一个重要的应用是动画图片。就像用Lunapic制作的倒映图片。
+      c、PNG：PNG格式能提供透明背景，是一种专为网页展示而发明的图片格式。一般用于需要背景透明显示或对图像质量要求较高的网页上。
+5 标明图片高宽 如果浏览器没有找到这两个参数，它需要一边下载图片一边计算大小，如果图片很多，浏览器需要不断地调整页面。
+6 不要在HTML中缩放图片
+7 减少HTTP请求
+五、减少DNS查找
+    减少网站从外部调用资源，网页加载效率会大大提高，
+    所以，不要使用过多的网页插件。这点建议已经被纳入Google的网站性能分析报告里了。
+76 写出一个正则表达式，过虑网页上的所有JS/VBS 脚本
+
+80 根据你的经验谈谈写php程序需要注意哪些问题
+
+
+
+
+
+
+
+
+
+
+
+select date_format(now(),'%Y-%m-%d');
+
+网站出现mysql 压力太大，mysql 占用的cpu 太高，应该从哪些方面入手查找问题根源？
+开启慢查询日志，看看问题出现在那， 找到问题记得关闭， 很浪费效率 监控慢搜索 
+log-slow-queries
+
+show processlist 
+
+explain select * from user;
+
+select user.name,if(isnull(content.number),0,content.number) number  
+from user left join (select id,count(*) number from e group by id) content on user.id=content.id
+
+
+mysql_real_escape_string($item);
+
+
+写一个类实现接口ArrayAccess 
+
+class obj implements arrayaccess {
+    private $container = array();
+    public function __construct() {
+        $this->container = array(
+            "one"   => 1,
+            "two"   => 2,
+            "three" => 3,
+        );
+    }
+    public function offsetSet($offset, $value) {
+        if (is_null($offset)) {
+            $this->container[] = $value;
+        } else {
+            $this->container[$offset] = $value;
+        }
+    }
+    public function offsetExists($offset) {
+        return isset($this->container[$offset]);
+    }
+    public function offsetUnset($offset) {
+        unset($this->container[$offset]);
+    }
+    public function offsetGet($offset) {
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
+    }
+}
+
+分别输出(1)、(2)运行结果，试简述过程。
+	class sample {                                                             
+	 	function __call($a, $b){
+	 		echo ucwords(implode(' ', $b).' '.$a);                       
+	 	}                                                                
+	 	function ads(){                                                  
+	 		ob_start();                                                  
+	 		echo 'by';                                                   
+	 		return $this;                                                
+	 	}                                                                
+	 	function ade(){                                                  
+	 		$c = ob_get_clean();                                         
+	 		$this->php('power', $c);                                     
+	 	}                                                                
+	 }                                                                   
+	 $inst = new sample();                                               
+	 $inst->cmstop('welcome', 'to');
+	 $inst->ads()->ade();          
+Welcome To CmstopPower By Php
+
+| 10、我们知道__autoload可以实现类的自动载入，如何把一个类splDemo的方法      |
+|    __autoload注册成为一个__autoload(关键词：spl)                           |
+| abstract class splDemo {                                                   |
+| 	function __autoload($class){                                         |
+| 		// ....                                                      |
+| 	}                                                                    |
+| }  
+
+
+| 13、分别读取div节点attr属性值                                              |
+|   1) <div attr = "abcd" ></div> // 输出abcd                                |
+|   2) <div attr="abcd\">"></div> // 输出abcd">     
+
+
+| 14、用javascript原生函数设置div#main属性，使得其                           |
+|     占用高度300px(offsetHeight = 300px),                                   |
+|     占用宽度400px(offsetWidth = 400px)，                                   |
+|     边框厚度1px，边框颜色black，背景色pink，水平居中且垂直居中于浏览器。   |
+
+
+
+function lujintest(){
+	$a = '/a/b/c/d/e.php';
+	$b = '/a//b/12/34//c.php';
+	//计算出 $b 相对于$a 的相对路径应该是 ../../c/d 将()添上
+	$aArr=array_values(array_filter(explode('/',$a)));
+	$bArr=array_values(array_filter(explode('/', $b)));
+	
+	for($i=0;$i<count($bArr);$i++){
+		if($bArr[$i]!=$aArr[$i]){
+			break;
+		}
+	}
+	$returnStrint='';
+	for($k=0;$k<count($aArr)-1;$k++){
+		if($k<$i){
+			$returnStrint.='../';
+		}else{
+			$returnStrint.=$aArr[$k].'/';
+		}
+	}
+	return $returnStrint;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+

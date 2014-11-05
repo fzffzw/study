@@ -1,0 +1,35 @@
+$("#someid").die("click").live("click",function(){...
+or
+
+$("#someid").unbind("click").bind("click",function(){...
+
+
+jquery 判断元素是否绑定事件  
+
+2012-05-23 15:53:48|  分类： 默认分类 |字号 订阅
+网上说的
+if( $("#foo").data("events")["click"] ){
+//your code
+}
+不行
+$("#foo").data("events")就为undefined
+
+也有说
+var tempE = $(“#foo”).data(“events”);
+if(tempE){
+　　if(tempE["click"] ){
+　　　　//your code
+　　 }
+} 
+这个也不行
+tempE那里即使没绑定也是undefined，都过不去
+
+用属性判断就可以了
+    if($(elem).attr("onclick"))
+                        {
+                  
+                        }
+
+如果页面元素 onclick="事件"的话
+if中获取的返回值是个function，如果没有写事件的话，返回null
+

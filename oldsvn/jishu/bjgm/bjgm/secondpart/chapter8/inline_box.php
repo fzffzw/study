@@ -1,0 +1,90 @@
+<?php
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>8.10.5 行内元素的格式化 :: 8.10 常规流向中的视觉格式化 :: 第8章：框模型</title>
+<link href="../samplecss/show.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+p {
+padding:0;
+margin-bottom:10px;
+line-height: 3em;
+}
+strong {
+border:2px solid #39F;
+background:#FC3;
+margin: 10px;
+padding: 5px;
+}
+.sample1 {
+line-height: 20px;
+}
+.sample2 {
+height:30px;
+}
+.sample3 {
+width: 120px;
+}
+
+form {
+width:400px;
+margin: auto;
+}
+form p {
+background:#FC3;
+text-align:left;
+}
+#test2 {
+height:30px;
+}
+#test4 {
+width:140px;
+}
+</style>
+</head>
+
+<body id="c_box">
+<h1>第8章：框模型</h1>
+<h2>8.10 常规流向中的视觉格式化</h2>
+<h3>8.10.5 行内元素的格式化</h3>
+<h4><a name="inline1">行内非替换元素</a></h4>
+<div id="inlineFormatting">
+  <p>段落行高3em，<strong>行内元素strong发生回行，水平方向的补白、边框和边距的表现</strong></p>
+  <p class="sample1">行高20px，<strong>行内元素strong发生回行，水平方向的补白、边框和边距的表现</strong></p>
+</div>
+<h4><a name="inline2">行内替换元素</a></h4>
+<div id="inlineFormatting2">
+  <p>图片的widht和height全为auto：<img src="../../img/ddcat_ad.gif" alt="示例图片" /></p>
+  <p>图片的width为auto，而height为30px：<img src="../../img/ddcat_ad.gif" alt="示例图片" class="sample2" /></p>
+  <p>图片的height为auto，而width为120px：<img src="../../img/ddcat_ad.gif" alt="示例图片" class="sample3" /></p>
+</div>
+<form id="testForm" action="#">
+  <fieldset>
+	<legend>示例表单</legend>
+	<p><label for="test1">width/height : auto</label>
+	<input name="test1" id="test1" /></p>
+	<p><label for="test2">height: 30px;</label>
+	<input name="test2" id="test2" /></p>
+	<p><label for="test3">width: auto</label>
+	  <select name="test3" id="test3">
+        <option>选择1</option>
+        <option>选择选择选择选择选择选择选择选择选择选择2</option>
+        <option>选择3选择3</option>
+      </select>
+	</p>
+	<p><label for="test4">width: 140px</label>
+	  <select name="test4" id="test4">
+        <option>选择1</option>
+        <option>选择选择选择选择选择选择选择选择选择选择2</option>
+        <option>选择3选择3</option>
+      </select>
+	</p>
+	<p><label for="test5">多行文本</label>
+	<textarea name="test5" cols="30" rows="3" id="test5"></textarea></p>
+  </fieldset>
+</form>
+<div class="gotoIndex"><a href="../../index.html#chapter8" title="返回示例代码目录">返回代码目录</a></div>
+</body>
+</html>

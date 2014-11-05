@@ -1,0 +1,210 @@
+<?php
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>绝对定位的垂直格式化 :: 9.3.4  绝对定位 :: 9.3 定位 :: 第9章：浮动、定位与视觉格式化模型</title>
+<style type="text/css">
+<!--
+* {
+padding:0;
+margin:0;
+}
+body {
+margin:15px;
+padding:20px;
+border:3px dashed #909;
+position:relative;
+font: small/2em "宋体", serif;
+background:#FFF;
+}
+.gotoIndex {
+width:auto;
+height:auto;
+margin-top:30px;
+background:#ccc;
+font-size:12px;
+border:none;
+text-align:center;
+padding:4px;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+font-size: 1em;
+line-height: 2em;
+text-align:center;
+border-bottom:1px dotted #999;
+}
+
+/* 以下是正式示例代码 */
+div {
+background:#6C3;
+margin:10px;
+padding:10px;
+border:3px solid #060;
+position:relative;
+height:80px;
+}
+p {
+background:#ff9;
+}
+.sample7 {
+border:2px solid #06C;
+background: #CFF;
+position:absolute;
+margin:auto;
+}
+#vertical0 .sample7 {
+position:static;
+width:auto;
+}
+#vertical1 .sample7 {
+height:auto;
+top:auto;
+bottom:auto;
+margin-top: 10px;
+}
+#vertical2 .sample7 {
+height:30px;
+top:20px;
+bottom: 15px;
+} 
+#vertical3 .sample7 {
+height:auto;
+top:auto;
+bottom: 15px;
+} 
+#vertical4 .sample7 {
+height:30px;
+top:auto;
+bottom:auto;
+} 
+#vertical5 .sample7 {
+height:auto;
+top:20px;
+bottom:auto;
+} 
+#vertical6 .sample7 {
+height:30px;
+top:auto;
+bottom:15px;
+}
+#vertical7 .sample7 {
+height:auto;
+top:20px;
+bottom:15px;
+} 
+#vertical8 .sample7 {
+height:30px;
+top:20px;
+bottom:auto;
+}
+/* 替换元素 */
+#vertical9,
+#vertical10,
+#vertical11 {
+line-height:20px;
+}
+.sample8 {
+position:absolute;
+top:auto;
+bottom:auto;
+margin:10px 0;
+}
+#vertical9 {
+height:auto;
+} 
+#vertical9 .sample8 {
+position:static;
+/*vertical-align:top;*/
+}
+#vertical11,
+#vertical12 {
+height:100px;
+}
+#vertical11 .sample8,
+#vertical12 .sample8 {
+margin:auto 0;
+top:15px;
+bottom: 10px;
+}
+#vertical12 .sample8 {
+height:40px;
+}
+
+-->
+</style>
+</head>
+
+<body id="c_visual">
+<h1>第9章：浮动、定位与视觉格式化模型</h1>
+<h2>9.3 定位</h2>
+<h3>9.3.4  绝对定位</h3>
+<h4>绝对定位的垂直格式化</h4>
+<div id="vertical0">
+  <p class="sample7">绝对定位元素内的文字。绝对定位元素内的文字。</p>
+  <p>绝对定位元素后面的段落内的文字。绝对定位元素后面的段落内的文字。</p>
+</div>
+<h4>top、height和bottom属性值全部为“auto”</h4>
+<div id="vertical1">
+  <p class="sample7">绝对定位元素内的文字。绝对定位元素内的文字。</p>
+  <p>绝对定位元素后面的段落内的文字。绝对定位元素后面的段落内的文字。</p>
+</div>
+<h4>top、height和bottom属性值全都不是“auto”，margin-top和margin-bottom全都是“auto”</h4>
+<div id="vertical2">
+  <p class="sample7">绝对定位元素内的文字。绝对定位元素内的文字。</p>
+  <p>绝对定位元素后面的段落内的文字。绝对定位元素后面的段落内的文字。</p>
+</div>
+<h4>top和height属性的值是“auto”而bottom属性的值不是“auto”</h4>
+<div id="vertical3">
+  <p class="sample7">绝对定位元素内的文字。绝对定位元素内的文字。</p>
+  <p>绝对定位元素后面的段落内的文字。绝对定位元素后面的段落内的文字。</p>
+</div>
+<h4>top和bottom属性的值是“auto”而height的值不是“auto”</h4>
+<div id="vertical4">
+  <p class="sample7">绝对定位元素内的文字。绝对定位元素内的文字。</p>
+  <p>绝对定位元素后面的段落内的文字。绝对定位元素后面的段落内的文字。</p>
+</div>
+<h4>height和bottom属性的值是“auto”而top的值不是“auto”</h4>
+<div id="vertical5">
+  <p class="sample7">绝对定位元素内的文字。绝对定位元素内的文字。</p>
+  <p>绝对定位元素后面的段落内的文字。绝对定位元素后面的段落内的文字。</p>
+</div>
+<h4>top的值是“auto”而height和bottom属性的值不是“auto”</h4>
+<div id="vertical6">
+  <p class="sample7">绝对定位元素内的文字。绝对定位元素内的文字。</p>
+  <p>绝对定位元素后面的段落内的文字。绝对定位元素后面的段落内的文字。</p>
+</div>
+<h4>height的值是“auto”而top和bottom属性的值不是“auto”</h4>
+<div id="vertical7">
+  <p class="sample7">绝对定位元素内的文字。绝对定位元素内的文字。</p>
+  <p>绝对定位元素后面的段落内的文字。绝对定位元素后面的段落内的文字。</p>
+</div>
+<h4>bottom属性的值是“auto”而top和height属性的值不是“auto”</h4>
+<div id="vertical8">
+  <p class="sample7">绝对定位元素内的文字。绝对定位元素内的文字。</p>
+  <p>绝对定位元素后面的段落内的文字。绝对定位元素后面的段落内的文字。</p>
+</div>
+<h4>替换元素</h4>
+<h5>静态位置</h5>
+<div id="vertical9">
+  <p><img src="../../img/ddcat_ad.gif" alt="示例图片" class="sample8" width="180" height="60" />文字文字文字</p>
+</div>
+<h5>top和bottom都是“auto”</h5>
+<div id="vertical10">
+  <p><img src="../../img/ddcat_ad.gif" alt="示例图片" class="sample8" width="180" height="60" />文字文字文字</p>
+</div>
+<h5>margin-top和margin-bottom都是“auto”</h5>
+<div id="vertical11">
+  <p><img src="../../img/ddcat_ad.gif" alt="示例图片" class="sample8" width="180" height="60" />文字文字文字文字文字文字文字文字文字文字文字文字文字文字</p>
+</div>
+<div id="vertical12">
+  <p><img src="../../img/ddcat_ad.gif" alt="示例图片" class="sample8" width="180" height="60" />文字文字文字文字文字文字文字文字文字文字文字文字文字文字</p>
+</div>
+<div class="gotoIndex"><a href="../../index.html#chapter9" title="返回示例代码目录">返回代码目录</a></div>
+</body>
+</html>

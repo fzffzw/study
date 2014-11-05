@@ -1,0 +1,6 @@
+http://www.s135.com/post/171/
+yum search soap | grep php
+yum install php-soap
+http://www.electrictoolbox.com/class-soapclient-not-found/
+
+rpm -ivh php-soap-5.3.3-22.el6.x86_64.rpm

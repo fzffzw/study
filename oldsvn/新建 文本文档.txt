@@ -1,0 +1,58 @@
+1. 安装Apahce, PHP , Mysql , 以及php连接mysql库组件。
+
+
+yum -y install httpd php mysql mysql-server php-mysql
+
+
+2. 配置开机启动服务
+
+
+ /sbin/chkconfig httpd on             [设置apache 服务器httpd服务开机启动]
+ /sbin/chkconfig --add mysqld         [在服务清单中添加mysql服务]
+ /sbin/chkconfig mysqld on             [设置mysql服务开机启动]
+
+
+ /sbin/service httpd start            [启动httpd服务,与开机启动无关]
+ /sbin/service mysqld start           [启动mysql服务,与开机无关]
+
+
+3.设置mysql数据库root帐号密码。
+
+
+mysqladmin -u root password 'newpassword'           [引号内填密码]
+
+
+4. 让mysql数据库更安全
+
+
+mysql -u root -p
+
+mysql> DROP DATABASE test;                            [删除test数据库]
+mysql> DELETE FROM mysql.user WHERE user = '';        [删除匿名帐户]
+mysql> FLUSH PRIVILEGES;                              [重载权限]
+
+
+5. 按照以上的安装方式, 配置出来的默认站点目录为/var/www/html/
+新建一个php脚本:
+
+
+<?php
+   phpinfo();
+?>
+
+
+
+6. 新建一个数据库 ，添加一个数据库用户，设置用户权限。写个php脚本测试一下数据库连接吧。
+
+
+mysql> CREATE DATABASE my_db;
+mysql> GRANT ALL PRIVILEGES ON my_db.* TO'user'@'localhost' IDENTIFIED BY 'password';
+ 
+ 
+ 
+// 安装 apache扩展
+yum -y install httpd-manual mod_ssl mod_perl mod_auth_ mysql mod_rewrite
+//安装 php的扩展
+yum -y install php-gd php-gd php-xml php-mbstring php-ldap php-pear php-xmlrpc php-curl php-memcache  php-sockets
+// 安装 mysql 扩展
+yum -y install mysql -connector-odbc mysql -devel libdbi-dbd-mysql -devel libdbi-dbd-mysql mysql -devel libdbi-dbd-mysql -devel libdbi-dbd-mysql -connector-dbc

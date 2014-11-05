@@ -1,0 +1,2 @@
+´ò°ü
+tar -zcvf /home/william/www.tar.gz /home/apache

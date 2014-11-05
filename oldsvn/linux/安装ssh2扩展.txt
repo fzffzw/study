@@ -1,0 +1,52 @@
+ rpm -qa | grep openssl
+
+tar -zxvf ssh2-0.11.3.tgz 
+
+tar -zxvf libssh2-1.4.3.tar.gz 
+
+cd sscd libssh2-1.4.3
+cd libssh2-1.4.3
+./configure 
+make
+make install
+cd ../
+cd ssh2-0.11.3
+phpize &&  ./configure --with-ssh2
+make
+make install
+
+configure: error: Cannot find php-config. Please use --with-php-config=PATH
+使用如下
+
+phpize &&  ./configure --with-ssh2
+
+正式上使用
+/opt/php/bin/phpize && ./configure --with-ssh2 --with-php-config=/opt/php/bin/php-config
+
+
+
+phpize &&  ./configure --with-ssh2 –-with-php-config=/opt/php/bin/php-config
+
+/configure --with-curl=/usr/local/curl --with-php-config=/usr/local/php/bin/php-config
+
+
+
+让apache识别
+/usr/lib/php5/extensions/
+
+cp ssh2.so /usr/lib/php5/extensions/
+
+还有个，就是添加配置文件，
+
+/etc/php5/conf.d/目录中复制一个ssh2.ini文件
+
+cp mysql.ini ssh2.ini
+
+编辑ssh2.ini，将其中内容修改为：
+
+extension=ssh2.so
+
+用这个命令php -i|grep ssh2
+
+service httpd restart
+

@@ -1,0 +1,235 @@
+web前端攻城狮都来晒一晒你的收藏夹吧
+　　作为刚入门的web前端攻城狮，深知在国内做技术的不易，深知没有人指导下要走很多弯路，深知要努力提高自己的水平以免给国内web前端攻城狮平均待遇拖后腿，所以本着积累知识，帮助新人，与同行互补的目地写了本文。
+
+　　由于开始前端开发时间不长，积累数量跟质量难免有限，强烈建议大家在评论中补充，然后我会择优进行补充本文。
+
+　　先从我自己开始吧。
+
+学习网站
+　　W3school：http://www.w3school.com.cn/
+
+　　一句话点评：初学者必上的网站，也可以做为工具来用，有中英文版
+
+ 
+
+　　W3C：http://www.w3.org/
+
+　　一句话点评：最权威的资料
+
+ 
+
+　　MDN：https://developer.mozilla.org/zh-CN/　　
+
+　　一句话点评：图文示例并茂，非常好的学习资料
+
+ 
+
+　　汤姆大叔的博客：http://www.cnblogs.com/TomXu/
+
+　　一句话点评：深入学习JS的绝佳博客
+
+ 
+
+　　Ruby's Louvre：http://www.cnblogs.com/rubylouvre/
+
+　　一句话点评：国内JS牛人之一
+
+ 
+
+　　纸头折飞机：http://www.cnblogs.com/xueduanyang/
+
+　　一句话点评：本博客有很多前端开发者值得关注的内容
+
+ 
+
+　　小坦克：http://www.cnblogs.com/TankXiao/
+
+　　一句话点评：从底层理论到应用实践都有介绍，当然了，也有工具的介绍
+
+ 
+
+　　Snandy：http://www.cnblogs.com/snandy/
+
+　　一句话点评：对JS的分析，特别是对jQuery原理的分析值得一看
+
+ 
+
+　　当耐特砖家--Iamzhanglei.com：http://www.cnblogs.com/iamzhanglei/
+
+　　一句话点评：HTML5尝鲜者，当然还有其他前端技术
+
+ 
+
+　　简单生活，踏实人生：http://www.cnblogs.com/yanyangtian/tag/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/
+
+　　一句话点评：推荐性能优化这一块，虽然有涉及到asp.net，但原理相通
+
+ 
+
+　　鑫生活鑫空间：http://www.zhangxinxu.com/wordpress/
+
+　　一句话点评：国内不多见的比较好的前端个人技术博客（主要是我孤陋寡闻不知道其他人的）
+
+ 
+
+　　淘宝UED：http://ued.taobao.com/
+
+　　一句话点评：这个就不多说了，上一篇文章有介绍，值得关注
+
+ 
+
+　　goddyzhao：http://blog.goddyzhao.me/
+
+　　一句话点评：国内不多见的比较好的前端个人技术博客
+
+JS库
+　　jQuery：http://jquery.com/
+
+　　一句话点评：jQuery官网
+
+ 
+
+　　Sizzler：http://sizzlejs.com/
+
+　　一句话点评：jQuery的御用选择器，可独立使用
+
+ 
+
+　　JSDeferred：http://cho45.stfuawsc.com/jsdeferred/
+
+　　一句话点评：强大的JS异步库，个人虽然不喜欢日本人，但对技术牛人还是很欣赏的
+
+ 
+
+　　mass-Framework：https://github.com/RubyLouvre/mass-Framework
+
+　　一句话点评：国内JS牛人司徒正美开发的JS框架
+
+ 
+
+　　Jscex：https://github.com/JeffreyZhao/jscex/
+
+　　一句话点评：国内.NET领域牛人老赵开发的异步JS库
+
+ 
+
+　　（沈融兴 推荐）YUI：https://developer.yahoo.com/yui/
+
+　　一句话点评：Yahoo的一个开放源代码的 JavaScript 函数库
+
+常用工具
+　　Git
+
+　　一句话点评：非常好用的版本管理工具
+
+ 
+
+　　EditPlus
+
+　　一句话点评：我的编辑器，轻巧方便
+
+ 
+
+　　IETest
+
+　　一句话点评：IE浏览器兼容性调试工具
+
+ 
+
+　　Fiddler
+
+　　一句话点评：网络监测工具，对分析请求非常有用
+
+ 
+
+　　JSFiddle：http://jsfiddle.net/
+
+　　一句话点评：在线演示JS代码，只是速度很慢。有个朋友正在开发，准备弄个国内版的，以后再介绍。
+
+ 
+
+　　JSLint：http://jslint.com/
+
+　　一句话点评：JavaScript验证工具，想写出规范的JS代码就多用这个吧
+
+ 
+
+　　Chinacxy：http://www.chinacxy.com
+
+　　一句话点评：上面提到的那位朋友开发的一个前端工程师工具集，目前包括网页特效、在线正则测试、CSS/JS/HTML格式化、JSON格式在线验证、所见即所得代码在线编辑等
+
+ 
+
+　　Codrops：http://tympanus.net/codrops/category/tutorials/
+
+　　一句话点评：网页特效
+
+ 
+
+　　Iconfinder：http://www.iconfinder.com/
+
+　　一句话点评：非常强大的icon图标搜索引擎
+
+ 
+
+　　yellowgreen：http://yellowgreen.de/image-to-base64-string-encoder
+
+　　一句话点评：一个在线图片转为base64格式工具
+
+常用浏览器插件
+　　FireFox:
+
+　　　　FireBug：这个不用介绍
+
+　　　　YSlow：Yahoo开发的，基于Firebug的用于分析网页性能的工具，用于优化网页的速度和建立高性能的网页。
+
+　　　　Cookies Manager+：cookie管理器
+
+　　　　Linkchecker：检查页面是否有死链
+
+　　Chrome:
+
+　　　　jQuery API Browser：可查询jQuery API
+
+　　　　Edit this cookie：cookie管理器
+
+　　　　Resolution Test：快速调整浏览器尺寸工具
+
+前端资讯
+　　JavaScriptWeekly：http://javascriptweekly.com/
+
+　　一句话点评：JS周刊
+
+ 
+
+　　InfoQ：http://www.infoq.com/cn/javascript/
+
+　　一句话点评：JS资讯及访谈
+
+ 
+
+　　（heqichang 推荐）smashingmagazine：http://www.smashingmagazine.com/
+
+　　一句话点评：专业的网页设计师和开发人员的在线杂志，主要介绍技术、实践和资源。
+
+经典书籍
+ 
+
+　　《JavaScript高级程序设计》——人民邮电出版社：
+
+
+
+ 
+
+　　《高性能JavaScript》——电子工业出版社：
+
+
+
+　　（Artwl 推荐）《精通正则表达式》——电子工业出版社：
+
+
+
+小结
+　　经典书籍部分比较少，因为我看过的JS开发的书虽然很多，但真正称得上好的还真不多。
+
+　　本文仅仅抛砖引玉，再次强烈建议大家把收藏的好的资源分享出来，加以补充。

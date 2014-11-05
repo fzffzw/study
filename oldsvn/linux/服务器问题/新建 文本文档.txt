@@ -1,0 +1,24 @@
+在命令行下执行php 报以下错误
+PHP Warning:  Module 'PDO' already loaded in Unknown on line 0
+PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
+
+》》》分析在php.ini中出现以下
+extension=pdo.so
+extension=pdo_mysql.so
+是打开pdo和mysql
+在923行出现以下内容
+;;;;
+; Note: packaged extension modules are now loaded via the .ini files
+; found in the directory /etc/php.d; these are loaded by default.
+;;;;
+是说ini一些扩展信息保存在/etc/php.d/目录下（如pdo.ini）
+里面也有定义打开pdo的扩展
+所以就会出现两次 就会出现 类似的Module 'PDO' already loaded in Unknown
+警告
+
+》》》解决方法
+在php.ini中注释掉
+;extension=pdo.so
+;extension=pdo_mysql.so
+
+即可

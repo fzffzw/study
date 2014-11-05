@@ -1,0 +1,40 @@
+    * /var/log/secure：记录登入系统存取数据的档案，例如 pop3, ssh, telnet, ftp 等都会记录在此档案中；
+    * /var/log/wtmp：记录登入者的讯息数据，由于本档案已经被编码过，所以必须使用 last 这个指令来取出档案的内容；
+    * /var/log/messages：这个档案相当的重要，几乎系统发生的错误讯息（或者是重要的信息）都会记录在这个档案中；
+    * /var/log/boot.log：记录开机或者是一些服务启动的时候，所显示的启动或关闭讯息；
+    * /var/log/maillog 或 /var/log/mail/*：纪录邮件存取或往来( sendmail 与 pop3 )的使用者记录；
+    * /var/log/cron：这个是用来记录 crontab 这个例行性服务的内容的！
+    * /var/log/httpd, /var/log/news, /var/log/mysqld.log, /var/log/samba, /var/log/procmail.log： 分别是几个不同的网络服务的记录文件啦！
+    
+* syslogd：进行系统或者是网络服务的登录文件记录工作； 
+
+* logrotate：将旧的数据更名，并且建立新的登录档，以保持登录档的『新鲜』，并视设定将最旧的登录档删除。
+
+
+。而通常syslog提供的记录参数主要有：
+    * 事件发生时间；
+    * 主机名称；
+    * 启动此事件的服务名称（例如 httpd, samba...）
+    * 讯息数据内容 
+    
+    
+    例题二：我要将新闻群组数据(news)及例行性命令的信息(cron)都写入到一个称为/var/log/cronnews的档案中，但是这两个程序的警告讯息记录在/var/log/cronnews.warn该如何设定我的档案呢？很简单啦！既然是两个程序，那么只好以分号来隔开了，此外，由于第二个指定档案中，我只要记录警告讯息，因此设定上需要指定『=』这个符号，所以就成为了：
+
+    news.*;cron.*             /var/log/cronnews
+    news.=warn;cron.=warn     /var/log/cronnews.warn
+
+上面那个『=』就是在指定等级的意思啦！由于指定了等级，因此，只有这个等级的讯息才会被纪录在这个档案里面呢！
+
+
+
+例题三：我的messages这个档案需要记录所有的信息，但是就是不想要记录cron,mail及news的信息，那么应该怎么写才好？可以有两种写法，分别是：
+
+    *.*;news,cron,mail.none            /var/log/messages
+
+或
+
+    *.*;news.none;cron.none;mail.none  /var/log/messages
+    
+ 提过的 lsattr 与 chattr  这个东西啦！如果将一个档案以 chattr 设定i这个属性时，那么该档案连 root 都不能杀掉！而且也不能新增数据，嗯！真安全！但是，如此一来登录文件的功能岂不是也就消失了？因为没有办法写入呀！所以啰，我们要使用的是 a 这个属性！你的登录文件如果设定了这个属性的话，那么他将只能被增加，而不能被删除！嗯！这个项目就非常的符合我们登录档的需求啦！因此，建议您可以这样的增加你的登录文件的隐藏属性。    
+        
+  

@@ -1,0 +1,32 @@
+﻿./configure遇到如下错误
+./configure: error: the HTTP rewrite module requires the PCRE library.
+You can either disable the module by using --without-http_rewrite_module
+option, or install the PCRE library into the system, or build the PCRE library
+statically from the source with nginx by using --with-pcre=<path> option.
+
+没装PCRE
+用
+缺少 PCRE library 库 
+yum install openssl-devel  pcre-devel
+
+安装
+
+
+启动nginx
+/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
+出现错误
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+
+查看端口占用情况
+
+netstat –apn | grep '80'
+
+[root@localhost nginx-1.5.7]# netstat -apn | grep '80'
+tcp        0      0 :::80                       :::*                        LISTEN      4083/httpd 
+
+说明httpd占用端口
+
+
+nginx平滑启动
+/usr/local/nginx/sbin/nginx  -t -c /usr/local/nginx/conf/nginx.conf
+

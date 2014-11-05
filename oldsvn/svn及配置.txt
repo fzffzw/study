@@ -1,0 +1,165 @@
+
+http://oplinux.com/app/svn/linux-yum-install-svn.html
+
+2012
+linux下通过yum安装svn及配置
+作者：影子   发布：2012-06-16 18:01   分类：SVN   阅读：13,413 views   抢沙发  
+1.环境
+centos5.5
+2.安装svn
+yum -y install subversion
+3.配置
+建立版本库目录
+mkdir /www/svndata
+svnserve -d -r /www/svndata
+
+
+如果出现，这样的错误信息，“svnserve: 不能绑定服务器套接字: 地址已经被使用”
+那先把svnserve进程干掉。
+具体做法是
+$ ps -aux  ＃查看进程,svnserve的pid为16663
+$ kill -9 16663 #干掉svnserve
+再次运行$ svnserve -d -r /var/www/svn
+
+   右键TortoiseSVN -> Settings -> Saved Data-> Authentication Data 点“Clear”。这样，重新访问配置库的时候，就会提示输入用户民和密码了。
+       这可以解决访问不同的地址，用户名/密码不同的问题。
+
+	   
+vi /etc/sysconfig/iptables 防火墙	   
+	   
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 3690 -j ACCEPT 
+
+kill -9 
+
+svnserve -d -r /var/www/html
+
+iptables restart
+
+另，有开启3690端口的命令，在终端输入以下命令：
+
+1>iptables -I INPUT -i eth0 -p tcp --dport 3690 -j ACCEPT
+
+2>iptables -I OUTPUT -o eth0 -p tcp --sport 3690 -j ACCEPT
+
+然后保存：etc/rc.d/init.d/iptables save
+
+在看看是否已经有了360端口的开放权限：/etc/init.d/iptables status
+
+
+用户名 密码保存在
+C:\Documents and Settings\【user】\Application Data\Subversion\auth\svn.simple
+
+
+
+4.建立版本库
+创建一个新的Subversion项目
+svnadmin create /www/svndata/oplinux
+配置允许用户rsync访问
+cd /www/svndata/oplinux/conf
+vi svnserve.conf
+anon-access=none
+auth-access=write
+password-db=passwd
+
+
+anon-access = none
+auth-access = write
+password-db = passwd
+authz-db = authz
+
+
+passwd
+william = 842101
+
+authz
+[/]
+william = rw
+
+注：修改的文件前面不能有空格，否则启动svn server出错
+vi passwd
+[users]
+#<用户1> = <密码1>
+#<用户2> = <密码2>
+rsync=rsync
+5.客户端连接
+svn co svn://ip/oplinux
+用户名密码:rsync
+===============================================================
+6.实现SVN与WEB同步,可以CO一个出来,也可以直接配在仓库中
+1)设置WEB服务器根目录为/www/webroot
+2)checkout一份SVN
+svn co svn://localhost/oplinux /www/webroot
+修改权限为WEB用户
+chown -R apache:apache /www/webroot/oplinux
+3)建立同步脚本
+cd /www/svndata/oplinux/hooks/
+cp post-commit.tmpl post-commit
+编辑post-commit,在文件最后添加以下内容
+export LANG=en_US.UTF-8
+SVN=/usr/bin/svn
+WEB=/www/webroot/
+$SVN update $WEB –username rsync –password rsync
+chown -R apache:apache $WEB
+增加脚本执行权限
+chmod +x post-commit
+
+svn 更新到指定目录
+http://www.s135.com/post/371/
+
+
+　　今天花几分钟写的一个PHP小程序，用途是：无需给程序员开放服务器SSH帐号，只需通过Web浏览器即可从SVN版本库更新代码到Linux服务器的指定目录。如果有需要，可以给这段代码加个密码登录。
+
+　　1、假设www、www是Apache或Nginx服务器的用户名和组，/data0/www/是网页文件存放根目录，执行以下shell命令：
+sudo -s
+/usr/sbin/groupadd www -g 48
+/usr/sbin/useradd -u 48 -g www www
+mkdir -p /data0/www/
+chown -R www:www /data0/www/
+su www
+cd /data0/www/
+/usr/local/bin/svn checkout --username zhangyan --password 123456 http://xxx.xxx.xxx.xxx:8080/svn/web/trunk/
+
+
+　　2、创建文件svn_up.php：
+view plainprint?
+<?php  
+header("Cache-Control:no-cache,must-revalidate");  
+$handle = popen('/usr/local/bin/svn up --username zhangyan --password 123456 /data0/www/*', 'r');  
+$read = stream_get_contents($handle);//需要 PHP5 或更高版本  
+echo "<pre>";  
+printf($read);  
+echo "</pre>";  
+pclose($handle);  
+?>  
+
+　　3、通过浏览器访问svn_up.php，显示以下内容（例）：
+　　U    /data0/www/app/DataTransferService.php
+　　Updated to revision 561.
+
+
+svn 更新
+
+#!/bin/sh
+export LANG=zh_CN.UTF-8
+SVN=/usr/bin/svn
+WEB=/var/www/html/cargotms
+svn update --username william --password 842101 --no-auth-cache /var/www/html/cargotms
+
+http://crazyming.blog.51cto.com/1048571/443118
+
+export LANG=zh_CN.UTF-8
+SVN=/usr/bin/svn
+WEB=/var/www/html/cargotms
+svn update --username resync --password cargosync --no-auth-cache /var/www/html/cargotms
+
+
+ svn checkout svn://192.168.25.200/cargotms
+
+chown -R daemon.daemon /var/www/html/cargotms
+chmod -R 777 /var/www/html/cargotms
+chown -R apache.apache post-commit
+chmod -R post-commit
+
+
+/var/svncode/cargotms/hooks/post-commit: line 50: mailer.py: command not found
+

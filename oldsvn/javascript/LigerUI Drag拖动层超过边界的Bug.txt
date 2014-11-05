@@ -1,0 +1,8 @@
+解决】LigerUI Drag拖动层超过边界的Bug解决方案
+
+【问题如下】：LigerUI Dialog弹出层在拖动的时候可以一直拖动到屏幕外，导致无法再拖回。
+
+
+在ligerDrag.js第129行加上：
+
+if(pageX<=20||pageY<=20||pageX>=$(window).width()-20){return false}

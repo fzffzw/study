@@ -1,0 +1,5 @@
+  $db = Zend_Db_Table_Abstract::getDefaultAdapter(); $db->fetchAll("select * from table_name"); 
+
+如果有参数的话:
+  $cid = (int) $this->_request->getParam('cid'); $cname = $this->_request->getParam('cname'); $db = Zend_Db_Table_Abstract::getDefaultAdapter(); 
+$db->fetchAll("select * from table_name where cname like %". $db->quote($cname)."% and cid=".$cid); 

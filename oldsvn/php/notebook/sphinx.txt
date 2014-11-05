@@ -1,0 +1,10 @@
+全文检索 sphinx
+和like区别 like搜索单个词 全文检索（拆词检索）
+
+表里记录->文档
+词组合文档id重新组合
+先拿文档id
+php->sphinx->索引表
+			 |
+	文档id-> mysql
+

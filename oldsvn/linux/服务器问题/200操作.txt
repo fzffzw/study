@@ -1,0 +1,999 @@
+find / -name 'php.ini'
+find / -name 'httpd.conf'
+ll /var/
+ifconfig
+service network restart
+ifconfig
+init 6
+ifconfig
+service network restart
+ifconfig
+ping www.baidu.com
+service network restart
+ifconfig
+ping 192.168.25.200
+ping 127.0.0.1
+service network restart
+ifconfig
+init 6
+ifconfig
+ping 192.168.25.130
+service network restart
+ifconfig
+ping 192.168.25.200
+init 0
+init 6
+ifconfig
+service network restart
+init 
+init 6
+ifconfig
+init 0
+ls
+ifconfig
+init 0
+ps aux| grep 'svn'
+yum -y install gcc
+ifconfig /all
+ifconfig -a
+ifconfig -all
+ifconfig -help
+ifconfig -a
+yum -y search gcc
+ps aux | grep vsftpd
+ps aux | grep vsftp
+service vstfp restart
+yum -y install gcc
+service vstfp restart
+service network restart
+yum -y install gcc
+yum -search svn
+yum -y install subversion
+ps aux | grep 'svnserve'
+ps -aux
+ps -aux | grep 'svn'
+cd /var/
+ls
+mkdir svncode
+ls
+pwd
+ls
+ll
+svnserve -d -r /var/svncode
+ps aux | grep 'svn'
+svnadmin create /var/svncode/import_oms
+svnadmin create /var/svncode/import_wms
+svnadmin create /var/svncode/export_oms
+svnadmin create /var/svncode/export_wms
+svnadmin create /var/svncode/baohong
+find / -name 'php'
+/opt/php -v
+/opt/php/php -v
+/opt/php/bin/php
+/opt/php/bin/php -v
+find / -name 'php.ini'
+find / -name 'php*.ini'
+find / -name '*php*ini'
+ls /opt/php
+ls /opt/php/etc
+ls /opt/apache2/bin
+ls
+pwd
+cd /home/admin/soft/php-5.4.16
+ls
+find / -name 'libmcrypt'
+./configure --prefix=/opt/php --with-apxs2=/opt/apache2/bin/apxs --with-mysql=/opt/mysql
+make && make install
+php -v
+find / -name 'my.cnf'
+ls
+ls *.ini
+ps aux | grep '*php'
+ls | grep '*php'
+find ./ -name 'php.ini*'
+cp php.ini-development /opt/php/etc/php.ini
+ls /opt/php/etc
+ps aux | grep 'httpd'
+/opt/apache2/bin/apachectl restart
+find / -name 'libphp5.so'
+find / -name 'httpd.confi'
+find / -name 'httpd.conf'
+ps aux | grep 'httpd'
+/opt/apache2/bin/apachectl stop
+ls /opt/apache2/modules/
+ll /opt/apache2/modules/
+cd ../
+ls
+rm -rf php-5.4.16
+ls
+tar -zxvf php-5.4.16.tar.gz 
+ls
+cd php-5.4.16
+ll
+./configure --prefix=/opt/php --with-apxs2=/opt/apache2/bin/apxs --with-mysql=/opt/mysql
+make clean
+make
+make install
+/opt/apache2/bin/apachectl restart
+/opt/apache2/bin/apachectl stop
+/opt/apache2/bin/apachectl start
+mysql -uroot -p
+mysql -uroot
+mysql -uroot -p
+find / -name 'mysqladmin'
+/opt/mysql/bin/mysqladmin -u root password 'cargo'
+/usr/bin/mysqladmin -u root password 'cargo'
+find / -name 'mysql.sock'
+find / -name 'my.cnf'
+ll
+install gcc-c++
+yum -y install gcc-c++
+ll /var/mysql/3306
+chown -R mysql:mysql /var/mysql
+ll /var/mysql/3306
+chown -R 755 /var/mysql
+ll /var/mysql
+/opt/mysql/scripts/mysql_install_db --defaults-file=/var/mysql/3306/my.cnf --basedir=/opt/mysql --datadir=/var/mysql/3306/data --user=mysql
+ll /var/mysql/data
+ll /var/mysql/3306
+rm 
+cd da
+cd /var/mysql/3306/data
+ls
+rm *.*
+ls
+rm -rf *.*
+ls
+ps aux | grep mysql
+rm -rf *
+ls
+cd ..
+cd ../
+/opt/mysql/scripts/mysql_install_db --defaults-file=/var/mysql/3306/my.cnf --basedir=/opt/mysql --datadir=/var/mysql/3306/data --user=mysql
+/opt/mysql/bin/mysqld_safe --defaults-file=/var/mysql/3306/my.cnf
+ps aux | grep mysql
+/opt/mysql/bin/mysql -uroot -p
+ls /opt/mysql/
+ps aux | grep mysql
+kill 106220
+kill 1044
+ps aux | grep 'mysql'
+kill 1044
+ps aux | grep 'mysql'
+kill -9 1044
+kill -9 1742
+ps aux | grep 'mysql'
+/opt/mysql/bin/mysqld_safe --defaults-file=/var/mysql/3306/my.cnf &
+ping www.baidu.com
+ping 192.168.25.10
+ping 192.168.25.11
+echo 1 > /proc/sys/net/ipv4/icmp_echo_igore_al
+ping 202.96.128.86
+service network restart
+yum -y install gcc
+ifconfig /all
+ifconfig 
+ifconfig --help
+ifconfig -a
+service network restart
+yum install cmake
+ls /home/
+cd /home/admin
+ls
+mkdir soft
+ls
+cd soft/
+ls
+put
+ls
+tar -zxvf httpd-2.2.24.tar.gz 
+tar -zxvf mysql-5.5.31.tar.gz 
+tar -zxvf php-5.4.16.tar.gz 
+ls
+cd httpd-2.2.24
+ls
+./configure --prefix=/opt/apache2 --enable-proxy --enable-ssl --enable-cgi --enable-rewrite --enable-module=so
+ls /opt/apache2
+make
+make install
+ps aux | grep 'apache'
+ps aux | grep 'httpd'
+/opt/apache2/bin/apachectl start
+ps aux | grep 'httpd'
+cd ../
+ls
+cd mysql-5.5.31
+ls
+yum install cmake
+yum -y install ncurses-devel
+cmake -DCMAKE_INSTALL_PREFIX=/opt/mysql -DMYSQL_UNIX_ADDR=/tmp/mysql.sock -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_EXTRA_CHARSETS:STRING=utf8,gbk -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_MEMORY_STORAGE_ENGINE=1 -DWITH_READLINE=1 -DENABLED_LOCAL_INFILE=1 -DMYSQL_USER=mysql
+ls /home
+ls
+make
+make install
+ls /home/
+ls /opt
+ps aux | grep 'mysqk'
+ps aux | grep 'mysql'
+cd ../
+ls
+cd php-5.4.16
+ls
+./configure --prefix=/opt/php
+ls /home
+ls /opt
+make
+make install
+php -v
+cat /etc/shadow
+/usr/sbin/groupadd mysql
+/usr/sbin/useradd -g mysql mysql
+mkdir /var/mysql
+ls
+ls /var/mysql
+ll /var
+chown -R mysql:mysql /var/mysql
+ls
+ls /var
+ll /var
+cd /var/
+ls
+cd mysql
+ls
+mkdir 3036
+ls
+cp /etc/my.cnf /var/mysql/3306
+ls /var/mysql/3306
+cd /var/mysql/3306 
+cd /var/mysql/
+ls
+rm 3306
+ls
+cp /etc/my.cnf /var/mysql/3306
+ls /var/mysql/3306 
+cd /var/mysql/3306
+cd /var/mysql/
+ls
+rm 3306
+cp /etc/my.cnf /var/mysql/3306/
+cp /etc/my.cnf /var/mysql/3306/my.cnf
+ls /var/mysql
+cp /etc/my.cnf /var/mysql/3306/my.cnf
+cd /var/mysql/3306
+ls /var/mysql/3306
+ls /var/mysql/
+ll /var/mysql/
+cd /var/mysql/
+ls
+mv 3036/ 3306
+ls
+cp /etc/my.cnf /var/mysql/3306/my.cnf
+ls
+ll 3306/
+vi 3306/my.cnf 
+find / -name 'my.cnf'
+cat /home/admin/soft/mysql-5.5.31/mysql-test/suite/rpl/my.cnf 
+cat /home/admin/soft/mysql-5.5.31/packaging/rpm-uln/my.cnf 
+chown -R mysql:mysql /var/mysql/
+ll /var/mysql
+/opt/mysql/bin/
+ls/opt/mysql/bin/
+ls /opt/mysql/bin/
+/opt/mysql/bin/mysqld --defaults-file=/var/mysql/3306/my.cnf --basedir=/opt/mysql --datadir=/var/mysql/3306/data --plugin-dir=/opt/mysql/lib/plugin --user=mysql --log-error=/var/mysql/3306/log/mysqld.log --pid-file=/var/mysql/3306/log/mysqld.pid --socket=/var/mysql/3306/log/mysql.sock --port=3306
+ps aux | grep 'mysql'
+getenforce
+setenforce 0
+/opt/mysql/bin/mysqld --defaults-file=/var/mysql/3306/my.cnf --basedir=/opt/mysql --datadir=/var/mysql/3306/data --plugin-dir=/opt/mysql/lib/plugin --user=mysql --log-error=/var/mysql/3306/log/mysqld.log --pid-file=/var/mysql/3306/log/mysqld.pid --socket=/var/mysql/3306/log/mysql.sock --port=3306
+pwd
+cd ../
+/opt/mysql/bin/mysqld --defaults-file=/var/mysql/3306/my.cnf --basedir=/opt/mysql --datadir=/var/mysql/3306/data --plugin-dir=/opt/mysql/lib/plugin --user=mysql --log-error=/var/mysql/3306/log/mysqld.log --pid-file=/var/mysql/3306/log/mysqld.pid --socket=/var/mysql/3306/log/mysql.sock --port=3306
+getenforce
+chown -R root:root /var/mysql/
+/opt/mysql/bin/mysqld --defaults-file=/var/mysql/3306/my.cnf --basedir=/opt/mysql --datadir=/var/mysql/3306/data --plugin-dir=/opt/mysql/lib/plugin --user=mysql --log-error=/var/mysql/3306/log/mysqld.log --pid-file=/var/mysql/3306/log/mysqld.pid --socket=/var/mysql/3306/log/mysql.sock --port=3306
+chown -R mysql:mysql /var/mysql/
+ll /opt/mysql/
+ll /opt/mysql/scripts/
+pwd
+/opt/mysql/scripts/mysql_install_db \  
+--defaults-file=/var/mysql/3306/my.cnf/my.cnf \  
+--basedir=/opt/mysql \  
+--datadir=/var/mysql/3306/data \  
+--user=mysql
+/opt/mysql/scripts/mysql_install_db --defaults-file=/var/mysql/3306/my.cnf/my.cnf --basedir=/opt/mysql \  
+--datadir=/var/mysql/3306/data --user=mysql
+/opt/mysql/scripts/mysql_install_db --defaults-file=/var/mysql/3306/my.cnf/my.cnf --basedir=/opt/mysql --datadir=/var/mysql/3306/data --user=mysql
+ls /var/mysql/3306/
+ls /var/mysql/3306/data/
+/opt/mysql/scripts/mysql_install_db --defaults-file=/var/mysql/3306/my.cnf --basedir=/opt/mysql --datadir=/var/mysql/3306/data --user=mysql
+ls /var/mysql/3306
+/opt/mysql/bin/mysqld --defaults-file=/var/mysql/3306/my.cnf --basedir=/opt/mysql --datadir=/var/mysql/3306/data --plugin-dir=/opt/mysql/lib/plugin --user=mysql --log-error=/var/mysql/3306/log/mysqld.log --pid-file=/var/mysql/3306/log/mysqld.pid --socket=/var/mysql/3306/log/mysql.sock --port=3306
+ps aux | grep 'mysql'
+ls /var/mysql/3306/
+/opt/mysql/bin/mysqld_safe --defaults-file=/var/mysql/3306/my.cnf
+/opt/mysql/bin/mysqld --defaults-file=/var/mysql/3306/my.cnf --basedir=/opt/mysql --datadir=/var/mysql/3306/data --plugin-dir=/opt/mysql/lib/plugin --user=mysql --log-error=/var/mysql/3306/log/mysqld.log --pid-file=/var/mysql/3306/log/mysqld.pid --socket=/var/mysql/3306/log/mysql.sock --port=3306
+ps aux | grep 'mysqld'
+/opt/mysql/bin/mysqld_safe --defaults-file=/var/mysql/3306/my.cnf
+ls /var/mysql/
+ls /var/mysql/3306
+ps aux | grep mysql
+/opt/mysql
+/opt/mysql/bin/mysqladmin -uroot password 'cargo'
+/opt/mysql/bin/mysqladmin -uroot -h 'localhost' password 'cargo'
+mysql -uroot -p
+/opt/mysql/bin/mysql -uroot -h 'localhost' password 'cargo'
+/opt/mysql/bin/mysql -uroot -p
+/opt/mysql/bin/mysql -uroot -pcargo
+/opt/mysql/bin/mysql -uroot -p
+/opt/mysql/bin/mysqladmin -u root  password cargo
+ps aux | grep mysql
+/opt/mysql/bin/mysqladmin -u root password cargo
+llkill 32376
+kill 32376
+ps aux | grep mysql
+ll /var/mysql/3306/log/
+ls
+cd /var/mysql/
+ls
+cd 3306
+ls
+ll
+chown -
+chown -R mysql:mysql log
+ls
+chown -R mysql:mysql /var/mysql
+cd data
+ll
+rm -rf *
+ls
+cd ../
+ll /var/mysql/
+/opt/mysql/scripts/mysql_install_db --defaults-file=/var/mysql/3306/my.cnf --basedir=/opt/mysql --datadir=/var/mysql/3306/data --user=mysql
+ll /var/mysql/3306/
+/opt/mysql/bin/mysqld_safe --defaults-file=/var/mysql/3306/my.cnf &
+ps aux | grep mysql
+/opt/mysql/bin/mysqladmin -u root -p password cargo
+ll /tmp/
+ll /var/mysql/3306
+ll /var/mysql/3306/log/
+/opt/mysql/bin/mysqladmin  --socket=/tmp/mysqld.sock -u root -p password 123456
+/opt/mysql/bin/mysqladmin  --socket=/var/mysql/3306/log/mysql.sock -u root -p password 123456
+/opt/mysql/bin/mysqladmin  --socket=/var/mysql/3306/log/mysql.sock -u root password 123456
+/opt/mysql/bin/mysql -uroot -p
+/opt/mysql/bin/mysql  --socket=/tmp/mysqld.sock -u root -p password 123456
+/opt/mysql/bin/mysql  --socket=/tmp/mysqld.sock -uroot
+/opt/mysql/bin/mysql  --socket=/var/mysql/3306/log/mysql.sock -uroot
+/opt/mysql/bin/mysql  --socket=/var/mysql/3306/log/mysql.sock -uroot -p
+ps aux | grep mysql
+kill 866
+ps aux | grep mysql
+/opt/mysql/bin/mysqld_safe --defaults-file=/var/mysql/3306/my.cnf
+/opt/mysql/bin/mysql
+cd /home
+ls
+cd /home/admin/
+ls
+cd soft
+ll
+rm -rf mysql-5.5.31
+ll
+tar -zxvf mysql-5.5.31.tar.gz 
+cmake -DCMAKE_INSTALL_PREFIX=/opt/mysql -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_EXTRA_CHARSETS:STRING=utf8,gbk -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_MEMORY_STORAGE_ENGINE=1 -DWITH_READLINE=1 -DENABLED_LOCAL_INFILE=1 -DMYSQL_USER=mysql
+ll
+cd mysq
+cd mysql-5.5.31
+cmake -DCMAKE_INSTALL_PREFIX=/opt/mysql -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_EXTRA_CHARSETS:STRING=utf8,gbk -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_MEMORY_STORAGE_ENGINE=1 -DWITH_READLINE=1 -DENABLED_LOCAL_INFILE=1 -DMYSQL_USER=mysql
+make 
+make install
+/opt/mysql/bin/mysqld_safe --defaults-file=/var/mysql/3306/my.cnf
+ps aux | grep mysql
+kill -9 1954
+ps aux | grep mysql
+kill -9 2790
+ps aux | grep mysql
+/opt/mysql/bin/mysql
+/opt/mysql/bin/mysql --socket=/var/mysql/3306/log/mysql.sock
+ps aux | grep mysql
+/opt/mysql/bin/mysqld_safe --defaults-file=/var/mysql/3306/my.cnf
+/opt/mysql/bin/mysql 
+ps aux | grep mysql
+ln -s /var/mysql/3306/log/mysql.sock /tmp/mysql.sock
+/opt/mysql/bin/mysql 
+/opt/mysql/bin/mysql -uroot -p
+python -v
+whereis python
+find / -name 'application'
+mkdir /home/apache
+ls
+chown apache:apache /home/apache
+ll /home/apache/
+ll /home
+mkdir /home/apache/www
+ls
+service vsftpd status
+service vsftpd start
+service vsftpd status
+yum -y install ssh2
+ll /opt/apache2/
+find / -name '3306'
+ll /opt/mysql/bin/mysq1
+/opt/mysql/bin/mysql
+whereis mysql
+/usr/bin/mysql
+find / -name 'mysql'
+/var/mysql
+/opt/mysql/bin/mysql
+exit
+cat /etc/shadow
+ls /etc/vsftpd/
+/etc/vsftpd/vsftpd_conf_migrate.sh 
+/etc/vsftpd/vsftpd_conf_migrate.sh
+cat /etc/vsftpd/vsftpd_conf_migrate.sh
+ll /etc/vsftpd
+passwd apache
+cat /etc/shadow
+service vsftp status
+service vsftpd status
+service vsftpd restart
+service vsftpd status
+service vsftpd restart
+find / -name 'httpd.conf'
+vi /opt/apache2/conf/httpd.conf
+cd /home/admin/soft/
+ll
+wget http://www.libgd.org/releases/gd-2.0.35.tar.gz
+ls
+tar libgd-2.1.0.tar.gz 
+tar  -zxvf libgd-2.1.0.tar.gz 
+ll /usr/local/jpeg
+ll /usr/local/freetype
+./configure --prefix=/usr/local/libgd --with-jpeg=/usr/local/jpeg
+cd libgd-2.1.0
+./configure --prefix=/usr/local/libgd --with-jpeg=/usr/local/jpeg
+make
+make install
+ll /usr/local/libmcrypt
+find / -name 'libmcrypt'
+yum installl libmcrypt
+yum -y installl libmcrypt
+yum -y install lmcrypt
+find / -name 'mcrypt'
+find / -name 'libgd'
+ll /usr/local/libgd
+ll /usr/local/libgd/lib/
+ll /home/admin/soft/php-5.4.16/ext/gd/libgd
+cd ../
+ll
+rm -rf php-5.4.16
+tar -zxvf php-5.4.16.tar.gz 
+cd php-5.4.16
+ll
+./configure --prefix=/opt/php --with-apxs2=/opt/apache2/bin/apxs --with-mysql=/opt/mysql --with-gd=/usr/local/libgd
+make && make install
+/opt/apache2/bin/apachectl stop
+/opt/apache2/bin/apachectl start
+find / -name 'phpize'
+/opt/apache2/bin/apachectl stop
+ps aux | grep http
+rm /opt/php
+rm -rf /opt/php
+cd ../
+rm php-5.4.16
+rm -rf php-5.4.16
+tar -zxvf php-5.4.16.tar.gz 
+cd php-5.4.16
+ls
+./configure --prefix=/opt/php --with-config-file-path=/opt/php/etc --with-apxs2=/opt/apache2/bin/apxs --with-mysql=/opt/mysql --with-gd=/usr/local/libgd
+make
+vi vi Makefile
+vi  Makefile
+make
+yum -y install libc-dev
+yum -y install libltdl
+yum install libnet
+make clean
+./configure
+make
+make clean
+./configure --prefix=/opt/php --with-apxs2=/opt/apache2/bin/apxs --with-mysql=/opt/mysql --with-gd
+make
+make install
+find / -name 'php.ini'
+find / -name '*.ini'
+find / -name '*php*.ini'
+find / -name '*php*ini'
+find / -name 'php*'
+cd /home/apache/www
+ls
+ll
+tar -zxvf www.tar.gz 
+ll
+cd ../
+ls
+ll
+pwd
+cd www
+ll
+find / -name 'w'
+find / -name 'www'
+cd home
+ls
+cd apache/
+ll
+cd www
+ls
+pwd
+mv export /home/apache/www
+mv import /home/apache/www
+ll
+cd /home/apache/www
+ls
+cd export/
+ll
+cat /etc/vsftpd/vsftpd.conf 
+/opt/apache2/bin/apachectl restart
+cd /home/apache/
+ls
+ll
+cd /home
+ll
+chown -R apache:apache /home/apache/
+find / -name 'php.ini'
+find / -name 'mysqli.so'
+find / -name 'gd.so'
+find / -name gd.so
+find / -name soap.so
+find / -name *.so
+find / -name *.so >/home/apache/www/
+find / -name *.so >/home/apache/www/so.txt
+mysql
+whereis mysql
+/opt/mysql/bin/mysql
+yum install autoconf
+pwd
+ll
+cd admin/soft
+ls
+wget http://prdownloads.sourceforge.net/libpng/libpng-1.2.39.tar.gz
+tar -zxvf libpng-1.2.39.tar.gz 
+ll
+cd libpng-1.2.39
+./configure --prefix=/usr
+make && make install
+pwd
+cd ../
+wget  http://www.imagemagick.org/download/delegates/zlib-1.2.3.tar.gz
+yum -y install zlib
+yum -y install libxml2
+tar jpegsrc.v8d.tar.gz 
+tar -zxvf jpegsrc.v8d.tar.gz 
+cd jpeg-8d/
+./configure --prefix=/usr/local/jpeg/ --enable-shared -enable-static
+make
+make install
+yum -y install freetype
+yum -y install gd
+yum -y install libiconv
+yum -y install libmcrypt
+yum -y install
+yum -y install mhash
+yum -y install mcrypt
+yum -y install libtool  libtool-ltdl-devel
+cd ../
+ll
+rm -rf php-5.4.16
+ll
+tar -zxvf php-5.4.16.tar.gz 
+cd php-5.4.16
+ll
+./configure --prefix=/opt/php --with-apxs2=/opt/apache2/bin/apxs
+make
+make install
+ll /opt/php/include/php/ext
+ll /opt/php/include/php/ext/pdo
+find / -name '*so'
+ps aux | grep 'httpd'
+/opt/apache2/bin/apachectl restart
+/opt/apache2/bin/apachectl restart
+ps aux | grep 'httpd'
+/opt/apache2/bin/apachectl start
+cd /home/apache/
+ls
+cd www
+ls
+ll
+chmod 777 export/
+chmod 777 import
+ll
+chmod 777 home
+ll
+chmod -R 777 home
+chmod -R 777 export/
+chmod -R 777 import/
+cd exp
+cd export/
+ll
+find / -name 'gd.so'
+pwd
+/opt/apache2/bin/apachectl restart
+ps aux | grep 'http'
+mkdir /opt/apache2/phpsession
+rmdir /opt/apache2/phpsession
+rmdir /var/apache/phpsession
+mkdir /var/apache/phpsession
+mkdir /var/apache
+mkdir /var/apache/phpsession
+chown -R apache:apache /var/apache/
+ll /var/apache/
+/opt/apache2/bin/apachectl stop
+/opt/apache2/bin/apachectl start
+chmod -R  755 /var/apache/
+chmod -R  777 /var/apache/
+ls
+ll /var/apache/
+/opt/apache2/bin/apachectl stop
+/opt/apache2/bin/apachectl start
+/opt/mysql/bin/
+ll /opt/mysql/bin
+ll /opt/mysql/bin/mysql
+/opt/mysql/bin/mysql 
+/opt/mysql/bin/mysqladmin -u root -p password cargo
+/opt/mysql/bin/mysqladmin -u root password cargo
+/opt/mysql/bin/mysqladmin -u root
+/opt/mysql/bin/mysqladmin -u root -p password 123456
+/opt/mysql/bin/mysqladmin -u root -p password cargo
+/opt/mysql/bin/mysql
+whereis mysql
+/opt/mysql/bin/mysql
+history >> /var/www/histrory.txt
+ls /tmp
+ll /tmp
+/opt/mysql/bin/mysqld st
+ps aux | grep 'mysql'
+kill 13054
+kill -9 13054
+ps aux | grep 'mysql'
+kill -9 13739
+ps aux | grep 'mysql'
+/opt/mysql/bin/mysqld_safe --defaults-file=/var/mysql/3306/my.cnf &
+ps aux | grep 'mysqld'
+ll /opt/php/include/
+ll /opt/php/include/php
+ll /opt/php/include/php/ext/
+ps aux | grep apache
+  472  /opt/apache2/bin/apachectl stop
+/opt/apache2/bin/apachectl stop
+/opt/apache2/bin/apachectl start
+/opt/apache2/bin/apachectl stop
+/opt/apache2/bin/apachectl start
+ps aux | grep 'mysqld'
+kill -9 10120
+ps aux | grep 'mysqld'
+kill -9 10811
+ps aux | grep 'mysqld'
+/opt/mysql/bin/mysqld_safe --defaults-file=/var/mysql/3306/my.cnf
+cd /home/admin/soft
+ls
+tar PDO_MYSQL-1.0.2.tgz 
+tar -zxvf PDO_MYSQL-1.0.2.tgz 
+cd PDO_MYSQL-1.0.2
+ls
+find / -name 'phpize'
+/opt/php/bin/phpize
+find / -name 'php-config'
+/opt/mysql/
+ls /opt/mysql/
+/opt/php/bin/phpize && ./configure --with-php-config=/opt/php/bin/php-config --with-pdo-mysql=/opt/mysql/
+make && make install
+make clean
+ls /opt/mysql/include
+ln -s /opt/mysql/include/* /usr/local/include/
+/opt/php/bin/phpize && ./configure --with-php-config=/opt/php/bin/php-config --with-pdo-mysql=/opt/mysql/
+make
+make install
+ls /opt/php/lib/php/extensions/no-debug-non-zts-20100525/
+cd ../
+ll
+cd httpd-2.2.24
+ll
+cd ext
+ll
+cd ../php-5.4.16
+ll
+cd ext
+ll
+cd zip
+ll
+/opt/php/bin/phpize && ./configure --with-php-config=/opt/php/bin/php-config
+make
+make install
+ll /opt/php/lib/php/extensions/no-debug-non-zts-20100525/
+pwd
+ll /opt/php/lib/php/extensions/no-debug-non-zts-20100525/
+/opt/apache2/bin/apachectl stop
+/opt/apache2/bin/apachectl start
+/opt/apache2/bin/apachectl stop
+/opt/apache2/bin/apachectl start
+cd /home/apache/
+ll
+cd www
+ll
+chmod -R 777 zentaopms/
+ll
+cd zentaopms/
+ll
+cd bin
+ll
+cat init.sh 
+/opt/apache2/bin/apachectl stop
+/opt/apache2/bin/apachectl start
+/opt/apache2/bin/apachectl stop
+/opt/apache2/bin/apachectl start
+/opt/apache2/bin/apachectl stop
+/opt/apache2/bin/apachectl start
+pwd
+cd ../
+ll
+cd /home/
+ll
+cd admin/
+ll
+cd soft/
+ll
+cd php-5.4.16
+ll
+cd ext/
+ll
+cd mbstring/
+ll
+/opt/php/bin/phpize && ./configure --with-php-config=/opt/php/bin/php-config
+make
+pwd
+make install
+ll /opt/php/lib/php/extensions/no-debug-non-zts-20100525/
+cd ../
+ll
+df
+df -h
+pwd
+cd /home
+ll
+tar cvpzf backup.tgz / --exclude=/proc --exclude=/lost+found --exclude=/backup.tgz --exclude=/mnt --exclude=/sys
+df -h
+ll /home
+ls -lh
+erl
+service vsftpd status
+/opt/apache2/bin/apachectl stop
+/opt/apache2/bin/apachectl start
+/opt/apache2/bin/apachectl stop
+/opt/apache2/bin/apachectl start
+crontab -l
+ll /home/apache/
+ls /home/apache/*.gz
+mv /home/apache/*.gz /home/admin/soft/
+ll /home/admin/soft/
+ll /home/apache/
+mv /home/apache/amqp-1.0.10.tgz /home/admin/soft/
+ll /home/apache/
+ll /home/admin/soft/
+cd /home/admin/soft/
+ll
+tar -zxvf rabbitmq-c-0.2.tar.gz 
+ll
+tar -zxvf rabbitmq-rabbitmq-codegen-rabbitmq_v3_3_4-6.tar.gz 
+ll
+mv rabbitmq-c-0.2 rabbitmq-c
+ll
+mv rabbitmq-rabbitmq-codegen-e69b813/ /rabbitmq-c/codegen
+mv rabbitmq-rabbitmq-codegen-e69b813/ ./rabbitmq-c/codegen
+ll
+cd rabbitmq-c
+ll
+autoreconf -i && ./configure && make && make install
+cd ../
+ll
+tar -zxvf amqp-1.0.10.tgz 
+find / -name 'phpize'
+find / -name 'php-config'
+pwd
+cd amqp-1.0.10
+ll
+/opt/php/bin/phpize && ./configure --with-php-config=/opt/php/bin/php-config --with-amqp
+make
+make install
+ls /opt/php/lib/php/extensions/no-debug-non-zts-20100525/
+vi /opt/php/lib/php.ini 
+/opt/apache2/bin/apachectl stop
+/opt/apache2/bin/apachectl start
+ps aux | grep 'rabbit'
+cd ../
+ll
+mv /home/apache/rabbitmq-server-generic-unix-3.3.3.tar.gz /home/admin/soft/
+pwd
+ll
+tar -zxvf rabbitmq-server-generic-unix-3.3.3.tar.gz 
+cd rabbitmq_server-3.3.3/
+ll
+cat INSTALL 
+cd ../
+mv rabbitmq_server-3.3.3/ /opt/rabbitmq_server/
+ll /opt/
+/opt/rabbitmq_server/sbin/rabbitmq-server --detached
+cd ../
+ll
+cd soft/
+ll
+tar -zxvf otp_src_17.1.tar.gz 
+cd otp_src_17.1
+ll
+./configure
+yum install unixODBC unixODBC-devel
+./configure
+yum -y install simplejson
+/opt/rabbitmq_server/sbin/rabbitmq-server -detached
+erl
+whereis erl
+find / -name 'erl'
+make
+make install
+/opt/rabbitmq_server/sbin/rabbitmq-server -detached
+ps aux | grep 'rabbit'
+ps aux | grep 'rabbitmq'
+ps aux | grep 'rabbit'
+ll /var/log
+ll /var/log/
+ls /var/log/
+find / -name 'rabbitmq'
+cd /opt/rabbitmq_server/
+ll
+cd var
+ll
+cd log/
+ll
+cd rabbitmq/
+ll
+cat rabbit\@localhost
+cat rabbit\@localhost.log 
+php -v
+/usr/local/bin/php -v
+/opt/php/bin/php -v
+vim /etc/httpd/conf.d/welcome.conf 
+vim /etc/httpd/conf.d/mod_dnssd.conf 
+vim /etc/httpd/conf/httpd.conf 
+cat httpd/passwd
+cat etc/passwd
+cat /etc/passwd
+cd /var/www/html/
+ls
+cd /var/www/
+ls
+cd html/
+ls
+vim /etc/httpd/conf/httpd.conf 
+ls
+cd ..
+ls
+cd 
+ls
+admin:x:500:500:admin:/home/admin:/bin/bash
+clear
+ls
+find / -name *oms*
+cd /home/apache/www/home/apache/
+ls
+cd www/
+ls
+cd oms/
+ls
+top
+ll /home
+ls -lh /home
+rm /home/backup0801.tgz 
+ls -lh /home
+top
+ps aux | grep 'rabbit'
+pwd
+ll
+cd ../
+;;
+ll
+cd /home
+ll
+rm backup.tgz 
+ll
+tar cvpzf backup0801.tgz / --exclude=/proc --exclude=/lost+found --exclude=/backup.tgz --exclude=/mnt --exclude=/sys
+tar cvpzf backup0801.tgz / --exclude=/proc --exclude=/lost+found --exclude=/backup0801.tgz --exclude=/mnt --exclude=/sys
+ll
+rm backup0801.tgz 
+tar cvpzf backup0801.tgz / --exclude=/proc --exclude=/lost+found --exclude=/home/backup0801.tgz --exclude=/mnt --exclude=/sys
+ll
+rm backup0801.tgz 
+df 
+tar cvpzf backup0801.tgz / --exclude=/proc --exclude=/lost+found --exclude=/home/backup0801.tgz --exclude=/mnt --exclude=/sys &
+ps aux | grep 'rabbit'
+ping jinkouoms.cargo.com
+find / -name 'application'
+ll /home/apache/www/home/apache/www/oms
+php -v
+/opt/php/bin/php -v
+ll /opt/php/lib/php/extensions/no-debug-non-zts-20100525
+ll /opt
+ps aux | grep 'rabbit'
+/opt/php/bin/php /home/apache/www/import/oms/auto/customer.php 
+vi /etc/hosts
+cat /etc/hosts
+/opt/php/bin/php /home/apache/www/import/oms/auto/produce.php 
+ll /opt/php/lib/php/extensions/no-debug-non-zts-20100525/
+/opt/apache2/bin/apachectl stop
+/opt/apache2/bin/apachectl start
+find / -name phpize
+vi /opt/php/etc/php.ini 
+find / -name 'php.ini'
+vi /opt/php/lib/php.ini 
+/opt/apache2/bin/apachectl stop
+/opt/apache2/bin/apachectl start3
+/opt/apache2/bin/apachectl start
+ll /home/
+ll /home/admin/
+ll /home/admin/soft/
+cd /home/admin/soft/php-5.4.16
+ll\
+ll
+cd modules/
+ll
+ls
+cd ../
+ls
+cd ext
+ll
+ls
+cd curl/
+ll
+./configure
+ls
+/opt/php/bin/phpize && ./configure --with-php-config=/opt/php/bin/php-config --with-curl
+ll
+./configure
+./configure && /opt/php/bin/phpize && ./configure --with-php-config=/opt/php/bin/php-config --with-curl
+ll /opt/php/bin/
+/opt/php/bin/phpize && ./configure --with-php-config=/opt/php/bin/php-config --with-curl
+make
+make install
+vi /opt/php/lib/php.ini 
+ps aux | grep 'rabbit'
+ll /opt/
+cd /opt/rabbitmq_server/
+ll
+cd var
+ll
+cd log
+ll
+cd rabbitmq/
+ll
+cd rabbit\@localhost.log 
+tail -20 rabbit\@localhost.log 
+tail -20 /opt/apache2/logs/error_log 
+/opt/rabbitmq_server/sbin
+cd /opt/rabbitmq_server/sbin
+./rabbitmqctl list_queues
+./rabbitmqctl list_exchanges
+./rabbitmqctl list_queues
+./rabbitmqctl stop_app
+./rabbitmqctl start_app
+./rabbitmqctl reset
+./rabbitmqctl list_queues
+cd /opt/rabbitmq_server/var/log/
+ll
+cd rabbitmq/
+ll
+tail -20 rabbit\@localhost.log 
+cd /home/sof
+cd /home/soft
+ll /home
+cd  /home/admin/
+ll
+cd soft
+ll
+pwd
+history 
+history >>/home/apache/www/hs.txt

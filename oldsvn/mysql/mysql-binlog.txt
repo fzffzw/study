@@ -1,0 +1,4 @@
+mysqlbinlog --start-datetime="2014-05-27 8:10:00" --stop-datetim="2014-05-27 19:30:00" --set-charset=utf8  --database=chukou_wms mysql-bin.000044 --result-file=result.sql
+
+
+/opt/mysql/bin/mysqlbinlog --start-datetime="2014-09-29 18:10:00" --stop-datetim="2014-09-29 21:30:00" --set-charset=utf8  --database=export_wms /var/mysql/3306/data/mysql-bin.000009 --result-file=result.sql

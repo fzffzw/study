@@ -1,0 +1,163 @@
+<?php
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>12.2.3 自动记数和编号 :: 12.2 生成的内容 :: 第12章：列表和生成的内容</title>
+<link href="../samplecss/show.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+#counter1 ol,
+#counter4 ol {
+padding-left :15px;
+margin:5px;
+border: 1px solid #FC3;
+background:#FFC;
+counter-reset: item; 
+}
+#counter1 li,
+#counter4 li { 
+list-style:none;
+}
+#counter1 li:before {
+content: counter(item) ". ";
+counter-increment: item;
+}
+#counter2,
+#counter3 {
+counter-reset: pNum;
+}
+#counter2 p,
+#counter3 p {
+counter-increment: pNum;
+}
+#counter2 p:before {
+content: "段落" counter(pNum) "：";
+}
+#counter3 p:before {
+content: counter(pNum, lower-roman) ": ";
+}
+#counter4 li:before {
+content: counters(item, "-");
+counter-increment: item;
+}
+#counter5,
+#counter6,
+#counter7 {
+counter-reset: pNum2; 
+}
+#counter5 p,
+#counter6 p,
+#counter7 p {
+counter-increment: pNum2; 
+}
+#counter5 p:before,
+#counter6 p:before,
+#counter7 p:before {
+content : "Num" counter(pNum2) "=";
+}
+#counter5 p.secret {
+display: none;
+}
+#counter6 p.secret {
+visibility:hidden;
+}
+#counter7 p.secret:before {
+content: normal;
+}
+
+-->
+</style>
+</head>
+<body id="c_content">
+<h1>列表和生成的内容</h1>
+<h2>生成的内容</h2>
+<h3>计数器</h3>
+<div id="counter1">
+<h4>嵌套和作用范围</h4>
+<ol>                    <!-- {列表项[0]=0        -->
+  <li>列表项</li>         <!--  列表项[0]++ (=1)   -->
+  <li>列表项              <!--  列表项[0]++ (=2)   -->
+    <ol>                <!--  {列表项[1]=0       -->
+      <li>列表项</li>     <!--   列表项[1]++ (=1)  -->
+      <li>列表项</li>     <!--   列表项[1]++ (=2)  -->
+      <li>列表项          <!--   列表项[1]++ (=3)  -->
+        <ol>            <!--   {列表项[2]=0      -->
+          <li>列表项</li> <!--    列表项[2]++ (=1) -->
+        </ol>           <!--                   -->
+        <ol>            <!--   }{列表项[2]=0     -->
+          <li>列表项</li> <!--    列表项[2]++ (=1) -->
+        </ol>           <!--                   -->
+      </li>             <!--   }               -->
+      <li>列表项</li>     <!--   列表项[1]++ (=4)  -->
+    </ol>               <!--                   -->
+  </li>                 <!--  }                -->
+  <li>列表项</li>         <!--  列表项[0]++ (=3)   -->
+  <li>列表项</li>         <!--  列表项[0]++ (=4)   -->
+</ol>                   <!--                   -->
+<ol>                    <!-- }{列表项[0]=0       -->
+  <li>列表项</li>         <!--  列表项[0]++ (=1)   -->
+  <li>列表项</li>         <!--  列表项[0]++ (=2)   -->
+</ol> 
+</div>
+<div id="counter2">
+<h4><a name="counter">使用计数器：counter()</a></h4>
+  <p>段落文字。</p>
+  <p>段落文字。</p>
+  <p>段落文字。</p>
+</div>
+<div id="counter3">
+<h4>counter()</h4>
+  <p>段落文字。</p>
+  <p>段落文字。</p>
+  <p>段落文字。</p>
+</div>
+<div id="counter4">
+<h4><a name="counters">使用计数器：counters()</a></h4>
+<ol>                    <!-- {列表项[0]=0        -->
+  <li>列表项</li>         <!--  列表项[0]++ (=1)   -->
+  <li>列表项              <!--  列表项[0]++ (=2)   -->
+    <ol>                <!--  {列表项[1]=0       -->
+      <li>列表项</li>     <!--   列表项[1]++ (=1)  -->
+      <li>列表项</li>     <!--   列表项[1]++ (=2)  -->
+      <li>列表项          <!--   列表项[1]++ (=3)  -->
+        <ol>            <!--   {列表项[2]=0      -->
+          <li>列表项</li> <!--    列表项[2]++ (=1) -->
+        </ol>           <!--                   -->
+        <ol>            <!--   }{列表项[2]=0     -->
+          <li>列表项</li> <!--    列表项[2]++ (=1) -->
+        </ol>           <!--                   -->
+      </li>             <!--   }               -->
+      <li>列表项</li>     <!--   列表项[1]++ (=4)  -->
+    </ol>               <!--                   -->
+  </li>                 <!--  }                -->
+  <li>列表项</li>         <!--  列表项[0]++ (=3)   -->
+  <li>列表项</li>         <!--  列表项[0]++ (=4)   -->
+</ol>                   <!--                   -->
+<ol>                    <!-- }{列表项[0]=0       -->
+  <li>列表项</li>         <!--  列表项[0]++ (=1)   -->
+  <li>列表项</li>         <!--  列表项[0]++ (=2)   -->
+</ol> 
+</div>
+<div id="counter5">
+  <h4><a name="display">display : none</a></h4>
+  <p>普通的段落1。</p>
+  <p class="secret">普通的段落2。</p>
+  <p>普通的段落3。</p>
+</div>
+<div id="counter6">
+  <h4>visibility:hidden</h4>
+  <p>普通的段落1。</p>
+  <p class="secret">普通的段落2。</p>
+  <p>普通的段落3。</p>
+</div>
+<div id="counter7">
+  <h4>content:normal</h4>
+  <p>普通的段落1。</p>
+  <p class="secret">普通的段落2。</p>
+  <p>普通的段落3。</p>
+</div>
+<div class="gotoIndex"><a href="../../index.html#chapter12" title="返回示例代码目录">返回代码目录</a></div>
+</body>
+</html>

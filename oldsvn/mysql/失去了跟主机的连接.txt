@@ -1,0 +1,16 @@
+失去了跟主机的连接。
+Can't get hostname for your address
+
+Just add skip-name-resolve option to the [mysqld]
+ section of your my.cnf/my.ini 
+and reboot your MySQL server. That fixed the issue for me.
+
+[mysqld]
+内添加一行：skip-name-resolve
+
+MySQL忽略数据库表名大小写
+修改/etc/my.cnf，在
+[mysqld]
+内添加一行：lower_case_table_names=1
+
+skip-name-resolve #加上这一个属性

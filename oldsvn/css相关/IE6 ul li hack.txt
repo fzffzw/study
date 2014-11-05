@@ -1,0 +1,36 @@
+#content #left #menu ul
+{
+	margin: 0;
+	padding: 0;
+	background: #376ea6;
+    /*zoom:1*/
+}
+
+
+#content #left #menu li
+{
+	margin: 0;
+	padding: 0;
+	clear: both;
+	overflow: hidden;
+	list-style: none;
+	border-top: 1px solid #4377ab;
+	border-bottom: 1px solid #326395;
+	color: #ffffff;
+	font-size: 1px;
+	line-height: 0;
+}
+
+最后一个li没有背景颜色
+加一个 /*zoom:1*/
+ok
+
+小知识：什么是haslayout？
+
+haslayout 是Windows Internet Explorer渲染引擎的一个内部组成部分。在InternetExplorer中，一个元素要么自己对自身的内容进行计算大小和组织，要么依赖于父元素来计算尺寸和组织内容。为了调节这两个不同的概念，渲染引擎采用了 hasLayout 的属性，属性值可以为true或false。当一个元素的 hasLayout属性值为true时，我们说这个元素有一个布局（layout）。
+
+
+http://www.duidea.com/2013/0109/1664.html
+
+
+

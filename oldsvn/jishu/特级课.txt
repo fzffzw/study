@@ -1,0 +1,150 @@
+http://www.lampbrother.net/phptrain/phpkc_3.php
+
+双飞翼布局（圣杯布局）介绍-始于淘宝UED
+http://www.cnblogs.com/cobby/archive/2012/05/09/2491812.html
+http://www.qianduan.net/clover-jellyfish-and-glass.html （css）
+CSS权威指南第三版
+
+
+  1.负载均衡技术 
+  1).Cisco 以太网通道 
+  2).Windows NLB技术 
+  3).Linux LVS技术 
+  4).F5等负载均衡器 
+  2.数据冗余技术 
+  1).Cisco HSRP热备份路由 
+  2).Windows集群技术 
+  3).Linux HA集群技术 
+  4).IBM AIX集群 
+
+
+
+
+  1.主流数据库 
+  1).Mysql主从和分区技术 
+  2).Oracle 
+  3).Db2 
+  4).Mongodb数据库 
+
+
+
+
+  1.Squid代理缓存技术 
+  2.页面静态化缓存 
+  3.Memcache 
+  4.Sphinx搜索加速 
+
+
+
+
+  1.Mrtg网站监控 
+  2.Postfix邮件服务器 
+  3.Shell邮件报警 
+  4.Cacti网站监控 
+  5.Cacti邮件报警 
+
+LVS网络负载均衡 
+
+
+
+  1.网络OSI七层模型 
+  2.交换机转发原理 
+  3.路由器转发原理 
+  4.交换机和路由器的区别 
+
+Lvs Nat和Ip-tun模式【下载】 
+
+
+  1.硬件网络负载均衡技术 
+  2.Lvs Nat网络地址转换原理 
+  3.Lvs Ip-tun ip隧道原理 
+
+Lvs Dr模式和Lvs实验测试【下载】 
+
+
+  1.Lvs Dr直接路由技术原理 
+  2.Lvs Nat技术实验测试 
+  3.Lvs Ip-tun技术实验测试 
+  4.Lvs Dr技术实验测试 
+
+Squid代理缓存服务器 
+Squid代理服务器原理【下载】 
+
+
+  1.Squid代理服务器原理 
+  2.Squid代理技术与Nat地址转换技术区别 
+  3.Squid七层防火墙与iptables三层防火墙区别 
+  4.Squid普通代理原理 
+  5.Squid透明代理原理 
+  6.Squid反向代理原理 
+
+Squid普通代理实验测试【下载】 
+
+
+  1.Squid普通代理理论学习 
+  2.Squid普通代理环境准备 
+  3.Squid普通代理实验测试 
+  4.Squid访问控制功能 
+  5.Squid缓存功能测试 
+  6.Squid客户端与服务端的实验测试 
+
+Squid透明和反向代理【下载】 
+
+
+  1.Squid透明代理理论学习 
+  2.Squid与iptables的重定向功能结合 
+  3.Squid透明代理环境准备 
+  4.Squid透明代理实验测试 
+  5.Squid反向代理理论学习 
+  6.Squid反向代理实验测试 
+  7.Squid反向代理与apache虚拟主机结合 
+
+MySQL主从数据库和分区技术 
+MySQL grant用户授权【下载】 
+
+
+  1.MySQL主从环境的准备 
+  2.MySQL主从理论 
+  3.MySQL grant用户授权理论与测试 
+  4.MySQL bin-log日志理论 
+
+MySQL bin-log日志和主从复制 
+
+
+  1.MySQL bin-log日志实验测试 
+  2.MySQL完整备份与恢复 
+  3.MySQL主从环境介绍 
+  4.MySQL主从复制的实验测试 
+  5.MySQL主从复制的排错思路 
+
+MySQL分区理论 
+
+
+  1.MySQL分库分表技术 
+  2.MySQL分区理论 
+  3.MySQL partition分区功能支持 
+  4.MySQL四大分区技术 
+
+MySQL分区实验 
+
+
+  1.MySQL存储技术实现 
+  2.MySQL分区环境准备 
+  3.MySQL分区实验测试 
+  4.MySQL分区技术排错 
+
+http://dl.dbank.com/c0x4vwubki
+http://dl.dbank.com/c01kb8t3do
+http://dl.dbank.com/c0di8kkc28
+http://dl.dbank.com/c09ljsy1ez
+http://dl.dbank.com/c0lv920x01
+第六集 Lvs Nat和ip-tun模式 http://dl.dbank.com/c0phdvqowf
+第七集 Lvs Dr模式和Lvs实验测试 http://dl.dbank.com/c05cx07qtv
+第八集 Squid代理服务器原理 http://dl.dbank.com/c0w7zdntq4
+第九集 Squid普通代理实验测试 http://dl.dbank.com/c0bndc1zj2
+第十集 Squid透明和反向代理 http://dl.dbank.com/c0z3xg37l2
+
+
+
+
+本节内容： 网站大数据存储【下载】   本节内容： 网站加速技术【下载】   本节内容： 网站服务监控【下载】   本节内容： 网络数据转发原理【下载】   本节内容：   本节内容：   本节内容：   本节内容：   本节内容：   本节内容：   本节内容：   本节内容：   本节内容：   本节内容： 第一集 网站大访问量 第二集 网站大数据存储 第三集 网站加速技术 第四集 网站服务监控 第五集 网络数据转发原理

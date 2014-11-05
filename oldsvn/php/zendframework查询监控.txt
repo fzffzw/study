@@ -1,0 +1,22 @@
+http://blog.zetng.com/2011/11/zend-framework-based-web-app-database-throttle-profile-method/#more-26
+
+目前的web应用基本都离不开数据库，数据量稍微一上升数据库压力也就上升了。优化 MySQL 基本成了 PHP 程序员面试必须回答的问题。 解决问题很简单，找出问题才是关键。以下提供两种最简单的方式仅供参考。
+
+MySQL 慢查询
+
+修改 my.ini 配置，然后根据需要检查 mysql_slow_query.log 即可
+
+slow_query_log=1
+slow_query_log_file="C:/tools/mysql_slow_query.log"
+long_query_time=0.5
+优点很明显，不用改动程序，可以自由调整慢查询的标准。缺点也很明显，那就是无法定位错误发生地点。
+
+Zend_Db_Profiler 剖析
+
+在初始化好 Zend_Db 实例后追加如下代码,使用装好FireBug和FirePHP的Firefox即可查看到当前页面运行的SQL极其各自的时间消耗，当然你同样可以设置慢查询标准的 配合工具：FireFox+FireBug+FirePHP
+
+$profiler = new Zend_Db_Profiler_Firebug('Queries runned');
+$profiler->setEnabled(true);
+$profiler->setFilterQueryType(Zend_Db_Profiler::SELECT);
+$profiler->setFilterElapsedSecs(0.5);
+$db->setProfiler($profiler);

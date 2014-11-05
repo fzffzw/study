@@ -1,0 +1,11 @@
+host not allowed connect to this mysql server
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'192.168.25.121' IDENTIFIED BY '842101' WITH GRANT OPTION;
+
+
+
+ERROR 2003 (HY000): Can't connect to MySQL server on '192.168.8.88' (10065)
+
+授权所有ip 用户为master 密码为master
+GRANT ALL PRIVILEGES ON *.* TO'master'@'%' IDENTIFIED BY 'master' WITH GRANT OPTION;
+

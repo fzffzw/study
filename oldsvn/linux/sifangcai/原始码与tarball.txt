@@ -1,0 +1,277 @@
+shell scripts 不是也可以执行吗？！
+其实 shell scripts 只是利用 shell ( 例如 bash )这支程序的功能进行一些判断式
+
+对啦！用他就是了！我们现在来测试一下： 
+# 先以系统的档案测试看看：
+[root@test root]# file /bin/bash
+/bin/bash: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), for GNU/Linux 2.2.5, dynamically linked (uses shared libs), stripped
+　
+# 如果是我们在 shell script 那个章节写的 test01-hello.sh 档案呢？
+[root@test root]# file test01-hello.sh
+test01-hello.sh: Bourne-Again shell script text executable
+
+当执行 make 时，make 会在当时的目录下搜寻 Makefile ( or makefile ) 这个文字文件，
+而 Makefile 里面则记录了原始码如何编译的详细信息！  make 会自动的判别原始码是否经过变动了，
+而自动更新执行档，是软件工程师相当好用的一个辅助工具呢！
+　
+咦！make 是一支程序，会去找 Makefile ，那 Makefile 怎么写？
+呵呵！通常软件开发商都会写一支侦测程序来侦测使用者的作业环境，
+以及该作业环境是否有软件开发商所需要的其它功能，该侦测程序侦测完毕后，
+就会主动的建立这个 Makefile 的规则档案啦！
+通常这支侦测程序的文件名为 configure 或者是 config 。
+
+
+好了，那么一个套件的 Tarball 是如何安装的呢？基本流程是这样的啦：
+
+   1. 将 Tarball 由厂商的网页下载下来；
+   2. 将 Tarball 解开，产生很多的原始码档案；
+   3. 开始以 gcc 进行原始码的编译( 会产生目标文件 object files )；
+   4. 然后以 gcc 进行函式库、主、子程序的连结，以形成主要的 binary file；
+   5. 将上述的 binary file 以及相关的设定文件安装至自己的主机上面。
+   
+
+
+
+ 2. 开始将原始码编译成为可执行的 binary file ：
+[guest@test guest]# gcc hello.c
+# 这个时候，在本目录下会产生一个名为 a.out 的执行档！
+# 在预设的状态下，如果我们直接以 gcc 编译原始码，并且没有加上
+# 任何参数，则执行档的档名会被自动设定为 a.out 这个文件名称！ 
+
+[guest@test guest]# gcc -c hello.c
+# 会产生一个名为 hello.o 的目标文件，object file 的附档名为 *.o 喔！
+
+[guest@test guest]# gcc -o hello hello.o
+# 这个步骤是利用 hello.o 这个目标文件制作出一个名为 hello 的执行档
+# 详细的 gcc 语法我们会在后续章节中继续介绍！
+# 透过这个动作后，我们可以得到 hello 及 hello.o 两个档案，
+# 真正可以执行的是 hello 这个 binary file 喔！　 
+
+
+ [guest@test guest]# gcc sin.c -lm -L/lib -L/usr/lib
+# 特别注意，那个 -lm 可以拆开成两部份来看，
+# -l 是『加入某个函式库(library)』的意思，而
+# m 则是 libm.so 这个函式库，其中， lib 与附档名(.a 或 .so)不需要写
+# 所以 -lm 表示使用 libm.so (或 libm.a) 这个函式库的意思～
+# 至于那个 -L 后面接的路径呢？这表示：
+#『我要的函式库 libm.so 请到 /lib 或 /usr/lib 里面搜寻！』
+[guest@test guest]# ./a.out
+1.000000
+
+[guest@test guest]# gcc sin.c -lm -I/usr/include
+ 　
+-I/path 后面接的路径( Path )就是设定要去搜寻相关的 include 档案的目录啦！
+不过，同样的，默认值是放置在 /usr/include 底下，除非您的 include 档案放置在其它路径，
+否则也可以略过这个项目！ 
+
+
+# 1. 先建立编译的规则
+[guest@test guest]# vi makefile
+main: main.o haha.o sin_value.o cos_value.o
+        gcc -o main main.o haha.o sin_value.o cos_value.o -lm
+# 注意： gcc 之前是 <tab> 按键产生的空格喔！
+　
+# 2. 尝试给他建立规则看看
+[guest@test guest]# rm -f main *.o <==先将之前的目标文件去除
+[guest@test guest]# make
+cc    -c -o main.o main.c
+cc    -c -o haha.o haha.c
+cc    -c -o sin_value.o sin_value.c
+cc    -c -o cos_value.o cos_value.c
+gcc -o main main.o haha.o sin_value.o cos_value.o -lm
+# 这个时候 make 会主动去读取 makefile 这个档案的内容，
+# 并根据内容直接去给他编译起相关的执行档啰！
+　
+# 3. 如果再执行一次 make 会怎样？！
+[guest@test guest]# make
+make: `main' is up to date.
+# 看到了吧？！是否很方便呢？！
+
+make 有这些好处：
+
+    * 简化编译时所需要下达的指令；
+    * 若在编译完成之后，修改了某个原始码档案，则 make 仅会针对被修改了的档案进行编译，其它的 object file 不会被更动；
+    * 最后可以依照相依性来更新( update )执行档。 
+  
+  
+  由于 gcc 在进行编译的行为时，会主动的去读取 CFLAGS 这个环境变量，
+  所以，您可以直接在 shell 定义出这个环境变量，也可以在 makefile 档案里面去定义，
+  更可以在指令列当中给予这个咚咚呢！例如：
+　
+[guest@test guest]# make clean main "CFLAGS=-Wall"
+# 这个动作在上 make 进行编译时，会去取用 CFLAGS 的变量内容！  
+
+   1. make 指令列后面加上的环境变量为优先；
+   2. makefile 里面指定的环境变量第二；
+   3. shell 原本具有的环境变量第三。 
+   
+ $@：代表目前的标的(target)
+ 
+ 所以整个安装的基础动作大多是这样的：
+
+   1. 将 tarball 档案在 /usr/local/src 目录下解压缩；
+   2. 进入新建立的目录底下，去查阅 INSTALL 与 README 等相关档案内容( 很重要的步骤！ )；
+   3. 根据 INSTALL/README 的内容察看并安装好一些相依的套件( 非必要 )；
+   4. 以自动侦测程序( configure 或 config )侦测作业环境，并建立 Makefile 这个档案；
+   5. 以 make 这个程序并使用该目录下的 Makefile 做为他的参数设定档，来进行 make ( 编译或其它 )的动作；
+   6. 以 make 这个程序，并以 Makefile 这个参数设定档，依据 install 这个标的( target )的指定来安装到正确的路径！   
+   
+   1. ./configure ：
+      这个步骤就是在建立 Makefile 这的档案啰！通常程序开发者会写一支 scripts 
+      来检查您的 Linux 系统、相关的套件属性等等，这个步骤相当的重要，
+      因为未来您的安装信息都是这一步骤内完成的！
+      另外，这个步骤的相关信息应该要参考一下该目录下的 README 或 INSTALL 相关的档案！！
+      基本上，这个步骤完成之后会建立( 或修改 )一个 Makefile ，这就是参数档啦！
+      　
+   2. make clean：
+      make 会读取 Makefile 中关于 clean 的工作。
+      这个步骤不一定会有，但是希望执行一下！为什么呢？因为在进行编译的时候，
+      会产生一些 *.o 的档案，例如有个 abc.c 的原始码，经过编译后会变成 abc.o 的档案！
+      我们称这些档案为 object file ，这些档案如果之前已经编译过并留下来的话，
+      那么这次再编译的时候，就不会编译该档案，然而由于我们可能已经修改了部分的参数，
+      因此该档案的编译结果事实上应该会有所不同！
+      因此，为了避免前一次留下来的数据可能影响到这次编译的结果，
+      所以通常可以进行一下这个步骤啰！
+      　
+   3. make：
+      make 会依据 Makefile 当中的预设工作进行编译的行为！
+      编译的工作主要是进行 gcc 来将原始码编译成为可以被执行的 object files ，
+      但是这些 object files 通常还需要一些函式库之类的 link 后，
+      才能产生一个完整的执行档！使用 make 就是要将原始码编译成为可以被执行的可执行档
+      ，而这个可执行档会放置在目前所在的目录之下，尚未被安装到预定安装的目录中；
+      　
+   4. make install：
+      通常这就是最后的安装步骤了，make 会依据 Makefile 这个档案里面关于 install 的项目，
+      将上一个步骤所编译完成的数据给他安装到预定的目录中，就完成安装啦！
+      　
+   5. 特别留意：
+      请注意，上面的步骤是一步一步来进行的，而其中只要一个步骤无法成功，
+      那么后续的步骤就完全没有办法进行的！
+      因此，要确定每一的步骤都是成功的才可以！
+      举个例子来说，万一今天你在 ./configure 就不成功了，
+      那么就表示 Makefile 无法被建立起来，
+      要知道，后面的步骤都是根据 Makefile 来进行的，
+      既然无法建立 Makefile ，后续的步骤当然无法成功啰！
+      另外，如果在 make 无法成功的话，那就表示源文件无法被编译成可执行档，
+      那么 make install 主要是将编译完成的档案给他安装下去的，
+      既然都没有成功的执行档了，怎么进行安装？
+      所以啰，要每一个步骤都正确无误才能往下继续做！
+      此外，如果安装成功，并且是安装在独立的一个目录中，
+      例如 /usr/local/packages 这个目录中好了，
+      那么您就必需手动的将这个套件的 man page 给他放到 /etc/man.config 里面去。   
+
+    * /etc/httpd
+    * /usr/lib
+    * /usr/bin
+    * /usr/share/man 
+
+我们会发现套件的内容大致上是摆在 etc, lib, man, bin 等目录当中，
+分别代表『设定档、函式库、执行档、在线说明档』。
+好了，那么你是以 tarball 来安装时呢？如果是放在预设的 /usr/local 里面，
+由于 /usr/local 原本就预设这几个目录了，所以你的数据就会被放在：
+    
+    * /usr/local/etc
+    * /usr/local/bin
+    * /usr/local/lib
+    * /usr/local/man 
+    
+   1. 最好将 tarball 的原始数据解压缩到 /usr/local/src 当中；
+   2. 安装时，最好安装到 /usr/local 这个预设路径下；
+   3. 考虑未来的反安装步骤，最好可以将每个套件单独的安装在 /usr/local 底下，例如安装 rp-pppoe-2.6.tar.gz 时，则可以指定该套件需要安装于 /usr/local/rp-pppoe 当中，如此一来，该套件会将所有的数据都写入 /usr/local/rp-pppoe 当中，因此，未来如果要移除该套件，只要将该目录删除即可视为成功的移除了！
+   4. 不过单独安装某个套件在某一特定路径下的作法，会导致当有 man page 的时候，使用预设的 MANPATH 会找不到相关的说明档案内容。这个时候就必须要将 man page 的路径加到 /etc/man.config 档案中了！否则使用 man 也查询不到指令的使用方法的。以上面的例子为例，如果是安装了 /usr/local/rp-pppoe 当中，通常 man page 会放在 /usr/local/rp-pppoe/man 当中，所以，您就必需要在 /etc/man.config 里面差不多 40~50 行左右的地方，加入底下这一行：
+            MANPATH /usr/local/rp-pppoe/man这样就可以使用 man 来查询资料啰！
+            
+            
+动态与静态函式库      
+              
+              
+动态函式库：
+
+    * 附檔名：这类函式库通常附档名为 libxxx.so 的类型；
+    * 编译行为：动态函式库与静态函式库的编译行为差异挺大的，静态函式库是整个被编译到执行文件当中，
+    但是动态函式库在编译的时候，在程序里面只有一个『指向( Pointer )』的位置而已。
+    也就是说，动态函式库的内容并没有被整合到执行档当中，而是当执行档要使用到函式库的机制时，
+    程序才会去读取函式库来使用。由于执行文件当中仅具有指向动态函式库所在的指标而已，
+    并不包含函式库的内容，所以他的档案会比较小一点。               
+    
+ 如何将动态函式库加载高速缓存( cache )当中呢？
+　
+
+   1. 首先，我们必须要在 /etc/ld.so.conf 里面写下『想要读入高速缓存当中的动态函式库所在的目录』，注意喔，是目录而不是档案；
+   2. 接下来则是利用 ldconfig 这个执行档将 /etc/ld.so.conf 的资料读入快取当中；
+   3. 同时也将数据记录一份在 /etc/ld.so.cache 这个档案当中吶！ 
+   
+   
+ [root@test root]# ldconfig [-f conf] [-C cache] [-p]
+参数说明：
+-f conf ：那个 conf 指的是某个文件名称，也就是说，使用 conf 作为 libarary 
+　　　　　函式库的取得路径，而不以 /etc/ld.so.conf 为默认值
+-C cache：那个 cache 指的是某个文件名称，也就是说，使用 cache 作为快取暂存
+　　　　　的函式库资料，而不以 /etc/ld.so.cache 为默认值
+-p　　　：列出目前有的所有函式库资料内容（在 /etc/ld.so.cache 内的资料！）
+范例：
+[root@test root]# vi /etc/ld.so.conf
+/usr/kerberos/lib
+/usr/X11R6/lib
+/usr/lib/mysql  <==这一行是新加入的喔！
+　
+[root@test root]# ldconfig
+# 画面上不会显示任何的信息，不要太紧张！正常的！
+　
+[root@test root]# ldconfig -p
+680 libs found in cache `/etc/ld.so.cache'
+        libzvt.so.2 (libc6) => /usr/lib/libzvt.so.2
+        libz.so.1 (libc6) => /usr/lib/libz.so.1
+        libz.so (libc6) => /usr/lib/libz.so
+        libx11globalcomm.so.1 (libc6) => /usr/lib/libx11globalcomm.so.1
+........(略).....
+
+
+ldd
+ 说了这么多，那么我如何判断某个可执行的 binary 档案含有什么动态函式库呢？
+ 很简单，利用 ldd 就可以晓得了！例如我想要知道 /usr/bin/passwd 这个程序含有的动态函式库有哪些，可以这样做： 
+ 
+ [root@test root]# ldd [-vdr] [filename]
+参数说明：
+-v ：列出所有内容信息；
+-d ：重新将数据有遗失的 link 点秀出来！
+-r ：将 ELF 有关的错误内容秀出来！
+范例：
+[root@test root]# ldd /usr/bin/passwd
+        libuser.so.1 => /usr/lib/libuser.so.1 (0x40021000)
+....(略)....
+        libpam.so.0 => /lib/libpam.so.0 (0x40107000)
+....(略)....
+# 我们前言的部分不是一直提到 passwd 有使用到 pam 的模块吗？！怎么知道？
+# 利用 ldd 察看一下这个档案，看到 libpam.so 了吧？这就是 pam 提供的函式库
+　
+[root@test root]#  ldd /lib/libc.so.6
+        /lib/ld-linux.so.2 => /lib/ld-linux.so.2 (0x40000000)
+　
+[root@pc510 vbird]# ldd -v /lib/libc.so.6
+        /lib/ld-linux.so.2 => /lib/ld-linux.so.2 (0x40000000)
+
+        Version information:
+        /lib/libc.so.6:
+                ld-linux.so.2 (GLIBC_2.1) => /lib/ld-linux.so.2
+                ld-linux.so.2 (GLIBC_2.0) => /lib/ld-linux.so.2
+                ld-linux.so.2 (GLIBC_PRIVATE) => /lib/ld-linux.so.2 
+      
+ 未来如果您常常升级安装 RPM 的套件时( 下一章节会介绍 )，应该常常会发现那个『相依属性』的问题吧！？
+ 没错！我们可以先以 ldd 来视察『相依函式库』之间的相关性！以先取得了解！例如上面的例子中，
+ 我们检查了 libc.so.6 这个在 /lib 当中的函式库，结果发现他其实还跟 ld-linux.so.2 有关！
+ 所以我们就需要来了解一下，那个档案到底是什么套件的函式库呀！？
+ 使用 -v 这个参数还可以得知该函式库来自于哪一个套件！
+ 像上面的数据中，就可以得到该 libc.so.6 其实可以支持 GLIBC_2.1 等的版本！   
+ 
+ [root@test root]# md5sum [-bct] filename
+[root@test root]# md5sum [--status|--warn] --check filename
+参数说明：
+-b ：使用 binary 的读档方式，预设为 Windows/DOS 档案型态的读取方式；
+-c ：检验 md5sum 档案指纹；
+-t ：以文字型态来读取 md5sum 的档案指纹。
+范例：
+[root@test root]# md5sum grep-2.5.1-7.8.i386.rpm
+5a0c3fcfcd4c3f937644b8cd71a0cf89  grep-2.5.1-7.8.i386.rpm
+# 看！显示的编码是否与上面相同呢？！赶紧测试看看！
+ 

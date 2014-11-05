@@ -1,0 +1,248 @@
+&
+语法：
+[root @test /root ]# command &
+参数说明：
+范例：
+[root @test /root]# find / -name testing & <==将该执行程序丢到背景执行
+[root @test /root]# fg                      <==将该程序叫回屏幕前执行
+
+fg 与 bg
+语法：
+[root @test /root ]# fg %number
+[root @test /root ]# bg %number
+参数说明：
+%      ：后面接数字，表示 jobs 的工作代号
+number ：就是工作代号
+范例：
+[root @test /root]# find / -name test
+^Z
+[1]+  Stopped                 find / -name testing
+[root @test /root]# vi .bashrc
+^Z
+[2]+  Stopped                 vi .bashrc    <==这里会显示将数据丢到背景当中了！
+[root @test /root]# jobs
+[1]-  Stopped                 find / -name testing
+[2]+  Stopped                 vi .bashrc
+[root @test /root]# bg %1
+[root @test /root]# jobs
+[1]-  Running                 find / -name testing &
+[2]+  Stopped                 vi .bashrc
+[root @test /root]# fg %2
+进入 vi 画面啰！
+
+OK！那么如何来了解 jobs 的背景（bg）与前景（fg）的管控呢？！
+这里请注意啰！这个 bg 是将『背景当中的程序由 stopped 变成 Running 』的一个手段，
+至于 fg 『则是将背景中的指令移到屏幕上来动作』，
+那你怎么知道你的背景当中有多少的工作（jobs）在进行呢？！
+就是执行 jobs 来看看背景程序的代号啰！然后以 bg %number 来将资料在背景中执行，
+而 fg %number 则是将代号为 number 的程序移动到屏幕前面动作！
+
+
+kill
+语法：
+[root @test /root ]# kill -sigal %number
+参数说明：
+%number ：背景工作的代号，可使用 jobs 查询
+signal
+    -1  ：重新读取一次参数设定档(类似 reload )
+    -2  ：使用者中断该工作，类似 [Ctrl]+c 来中断一个工作
+    -9  ：立刻杀掉一个工作，不论该工作是否为僵尸程序
+    -15 ：停止一个工作（这是默认值）
+范例：
+[root @test /root]# jobs
+[1]+  Stopped                 vi .bashrc
+[root @test /root]# kill -9 %1
+
+# ps
+语法：
+[root @test /root ]# ps -aux
+参数说明：
+a   :选择所有的程序列出
+u   :所有使用者的程序均列出
+x   :所有 tty 的程序列出 
+
+
+
+top
+语法：
+[root @test /root ]# top
+参数说明：
+在执行 top 的程序中，可以输入下面的字符以进行排序
+A  ：以 age 亦即是执行的先后程序进行排序
+T  ：由启动的时间排序
+M  ：以所占的 memory 的大小排序
+P  ：以所耗用的 CPU 资源排序 
+
+# free
+语法：
+[root @test /root ]# free
+参数说明：
+-k  ：以 KBytes 来显示内存
+-m  ：以 MBytes 来显示内存
+范例： 
+
+
+# sar
+语法：
+[root @test /root ]# sar [-u] [-r] 秒数 次数
+参数说明：
+-u  ：看 CPU 使用的情况
+-r  ：看 memory 使用的情况
+秒数：几秒钟观测一次？
+次数：共观测几次
+
+uname
+语法：
+[root @test /root ]# uname [-apnr]
+参数说明：
+-a ：所有的系统信息均列出
+-p ：列出 CPU 信息
+-n ：列出 host name
+-r ：列出 kernel 版本信息
+范例：
+[root @test /root]# uname -a
+Linux tsai.adsldns.org 2.4.18 #2 Mon Mar 25 21:51:51 CST 2002 i586 unknown
+
+
+    * UID 代表执行者的身份；
+    * PID 代表这个程序的代号；
+    * PPID 代表这个程序是由那个程序发展出来的，亦即是父程序；
+    * PRI 代表这个程序『可被执行的优先级』越小越早被执行！
+    * NI 代表这个程序的 nice 值！ 
+
+好啦！这里有两个奇怪的信息，一个是 PRI 一个是 NI 这两个鬼东西！
+嗯！ PRI 还容易理解，就是该程序被 CPU 执行的先后顺序啦！
+所以当 CPU 忙线中的时候，那么 PRI 值月小的就会被越快执行！
+那么 NI 是什么？呵呵！那个就是 nice 值啦！那么什么是 nice 值呢？
+就是『系统可被执行的修正数值！』如前面所说的，由于 PRI 是越小越快被执行
+，而由于我们加入 nice 值之后，将使得 PRI 变为：
+
+    * PRI(new) = PRI(old) + nice 
+    
+    
+     * nice
+      语法：
+      [root @test /root ]# nice [-n number] command
+      参数说明：
+      -n ：就是后面那个 number 即为 nice 值！
+      范例：
+      [root @test /root]# nice -n -5 find / -name core > /tmp/core
+      说明：
+      就如同前面说的， nice 是用来调整程序的执行优先级！
+      这里只是一个执行的范例罢了！通常什么时候要将 nice 值调大呢？
+
+ o 一些非重要的程序之进行：例如备份工作！由于备份工作相当的耗系统资源，
+ 这个时候就可以将备份的指令之 nice 值调大一些，可以使系统的支持分配的更为公平！   
+ 
+     * renice
+      语法：
+      [root @test /root ]# renice [number] PID
+      参数说明：
+      范例：
+      [root @test /root]# ps -aux
+      [root @test /root]# renice 5 234
+      说明：
+      这个 renice 的功能就不太一样了！
+      由于 renice 是『将一个正在进行当中的程序的优先级降低』，所以必须要：
+
+            先取得该程序的 PID 才行！
+
+      所以啰，通常 renice 都与 ps 相互配合才对！
+      先找处某个程序的 PID 之后，才来重新的设定其 nice 值！ 
+      
+# dmesg
+语法：
+[root @test /root ]# dmesg
+参数说明：
+范例：
+[root @test /root]# dmesg | more
+说明：
+在开机的时候你会发现有很多的讯息出现吧，例如 CPU 的形式、硬盘、光盘型号及硬盘分割表等等。
+但是讯息都是『刷』的一声就跑过去了！这些讯息有时候对于系统管理员是很重要的，
+因为他提供了系统的信息呀！要看这些讯息你可以用 dmesg 这个指令来观看！
+
+# uptime
+语法：
+[root @test /root ]# uptime
+参数说明：
+范例：
+[root @test /root]# uptime
+ 11:27pm  up 9 days,  7:12,  1 user,  load average: 0.07, 0.12, 0.14
+说明：
+知不知道你的 Linux 主机已经开机多久了？还有，过去 1, 5, 15 分钟的系统平均 loading 是多少呢？
+呵呵！使用 uptime 就对了！在上面的例子中，执行 uptime 之后，显示目前时间是 11:27pm,
+ 而系统已经开机了 9 天又 7:12 之多，目前有一个使用者在在线，过去 1, 5, 15 分钟系统平均负荷为 0.07, 0.12, 0.14！
+ 
+ # who  &  w
+语法：
+[root @test /root ]# who
+[root @test /root ]# w
+参数说明：
+范例：
+[root @test /root]# who
+root     pts/0    Aug  2 20:43
+
+[root @test /root]# w
+  8:48pm  up 4 days,  5:08,  1 user,  load average: 0.00, 0.00, 0.00
+USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU  WHAT
+root     pts/0    192.168.1.2       8:43pm  0.00s  0.38s   ?     -
+说明：
+这是用来视察目前在系统上的使用者指令，你也可以使用 w 这个指令来下达动作。
+基本上，who 与 w 的功能是相同的，只是 who 仅列出使用者名称与登入时间，至于 w 则会列出使用者的
+
+    * 来源地址（IP）：就是 FROM 那一项即是IP；
+    * 登入时间：即是 LOGIN@ 那一项；
+    * 工作项目：就是 WHAT 那一项！ 
+加上 |more 的原因是因为讯息太多了，所以可以加入这个管线指令来使画面暂停！      
+
+last
+语法：
+[root @test /root ]# last
+参数说明：
+-number ：number 为数字，如果您的登入讯息太多了，可以使用这个指令！
+范例：
+
+
+# date
+语法：
+[root @test /root ]# date [-s] [-R]
+[root @test /root ]# date +[format]
+参数说明：
+-s  ：用来设定 Linux 主机时间的参数，如果你的主机时间不对，用这个就对啦！
+-R  ：如果发现你的语系是中文的，在纯文字模式底下用这个试试看
++[format]
+   %a ：星期几
+   %b ：月份名称
+   %d ：日期
+   %y ：年份
+      ：还有很多的参数，请使用 man 自行查询
+范例：
+[root @test /root]# date +%a" "%b" "%y
+Wed Apr 02
+[root @test /root]# date -s 04/10/2002   <==改变日期
+[root @test /root]# date -s 02:02:00     <==改变时间
+[root @test /root]# clock -r         <==检查 BIOS 里面的时间
+[root @test /root]# clock -w         <==将目前 Linux 的时间写到 BIOS 里面去！
+
+hostname
+语法：
+[root @test /root ]# hostname
+参数说明：
+范例：
+[test @test /root]# hostname
+test.adsldns.org
+说明：
+很简单吧！就是用来查看你主机名称的指令就是了！
+
+   1. 由 time.stdtime.gov.tw 取得最新的时间，并实时更新 Linux 系统时间；
+   2. 更改 BIOS 的时间。 
+
+所以整个方法只要执行两行即可搞定：
+ 
+[root @test root]# ntpdate time.stdtime.gov.tw
+[root @test root]# clock –w
+
+如果还想要让系统自动去更新时间的话，哈哈！对啦！
+那个 /etc/crontab 不要忘记了！将底下这一行写入 /etc/crontab 当中： 
+10 5 * * 0,3  root /usr/sbin/ntpdate time.stdtime.gov.tw; clock -w
+

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>表格 :: 2.3.2 常用的XHTML标签和属性 :: 2.3 理解(X)HTML标签的语义 :: 第2章：结构与XHTML</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style type="text/css">
+<!--
+body {
+font: normal "宋体", serif;
+background:#FFF;
+}
+.gotoIndex {
+margin-top:30px;
+background:#ccc;
+font-size:12px;
+text-align:center;
+padding:4px;
+}
+table {
+width:400px;
+background:#eee;
+text-align:center;
+border-spacing:0;
+}
+td,
+th {
+border-bottom:1px solid #aaa;
+}
+th {
+background:#FF9;
+}
+thead th {
+background:#6CF;
+}
+tfoot td {
+background:#ccc;
+text-align:right;
+}
+-->
+</style>
+</head>
+
+<body>
+<table id="report" summary="一班学生成绩单">
+  <caption>
+    成绩单
+  </caption>
+  <thead>
+  <tr>
+    <th scope="col">学号</th>
+    <th scope="col">姓名</th>
+    <th scope="col">语文</th>
+    <th scope="col">数学</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <th scope="row">1</th>
+    <td>张三</td>
+    <td>80</td>
+    <td>85</td>
+  </tr>
+  <tr>
+    <th scope="row">2</th>
+    <td>李四</td>
+    <td>85</td>
+    <td>89</td>
+  </tr>
+  <tr>
+    <th scope="row">3</th>
+    <td>王五</td>
+    <td>90</td>
+    <td>94</td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+	<td colspan="4">共3名学生</td>
+  </tr>
+  </tfoot>
+</table>
+<div class="gotoIndex"><a href="../../index.html" title="返回示例代码目录">返回代码目录</a></div>
+</body>
+</html>

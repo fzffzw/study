@@ -1,0 +1,15 @@
+http://tiger506.blog.51cto.com/318536/385359
+
+http://www.cnblogs.com/trams/archive/2012/04/29/2476175.html ssh≈‰÷√
+
+yum search ssh
+
+yum install openssh-server
+
+chkconfig --list sshd
+
+/etc/init.d/sshd start
+
+/etc/init.d/iptables stop
+
+http://www.cnblogs.com/eastson/archive/2012/06/29/2570163.html

@@ -1,0 +1,10 @@
+http://solf.me/compile-nginx-php-mysql-on-centos-lnmp/
+http://www.2fz1.com/?p=133 tencent
+
+http://bbs.blueidea.com/thread-3044619-1-1.html
+
+
+sql过滤，
+xss
+主从
+分区

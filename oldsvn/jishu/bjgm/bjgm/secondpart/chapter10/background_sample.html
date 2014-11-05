@@ -1,0 +1,406 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>10.4 应用 :: 第10章：颜色与背景</title>
+<style type="text/css">
+<!--
+* {
+margin:0;
+padding:0;
+}
+li {
+list-style:none;
+}
+body {
+padding:10px;
+font: 12px/2 "宋体", serif;
+}
+h1,
+h2,
+h3,
+h4 {
+clear:both;
+}
+.gotoIndex {
+margin-top:30px;
+background:#ccc;
+font-size:12px;
+text-align:center;
+padding:4px;
+margin-top:50px;
+}
+
+/*灵活使用背景*/
+#design {
+font:12px/1.5em "宋体", serif;
+color:#06c;
+background:#fff url(sample_img/design_bg1.png) no-repeat;
+width:240px;
+}
+#design h4 {
+font-size:1em;
+line-height:2em;
+padding-left:20px;
+background:url(sample_img/design_bg2.png) repeat-x bottom;
+}
+#design ul {
+background:url(sample_img/design_bg3.png) no-repeat right bottom;
+padding:5px 5px 5px 20px;
+}
+#design ul a {
+color:#06c;
+text-decoration:none;
+}
+
+/* 定宽定高的圆角 */
+#contact {
+font:12px "宋体", serif;
+width:154px;
+height:104px;
+color:#039;
+background: #FFF url(sample_img/contact_bg.png) no-repeat center top;
+}
+#contact h5 {
+font-size:1em;
+text-align:center;
+line-height:30px;
+}
+#contact ul {
+margin:0 10px;
+line-height:1.5em;
+}
+/*宽度固定高度不定的圆角*/
+.property {
+font:12px/1.5em "宋体", serif;
+color:#909;
+width:402px;
+margin-bottom:5px;
+background:#ffc url(sample_img/propertyList1_bg1.png) no-repeat;
+}
+.property h5 {
+font-size:1em;
+margin:0 12px;
+line-height:25px;
+height:25px;
+background:url(sample_img/propertyList1_bg2.gif) repeat-x left bottom;
+}
+.property dl {
+padding:8px 24px;  /* 下补白可以保证边框与最后一行文字有一定的距离。 */
+background:url(sample_img/propertyList1_bg3.png) no-repeat left bottom;
+}
+
+#propertyList2 dl {
+padding: 8px 0 10px;  /* 下补白要比圆角高一些。 */
+background: url(sample_img/propertyList2_bg4.png) no-repeat left bottom;
+}
+#propertyList2 dt,
+#propertyList2 dd {
+padding:0 24px;
+background: url(sample_img/propertyList2_bg3.png) repeat-y left top;
+}
+
+#propertyList3 {
+width:400px;
+}
+#propertyList4 {
+width:500px;
+}
+.box {
+font:12px/1.5em "宋体", serif;
+color:#909;
+width:80%;
+margin-bottom:5px;
+background:#ffc url(sample_img/propertyList3_left_bottom.png) no-repeat left bottom;
+}
+.box2 {
+padding-bottom:10px;  /* 下补白要比圆角高一些。 */
+background:url(sample_img/propertyList3_right_bottom.png) no-repeat right bottom;
+}
+.box3 {
+background:url(sample_img/propertyList3_left_top.png) no-repeat;
+}
+.box4 {
+background:url(sample_img/propertyList3_right_top.png) no-repeat right top;
+}
+.box4 h5 {
+font-size:1em;
+margin:0 12px 5px;  /* 右边距要大于等于圆角的宽度。 */
+line-height:25px;
+height:25px;
+background:url(sample_img/propertyList1_bg2.gif) repeat-x left bottom;
+}
+.box4 dl {
+background: url(sample_img/propertyList3_right_center.png) repeat-y right top;
+}
+.box4 dt,
+.box4 dd {
+margin-right:10px;  /* 右边距要大于等于圆角的宽度。 */
+padding:0 14px 0 24px;
+background: url(sample_img/propertyList3_left_center.png) repeat-y left top;
+}
+
+/*简单的链接背景替换*/
+#nav1 {
+margin:10px;
+clear:both;
+}
+#nav1 ul {
+float:left;  /* 浮动元素高度会包含其内浮动的子元素 */
+border-left:1px solid #666;
+}
+#nav1 li {
+float:left;  /* li浮动可能会导致其父元素无高度 */
+border:1px solid #666;
+border-left:0;  /* 去掉左边框 */
+}
+#nav1 li a {
+display:block;
+text-align:center;
+line-height:20px;
+height:20px;
+width:60px;
+color:#039;
+background:#3CF url(sample_img/nav1_a.png) no-repeat;
+text-decoration:none;
+}
+#nav1 li a:hover {
+color:#FFF;
+background-color:#90F;
+background-position:left bottom;
+}
+
+/*滑动门*/
+#nav2 li,
+#nav3 li,
+#nav4 li,
+#nav5 li {
+padding-bottom:7px;
+float:left;
+}
+#nav2 li a,
+#nav3 li a,
+#nav4 li a,
+#nav5 li a {
+color:#666;
+text-decoration:none;
+display:block;
+padding-left:5px;
+background:url(sample_img/nav2_left.gif) no-repeat;
+}
+#nav2 li a strong,
+#nav3 li a strong,
+#nav4 li a strong,
+#nav5 li a strong {
+font-weight:normal;
+display:block;
+padding: 8px 10px 5px 5px;
+background:url(sample_img/nav2_right.gif) no-repeat right top;
+}
+#nav2 li a:hover,
+#nav3 li a:hover,
+#nav4 li a:hover,
+#nav5 li a:hover {
+color:#fff;
+background-position:0 -100px;
+}
+#nav2 li a:hover strong,
+#nav3 li a:hover strong,
+#nav4 li a:hover strong,
+#nav5 li a:hover strong {
+padding-bottom:7px;  /* 5px + 2px */
+margin-bottom:-2px;
+background-position:100% -100px;
+}
+
+/*滑动门(全部浮动)*/
+#nav2 {
+font: 12px/1em "宋体", serif;
+background:#fff url(sample_img/nav2_bg1.png) repeat-x;
+width:600px;
+float:left;
+}
+#nav2 ul {
+width:540px;  /* 600px - 60px*/
+background:url(sample_img/nav2_bg2.gif) repeat-x left bottom;
+float:left;
+padding:5px 0 0 60px;
+}
+/*滑动门(清除浮动)*/
+#nav3 {
+font: 12px/1em "宋体", serif;
+width:90%;
+background:#fff url(sample_img/nav2_bg1.png) repeat-x;
+}
+#nav3 ul {
+background:url(sample_img/nav2_bg2.gif) repeat-x left bottom;
+padding:5px 0 0 60px;
+}
+#nav3 .clearFloat {
+float:none;
+clear:both;
+margin:0;
+padding:0;
+}
+
+/*滑动门(:after清除浮动)*/
+#nav4 {
+font: 12px/1em "宋体", serif;
+background:url(sample_img/nav2_bg1.png) repeat-x;
+width:90%;
+}
+#nav4 ul {
+height:100%;
+padding:5px 0 0 60px;
+background:url(sample_img/nav2_bg2.gif) repeat-x left bottom;
+}
+#nav4 ul:after {
+content: ".";  /* 必须包含content属性 */
+display: block; 
+height: 0;   /* 使伪元素不显示 */
+clear: both; 
+visibility: hidden;   /* 使伪元素不显示 */
+} 
+-->
+</style>
+</head>
+<body id="c_background">
+<h1>第10章：颜色与背景</h1>
+<h2>10.4 应用</h2>
+<h3><a name="sample1">10.4.1 灵活使用背景</a></h3>
+<div id="design">
+  <h4>设计 @ 制作</h4>
+  <ul>
+    <li><a href="#" title="关于学习——写给初学者">关于学习——写给初学者</a></li>
+    <li><a href="#" title="图片自动等比例缩小且垂直居中">图片自动等比例缩小且垂直居中</a></li>
+    <li><a href="#" title="上中下三行布局">上中下三行布局</a></li>
+    <li><a href="#" title="文本水平对齐（text-align）">文本水平对齐（text-align）</a></li>
+    <li><a href="#" title="页面布局的简单规则">页面布局的简单规则</a></li>
+  </ul>
+</div>
+<h3>10.4.2 模拟边框</h3>
+<h4><a name="sample2">固定宽度和高度</a></h4>
+<div id="contact">
+  <h5>联系方式</h5>
+  <ul>
+    <li>通信地址：北京市崇文区夕照寺街14号A座</li>
+    <li>邮政编码：100061</li>
+  </ul>
+</div>
+<h4><a name="sample3">宽度固定高度不定方法1</a></h4>
+<div id="propertyList1">
+  <div class="property">
+    <h5>background-image</h5>
+    <dl>
+      <dt>值：&lt;uri&gt; | none | inherit</dt>
+      <dd>uri：图片的链接地址。</dd>
+      <dd>none：无图片。</dd>
+    </dl>
+  </div>
+  <div class="property">
+    <h5>background-repeat</h5>
+    <dl>
+      <dt>值：repeat | repeat-x | repeat-y | no-repeat | inherit</dt>
+      <dd>repeat：背景图片在水平和垂直方向都重复显示。</dd>
+      <dd>repeat-x：背景图片只在水平方向重复显示。</dd>
+      <dd>repeat-y：背景图片只在垂直方向重复显示。</dd>
+      <dd>no-repeat：背景图片不重复，只显示1次。</dd>
+    </dl>
+  </div>
+</div>
+<h4><a name="sample4">宽度固定高度不定方法2</a></h4>
+<div id="propertyList2">
+  <div class="property">
+    <h5>background-repeat</h5>
+    <dl>
+      <dt>值：repeat | repeat-x | repeat-y | no-repeat | inherit</dt>
+      <dd>repeat：背景图片在水平和垂直方向都重复显示。</dd>
+      <dd>repeat-x：背景图片只在水平方向重复显示。</dd>
+      <dd>repeat-y：背景图片只在垂直方向重复显示。</dd>
+      <dd>no-repeat：背景图片不重复，只显示1次。</dd>
+      <dd>repeat：背景图片在水平和垂直方向都重复显示。</dd>
+      <dd>repeat-x：背景图片只在水平方向重复显示。</dd>
+      <dd>repeat-y：背景图片只在垂直方向重复显示。</dd>
+      <dd>no-repeat：背景图片不重复，只显示1次。</dd>
+      <dd>repeat：背景图片在水平和垂直方向都重复显示。</dd>
+      <dd>repeat-x：背景图片只在水平方向重复显示。</dd>
+      <dd>repeat-y：背景图片只在垂直方向重复显示。</dd>
+      <dd>no-repeat：背景图片不重复，只显示1次。</dd>
+    </dl>
+  </div>
+</div>
+<h4><a name="sample5">宽度和高度都不定</a></h4>
+<div id="propertyList3">
+  <div class="box">
+    <div class="box2">
+      <div class="box3">
+        <div class="box4">
+          <h5>background-image</h5>
+          <dl>
+            <dt>值：&lt;uri&gt; | none | inherit</dt>
+            <dd>uri：图片的链接地址。</dd>
+            <dd>none：无图片。</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="propertyList4">
+  <div class="box">
+    <div class="box2">
+      <div class="box3">
+        <div class="box4">
+          <h5>background-repeat</h5>
+          <dl>
+            <dt>值：repeat | repeat-x | repeat-y | no-repeat | inherit</dt>
+            <dd>repeat：背景图片在水平和垂直方向都重复显示。</dd>
+            <dd>repeat-x：背景图片只在水平方向重复显示。</dd>
+            <dd>repeat-y：背景图片只在垂直方向重复显示。</dd>
+            <dd>no-repeat：背景图片不重复，只显示1次。</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<h3><a name="sample6">简单的链接背景替换</a></h3>
+<div id="nav1">
+  <ul>
+    <li><a href="#" title="回到首页">首页</a></li>
+    <li><a href="#" title="访问博客">博客</a></li>
+    <li><a href="#" title="访问论坛">论坛</a></li>
+    <li><a href="#" title="在线帮助">帮助</a></li>
+  </ul>
+</div>
+<h3><a name="sample7">滑动门(全部浮动)</a></h3>
+<div id="nav2">
+  <ul>
+    <li><a href="#" title="回到首页"><strong>首页</strong></a></li>
+    <li><a href="#" title="源代码下载"><strong>源代码下载</strong></a></li>
+    <li><a href="#" title="关于我们"><strong>关于我们</strong></a></li>
+    <li><a href="#" title="网站地图"><strong>网站地图</strong></a></li>
+  </ul>
+</div>
+<h3><a name="sample7-1">滑动门(清除浮动)</a></h3>
+<div id="nav3">
+  <ul>
+    <li><a href="#" title="回到首页"><strong>首页</strong></a></li>
+    <li><a href="#" title="源代码下载"><strong>源代码下载</strong></a></li>
+    <li><a href="#" title="关于我们"><strong>关于我们</strong></a></li>
+    <li><a href="#" title="网站地图"><strong>网站地图</strong></a></li>
+	<li class="clearFloat"></li>
+  </ul>
+</div>
+<h3><a name="sample7-2">滑动门(:after伪元素清除浮动)</a></h3>
+<div id="nav4">
+  <ul>
+    <li><a href="#" title="回到首页"><strong>首页</strong></a></li>
+    <li><a href="#" title="源代码下载"><strong>源代码下载</strong></a></li>
+    <li><a href="#" title="关于我们"><strong>关于我们</strong></a></li>
+    <li><a href="#" title="网站地图"><strong>网站地图</strong></a></li>
+  </ul>
+</div>
+<div class="gotoIndex"><a href="../../index.html#chapter10" title="返回示例代码目录">返回代码目录</a></div>
+</body>
+</html>

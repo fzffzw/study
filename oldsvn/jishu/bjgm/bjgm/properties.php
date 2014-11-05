@@ -1,0 +1,1156 @@
+<?php
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>附录A：CSS 2.1属性表</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style type="text/css">
+<!--
+body {
+font: small/2 "宋体", serif;
+}
+table {
+border-collapse: separate;
+border:1px solid #36F;
+text-align:left;
+}
+td,
+th {
+padding:0 4px;
+}
+thead th,
+tfoot th {
+background:#9CF;
+text-align:center;
+}
+tbody th {
+background:#eee;
+text-align:left;
+}
+td {
+border-bottom: 1px dotted #999;
+}
+.name {
+width:13em;
+}
+.note {
+width:16em;
+background:#ffc;
+}
+.initialValue {
+background:#ccf;
+}
+.inherited {
+width:5em;
+}
+.app {
+width:10em;
+}
+.inherited {
+width:3em;
+}
+.mediaGroups {
+width:5em;
+}
+.page {
+background:#CFC;
+width:3em;
+}
+.supportNo {
+color: #090;
+text-decoration:line-through;
+}
+.supportIncomplete {
+color: #090;
+}
+.supportNone {
+color:#F00;
+}
+-->
+</style>
+</head>
+<body>
+<h2>附录A：CSS 2.1属性表</h2>
+<h3>注：</h3>
+<ol>
+  <li>“适用于”一列内，缺省为“全部”。</li>
+  <li>“目录”一列内，为该内容所在的章节。</li>
+</ol>
+<table summary="附录A：CSS 2.1属性速查表">
+  <caption>
+  附录A：CSS 2.1属性表
+  </caption>
+  <col class="name" />
+  <colgroup span="3" class="value">
+    <col class="note" />
+    <col class="value" />
+	<col class="initialValue" />
+  </colgroup>
+  <colgroup span="3" class="other">
+    <col class="app" />
+    <col class="inherited" />
+	<col class="mediaGroups" />
+  </colgroup>
+  <col class="page" />
+  <thead>
+    <tr>
+      <th scope="col">属性名称</th>
+      <th scope="col">说明</th>
+      <th scope="col">值</th>
+      <th scope="col">初始值</th>
+      <th scope="col">适用于</th>
+      <th scope="col">继承</th>
+      <th scope="col">媒体组</th>
+      <th scope="col">目录</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">azimuth </th>
+      <td>设置音频在空间内的角度。</td>
+      <td>&lt;角度&gt; | [[ left-side | far-left | left | center-left | center | center-right | right | far-right | right-side ] || behind ] | leftwards | rightwards | inherit </td>
+      <td>center </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>听觉</td>
+      <td>15.7</td>
+    </tr>
+    <tr>
+      <th scope="row">background-attachment </th>
+      <td>设置元素的背景图片的显示方式</td>
+      <td>scroll | fixed | inherit </td>
+      <td>scroll </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>10.3</td>
+    </tr>
+    <tr>
+      <th scope="row">background-color </th>
+      <td>设置元素的背景颜色</td>
+      <td>&lt;颜色&gt; | transparent | inherit </td>
+      <td>transparent </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>10.3</td>
+    </tr>
+    <tr>
+      <th scope="row">background-image </th>
+      <td>设置元素的背景图片</td>
+      <td>&lt;uri&gt; | none | inherit </td>
+      <td>none </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>10.3</td>
+    </tr>
+    <tr>
+      <th scope="row">background-position</th>
+      <td>设置元素的背景图片的起始位置</td>
+      <td>[ [ &lt;百分比&gt; | &lt;长度&gt; | left | center | right ] [ &lt;百分比&gt; | &lt;长度&gt; | top | center | bottom ]? ] | [ [ left | center | right ] || [ top | center | bottom ] ] | inherit </td>
+      <td>0% 0% </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>10.3</td>
+    </tr>
+    <tr>
+      <th scope="row">background-repeat </th>
+      <td>设置元素的背景图片重复的方式</td>
+      <td>repeat | repeat-x | repeat-y | no-repeat | inherit </td>
+      <td>repeat </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>10.3</td>
+    </tr>
+    <tr>
+      <th scope="row">background </th>
+      <td>设置元素的背</td>
+      <td>[background-color || background-image || background-repeat || background-attachment || background-position] | inherit </td>
+      <td>视各属性而定 </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>10.3</td>
+    </tr>
+    <tr>
+      <th scope="row">border-collapse </th>
+      <td>设置表格边框的显示方式</td>
+      <td>collapse | separate | inherit </td>
+      <td>separate </td>
+      <td>table 和 inline-table</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>11.4</td>
+    </tr>
+    <tr>
+      <th scope="row">border-color </th>
+      <td>设定元素边框的颜色</td>
+      <td>[ &lt;颜色&gt; | transparent ]{1,4} | inherit </td>
+      <td>视各属性而定 </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>8.8</td>
+    </tr>
+    <tr>
+      <th scope="row">border-spacing </th>
+      <td>设置分隔相邻的单元格之间的距离</td>
+      <td>&lt;长度&gt; &lt;长度&gt;? | inherit </td>
+      <td>0 </td>
+      <td>table 和 inline-table</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>11.4</td>
+    </tr>
+    <tr>
+      <th scope="row">border-style </th>
+      <td>设定元素边框的线型</td>
+      <td>&lt;border-style&gt;{1,4} | inherit </td>
+      <td>视各属性而定 </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>8.8</td>
+    </tr>
+    <tr>
+      <th scope="row">border-top</th>
+      <td rowspan="4">设定元素的边框颜色、宽度和样式</td>
+      <td rowspan="4">[ &lt;border-width&gt; || &lt;border-style&gt; || &lt;border-top-color&gt; ] | inherit </td>
+      <td rowspan="4">视各属性而定 </td>
+      <td rowspan="4">&nbsp;</td>
+      <td rowspan="4">×</td>
+      <td rowspan="4">视觉</td>
+      <td rowspan="4">8.8</td>
+    </tr>
+    <tr>
+      <th scope="row">border-right</th>
+    </tr>
+    <tr>
+      <th scope="row">border-bottom</th>
+    </tr>
+    <tr>
+      <th scope="row">border-left</th>
+    </tr>
+    <tr>
+      <th scope="row">border-top-color        
+      <br /></th>
+      <td rowspan="4">设定元素边框的颜色</td>
+      <td rowspan="4">&lt;颜色&gt; | transparent | inherit </td>
+      <td rowspan="4">color属性定义的值</td>
+      <td rowspan="4">&nbsp;</td>
+      <td rowspan="4">×</td>
+      <td rowspan="4">视觉</td>
+      <td rowspan="4">8.8</td>
+    </tr>
+    <tr>
+      <th scope="row">border-right-color</th>
+    </tr>
+    <tr>
+      <th scope="row">border-bottom-color</th>
+    </tr>
+    <tr>
+      <th scope="row">border-left-color</th>
+    </tr>
+    <tr>
+      <th scope="row">border-top-style</th>
+      <td rowspan="4">设定元素边框的线型</td>
+      <td rowspan="4">&lt;border-style&gt; | inherit </td>
+      <td rowspan="4">none </td>
+      <td rowspan="4">&nbsp;</td>
+      <td rowspan="4">×</td>
+      <td rowspan="4">视觉</td>
+      <td rowspan="4">8.8</td>
+    </tr>
+    <tr>
+      <th scope="row">border-right-style</th>
+    </tr>
+    <tr>
+      <th scope="row">border-bottom-style</th>
+    </tr>
+    <tr>
+      <th scope="row">border-left-style</th>
+    </tr>
+    <tr>
+      <th scope="row">border-top-width</th>
+      <td rowspan="4">设定元素边框的宽度</td>
+      <td rowspan="4">&lt;border-width&gt; | inherit </td>
+      <td rowspan="4">medium </td>
+      <td rowspan="4">&nbsp;</td>
+      <td rowspan="4">×</td>
+      <td rowspan="4">视觉</td>
+      <td rowspan="4">8.8</td>
+    </tr>
+    <tr>
+      <th scope="row">border-right-width</th>
+    </tr>
+    <tr>
+      <th scope="row">border-bottom-width</th>
+    </tr>
+    <tr>
+      <th scope="row">border-left-width</th>
+    </tr>
+    <tr>
+      <th scope="row">border-width </th>
+      <td>设定元素边框的宽度</td>
+      <td>&lt;border-width&gt;{1,4} | inherit </td>
+      <td>视各属性而定 </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>8.8</td>
+    </tr>
+    <tr>
+      <th scope="row">border </th>
+      <td>设定元素的边框颜色、宽度和样式</td>
+      <td>[ &lt;border-width&gt; || &lt;border-style&gt; || &lt;border-top-color&gt; ] | inherit </td>
+      <td>视各属性而定 </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>8.8</td>
+    </tr>
+    <tr>
+      <th scope="row">bottom </th>
+      <td>设定元素的框的边距的下边相对该框的包含块的下边向上偏移的量</td>
+      <td>&lt;长度&gt; | &lt;百分比&gt; | auto | inherit </td>
+      <td>auto </td>
+      <td>定位元素 </td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>9.3</td>
+    </tr>
+    <tr>
+      <th scope="row">caption-side </th>
+      <td>设置表格中标题&lt;caption&gt;元素的位置</td>
+      <td>top | bottom | inherit </td>
+      <td>top </td>
+      <td>table-caption</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>11.3</td>
+    </tr>
+    <tr>
+      <th scope="row">clear </th>
+      <td>设定不允许有浮动元素的边</td>
+      <td>none | left | right | both | inherit </td>
+      <td>none </td>
+      <td>块级元素</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>9.4</td>
+    </tr>
+    <tr>
+      <th scope="row">clip </th>
+      <td>设定元素经渲染的内容的哪一部分是可见的</td>
+      <td>&lt;形状&gt; | auto | inherit </td>
+      <td>auto </td>
+      <td>绝对定位元素</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>9.6</td>
+    </tr>
+    <tr>
+      <th scope="row">color </th>
+      <td>设置元素的前景色</td>
+      <td>&lt;颜色&gt; | inherit </td>
+      <td>由用户端决定</td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>10.2</td>
+    </tr>
+    <tr>
+      <th scope="row">content</th>
+      <td>设置生成的内容</td>
+      <td>normal | none | [ &lt;字符串&gt; | &lt;uri&gt; | &lt;计数器&gt; | attr(&lt;标识符&gt;) | open-quote | close-quote | no-open-quote | no-close-quote ]+ | inherit </td>
+      <td>normal </td>
+      <td>:before 和 :after 伪元素 </td>
+      <td>×</td>
+      <td>全部</td>
+      <td>12.2</td>
+    </tr>
+    <tr>
+      <th scope="row">counter-increment</th>
+      <td>元素每次出现时，计数器按照指定的增量计数</td>
+      <td>[ &lt;标识符&gt; &lt;整数&gt;? ]+ | none | inherit </td>
+      <td>none </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>全部</td>
+      <td>12.2</td>
+    </tr>
+    <tr>
+      <th scope="row">counter-reset</th>
+      <td>将指定选择器的计数器复位</td>
+      <td>[ &lt;标识符&gt; &lt;整数&gt;? ]+ | none | inherit </td>
+      <td>none </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>全部</td>
+      <td>12.2</td>
+    </tr>
+    <tr>
+      <th scope="row">cue-after</th>
+      <td>设置元素后面插入的音频标记</td>
+      <td>&lt;uri&gt; | none | inherit </td>
+      <td>none </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>听觉</td>
+      <td>15.5</td>
+    </tr>
+    <tr>
+      <th scope="row">cue-before</th>
+      <td>设置元素前面插入的音频标记</td>
+      <td>&lt;uri&gt; | none | inherit </td>
+      <td>none </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>听觉</td>
+      <td>15.5</td>
+    </tr>
+    <tr>
+      <th scope="row">cue</th>
+      <td>设置元素的音频标记</td>
+      <td>[ cue-before || cue-after ] | inherit </td>
+      <td>视各属性而定 </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>听觉</td>
+      <td>15.5</td>
+    </tr>
+    <tr>
+      <th scope="row">cursor</th>
+      <td>设置鼠标光标的外观</td>
+      <td>[ [&lt;uri&gt; ,]* [ auto | crosshair | default | pointer | move | e-resize | ne-resize | nw-resize | n-resize | se-resize | sw-resize | s-resize | w-resize | text | wait | help | progress ] ] | inherit </td>
+      <td>auto </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>视觉, 交互</td>
+      <td>13.1</td>
+    </tr>
+    <tr>
+      <th scope="row">direction</th>
+      <td>设置元素文本流入的方向</td>
+      <td>ltr | rtl | inherit </td>
+      <td>ltr </td>
+      <td>全部（详见正文）</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>7.10</td>
+    </tr>
+    <tr>
+      <th scope="row">display</th>
+      <td>设定元素的显示类型</td>
+      <td>inline | block | list-item | run-in | inline-block | table | inline-table | table-row-group | table-header-group | table-footer-group | table-row | table-column-group | table-column | table-cell | table-caption | none | inherit </td>
+      <td>inline </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>全部</td>
+      <td>9.2</td>
+    </tr>
+    <tr>
+      <th scope="row">elevation</th>
+      <td>设置语音在垂直方向的角度</td>
+      <td>&lt;角度&gt; | below | level | above | higher | lower | inherit </td>
+      <td>level </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>听觉</td>
+      <td>15.7</td>
+    </tr>
+    <tr>
+      <th scope="row">empty-cells</th>
+      <td>设置分隔相邻的单元格之间的距离</td>
+      <td>show | hide | inherit </td>
+      <td>show </td>
+      <td>table-cell类元素</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>11.4</td>
+    </tr>
+    <tr>
+      <th scope="row">float</th>
+      <td>指定一个框是否应该向左、向右浮动或不浮动</td>
+      <td>left | right | none | inherit </td>
+      <td>none </td>
+      <td>全部（详见第9.5节）</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>9.4</td>
+    </tr>
+    <tr>
+      <th scope="row">font-family</th>
+      <td>设定元素内文本的字体名称</td>
+      <td>[[ &lt;family-name&gt; | &lt;generic-family&gt; ] [, &lt;family-name&gt;| &lt;generic-family&gt;]* ] | inherit </td>
+      <td>由用户端决定</td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>6.1</td>
+    </tr>
+    <tr>
+      <th scope="row">font-size</th>
+      <td>设定元素内文字的尺寸</td>
+      <td>&lt;绝对尺寸&gt; | &lt;相对尺寸&gt; | &lt;长度&gt; | &lt;百分比&gt; | inherit </td>
+      <td>medium </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>6.2</td>
+    </tr>
+    <tr>
+      <th scope="row">font-style</th>
+      <td>设定元素内文字的样式</td>
+      <td>normal | italic | oblique | inherit </td>
+      <td>normal </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>6.4</td>
+    </tr>
+    <tr>
+      <th scope="row">font-variant</th>
+      <td>设定元素中的文本是否为小型的大写字母</td>
+      <td>normal | small-caps | inherit </td>
+      <td>normal </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>6.5</td>
+    </tr>
+    <tr>
+      <th scope="row">font-weight</th>
+      <td>设定元素内文字的粗细</td>
+      <td>normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | inherit </td>
+      <td>normal </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>6.3</td>
+    </tr>
+    <tr>
+      <th scope="row">font</th>
+      <td>设定元素中文本的字体属性</td>
+      <td>[ [ font-style || font-variant || font-weight ]? font-size [ / line-height ]? font-family ] | caption | icon | menu | message-box | small-caption | status-bar | inherit </td>
+      <td>视各属性而定 </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>6.6</td>
+    </tr>
+    <tr>
+      <th scope="row">height</th>
+      <td>设定块级元素和替换元素生成的内容框的高度</td>
+      <td>&lt;长度&gt; | &lt;百分比&gt; | auto | inherit </td>
+      <td>auto </td>
+      <td>全部，除了非替换行内元素、表格列和列祖</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>8.5</td>
+    </tr>
+    <tr>
+      <th scope="row">left</th>
+      <td>设定元素的框的边距的左边相对该框的包含块的左边向右偏移的量</td>
+      <td>&lt;长度&gt; | &lt;百分比&gt; | auto | inherit </td>
+      <td>auto </td>
+      <td>定位元素</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>9.3</td>
+    </tr>
+    <tr>
+      <th scope="row">letter-spacing</th>
+      <td>设置元素内字母之间的间隔</td>
+      <td>normal | &lt;长度&gt; | inherit </td>
+      <td>normal </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>7.5</td>
+    </tr>
+    <tr>
+      <th scope="row">line-height</th>
+      <td>设置元素中行的高度。</td>
+      <td>normal | &lt;实数&gt; | &lt;长度&gt; | &lt;百分比&gt; | inherit </td>
+      <td>normal </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>7.3</td>
+    </tr>
+    <tr>
+      <th scope="row">list-style-image</th>
+      <td>设置列表项标记的图片</td>
+      <td>&lt;uri&gt; | none | inherit </td>
+      <td>none </td>
+      <td>display: list-item 的元素 </td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>12.1</td>
+    </tr>
+    <tr>
+      <th scope="row">list-style-position</th>
+      <td>设置列表项标记的位置</td>
+      <td>inside | outside | inherit </td>
+      <td>outside </td>
+      <td>display: list-item  的元素</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>12.1</td>
+    </tr>
+    <tr>
+      <th scope="row">list-style-type</th>
+      <td>设置列表项的标记样式类型</td>
+      <td>disc | circle | square | decimal | decimal-leading-zero | lower-roman | upper-roman | lower-greek | lower-latin | upper-latin | armenian | georgian | lower-alpha | upper-alpha | none | inherit </td>
+      <td>disc </td>
+      <td>display: list-item 的元素</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>12.1</td>
+    </tr>
+    <tr>
+      <th scope="row">list-style</th>
+      <td>设置列表项标记的样式</td>
+      <td>[ list-style-type || list-style-position || list-style-image ] | inherit </td>
+      <td>视各属性而定 </td>
+      <td>display: list-item 的元素</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>12.1</td>
+    </tr>
+    <tr>
+      <th scope="row">margin-right<br /></th>
+      <td rowspan="2">设定元素边距的宽度</td>
+      <td rowspan="2">&lt;margin-width&gt; | inherit </td>
+      <td rowspan="2">0 </td>
+      <td rowspan="2">全部，表格类元素只包括table-caption、table 和inline-table</td>
+      <td rowspan="2">×</td>
+      <td rowspan="2">视觉</td>
+      <td rowspan="2">8.9</td>
+    </tr>
+    <tr>
+      <th scope="row">margin-left</th>
+    </tr>
+    <tr>
+      <th scope="row">margin-top</th>
+      <td rowspan="2">设定元素边距的宽度</td>
+      <td rowspan="2">&lt;margin-width&gt; | inherit </td>
+      <td rowspan="2">0 </td>
+      <td rowspan="2">全部，表格类元素只包括table-caption、table 和inline-table</td>
+      <td rowspan="2">×</td>
+      <td rowspan="2">视觉</td>
+      <td rowspan="2">8.9</td>
+    </tr>
+    <tr>
+      <th scope="row">margin-bottom</th>
+    </tr>
+    <tr>
+      <th scope="row">margin</th>
+      <td>设定元素边距的宽度</td>
+      <td>&lt;margin-width&gt;{1,4} | inherit </td>
+      <td>视各属性而定 </td>
+      <td>全部，表格类元素只包括table-caption、table 和inline-table</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>8.9</td>
+    </tr>
+    <tr>
+      <th scope="row">max-height</th>
+      <td>设定元素的最大高度</td>
+      <td>&lt;长度&gt; | &lt;百分比&gt; | none | inherit </td>
+      <td>none </td>
+      <td>全部，除了非替换行内元素、表格列和列组</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>8.6</td>
+    </tr>
+    <tr>
+      <th scope="row">max-width</th>
+      <td>设定元素的最大宽度</td>
+      <td>&lt;长度&gt; | &lt;百分比&gt; | none | inherit </td>
+      <td>none </td>
+      <td>全部，除了非替换行内元素、表格行和行组</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>8.4</td>
+    </tr>
+    <tr>
+      <th scope="row">min-height</th>
+      <td>设定元素的最小高度</td>
+      <td>&lt;长度&gt; | &lt;百分比&gt; | inherit </td>
+      <td>0 </td>
+      <td>全部，除了非替换行内元素、表格列和列组</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>8.6</td>
+    </tr>
+    <tr>
+      <th scope="row">min-width</th>
+      <td>设定元素的最小宽度</td>
+      <td>&lt;长度&gt; | &lt;百分比&gt; | inherit </td>
+      <td>0 </td>
+      <td>全部，除了非替换行内元素、表格行和行组</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>8.4</td>
+    </tr>
+    <tr>
+      <th scope="row">orphans</th>
+      <td>段落中必须遗留在一个页面底部的行数的最小数目</td>
+      <td>&lt;整数&gt; | inherit </td>
+      <td>2 </td>
+      <td>块级元素</td>
+      <td>√</td>
+      <td>视觉, 页面</td>
+      <td>14.4</td>
+    </tr>
+    <tr>
+      <th scope="row">outline-color</th>
+      <td>设置外廓的颜色</td>
+      <td>&lt;颜色&gt; | invert | inherit </td>
+      <td>invert </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>视觉, 交互</td>
+      <td>13.3</td>
+    </tr>
+    <tr>
+      <th scope="row">outline-style</th>
+      <td>设置外廓的样式</td>
+      <td>&lt;border-style&gt; | inherit </td>
+      <td>none </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>视觉, 交互</td>
+      <td>13.3</td>
+    </tr>
+    <tr>
+      <th scope="row">outline-width</th>
+      <td>设置外廓的宽度</td>
+      <td>&lt;border-width&gt; | inherit </td>
+      <td>medium </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>视觉, 交互</td>
+      <td>13.3</td>
+    </tr>
+    <tr>
+      <th scope="row">outline</th>
+      <td>设置外廓的颜色样式和宽度</td>
+      <td>[ outline-color || outline-style || outline-width ] | inherit </td>
+      <td>视各属性而定 </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>视觉, 交互</td>
+      <td>13.3</td>
+    </tr>
+    <tr>
+      <th scope="row">overflow</th>
+      <td>设定当一个块类元素的内容溢出了元素的框（它作为内容的包含块）时，是否剪切</td>
+      <td>visible | hidden | scroll | auto | inherit </td>
+      <td>visible </td>
+      <td>非替换块级元素，单元格和行内块</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>9.6</td>
+    </tr>
+    <tr>
+      <th scope="row">padding-top</th>
+      <td rowspan="4">设定元素补白的宽度</td>
+      <td rowspan="4">&lt;padding-width&gt; | inherit </td>
+      <td rowspan="4">0 </td>
+      <td rowspan="4">全部，除了table-row-group、table-header-group、table-footer-group、table-row、table-column-group和table-column类元素</td>
+      <td rowspan="4">×</td>
+      <td rowspan="4">视觉</td>
+      <td rowspan="4">8.7</td>
+    </tr>
+    <tr>
+      <th scope="row">padding-right </th>
+    </tr>
+    <tr>
+      <th scope="row">padding-bottom</th>
+    </tr>
+    <tr>
+      <th scope="row">padding-left</th>
+    </tr>
+    <tr>
+      <th scope="row">padding</th>
+      <td>设定元素补白的宽度</td>
+      <td>&lt;padding-width&gt;{1,4} | inherit </td>
+      <td>视各属性而定 </td>
+      <td>全部，除了table-row-group、table-header-group、table-footer-group、table-row、table-column-group和table-column类元素</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>8.7</td>
+    </tr>
+    <tr>
+      <th scope="row">page-break-after</th>
+      <td>设置在元素的后面分页</td>
+      <td>auto | always | avoid | left | right | inherit </td>
+      <td>auto </td>
+      <td>块级元素</td>
+      <td>×</td>
+      <td>视觉, 页面</td>
+      <td>14.4</td>
+    </tr>
+    <tr>
+      <th scope="row">page-break-before</th>
+      <td>设置在元素的前面分页</td>
+      <td>auto | always | avoid | left | right | inherit </td>
+      <td>auto </td>
+      <td>块级元素</td>
+      <td>×</td>
+      <td>视觉, 页面</td>
+      <td>14.4</td>
+    </tr>
+    <tr>
+      <th scope="row">page-break-inside</th>
+      <td>设置在元素的内部是否允许分页</td>
+      <td>avoid | auto | inherit </td>
+      <td>auto </td>
+      <td>块级元素</td>
+      <td>√</td>
+      <td>视觉, 页面</td>
+      <td>14.4</td>
+    </tr>
+    <tr>
+      <th scope="row">pause-after</th>
+      <td>设置语音在元素后暂停</td>
+      <td>&lt;时间&gt; | &lt;百分比&gt; | inherit </td>
+      <td>0 </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>听觉</td>
+      <td>15.4</td>
+    </tr>
+    <tr>
+      <th scope="row">pause-before</th>
+      <td>设置语音在元素前暂停</td>
+      <td>&lt;时间&gt; | &lt;百分比&gt; | inherit </td>
+      <td>0 </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>听觉</td>
+      <td>15.4</td>
+    </tr>
+    <tr>
+      <th scope="row">pause</th>
+      <td>设置语音的暂停</td>
+      <td>[ [&lt;时间&gt; | &lt;百分比&gt;]{1,2} ] | inherit </td>
+      <td>视各属性而定 </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>听觉</td>
+      <td>15.4</td>
+    </tr>
+    <tr>
+      <th scope="row">pitch-range</th>
+      <td>设置音高的变化范围</td>
+      <td>&lt;实数&gt; | inherit </td>
+      <td>50 </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>听觉</td>
+      <td>15.8</td>
+    </tr>
+    <tr>
+      <th scope="row">pitch</th>
+      <td>设置嗓音的频率</td>
+      <td>&lt;频率&gt; | x-low | low | medium | high | x-high | inherit </td>
+      <td>medium </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>听觉</td>
+      <td>15.8</td>
+    </tr>
+    <tr>
+      <th scope="row">play-during</th>
+      <td>设置元素的内容被读出时播放的声音</td>
+      <td>&lt;uri&gt; [ mix || repeat ]? | auto | none | inherit </td>
+      <td>auto </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>听觉</td>
+      <td>15.6</td>
+    </tr>
+    <tr>
+      <th scope="row">position</th>
+      <td>设定元素的定位方式</td>
+      <td>static | relative | absolute | fixed | inherit </td>
+      <td>static </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>9.3</td>
+    </tr>
+    <tr>
+      <th scope="row">quotes</th>
+      <td>设置生成内容的引号</td>
+      <td>[&lt;字符串&gt; &lt;字符串&gt;]+ | none | inherit </td>
+      <td>由用户端决定</td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>12.2</td>
+    </tr>
+    <tr>
+      <th scope="row">richness</th>
+      <td>设置音色</td>
+      <td>&lt;实数&gt; | inherit </td>
+      <td>50 </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>听觉</td>
+      <td>15.8</td>
+    </tr>
+    <tr>
+      <th scope="row">right</th>
+      <td>设定元素的框的边距的右边相对该框的包含块的右边向左偏移的量</td>
+      <td>&lt;长度&gt; | &lt;百分比&gt; | auto | inherit </td>
+      <td>auto </td>
+      <td>定位元素</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>9.3</td>
+    </tr>
+    <tr>
+      <th scope="row">speak-header</th>
+      <td>设置如何读出表头与单元格的联系</td>
+      <td>once | always | inherit </td>
+      <td>once </td>
+      <td>具有表格头部信息的元素 </td>
+      <td>√</td>
+      <td>听觉</td>
+      <td>15.10</td>
+    </tr>
+    <tr>
+      <th scope="row">speak-numeral</th>
+      <td>设置如何读出数字</td>
+      <td>digits | continuous | inherit </td>
+      <td>continuous </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>听觉</td>
+      <td>15.9</td>
+    </tr>
+    <tr>
+      <th scope="row">speak-punctuation</th>
+      <td>设置是否读出标点符号</td>
+      <td>code | none | inherit </td>
+      <td>none </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>听觉</td>
+      <td>15.9</td>
+    </tr>
+    <tr>
+      <th scope="row">speak</th>
+      <td>设置元素的内容是否需要读出来</td>
+      <td>normal | none | spell-out | inherit </td>
+      <td>normal </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>听觉</td>
+      <td>15.3</td>
+    </tr>
+    <tr>
+      <th scope="row">speech-rate</th>
+      <td>设置语音发音的速率</td>
+      <td>&lt;实数&gt; | x-slow | slow | medium | fast | x-fast | faster | slower | inherit </td>
+      <td>medium </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>听觉</td>
+      <td>15.8</td>
+    </tr>
+    <tr>
+      <th scope="row">stress</th>
+      <td>设置声音波形的最高峰值</td>
+      <td>&lt;实数&gt; | inherit </td>
+      <td>50 </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>听觉</td>
+      <td>15.8</td>
+    </tr>
+    <tr>
+      <th scope="row">table-layout</th>
+      <td>设置布局表格单元格、行、列的算法</td>
+      <td>auto | fixed | inherit </td>
+      <td>auto </td>
+      <td>table和inline-table</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>11.3</td>
+    </tr>
+    <tr>
+      <th scope="row">text-align</th>
+      <td>设置元素内文本的水平对齐方式</td>
+      <td>left | right | center | justify | inherit </td>
+      <td>left(direction:ltr), 或right(direction:rtl)</td>
+      <td>块级元素、单元格和行内块</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>7.1</td>
+    </tr>
+    <tr>
+      <th scope="row">text-decoration</th>
+      <td>设置元素内文本的装饰</td>
+      <td>none | [ underline || overline || line-through || blink ] | inherit </td>
+      <td>none </td>
+      <td>&nbsp;</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>7.7</td>
+    </tr>
+    <tr>
+      <th scope="row">text-indent</th>
+      <td>设置元素中第一行文本的缩进</td>
+      <td>&lt;长度&gt; | &lt;百分比&gt; | inherit </td>
+      <td>0 </td>
+      <td>块级元素、单元格和行内块</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>7.2</td>
+    </tr>
+    <tr>
+      <th scope="row">text-transform</th>
+      <td>设置元素内文本的大小写</td>
+      <td>capitalize | uppercase | lowercase | none | inherit </td>
+      <td>none </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>7.6</td>
+    </tr>
+    <tr>
+      <th scope="row">top</th>
+      <td>设定元素的框的边距的顶边相对该框的包含块的顶边向下偏移的量</td>
+      <td>&lt;长度&gt; | &lt;百分比&gt; | auto | inherit </td>
+      <td>auto </td>
+      <td>定位元素</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>9.3</td>
+    </tr>
+    <tr>
+      <th scope="row">unicode-bidi</th>
+      <td>用于同一个页面里存在从不同方向读进的文本显示</td>
+      <td>normal | embed | bidi-override | inherit </td>
+      <td>normal </td>
+      <td>全部，详见正文 </td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>7.10</td>
+    </tr>
+    <tr>
+      <th scope="row">vertical-align</th>
+      <td>设置元素内容的垂直对齐方式</td>
+      <td>baseline | sub | super | top | text-top | middle | bottom | text-bottom | &lt;百分比&gt; | &lt;长度&gt; | inherit </td>
+      <td>baseline </td>
+      <td>行内级和table-cell类元素 </td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>7.4</td>
+    </tr>
+    <tr>
+      <th scope="row">visibility</th>
+      <td>设定元素是否可视</td>
+      <td>visible | hidden | collapse | inherit </td>
+      <td>visible </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>9.7</td>
+    </tr>
+    <tr>
+      <th scope="row">voice-family</th>
+      <td>设置语音的嗓音</td>
+      <td>[[&lt;specific-voice&gt; | &lt;generic-voice&gt; ],]* [&lt;specific-voice&gt; | &lt;generic-voice&gt; ] | inherit </td>
+      <td>由用户端决定</td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>听觉</td>
+      <td>15.8</td>
+    </tr>
+    <tr>
+      <th scope="row">volume</th>
+      <td>设置语音的音量</td>
+      <td>&lt;实数&gt; | &lt;百分比&gt; | silent | x-soft | soft | medium | loud | x-loud | inherit </td>
+      <td>medium </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>听觉</td>
+      <td>15.2</td>
+    </tr>
+    <tr>
+      <th scope="row">white-space</th>
+      <td>设置元素内空格的处理方式</td>
+      <td>normal | pre | nowrap | pre-wrap | pre-line | inherit </td>
+      <td>normal </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>7.8</td>
+    </tr>
+    <tr>
+      <th scope="row">widows</th>
+      <td>设置元素必须遗留在一个页面顶部的行数的最小数目</td>
+      <td>&lt;整数&gt; | inherit </td>
+      <td>2 </td>
+      <td>块级元素</td>
+      <td>√</td>
+      <td>视觉, 页面</td>
+      <td>14.4</td>
+    </tr>
+    <tr>
+      <th scope="row">width</th>
+      <td>设定块级元素和替换元素产生的内容框的宽度</td>
+      <td>&lt;长度&gt; | &lt;百分比&gt; | auto | inherit </td>
+      <td>auto </td>
+      <td>全部，除了非替换行内元素、表格行和行组 </td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>8.3</td>
+    </tr>
+    <tr>
+      <th scope="row">word-spacing</th>
+      <td>设置元素内单词之间的间隔，会受文字对齐方式影响</td>
+      <td>normal | &lt;长度&gt; | inherit </td>
+      <td>normal </td>
+      <td>&nbsp;</td>
+      <td>√</td>
+      <td>视觉</td>
+      <td>7.5</td>
+    </tr>
+    <tr>
+      <th scope="row">z-index</th>
+      <td>设定定位元素的当前堆叠内容中框的堆叠次序</td>
+      <td>auto | &lt;整数&gt; | inherit </td>
+      <td>auto </td>
+      <td>定位元素</td>
+      <td>×</td>
+      <td>视觉</td>
+      <td>9.3</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th scope="col">属性名称</th>
+      <th scope="col">说明</th>
+      <th scope="col">值</th>
+      <th scope="col">初始值</th>
+      <th scope="col">适用于(缺省为[全部])</th>
+      <th scope="col">继承</th>
+      <th scope="col">媒体组</th>
+      <th scope="col">目录</th>
+    </tr>
+  </tfoot>
+</table>
+</body>
+</html>
