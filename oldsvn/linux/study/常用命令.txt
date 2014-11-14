@@ -50,6 +50,10 @@ cat /usr/local/apache2/conf/httpd.conf | grep -v ^# |grep -v ^[\s]+#
 
 
 
+##############文件搜索与帮助命令###################
+
+
+
 
 
 
