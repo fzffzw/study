@@ -22,6 +22,10 @@ find / -name inittab -exec ls -l {} \;
 -inum 
 find . -inum *** -exec rm {} \;
 
+find . -inum 787476 -exec mv {} gitstudy.txt \;
+修改乱码文件名称
+
+
 用find 可以查找任何文件的硬连接
 
 locate 用法
