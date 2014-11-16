@@ -78,5 +78,87 @@ ping
 
 ifconfig
 
+mail
+邮件部分
+h 查看列表
+1 查看第一封邮件
+d 1 删除第一封邮件
+
+
+last
+##查询所有用户所有登陆信息
+登陆用户  终端        来源ip		登陆时间	  状态（如下 还在登陆）
+root     pts/1        192.168.0.105    Sun Nov 16 20:42   still logged in
+ 
+
+lastlog
+##查看用户最后一次登陆信息
+lastlog -u uid (只看该uid用户的登陆信息)
+
+traceroute
+##探测到达某个主机的信息（跟踪路由）
+
+netstat
+##显示网络相关服务
+选项如下
+-t TCP协议
+-u UDP协议
+-l 监听
+-r 路由
+-n 显示ip地址和端口号
+
+例如
+netstat -tlun 查看本机监听的端口
+netstat -an 查看本机所有的网络连接
+netstat -rn 查看本机路由表
+
+
+/etc/service里面定义服务
+tcp 三次握手 
+udp 不握手
+
+tcp 传送控制协议(面向连接) （类似打电话）
+udp 用户数据报谢谢 （类似发短信）
+
+
+例子
+netstat -tlun
+协议  接收队列书 发送队列数 ip和端口（服务器端口） 		
+Proto Recv-Q Send-Q Local Address               Foreign Address             State      
+tcp        0      0 127.0.0.1:2208              0.0.0.0:*                   LISTEN      
+
+tcp 有监听的
+udp 没有监听的
+
+不明白 Foreign Address
+
+####netstat -an例子
+Proto Recv-Q Send-Q Local Address               Foreign Address             State
+tcp        0      0 ::ffff:192.168.0.103:22     ::ffff:192.168.0.105:1976   ESTABLISHED 
+tcp        0      0 ::ffff:192.168.0.103:22     ::ffff:192.168.0.105:1976   ESTABLISHED 
+tcp        0      0 ::ffff:192.168.0.103:22     ::ffff:192.168.0.105:1975   ESTABLISHED 
+
+1976和1975表示连接计算机的端口（原端口）
+
+
+ESTABLISHED （表示当前正在连接）
+
+下面部分表示计算机程序所占用的端口
+Active UNIX domain sockets (servers and established)
+Proto RefCnt Flags       Type       State         I-Node Path
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
