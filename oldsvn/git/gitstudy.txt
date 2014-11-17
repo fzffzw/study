@@ -1,0 +1,96 @@
+1）安装git
+yum -y install git
+配置
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
+
+2）创建版本库
+git init
+添加文件到版本库
+git add readme.txt（提交暂存区）
+
+git commit -m "wrote a readme file"（提交到版本库）
+
+
+git status（查看版本的状态）
+
+git diff readme.txt（查看文件不同）
+
+git log （查看文件记录）
+
+git log --pretty=oneline
+输出类似下面的东西
+3628164fb26d48395383f8f31179f24e0882e1e0 append GPL
+ea34578d5496d7dd233c827ed32a8cd576c5ee85 add distributed
+cb926e7ea50ad11b8f9e909c05226233bf755030 wrote a readme file
+前面是版本号
+
+git回退版本
+用HEAD表示当前版本，也就是最新的提交3628164...882e1e0（注意我的提交ID和你的肯定不一样），
+上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，
+所以写成HEAD~100
+git reset --hard HEAD^（回退上一个版本）
+
+git reset --hard 3628164 (回退到指定的版本号)
+
+
+Git同样告诉我们，用命令git reset HEAD file可以把暂存区的修改撤销掉（unstage），重新放回工作区：
+
+git reflog 
+git reflog用来记录你的每一次命令
+
+git diff HEAD -- readme.txt（查看工作区和最新版本的区别）
+
+git checkout -- readme.txt（git checkout -- file可以丢弃工作区的修改：）
+
+里有两种情况：
+
+一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+
+一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+
+总之，就是让这个文件回到最近一次git commit或git add时的状态
+
+
+删除文件
+
+一般情况下，你通常直接在文件管理器中把没用的文件删了，或者用rm命令删了：
+
+$ rm test.txt
+现在你有两个选择，一是确实要从版本库中删除该文件，那就用命令git rm删掉，并且git commit
+$ git rm test.txt
+rm 'test.txt'
+$ git commit -m "remove test.txt"
+
+另一种情况是删错了，因为版本库里还有呢，所以可以很轻松地把误删的文件恢复到最新版本：
+
+$ git checkout -- test.txt
+
+
+2）git远程仓库
+由于你的本地Git仓库和GitHub仓库之间的传输是通过SSH加密的，所以，需要一点设置：
+
+第1步：创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，
+再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果已经有了，
+可直接跳到下一步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：
+
+$ ssh-keygen -t rsa -C "youremail@example.com"
+
+如果一切顺利的话，可以在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，
+这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
+
+
+
+本地内容和远程git关联
+git remote add origin git@github.com:fzffzw/git
+
+下一步，就可以把本地库的所有内容推送到远程库上：
+git push -u origin master
+
+git克隆
+git clone git@github.com:fzffzw/git
+
+git clone git@github.com:fzffzw/study.git
+
+
+

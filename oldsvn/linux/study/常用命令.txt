@@ -1,0 +1,66 @@
+find用法
+
+find -iname不区分大小写
+find -size + 表示大于某个字节 - 表示小于某个字节
+find -cmin 访问时间
+     -amin 文件属性
+     -mmim 文件内容
+例如 find /etc -cmin -5 表示五分钟之内文件属性被修改过
+
+-a 表示 and 连接字符（两个条件必须都满足）
+-o 标示 or (两个条件满足一个即可)
+-type 根据文件类型查找
+	f 文件 d 目录 l 软链接文件、
+例如 find /etc/ -name init* -a -type d
+
+对find 结果做操作
+find / -name inittab -exec ls -l {} \;
+可以用 -exec/-ok 命令 {} \; 对搜索结果执行操作
+{} 标示find 查找的结果 \ 转义符号 
+其中-ok标示询问确认
+
+-inum 
+find . -inum *** -exec rm {} \;
+
+find . -inum 787476 -exec mv {} gitstudy.txt \;
+修改乱码文件名称
+
+
+用find 可以查找任何文件的硬连接
+
+locate 用法
+locate inittab
+查找inittab所在的位置
+
+updatedb 更新文件资料库
+
+which 
+查找命令所在的目录
+
+whereis
+找到文件命令的绝对路径和帮助文档
+
+文件内容搜索
+例如 grep multiuser /etc/inittab
+
+find / -name 'httpd.conf' -exec ls -l {} and -exec grep Listen {} \;
+
+grep -v 排除指定字符
+cat /usr/local/apache2/conf/httpd.conf | grep -v ^# |grep -v ^[\s]+#
+
+
+
+##############文件搜索与帮助命令###################
+
+
+man php 查看php配置文件
+
+
+
+
+###############用户相关#############################
+useradd
+创建用户
+
+passwd
+设置密码
