@@ -147,6 +147,68 @@ ESTABLISHED （表示当前正在连接）
 Active UNIX domain sockets (servers and established)
 Proto RefCnt Flags       Type       State         I-Node Path
 
+#挂载光盘
+mount iso9660 /dev/sr0 /mnt/cdrom
+
+umount /dev/sr0
+
+#############vi的使用###############
+a 光标所在字符后插入
+A 光标所在行尾插入
+i 光标所在字符前插入
+I 光标所在行行首插入
+o
+O
+
+set nonu
+
+gg 到第一行
+G 到最后一行
+nG 到某行
+或者在命令行输入行+回车()
+$ 移至行尾
+0 移至行首
+
+x 删除光标所在字符
+nx sha
+dd 删除行
+ndd 删除n行
+dG 删除光标所有行到文件末尾内容
+D 删除光标所在处到行尾内容
+:n2,n2d 删除自动范围的行
+
+复制和粘贴
+yy 复制当前行
+
+
+/要替换
+
+/r /pathoffile (文件引过来)
+:!shell command(不退出vi 执行shell)
+:r !date (会把命令结果引过来)
+2014年 11月 17日 星期一 20:55:24 CST
+
+#######################软件包管理#############################
+rpm -V 包名
+
+rmp2cpio 包全名 
+
+cpio 选项
+
+rpm -qf /bin/ls (查找rpm输入哪个软件包)
+coreutils-5.97-23.el5_4.2
+
+rpm2cpio /mnt/cdro,m/Packages/coreutils-5.97-23.el5_4.2| cpio -idv ./bin/ls
+
+cp /root/bin/ls /bin/
+
+
+
+
+
+
+
+
 
 
 
