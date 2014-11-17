@@ -1,0 +1,10 @@
+2. Apache
+路径：/opt/apache
+配置文件：/opt/apache/conf/httpd.conf
+启动脚本：/opt/apache/bin/apachectl -k start
+
+启动mysql
+/opt/mysql/bin/mysqld_safe --defaults-file=/var/mysql/3306/my.cnf
+/opt/mysql/bin/mysqld_safe --defaults-file=/var/mysql/3307/my.cnf
+/opt/mysql/bin/mysqld_safe --defaults-file=/var/mysql/3308/my.cnf
+
