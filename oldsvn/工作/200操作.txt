@@ -1,0 +1,94 @@
+##############创建svn服务	 
+62  svnserve -d -r /var/svncode
+   63  ps aux | grep 'svn'
+#############创建svn项目  
+ 64  svnadmin create /var/svncode/import_oms
+   65  svnadmin create /var/svncode/import_wms
+   66  svnadmin create /var/svncode/export_oms
+   67  svnadmin create /var/svncode/export_wms
+   68  svnadmin create /var/svncode/baohongi
+
+   85  ./configure --prefix=/opt/php --with-apxs2=/opt/apache2/bin/apxs --with-mysql=/opt/mysql
+   86  make && make install
+   87  php -v
+   88  find / -name 'my.cnf'
+   85  ./configure --prefix=/opt/php --with-apxs2=/opt/apache2/bin/apxs --with-mysql=/opt/mysql
+  113  ./configure --prefix=/opt/php --with-apxs2=/opt/apache2/bin/apxs --with-mysql=/opt/mysql
+  114  make clean
+  115  make
+  116  make install
+  124  /opt/mysql/bin/mysqladmin -u root password 'passwd'
+  125  /usr/bin/mysqladmin -u root password 'passwd'
+ 136  /opt/mysql/scripts/mysql_install_db --defaults-file=/var/mysql/3306/my.cnf --basedir=/opt/mysql --datadir=/var/mysql/3306/data --user=mysql
+  137  ll /var/mysql/data
+  138  ll /var/mysql/3306
+  152  /opt/mysql/scripts/mysql_install_db --defaults-file=/var/mysql/3306/my.cnf --basedir=/opt/mysql --datadir=/var/mysql/3306/data --user=mysql
+  153  /opt/mysql/bin/mysqld_safe --defaults-file=/var/mysql/3306/my.cnf
+  166  /opt/mysql/bin/mysqld_safe --defaults-file=/var/mysql/3306/my.cnf &
+###apache
+  193  cd httpd-2.2.24
+  194  ls
+  195  ./configure --prefix=/opt/apache2 --enable-proxy --enable-ssl --enable-cgi --enable-rewrite --enable-module=so
+  196  ls /opt/apache2
+  197  make
+
+  209  cmake -DCMAKE_INSTALL_PREFIX=/opt/mysql -DMYSQL_UNIX_ADDR=/tmp/mysql.sock -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_EXTRA_CHARSETS:STRING=utf8,gbk -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_MEMORY_STORAGE_ENGINE=1 -DWITH_READLINE=1 -DENABLED_LOCAL_INFILE=1 -DMYSQL_USER=mysql
+
+  220  cd php-5.4.16
+  221  ls
+  222  ./configure --prefix=/opt/php
+
+  229  /usr/sbin/groupadd mysql
+  230  /usr/sbin/useradd -g mysql mysql
+297  /opt/mysql/scripts/mysql_install_db \  
+  298  --defaults-file=/var/mysql/3306/my.cnf/my.cnf \  
+  299  --basedir=/opt/mysql \  
+  300  --datadir=/var/mysql/3306/data \  
+  301  --user=mysql
+  302  /opt/mysql/scripts/mysql_install_db --defaults-file=/var/mysql/3306/my.cnf/my.cnf --basedir=/opt/mysql \  
+  303  --datadir=/var/mysql/3306/data --user=mysql
+  304  /opt/mysql/scripts/mysql_install_db --defaults-file=/var/mysql/3306/my.cnf/my.cnf --basedir=/opt/mysql --datadir=/var/mysql/3306/data --user=mysql
+
+
+  358  /opt/mysql/bin/mysqladmin  --socket=/tmp/mysqld.sock -u root -p password 123456
+  359  /opt/mysql/bin/mysqladmin  --socket=/var/mysql/3306/log/mysql.sock -u root -p password 123456
+  360  /opt/mysql/bin/mysqladmin  --socket=/var/mysql/3306/log/mysql.sock -u root password 123456
+  361  /opt/mysql/bin/mysql -uroot -p
+  362  /opt/mysql/bin/mysql  --socket=/tmp/mysqld.sock -u root -p password 123456
+  363  /opt/mysql/bin/mysql  --socket=/tmp/mysqld.sock -uroot
+  364  /opt/mysql/bin/mysql  --socket=/var/mysql/3306/log/mysql.sock -uroot
+  365  /opt/mysql/bin/mysql  --socket=/var/mysql/3306/log/mysql.sock -uroot -p
+
+/opt/mysql/bin/mysqld_safe --defaults-file=/var/mysql/3306/my.cnf
+
+
+399  ln -s /var/mysql/3306/log/mysql.sock /tmp/mysql.sock
+
+  451  ./configure --prefix=/usr/local/libgd --with-jpeg=/usr/local/jpeg
+  452  make
+  453  make install
+  454  ll /usr/local/libmcrypt
+
+ 746  cd mbstring/
+  747  ll
+  748  /opt/php/bin/phpize && ./configure --with-php-config=/opt/php/bin/php-config
+  749  make
+  750  pwd
+  751  make install
+  752  ll /opt/php/lib/php/extensions/no-debug-non-zts-20100525/
+
+
+####备份
+  760  tar cvpzf backup.tgz / --exclude=/proc --exclude=/lost+found --exclude=/backup.tgz --exclude=/mnt --exclude=/sys
+
+
+  783  tar -zxvf rabbitmq-rabbitmq-codegen-rabbitmq_v3_3_4-6.tar.gz 
+  790  cd rabbitmq-c
+  791  ll
+  792  autoreconf -i && ./configure && make && make install
+  801  /opt/php/bin/phpize && ./configure --with-php-config=/opt/php/bin/php-config --with-amqp
+  802  make
+  803  make install
+
+ 821  /opt/rabbitmq_server/sbin/rabbitmq-server --detached
+

@@ -1,0 +1,610 @@
+####################查询毛重、净重、法定重量################################
+毛重
+SELECT sum(ob_weight) AS `gross_weight` FROM `ship_batch_detail` WHERE (sb_code='BHC140000314')
+
+
+净重
+select sum(product_weight*op_quantity) as net_weight
+from ship_batch_detail as sbd 
+left join outbound_bag_detail as obd 
+on sbd.ob_no=obd.ob_no
+left join order_product as op 
+on obd.order_code=op.order_code
+left join product as p 
+on op.product_id=p.product_id
+where sbd.sb_code = 'xxxx'
+
+
+法定单位
+select * from ship_batch_detail AS sbd 
+left join outbound_bag_detail AS obd
+on sbd.ob_no=obd.ob_no
+left join order_product AS op
+on obd.order_code=op.order_code
+left join product AS p
+on op.product_id=p.product_id
+where sbd.sb_code='xxxx' AND (hu.pu_code_law='035' OR hu.pu_code_second='035');
+
+
+##########集报相关####################################
+#jibao_tmp_avg
+SELECT SUM( op.op_quantity ) AS number, g_qty / SUM( op.op_quantity ) AS avg, jt. * 
+FROM  `jibao_tmp` AS jt
+INNER JOIN  `ship_batch_detail` AS sbd ON jt.sb_code = sbd.sb_code
+INNER JOIN  `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+INNER JOIN  `order_product` AS op ON op.order_code = obd.order_code
+INNER JOIN  `product` AS p ON op.product_id = p.product_id
+AND ((p.goods_id_old = jt.goods_code) or (p.goods_id = jt.goods_code))
+and p.customer_code='E8888'
+and jb_code = '30001IJ00140012991'
+GROUP BY (
+jt.id
+)
+
+
+汇总
+SELECT p.product_sku,sum(op.op_quantity) as number,
+jt.avg,sum(op.op_quantity*jt.avg) as totalweigh,
+o.reference_no as reference,date(sbd.sbd_add_time) ship_date,
+jt . * 
+FROM  `jibao_tmp_avg` AS jt
+INNER JOIN  `ship_batch_detail` AS sbd ON jt.sb_code = sbd.sb_code
+INNER JOIN  `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+INNER JOIN  `order_product` AS op ON op.order_code = obd.order_code
+INNER JOIN  `product` AS p ON op.product_id = p.product_id
+AND ((p.goods_id_old = jt.goods_code) or (p.goods_id = jt.goods_code))
+inner join orders as o on op.order_code=o.order_code
+where o.customer_code='E8888'
+GROUP BY p.product_sku
+ORDER BY jt.id
+
+
+
+展开
+SELECT p.product_sku,p.goods_id,p.goods_id_old,
+op.op_quantity as number,o.reference_no as reference,
+date(sbd.sbd_add_time) ship_date, jt . * 
+FROM  `jibao_tmp` AS jt
+INNER JOIN  `ship_batch_detail` AS sbd ON jt.sb_code = sbd.sb_code
+INNER JOIN  `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+INNER JOIN  `order_product` AS op ON op.order_code = obd.order_code
+INNER JOIN  `product` AS p ON op.product_id = p.product_id
+inner join orders as o on op.order_code=o.order_code
+where o.customer_code='$customer_code'
+AND ((p.goods_id_old = jt.goods_code) or (p.goods_id = jt.goods_code))
+and jt.jb_code='$jibao_id'
+ORDER BY jt.id	
+
+
+
+select p.product_sku,p.goods_id,p.goods_id_old,op.op_quantity,o.reference_no 
+from ship_batch_detail as sbd
+INNER JOIN  `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+INNER JOIN  `order_product` AS op ON op.order_code = obd.order_code
+INNER JOIN  `product` AS p ON op.product_id = p.product_id
+inner join orders as o on op.order_code=o.order_code
+where o.customer_code='E8888'
+and sbd.sb_code in (
+'BHC140000251',
+)
+
+
+
+
+select sum(op.op_quantity) 
+from ship_batch_detail as sbd
+INNER JOIN  `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+INNER JOIN  `order_product` AS op ON op.order_code = obd.order_code
+INNER JOIN  `product` AS p ON op.product_id = p.product_id
+inner join orders as o on op.order_code=o.order_code
+where o.customer_code='E8888'
+and sbd.sb_code in (
+'BHC140000251',
+
+)
+
+
+
+
+SELECT p.product_sku,sum(number) as number,
+jt.avg,sum(op.op_quantity*jt.avg) as totalweigh,
+o.reference_no as reference,date(sbd.sbd_add_time) ship_date,
+jt . * 
+FROM  `jibao_tmp_avg` AS jt
+INNER JOIN  `ship_batch_detail` AS sbd ON jt.sb_code = sbd.sb_code
+INNER JOIN  `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+INNER JOIN  `order_product` AS op ON op.order_code = obd.order_code
+INNER JOIN  `product` AS p ON op.product_id = p.product_id
+AND ((p.goods_id_old = jt.goods_code) or (p.goods_id = jt.goods_code))
+inner join orders as o on op.order_code=o.order_code
+where o.customer_code='E8888'
+GROUP BY p.product_sku
+ORDER BY jt.id
+
+
+
+SELECT o.reference_no as reference,date(sbd.sbd_add_time) ship_date,
+jt . * 
+FROM  `jibao_tmp_avg` AS jt
+INNER JOIN  `ship_batch_detail` AS sbd ON jt.sb_code = sbd.sb_code
+INNER JOIN  `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+INNER JOIN  `order_product` AS op ON op.order_code = obd.order_code
+INNER JOIN  `product` AS p ON op.product_id = p.product_id
+AND ((p.goods_id_old = jt.goods_code) or (p.goods_id = jt.goods_code))
+inner join orders as o on op.order_code=o.order_code
+where o.customer_code='E8888'
+GROUP BY p.product_sku
+ORDER BY jt.id
+
+
+SELECT op.order_code as 系统订单号,p.product_sku as sku,p.product_title as 商品名称,p.goods_id as料件号,op.op_quantity as 数量,
+o.reference_no as reference,sbd.sb_code as 出区单号,date(sbd.sbd_add_time) ship_date
+FROM  `ship_batch_detail` AS sbd
+INNER JOIN  `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+INNER JOIN  `order_product` AS op ON op.order_code = obd.order_code
+INNER JOIN  `product` AS p ON op.product_id = p.product_id
+inner join orders as o on op.order_code=o.order_code
+where o.customer_code='E0259'
+GROUP BY p.product_sku
+
+
+
+
+
+SELECT op.order_code as 系统订单号,p.product_sku as sku,p.product_title as 商品名称,p.goods_id as料件号,op.op_quantity as 数量,
+o.reference_no as reference,sbd.sb_code as 出区单号,date(sbd.sbd_add_time) ship_date
+FROM  `ship_batch_detail` AS sbd
+INNER JOIN  `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+INNER JOIN  `order_product` AS op ON op.order_code = obd.order_code
+INNER JOIN  `product` AS p ON op.product_id = p.product_id
+inner join orders as o on op.order_code=o.order_code
+where o.customer_code='E0248'
+GROUP BY p.product_sku
+
+
+
+
+
+SELECT op.order_code as 系统订单号,p.product_sku as sku,p.hs_code as 商品编码,p.product_title as 商品名称,p.goods_id as料件号,op.op_quantity as 数量,
+o.reference_no as reference,sbd.sb_code as 出区单号,date(sbd.sbd_add_time) ship_date
+FROM  `ship_batch_detail` AS sbd
+INNER JOIN  `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+INNER JOIN  `order_product` AS op ON op.order_code = obd.order_code
+INNER JOIN  `product` AS p ON op.product_id = p.product_id
+inner join orders as o on op.order_code=o.order_code
+where o.customer_code='E8888'
+and sbd.sbd_add_time>='2014-08-01 00:00:00' 
+
+
+
+
+SELECT op.order_code as 系统订单号,p.product_sku as sku,p.hs_code as 商品编码,p.hs_goods_name as 海关品名,p.goods_id as料件号,op.op_quantity as 数量,
+o.reference_no as reference,sbd.sb_code as 出区单号,date(sbd.sbd_add_time) ship_date
+FROM  `ship_batch_detail` AS sbd
+INNER JOIN  `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+INNER JOIN  `order_product` AS op ON op.order_code = obd.order_code
+INNER JOIN  `product` AS p ON op.product_id = p.product_id
+inner join orders as o on op.order_code=o.order_code
+where o.customer_code='E0238'
+and sbd.sbd_add_time>='2014-08-01 00:00:00' 
+
+
+
+SELECT op.order_code as 系统订单号,p.product_sku as sku,p.hs_code as 商品编码,p.hs_goods_name as 海关品名,p.goods_id as料件号,op.op_quantity as 数量,
+o.reference_no as reference,sbd.sb_code as 出区单号,date(sbd.sbd_add_time) ship_date
+FROM  `ship_batch_detail` AS sbd
+INNER JOIN  `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+INNER JOIN  `order_product` AS op ON op.order_code = obd.order_code
+INNER JOIN  `product` AS p ON op.product_id = p.product_id
+inner join orders as o on op.order_code=o.order_code
+where o.customer_code='E0259'
+and sbd.sbd_add_time>='2014-08-01 00:00:00' 
+
+
+
+SELECT op.order_code as 系统订单号,p.product_sku as sku,p.hs_code as 商品编码,p.hs_goods_name as 海关品名,p.goods_id as料件号,op.op_quantity as 数量,
+o.reference_no as reference,sbd.sb_code as 出区单号,date(sbd.sbd_add_time) ship_date,so.tracking_number as 服务商单号,oab.oab_firstname as 名,oab.oab_lastname as 名,oab.oab_street_address1 as 地址1,oab.oab_street_address2 as 地址2
+FROM  `ship_batch_detail` AS sbd
+INNER JOIN  `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+INNER JOIN  `order_product` AS op ON op.order_code = obd.order_code
+INNER JOIN  `product` AS p ON op.product_id = p.product_id
+inner join orders as o on op.order_code=o.order_code
+inner join ship_order as so on o.order_code=so.order_code
+inner join order_address_book as oab on oab.order_code=o.order_code
+where o.customer_code='E0238'
+and sbd.sbd_add_time>='2014-08-01 00:00:00' 
+
+
+
+
+#######################################
+
+#区外仓导出数据
+SELECT * FROM `logistics_order` AS lo, `receiving_batch_order` AS rbo
+WHERE lo.logistics_code = rbo.logistics_code
+AND lo.`customer_code` = 'E0226'
+AND rbo.`sm_code` IN ('SWPR', 'SWPT')
+AND rbo.`add_time` >= '2014-04-01 00:00:00'
+AND rbo.`add_time` < '2014-05-01 00:00:00'
+
+
+#导出产品库存及法定单位数量
+SELECT p.goods_id, pi. * , p.product_declared_value, pu.pu_name, hum.hum_quantity_law
+FROM `product_inventory` AS pi
+LEFT JOIN `product` AS p ON pi.product_id = p.product_id
+LEFT JOIN `hs_uom` AS hu ON p.hs_code = hu.hs_code
+LEFT JOIN `product_uom` AS pu ON hu.pu_code_law = pu.pu_code
+LEFT JOIN `hs_uom_map` AS hum ON pi.product_id = hum.product_id
+WHERE pi.customer_id =228
+
+#按料件号汇总库存
+SELECT p.goods_id, sum( pi.pi_onway ) , sum( pi.pi_pending ) , sum( pi.pi_sellable ) , sum( pi.pi_unsellable ) , sum( pi.pi_reserved ) , sum( pi.pi_shipped ) , sum( pi.pi_hold )
+FROM `product_inventory` AS pi
+LEFT JOIN `product` AS p ON pi.product_id = p.product_id
+WHERE pi.customer_id =228
+GROUP BY p.goods_id
+
+#从产品重量更新到法定单位重量
+update `product` AS p
+LEFT JOIN `sku_tmp` AS st ON p.product_sku = st.sku
+LEFT JOIN `hs_uom_map` AS hum ON p.product_id = hum.product_id
+set hum.hum_quantity_second=p.product_weight
+WHERE sku IS NOT NULL 
+SELECT product_sku, product_weight, hum . *
+FROM `product` AS p
+LEFT JOIN `sku_tmp` AS st ON p.product_sku = st.sku
+LEFT JOIN `hs_uom_map` AS hum ON p.product_id = hum.product_id
+WHERE sku IS NOT NULL 
+
+#法定单位保留三位小数
+UPDATE hs_uom_map SET hum_quantity_law = truncate( hum_quantity_law, 3 ) WHERE mod( hum_quantity_law, 1 ) !=0
+
+#海关检查单
+SELECT sbd.sb_code, op.order_code, p.product_sku, sum( op.op_quantity )
+FROM `ship_batch_detail` AS sbd
+LEFT JOIN `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+LEFT JOIN `order_product` AS op ON obd.order_code = op.order_code
+LEFT JOIN `product` AS p ON op.product_id = p.product_id
+WHERE sbd.sb_code IN( 'BHC140000041', 'BHC140000042' ,'BHC140000043' )
+GROUP BY p.product_id
+
+
+#出区总单订单重量汇总
+SELECT obd.order_code, sum( p.product_weight * op.op_quantity ) , so.so_weight, sum( op.op_quantity * if( hu.pu_code_law = '035', hum_quantity_law, 0 ) ) AS 第一法定重量, sum( op.op_quantity * if( hu.pu_code_second = '035', hum_quantity_second, 0 ) ) AS 第二法定重量
+FROM `ship_batch_detail` AS sbd
+LEFT JOIN `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+LEFT JOIN `ship_order` AS so ON obd.order_code = so.order_code
+LEFT JOIN `order_product` AS op ON obd.order_code = op.order_code
+LEFT JOIN `product` AS p ON op.product_id = p.product_id
+LEFT JOIN `hs_uom` AS hu ON p.hs_code = hu.hs_code
+LEFT JOIN `hs_uom_map` AS hum ON op.product_id = hum.product_id
+WHERE sbd.sb_code = 'BHC140000043'
+GROUP BY obd.order_code
+
+#出区总单SKU重量汇总
+SELECT p.product_id, p.product_sku, sum( p.product_weight * op.op_quantity ) AS product_weight, hu.pu_code_law, sum( hum.hum_quantity_law * op.op_quantity ) AS quantity_law, hu.pu_code_second, sum( hum.hum_quantity_second * op.op_quantity ) AS quantity_second
+FROM `ship_batch_detail` AS sbd
+LEFT JOIN `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+LEFT JOIN `order_product` AS op ON obd.order_code = op.order_code
+LEFT JOIN `product` AS p ON op.product_id = p.product_id
+LEFT JOIN `hs_uom` AS hu ON p.hs_code = hu.hs_code
+LEFT JOIN `hs_uom_map` AS hum ON op.product_id = hum.product_id
+WHERE sbd.sb_code = 'BHC140000040'
+GROUP BY p.product_id
+
+#DHL出货随司机的单
+SELECT so.tracking_number, so.so_weight, sum( op.op_quantity * op.op_purpose_declared_value ) , c.country_name_en
+FROM `ship_batch_detail` AS sbd
+LEFT JOIN `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+LEFT JOIN `ship_order` AS so ON obd.order_code = so.order_code
+LEFT JOIN `order_product` AS op ON so.order_code = op.order_code
+LEFT JOIN `order_address_book` AS oab ON so.order_code = oab.order_code
+AND oab.oab_type =0
+LEFT JOIN `country` AS c ON oab.oab_country_id = c.country_id
+WHERE sbd.sb_code = 'BHC140000039'
+GROUP BY so.order_code
+
+#出区总单法定单位重量之和
+SELECT sum( op.op_quantity * if( hu.pu_code_law = '035', hum.hum_quantity_law, hum.hum_quantity_second ) )
+FROM ship_batch_detail AS sbd
+LEFT JOIN outbound_bag_detail AS obd ON sbd.ob_no = obd.ob_no
+LEFT JOIN order_product AS op ON obd.order_code = op.order_code
+LEFT JOIN product AS p ON op.product_id = p.product_id
+LEFT JOIN `hs_uom` AS hu ON p.hs_code = hu.hs_code
+LEFT JOIN `hs_uom_map` AS hum ON op.product_id = hum.product_id
+WHERE sbd.sb_code = 'BHC140000064' 
+AND (hu.pu_code_law = '035' OR hu.pu_code_second = '035')
+
+#出区总单第二法定单位重量总和
+SELECT sum( hum.hum_quantity_second * op.op_quantity )
+FROM ship_batch_detail AS sbd
+LEFT JOIN outbound_bag_detail AS obd ON sbd.ob_no = obd.ob_no
+LEFT JOIN order_product AS op ON obd.order_code = op.order_code
+LEFT JOIN product AS p ON op.product_id = p.product_id
+LEFT JOIN `hs_uom` AS hu ON p.hs_code = hu.hs_code
+LEFT JOIN `hs_uom_map` AS hum ON op.product_id = hum.product_id
+WHERE sbd.sb_code = 'BHC140000036'
+AND hu.pu_code_second = '035'
+
+
+#备货ASN下产品法定单位总重量
+select sum(rd.rd_receiving_qty*hum.hum_quantity_law)
+from receiving_detail as rd
+left join product as p on rd.product_id=p.product_id
+left join hs_uom as hu on p.hs_code=hu.hs_code
+left join hs_uom_map as hum on rd.product_id=hum.product_id
+where rd.receiving_code='BHR140000428' and hu.pu_code_law='035'
+
+SELECT sum( rd.rd_receiving_qty * if( hu.pu_code_law = '035', hum.hum_quantity_law, hum.hum_quantity_second ) )
+FROM receiving_detail AS rd
+LEFT JOIN product AS p ON rd.product_id = p.product_id
+LEFT JOIN hs_uom AS hu ON p.hs_code = hu.hs_code
+LEFT JOIN hs_uom_map AS hum ON rd.product_id = hum.product_id
+WHERE rd.receiving_code = 'BHR140000182'
+AND (
+hu.pu_code_law = '035'
+OR hu.pu_code_second = '035'
+)
+
+#集货ASN下产品法定单位总重量
+SELECT sum( op.op_quantity * hum.hum_quantity_law )
+FROM `receiving_order_detail` AS rod
+LEFT JOIN `order_product` AS op ON rod.order_code = op.order_code
+LEFT JOIN `hs_uom_map` AS hum ON op.product_id = hum.product_id
+LEFT JOIN `product` AS p ON op.product_id = p.product_Id
+LEFT JOIN `hs_uom` AS hu ON p.hs_code = hu.hs_code
+WHERE rod.receiving_code = 'BHR140000149'
+AND hu.pu_code_law = '035'
+
+
+#数据需求1：环球易购区外仓瑞典小包，年:20-27号出货数据，到每个国家的分别总票数和总重量
+SELECT c.country_name AS 国家, count( * ) AS 总票数, sum( rbo.weight ) AS 总重量
+FROM `receiving_batch_order` AS rbo
+LEFT JOIN logistics_order AS lo ON rbo.logistics_code = lo.logistics_code
+LEFT JOIN logistics_order_address AS loa ON rbo.logistics_code = loa.logistics_code
+LEFT JOIN country AS c ON loa.loa_country = c.country_id
+WHERE rbo.`sm_code` = 'HQSWGH'
+GROUP BY loa.loa_country
+
+
+#数据需求2：深海诺区内仓集货模式订单，年前16-22号出货数据，每个订单单号、对应的国家、重量和走货渠道
+SELECT o.order_code AS 订单号, obd.so_weight AS 重量, o.sm_code AS 运输方式, c.country_name AS 国家中文名, c.country_name_en AS 国家英文名, c.country_code AS 国家简码
+FROM `orders` AS o
+LEFT JOIN order_address_book AS oab ON o.order_code = oab.order_code
+LEFT JOIN country AS c ON oab.oab_country_id = c.country_id
+LEFT JOIN outbound_bag_detail AS obd ON o.order_code = obd.order_code
+WHERE o.`customer_code` = 'E0215'
+
+
+#WMS里区外仓到货总单数据
+SELECT rbo.rb_code AS 到货总单号, rbo.logistics_code AS 运单号, lo.reference_no AS 客户参考号, lo.ref_tracking_number AS 跟踪号
+FROM `receiving_batch_order` AS rbo
+LEFT JOIN logistics_order AS lo ON rbo.logistics_code = lo.logistics_code
+WHERE rbo.`rb_code` = 'REBE02131402100001'
+
+SELECT rbo.rb_code AS 到货总单号, rbo.logistics_code AS 运单号, lo.reference_no AS 客户参考号, lo.ref_tracking_number AS 跟踪号, rbo.weight AS 重量, c.country_name AS 国家
+FROM `receiving_batch_order` AS rbo
+LEFT JOIN logistics_order AS lo ON rbo.logistics_code = lo.logistics_code
+LEFT JOIN logistics_order_address AS loa ON rbo.logistics_code = loa.logistics_code
+LEFT JOIN country AS c ON loa.loa_country = c.country_id
+WHERE rbo.`rb_code` = 'REBE02131402200001'
+
+
+#1月20-27号,2月10-18号，环球易购瑞典小包区外仓，每天发货国家、及对应的重量、票数
+SELECT date( rbo.add_time ) AS 日期, c.country_name AS 国家, count( * ) AS 总票数, sum( rbo.weight ) AS 总重量
+FROM `receiving_batch_order` AS rbo
+LEFT JOIN logistics_order AS lo ON rbo.logistics_code = lo.logistics_code
+LEFT JOIN logistics_order_address AS loa ON rbo.logistics_code = loa.logistics_code
+LEFT JOIN country AS c ON loa.loa_country = c.country_id
+WHERE rbo.`sm_code` = 'HQSWGH'
+AND rbo.add_time >= '2014-01-20'
+AND rbo.add_time < '2014-02-19'
+GROUP BY 日期, loa.loa_country
+
+
+SELECT rbo.rb_code AS 到货总单号, rbo.logistics_code AS 运单号, lo.reference_no AS 客户参考号, lo.ref_tracking_number AS 跟踪号, rbo.weight AS 重量, c.country_name AS 国家, lo.sm_code AS 运输方式, rbo.add_time AS 时间
+FROM `receiving_batch_order` AS rbo
+LEFT JOIN logistics_order AS lo ON rbo.logistics_code = lo.logistics_code
+LEFT JOIN logistics_order_address AS loa ON rbo.logistics_code = loa.logistics_code
+LEFT JOIN country AS c ON loa.loa_country = c.country_id
+WHERE rbo.`rb_code` IN ('REBE02131402130001','REBE02131402170001','REBE02131402180001','REBE02131402190001','REBE02131402190002','REBE02131402200001','REBE02131402210001','REBE02131402230001','REBE02131402240001','REBE02131402250001','REBE02131402260001','REBE02131402280001','REBE02131403010001','REBE02131403020001','REBE02131403030001')
+
+
+#修改重量的SQL
+update `sku_tmp` as st
+left join hs_uom_map as hum on st.product_id=hum.product_id
+left join hs_uom as hu on hum.hu_id=hu.hu_id
+set hum.hum_quantity_law=st.new_weight
+where st.status=0 and hu.pu_code_law='035'
+UPDATE `sku_tmp` AS st LEFT JOIN hs_uom_map AS hum ON st.product_id = hum.product_id LEFT JOIN hs_uom AS hu ON hum.hu_id = hu.hu_id SET hum.hum_quantity_second = st.new_weight WHERE st.status =0 AND hu.pu_code_second = '035'
+
+#修改重量的SQL
+update `sku_tmp` as st
+left join hs_uom_map as hum on st.product_id=hum.product_id
+left join hs_uom as hu on hum.hu_id=hu.hu_id
+set hum.hum_quantity_law=st.new_weight
+where st.status=0 and hu.pu_code_law='035'
+UPDATE `sku_tmp` AS st LEFT JOIN hs_uom_map AS hum ON st.product_id = hum.product_id LEFT JOIN hs_uom AS hu ON hum.hu_id = hu.hu_id SET hum.hum_quantity_second = st.new_weight WHERE st.status =0 AND hu.pu_code_second = '035'
+
+
+##导出第一单位第二单位重量
+select p.sku,p.weight,from product as p
+left join hs_uom as hum on p.hs_code=hum.hs_code
+left join 
+
+select p.product_sku,p.product_weight,hu.pu_code_law,hum.hum_quantity_law,hu.pu_code_second,hum.hum_quantity_second from product as p
+left join hs_uom_map as hum on p.product_id=hum.product_id
+left join hs_uom as hu on hu.hs_code=p.hs_code
+where p.customer_code='E8888'
+
+
+SELECT p.product_sku, p.product_weight, hu.pu_code_law, hum.hum_quantity_law, hu.pu_code_second, hum.hum_quantity_second
+FROM product AS p
+LEFT JOIN hs_uom_map AS hum ON p.product_id = hum.product_id
+LEFT JOIN hs_uom AS hu ON hu.hs_code = p.hs_code
+WHERE p.customer_code =  'E8888'
+
+
+#查询出区总单的法定重量之和
+SELECT sum( op.op_quantity * if( hu.pu_code_law = '035', hum.hum_quantity_law, hum.hum_quantity_second ) )
+FROM ship_batch_detail AS sbd
+LEFT JOIN outbound_bag_detail AS obd ON sbd.ob_no = obd.ob_no
+LEFT JOIN order_product AS op ON obd.order_code = op.order_code
+LEFT JOIN product AS p ON op.product_id = p.product_id
+LEFT JOIN `hs_uom` AS hu ON p.hs_code = hu.hs_code
+LEFT JOIN `hs_uom_map` AS hum ON op.product_id = hum.product_id
+WHERE sbd.sb_code = 'BHC140000089'
+AND ( hu.pu_code_law = '035' OR hu.pu_code_second = '035')
+
+
+##查所有出过货的sku
+
+select p.product_sku as sku,p.customer_code as 客户名称 from ship_batch as sb
+inner join ship_batch_detail as sbd
+on sb.sb_code=sbd.sb_code 
+inner join outbound_bag_detail as obd
+on obd.ob_no=sbd.ob_no
+inner join order_product as op
+on obd.order_code=op.order_code
+inner join product as p
+on p.product_id=op.product_id
+where sb.sb_status in('1','3');
+
+###导出产品及其申报信息
+SELECT  p.product_sku AS SKU,p.product_weight  AS 产品重量,p.hs_code as 海关编码,he.he_name as 申报要素名称,hem.hem_detail as 申报要素内容, pu.pu_name AS 法定单位, hum.hum_quantity_law AS 法定数量,hu.pu_code_second,hum.hum_quantity_second as 第二单位数量
+FROM `product` AS p
+inner JOIN hs_uom AS hu ON p.hs_code = hu.hs_code
+inner JOIN hs_uom_map AS hum ON p.product_id = hum.product_id
+inner JOIN product_uom AS pu ON hu.pu_code_law = pu.pu_code
+inner join hs_element_map as hem on p.product_id=hem.product_id
+inner join hs_element as he on hem.he_id=he.he_id
+and he.hs_code=p.hs_code
+WHERE p.customer_code = 'E8888'
+and p.hs_code='8504401500'
+order by p.product_sku
+
+###导出城市
+
+select pro.region_name,c.region_name, c.region_type from region as pro
+inner join region as c on
+pro.region_id=c.parent_id
+having c.region_type='2'
+order by c.parent_id
+
+#查询出区总单的法定重量之和
+SELECT sum( op.op_quantity * if( hu.pu_code_law = '035', hum.hum_quantity_law, hum.hum_quantity_second ) )
+FROM ship_batch_detail AS sbd
+LEFT JOIN outbound_bag_detail AS obd ON sbd.ob_no = obd.ob_no
+LEFT JOIN order_product AS op ON obd.order_code = op.order_code
+LEFT JOIN product AS p ON op.product_id = p.product_id
+LEFT JOIN `hs_uom` AS hu ON p.hs_code = hu.hs_code
+LEFT JOIN `hs_uom_map` AS hum ON op.product_id = hum.product_id
+WHERE sbd.sb_code = 'BHC140000089'
+AND ( hu.pu_code_law = '035' OR hu.pu_code_second = '035')
+
+
+####查询规格型号
+
+select p.product_sku,p.hs_code,p.goods_id,if(hem.hem_detail,GROUP_CONCAT(hem.hem_detail SEPARATOR ''),GROUP_CONCAT(hem.hem_detail SEPARATOR '|')) as contatstr,right(if(hem.hem_detail,GROUP_CONCAT(hem.hem_detail SEPARATOR ''),GROUP_CONCAT(hem.hem_detail SEPARATOR '|')),1) from product as p
+inner join hs_uom_map as hum
+on p.product_id=hum.product_id
+inner join hs_element_map as hem
+on p.product_id=hem.product_id
+where p.product_sku in(
+'E228358H',
+'E015535H',
+'X654660H',
+'X654650H',
+'X654630H',
+'X654640H',
+'E205100H',
+'E272203H',
+'E015537H',
+'E272189H',
+'E015533H',
+'E272187H',
+'E272202H',
+'E272201H',
+'E362759H',
+'jnb140918001'
+) group by hem.product_id
+order by hem.product_id,hem.hem_id asc;
+
+
+#########更新#######################
+create table pcweight as
+select p.product_weight,sum(p.product_weight*pcr.pcr_quantity) as pcrweight,pcr.* 
+from product as p
+inner join product_combine_relation as pcr
+on p.product_id=pcr.product_id
+where p.product_id=pcr.product_id
+and p.product_id in(
+721,
+1149,
+)
+group by product_id;
+
+
+create table pcweight2 as
+select sum(p.product_weight*pw.pcr_quantity),pw.* from product as p
+inner join pcweight as pw
+on p.product_id=pw.pcr_product_id
+group by pw.product_id
+
+create table pcweight2 as
+select sum(p.product_weight*pw.pcr_quantity),pw.* from product as p
+inner join pcweight as pw
+on p.product_id=pw.pcr_product_id
+group by pw.product_id
+
+UPDATE product inner JOIN pcweight2 on product.product_id=pcweight2.product_id
+SET product.product_weight=pcweight2.sumweight WHERE product.product_id in(
+721,
+1149
+);
+
+UPDATE product inner JOIN pcweight2 on product.product_id=pcweight2.product_id
+SET product.product_weight=pcweight2.sumweight WHERE product.product_id in(
+721,
+1149
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#############mysql锁表问题###########################
+show processlist;
+
+show OPEN TABLES where In_use > 0;
+
+假设有一个表(syslogs)有1000万条记录，需要在业务不
+停止的情况下删除其中statusid=1的所有记录，差不多
+有600万条， 直接执行 DELETE FROM syslogs WHERE statusid=1 
+会发现删除失败，因为lock wait timeout exceed的错误。
+ 
+因为这条语句所涉及的记录数太多，因此我们通过LIMIT参数
+分批删除，比如每10000条进行一次删除，那么我们可以利用 
+MySQL这样的语句来完成
+ 
+DELETE FROM syslogs WHERE status=1 ORDER BY statusid LIMIT 10000;
+然后分多次执行就可以把这些记录成功删除。
+
+
