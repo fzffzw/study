@@ -64,3 +64,19 @@ useradd
 
 passwd
 设置密码
+
+
+#############网络命令###################################
+write
+给用户发消息
+
+wall "message"
+给所有用户都发消息
+
+ping
+-c n ping的次数
+
+ifconfig
+
+
+
