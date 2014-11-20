@@ -188,6 +188,11 @@ yy 复制当前行
 :r !date (会把命令结果引过来)
 2014年 11月 17日 星期一 20:55:24 CST
 
+
+产生swp文件
+用 vim -r filename 恢复
+
+
 #######################软件包管理#############################
 rpm -V 包名
 
@@ -282,6 +287,73 @@ dumpe2fs /dev/sda1(显示磁盘状态的)
 
 ############Linux支持NTFS文件系统的
 ntf-3g 插件
+
+
+
+
+#############文件系统管理########################
+
+###fdisk使用
+fdisk -l (查询系统识别的硬盘、列出全部的分区)
+
+fdisk /dev/sdb
+
+　[root@localhost beinan]# fdisk /dev/sda
+　　Command (m for help): 在这里按m ，就会输出帮助；
+　　Command action
+　　a toggle a bootable flag
+　　b edit bsd disklabel
+　　c toggle the dos compatibility flag
+　　d delete a partition 注：这是删除一个分区的动作；
+　　l list known partition types 注：l是列出分区类型，以供我们设置相应分区的类型；
+　　m print this menu 注：m 是列出帮助信息；
+　　n add a new partition 注：添加一个分区；
+　　o create a new empty DOS partition table
+　　p print the partition table 注：p列出分区表；
+　　q quit without saving changes 注：不保存退出；
+　　s create a new empty Sun disklabel
+　　t change a partition's system id 注：t 改变分区类型；
+　　u change display/entry units
+　　v verify the partition table
+　　w write table to disk and exit 注：把分区表写入硬盘并退出；
+　　x extra functionality (experts only) 注：扩展应用，专家功能；
+
+###自动挂载
+要写入/etc/fstab文件
+dumpe2fs -h /dev/sda1 (查看新分区的设备文件名)
+
+Filesystem volume name:   /boot
+Last mounted on:          <not available>
+Filesystem UUID:          045c6ab4-5c04-44f1-8361-534c02870d1f (为分区的设备文件名) 
+
+/etc/fstab文件的内容
+LABEL=/boot             /boot                   ext3    defaults        	1 2
+
+UUID 分区的uuid（或名称） 挂载点		文件系统 自动挂载使用默认权限   | |
+										| |
+										| |
+										| |
+										| |
+										| |
+指定分区是否被dump备份（0代表不备份，1代表每天备份，2代表不定期备份）<<<--------| |------------->>>>>指定分区是否被fsck检测，0：不检测，其它数字代表检测优先级
+
+lost+found （备份分区的内容）
+
+用mount -a 命令 （根据/etc/fstab文件自动挂载一遍系统分区）
+
+mount -o remount,rw / (将 / 挂载成读写)	
+
+
+###########################shell编程##########################
+linux支持的shell可以再/etc/shells中查看
+在Linux各种shell切换可以用 入 sh csh 等等进行切换
+/sbin/nologin
+
+###shell执行方式#####
+echo -e  支持反斜线特殊字符转义
+
+
+
 
 
 
