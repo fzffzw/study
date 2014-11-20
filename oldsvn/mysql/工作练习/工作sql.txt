@@ -570,7 +570,22 @@ SET product.product_weight=pcweight2.sumweight WHERE product.product_id in(
 )
 
 
+#############袋子的商品编码(拆袋)###################
+select op.order_code,p.product_sku,p.hs_code,count(*) from outbound_bag_detail as obd
+inner join order_product as op
+on obd.order_code=op.order_code
+inner join product as p
+on p.product_id=op.product_id
+where ob_no='XDSGG20141118001'
+group by p.hs_code
 
+
+select * from outbound_bag_detail where ob_no='XDSGG20141118001'
+
+####锁查询##################
+show processlist;
+
+show OPEN TABLES where In_use > 0;
 
 
 
