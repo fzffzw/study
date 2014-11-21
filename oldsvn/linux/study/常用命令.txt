@@ -13,6 +13,10 @@ find -cmin 访问时间
 	f 文件 d 目录 l 软链接文件、
 例如 find /etc/ -name init* -a -type d
 
+查找某个文件夹下的包含某个字符的文件
+find /usr/local/src/mysql-5.5.28 -type f -name "*.*" | xargs grep "Too many connections"
+
+
 对find 结果做操作
 find / -name inittab -exec ls -l {} \;
 可以用 -exec/-ok 命令 {} \; 对搜索结果执行操作
