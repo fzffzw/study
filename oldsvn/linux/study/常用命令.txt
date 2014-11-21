@@ -28,6 +28,10 @@ find . -inum 787476 -exec mv {} gitstudy.txt \;
 
 用find 可以查找任何文件的硬连接
 
+
+查找某个文件夹下的包含某个字符的文件
+find /usr/local/src/mysql-5.5.28 -type f -name "*.*" | xargs grep "Too many connections"
+
 locate 用法
 locate inittab
 查找inittab所在的位置
