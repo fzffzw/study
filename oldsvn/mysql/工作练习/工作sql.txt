@@ -618,3 +618,11 @@ on fmso.order_code=fmsol.order_code
 WHERE fmso.fetch_status_count >10
 and fmsol.comment not like '发送出库报文成功%'
 group by md5hash
+
+
+#########统计所有海关编码的法定单位###############################
+select hc.hs_code as 海关编码,hu.pu_code_law as 法定单位,pu.pu_name from hs_codes as hc
+inner join hs_uom as hu
+on hu.hs_code=hc.hs_code
+left join product_uom as pu
+on pu.pu_code=hu.pu_code_law
