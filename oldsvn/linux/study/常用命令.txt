@@ -13,6 +13,10 @@ find -cmin 访问时间
 	f 文件 d 目录 l 软链接文件、
 例如 find /etc/ -name init* -a -type d
 
+查找某个文件夹下的包含某个字符的文件
+find /usr/local/src/mysql-5.5.28 -type f -name "*.*" | xargs grep "Too many connections"
+
+
 对find 结果做操作
 find / -name inittab -exec ls -l {} \;
 可以用 -exec/-ok 命令 {} \; 对搜索结果执行操作
@@ -27,6 +31,10 @@ find . -inum 787476 -exec mv {} gitstudy.txt \;
 
 
 用find 可以查找任何文件的硬连接
+
+
+查找某个文件夹下的包含某个字符的文件
+find /usr/local/src/mysql-5.5.28 -type f -name "*.*" | xargs grep "Too many connections"
 
 locate 用法
 locate inittab
@@ -188,6 +196,11 @@ yy 复制当前行
 :r !date (会把命令结果引过来)
 2014年 11月 17日 星期一 20:55:24 CST
 
+
+产生swp文件
+用 vim -r filename 恢复
+
+
 #######################软件包管理#############################
 rpm -V 包名
 
@@ -245,6 +258,259 @@ yum groupremove 软件组名
 /usr/lib/	函数库
 /usr/share/doc/	基本软件使用手册
 /usr/share/man/ 帮助文件
+
+
+###源码安装
+./configure --help (查看所有的可以跟的参数)
+make clean
+
+####用户组###
+
+
+
+
+#######文件系统
+
+df 文件系统
+-a 显示所有文件系统的信息，包括test文件系统 如 /proc /sysfs
+-h 使用习惯单位显示容量
+-T 显示文件系统类型
+-m 以MB为单位显示容量
+-k 以KB为单位显示容量
+
+
+du (统计目录或者文件大小)
+du -sh 
+-a 显示每个文件磁盘占用量
+-h 使用习惯单位显示磁盘的占用量
+-s 统计总占用量，而不列出子目录和子文件的占用量
+
+fsck 文件系统修复命令
+-a 不用显示用户提示
+-y 自动修复
+
+
+dumpe2fs /dev/sda1(显示磁盘状态的)
+
+
+############Linux支持NTFS文件系统的
+ntf-3g 插件
+
+
+
+
+#############文件系统管理########################
+
+###fdisk使用
+fdisk -l (查询系统识别的硬盘、列出全部的分区)
+
+fdisk /dev/sdb
+
+　[root@localhost beinan]# fdisk /dev/sda
+　　Command (m for help): 在这里按m ，就会输出帮助；
+　　Command action
+　　a toggle a bootable flag
+　　b edit bsd disklabel
+　　c toggle the dos compatibility flag
+　　d delete a partition 注：这是删除一个分区的动作；
+　　l list known partition types 注：l是列出分区类型，以供我们设置相应分区的类型；
+　　m print this menu 注：m 是列出帮助信息；
+　　n add a new partition 注：添加一个分区；
+　　o create a new empty DOS partition table
+　　p print the partition table 注：p列出分区表；
+　　q quit without saving changes 注：不保存退出；
+　　s create a new empty Sun disklabel
+　　t change a partition's system id 注：t 改变分区类型；
+　　u change display/entry units
+　　v verify the partition table
+　　w write table to disk and exit 注：把分区表写入硬盘并退出；
+　　x extra functionality (experts only) 注：扩展应用，专家功能；
+
+###自动挂载
+要写入/etc/fstab文件
+dumpe2fs -h /dev/sda1 (查看新分区的设备文件名)
+
+Filesystem volume name:   /boot
+Last mounted on:          <not available>
+Filesystem UUID:          045c6ab4-5c04-44f1-8361-534c02870d1f (为分区的设备文件名) 
+
+/etc/fstab文件的内容
+LABEL=/boot             /boot                   ext3    defaults        	1 2
+
+UUID 分区的uuid（或名称） 挂载点		文件系统 自动挂载使用默认权限   | |
+										| |
+										| |
+										| |
+										| |
+										| |
+指定分区是否被dump备份（0代表不备份，1代表每天备份，2代表不定期备份）<<<--------| |------------->>>>>指定分区是否被fsck检测，0：不检测，其它数字代表检测优先级
+
+lost+found （备份分区的内容）
+
+用mount -a 命令 （根据/etc/fstab文件自动挂载一遍系统分区）
+
+mount -o remount,rw / (将 / 挂载成读写)	
+
+
+###########################shell编程##########################
+linux支持的shell可以再/etc/shells中查看
+在Linux各种shell切换可以用 入 sh csh 等等进行切换
+/sbin/nologin
+
+###shell执行方式#####
+echo -e  支持反斜线特殊字符转义
+
+转义字符如下
+字符	意义
+\\ 	插入\字符；
+\a 	发出警告声；
+\b 	退格符（删除前一个字符，向左删除键）
+\c 	最后不加上换行符号（取消输出行末的换行符，和-n 选项一致）；
+\e	ESCAPE键
+\f	换页符
+\n 	换行且光标移至行首
+\r	回车键
+\t	制表符
+\v	垂直制表符
+\0nnn	按照八进制ASCII码表输出字符。
+\xhh	按照十六进制ASCII码表输出字符。
+
+
+\e[1;	开启颜色输出
+\e[0m	结束颜色输出
+例如
+echo -e "\e[1;31mabcd\e[0m";
+
+30m=黑色，31m=红色，32m=绿色，33m=黄色
+34m=蓝色，35m=洋红，36m=青色，37m=白色
+
+
+cat -A 查看所有字符
+#!/bin/bash$
+#The first program$
+echo -e "This is my first shell script!"$
+
+###说明 linux中回车符是$
+一些在windonw中编辑的shell回车是用ctrlM+$作为回车的所以要将windown的转成linux，要用到命令doc2unix
+用法为 doc2unix /file
+与之相对于的是unix2doc /file
+
+
+#################shell的基本功能###############
+##别名命令
+alias 别名='原命令' #设置命令别名
+alias 查询命令别名
+
+/root/.bashrc (直接修改该文件，设置别名)
+
+unalias 取消别名
+
+base 常用快捷键
+
+ctrl+A		把光标移动命令行开头
+ctrl+E		把光标移动到命令行结尾
+ctrl+C		强制终止当前命令
+ctrl+L		清屏
+ctrl+U		删除或剪切光标之前的命令
+ctrl+K		删除或剪切光标之后的内容
+ctrl+Y		粘贴ctru+U或ctrl+K的内容
+ctrl+R		在历史命令中搜索
+ctrl+D		退出当且的终端
+ctrl+Z		暂停，并放入后台
+ctrl+S		暂停屏幕输出
+ctrl+Q		恢复屏幕输出
+
+#####输入输出重定向#######
+标准输入输出
+设备		设备文件名	文件描述符	类型	
+键盘		/dev/stdin	  0		标准输入
+显示器		/dev/stdout	  1		标准输出
+显示器		/dev/stderr	  2		标准错误输出
+
+输出重定向
+标准输出	命令>>文件
+标准错误	错误命令 2 >>文件
+
+例如故意输出错误 lst 2>>abc （没有lst命令错误信息定向到abc中）
+
+正确输入和错误输出同城保存
+命令> 文件 2>&1		 以覆盖方式，把正确输出和错误输出都保存到一个文件中
+命令>>文件 2>&1		 以追加方式，把正确输出和错误输出都保存到一个文件中
+命令 &>文件 		 以覆盖方式，把正确输出和错误输出都保存到一个文件中
+命令 &>>文件		 以追加方式，把正确输出和错误输出都保存到一个文件中
+命令>>文件1 2>>文件2	 把正确输出追加到文件1中，把错误输出追加到文件2中
+
+
+wc 输入 按ctrl+D
+统计
+-c 统计字节数
+-w 统计单词数
+-l 统计行数
+
+####多名利顺序执行与管道符
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
