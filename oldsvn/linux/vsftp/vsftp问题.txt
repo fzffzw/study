@@ -1,0 +1,56 @@
+###在ftp上传中提示文件失败上传为0
+后来经过查找，并且ftp_put函数提示Failure writing to local file
+df -h
+查看系统代码的分区的使用是100%经过释放空间，服务器一起正常
+
+
+ftpd，如果未安装，则执行yum -y install vsftpd,这样将会自动在网上down and setup
+  vsftpd。
+
+2、创建ftp 用户组及用户:
+   # groupadd ftpgroup
+   # useradd ftpuser -g ftpgroup -d /ftp -m
+   # passwd ftpuser
+
+   输入密码2遍
+   /ftp是ftp 用户访问的文件夹
+
+3、在windows中cmd执行ftp IP显现
+
+500 OOPS: vsftpd: cannot locate user specified in 'ftp_username':ftp
+
+的错误消息
+
+需要在vsftpd.conf中加入了ftp_username=ftpuser（用户）这一行，ftp_username的缺省用户应该是ftp
+
+
+4、修改vi /etc/vsftpd/vsftpd.conf 文件 将下面的注释去掉
+   Anon_upload_enable=yes
+   Anon_mkdir_write_enable=yes
+   Write_enable=yes
+
+5、/etc/init.d/vsftpd restart后成功登陆
+
+如果出现“550 create directory operation failed”
+
+是SELinux安装机制搞的鬼.只要disable SELinux就可以了.
+
+# vi /etc/selinux/config
+将 SELINUX=XXX -->XXX 代表级别
+改为
+SELINUX=disabled
+或者setsebool -P ftpd_disable_trans on      或者 setsebool -P  ftp_home_dir  on  
+
+如果不能执行，提示“
+Could not change active booleans: Invalid boolean
+”
+
+可以执行以下命令
+setsebool allow_ftpd_full_access  1
+setsebool allow_ftpd_use_cifs 1
+setsebool allow_ftpd_use_nfs 1
+ setsebool ftp_home_dir  1
+setsebool httpd_enable_ftp_server 1
+setsebool tftp_anon_write 1
+
+6、 service vsftpd restart
