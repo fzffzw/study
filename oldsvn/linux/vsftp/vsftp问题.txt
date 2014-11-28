@@ -3,6 +3,9 @@
 df -h
 查看系统代码的分区的使用是100%经过释放空间，服务器一起正常
 
+sestatus -b| grep ftp 	(查看ftp的状态)
+
+
 
 ftpd，如果未安装，则执行yum -y install vsftpd,这样将会自动在网上down and setup
   vsftpd。

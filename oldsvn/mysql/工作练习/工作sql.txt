@@ -174,7 +174,20 @@ inner join order_address_book as oab
 on oab.order_code = o.order_code
 where o.customer_code='E0238'
 
-
+##浩方走货明显加上服务商单号
+SELECT op.order_code as 系统订单号,p.product_sku as sku,p.hs_goods_name as 海关品名,p.goods_id as料件号,op.op_quantity as 数量,
+o.reference_no as reference,sbd.sb_code as 出区单号,date(sbd.sbd_add_time) ship_date,concat(oab_lastname,' ',oab_firstname) as 姓名,
+oab.oab_street_address1 as 地址一,oab.oab_street_address2 as 地址二,so.tracking_number
+FROM `ship_batch_detail` AS sbd
+INNER JOIN `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+INNER JOIN `order_product` AS op ON op.order_code = obd.order_code
+INNER JOIN `product` AS p ON op.product_id = p.product_id
+inner join orders as o on op.order_code=o.order_code
+inner join order_address_book as oab
+on oab.order_code = o.order_code
+inner join ship_order as so
+on so.order_code=o.order_code
+where o.customer_code='E0238'
 
 SELECT op.order_code as 系统订单号,p.product_sku as sku,p.hs_code as 商品编码,p.product_title as 商品名称,p.goods_id as料件号,op.op_quantity as 数量,
 o.reference_no as reference,sbd.sb_code as 出区单号,date(sbd.sbd_add_time) ship_date
