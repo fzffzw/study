@@ -633,6 +633,16 @@ printf %s 1 2 3 4 5 6
 输出 123456 （将1 2 3 4 5 6当成一个字符）
 printf %s %s %s 1 2 3 4 5 6
 %s%s123456
+此时要加上引号
+printf '%s %s %s' 1 2 3 4 5 6 (写多少个%s就表示多少个为一组，此处写三个表示三个字符为一组)
+1 2 34 5 6
+printf '%s %s %s\n' 1 2 3 4 5 6
+1 2 3
+4 5 6
+
+printf 只接收以下情况
+printf '%s' $(cat student)
+
 
 ####结束多个进程
 ps aux | grep  '/home/apache/www/import/wms/auto/shipBatchSubmitCheck.php' | grep -v grep | awk '{print $2}'|xargs kill -9 
@@ -642,6 +652,12 @@ curl ifconfig.me
 或者 http://members.3322.org/dyndns/getip
 
 
+###########awk命令############
+awk标准输出就是printf
+awk截取符合条件的列
+awk '条件1{动作1}条件2{动作2}'
+ps aux |grep apache|awk '{printf $2"\t"$10"\n"}'
+awk 'BEGIN{print '读取数据前先输出数据'} {print $2}'
 
 
 
