@@ -603,6 +603,7 @@ source 配置文件 或者 . 配置文件 （让配置文件直接生效）
 基础正则表达式
 grep "^$" filename (匹配空白行)
 
+
 #############cut字段提取命令###################
 cut [选项] 文件名
 选项
@@ -632,6 +633,14 @@ printf %s 1 2 3 4 5 6
 输出 123456 （将1 2 3 4 5 6当成一个字符）
 printf %s %s %s 1 2 3 4 5 6
 %s%s123456
+
+####结束多个进程
+ps aux | grep  '/home/apache/www/import/wms/auto/shipBatchSubmitCheck.php' | grep -v grep | awk '{print $2}'|xargs kill -9 
+
+####获取公网ip
+curl ifconfig.me
+或者 http://members.3322.org/dyndns/getip
+
 
 
 
