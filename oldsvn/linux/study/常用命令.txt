@@ -603,9 +603,12 @@ source 配置文件 或者 . 配置文件 （让配置文件直接生效）
 基础正则表达式
 grep "^$" filename (匹配空白行)
 
+####结束多个进程
+ps aux | grep  '/home/apache/www/import/wms/auto/shipBatchSubmitCheck.php' | grep -v grep | awk '{print $2}'|xargs kill -9 
 
-
-
+####获取公网ip
+curl ifconfig.me
+或者 http://members.3322.org/dyndns/getip
 
 
 
