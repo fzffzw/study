@@ -836,6 +836,7 @@ ln -s /usr/local/src/apache2/bin/apachectl /usr/init.d/apache
 然后用chkconfig --add apache
 
 
+############进程管理#####################
 
 
 
