@@ -693,25 +693,22 @@ curl ifconfig.me
 或者 http://members.3322.org/dyndns/getip
 
 
->>>>>>> ccf203ceec1eb9060a07fdb08443726ea8613c04
+
 ###########awk命令############
 awk标准输出就是printf
 awk截取符合条件的列
 awk '条件1{动作1}条件2{动作2}'
 ps aux |grep apache|awk '{printf $2"\t"$10"\n"}'
 awk 'BEGIN{print '读取数据前先输出数据'} {print $2}'
-<<<<<<< HEAD
-=======
 
 
 
->>>>>>> ccf203ceec1eb9060a07fdb08443726ea8613c04
+
 ######################sed的作用###################
 sed的作用
 sed几乎支持所有linux平台的流编辑器，sed主要对数据进行选取、替换、修改、删除
 sed 选项 '动作' 文件名
 选项有
-<<<<<<< HEAD
 -n 只会把经过sed命令处理的行输出到屏幕
 -e 允许对sed命令进行多条sed命令处理
 -i 用sed修改结果直接修改读取的数据文件，而不是输出到屏幕
@@ -748,23 +745,9 @@ L 判断文件是否存在并且是符号链接文件
 p 判断文件是否存在并且是管道文件
 s 判断文件是否存在，并且是否为空
 S 判断文件是否存在并且是套接字文件
-=======
 -n    只会把经过sed命令处理的行输出到屏幕
 -e    允许对sed命令进行多条sed命令处理
 -i    用sed修改结果直接修改读取的数据文件，而不是输出到屏幕
-动作有
-a\    在当前行后追加一行或者多行
-c\     
-i\    在当前数据行前添加一行或者多行
-d     删除指定的行
-p     打印指定的行
-s     字符替换
-例如
-sed -n ‘2p’ student.txt 输出第二行
-sed ‘2,4d’ student.txt  删除第二行到第四行
-sed ‘2a 第二行后追加内容’ file.txt
-sed ‘2i 第二行前插入’ file.txt
-sed ‘3s/替换前数据/替换后数据/g’ file.txt
 
 
 ####################sort的作用#################
@@ -790,12 +773,10 @@ L    判断文件是否存在并且是符号链接文件
 p    判断文件是否存在并且是管道文件
 s    判断文件是否存在，并且是否为空
 S    判断文件是否存在并且是套接字文件
->>>>>>> ccf203ceec1eb9060a07fdb08443726ea8613c04
 有两种判断方式
 test -e filename
 [-e filename]
 安装文件权限判断
-<<<<<<< HEAD
 -r 判断文件是否存在，并且有读权限
 -w 判断文件是否存在，并且有写权限
 -x 判断文件是否存在，并且有执行权限
@@ -817,7 +798,6 @@ n 字符串 判断字符串是否为非空
 判断式1 -a 判断式2 逻辑与
 判断式1 -o 判断式2 逻辑或
 !判断式 取反
-=======
 -r    判断文件是否存在，并且有读权限
 -w    判断文件是否存在，并且有写权限
 -x    判断文件是否存在，并且有执行权限
@@ -844,7 +824,6 @@ n 字符串     判断字符串是否为非空
 
 
 
->>>>>>> ccf203ceec1eb9060a07fdb08443726ea8613c04
 ################流程控制#############################
 用法1
 if [ 条件判断式 ];then
@@ -852,7 +831,6 @@ if [ 条件判断式 ];then
 fi
 用法2
 if [ 条件判断式 ]
-<<<<<<< HEAD
 then
 程序
 fi
@@ -875,7 +853,6 @@ then
 else
 所有条件不满足时执行
 fi
-=======
     then
           程序
 fi
@@ -902,13 +879,11 @@ else
     所有条件不满足时执行
 fi
 
->>>>>>> ccf203ceec1eb9060a07fdb08443726ea8613c04
 #####case使用方法####
 case只能判断一个条件语句，if elif可以判断多种判断语句
 ##用法
 case $变量 in
 “值1”)
-<<<<<<< HEAD
 变量值为值1,执行程序1
 ;;
 “值2”)
@@ -965,12 +940,10 @@ while [ 条件判断式 ]
     do
          程序
      done
->>>>>>> ccf203ceec1eb9060a07fdb08443726ea8613c04
 #####until用法####
 until条件式不成立继续循环，成立终止循环
 用法为
 until [ 条件判断式 ]
-<<<<<<< HEAD
 do
 程序
 done
@@ -990,7 +963,6 @@ service --status-all 查看所有服务的状态
 chkconfig -level 2345 http on
 修改/etc/rc.d/rc.local文件
 ntsysv
-=======
     do
          程序
      done
@@ -1011,17 +983,13 @@ service --status-all   	    查看所有服务的状态
 chkconfig -level 2345 http on
 修改/etc/rc.d/rc.local文件
 ntsysv     
->>>>>>> ccf203ceec1eb9060a07fdb08443726ea8613c04
 让源码包安装的脚本被service识别的方法可以把源码包安装的脚本加入到/etc/init.d下做软链接就可以了
 用法为
 ln -s /usr/local/src/apache2/bin/apachectl /usr/init.d/apache
 如果想让源码包被chkconfig和ntsysv识别则可以修改apache加入如下
 #chkconfig * * *(三个数字，)
 然后用chkconfig --add apache
-<<<<<<< HEAD
-=======
 
->>>>>>> ccf203ceec1eb9060a07fdb08443726ea8613c04
 
 
 
