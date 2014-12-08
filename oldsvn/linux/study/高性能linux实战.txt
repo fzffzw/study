@@ -1,0 +1,4 @@
+###nginx使用####
+nginx和apache的异同
+nginx支持epoll，apache不支持，
+
