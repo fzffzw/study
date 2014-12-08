@@ -990,6 +990,82 @@ ln -s /usr/local/src/apache2/bin/apachectl /usr/init.d/apache
 #chkconfig * * *(三个数字，)
 然后用chkconfig --add apache
 
+################进程管理###############
+kill -l (查看可用的进程号)
+
+常用信号
+1	SIGHUP		该信号进程立即关闭，然后重新读取配置文件之后重启
+
+
+
+
+9	SIGKILL		用于立即结束程序的运行，强制终止
+
+15	SIGTERM		正常终止
+
+pstree
+
+killall 进程名
+例如 
+killall http
+
+pkill -9 http
+
+################工作管理################
+bg %工作号 （把后台暂停的工作回复到后台执行）
+注意 后台回复执行的命令，是不能和前台有交互的，否则不能恢复到后台执行
+
+fg 恢复前台
+
+##############系统资源查看##############
+vmstat [刷新延迟 刷新次数]
+
+procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu------
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 1  0      0  98344  16864  98696    0    0    17     4  351   16  0  1 98  1  0
+		|							|
+		|							|
+	     内存空闲						     cpu空闲
+
+dmesg 开机时内核检测信息 (硬件信息)
+dmesg | grep CPU
+
+free 查看内存使用状况
+free的选项有
+-b	以字节为单位显示
+-k	以kb为单位显示，默认为kb显示
+-m	以MB为单位显示
+-g	以GB为单位显示
+
+             total       used       free     shared    buffers     cached
+Mem:           304        298          6          0         30        155
+-/+ buffers/cache:        112        192
+Swap:         1023          0       1023
+
+里面used包含linux使用和buffers和cached使用的
+例如此例子 298-30-155才是linux占用的内存
+其实空余内存是free+buffers+cached
+
+缓存和缓冲的区别
+简单说缓存(cache)是用来加速数据从硬盘读取的，
+而缓冲(buffer)是用来加速数据写入硬盘的
+
+cat /proc/cpuinfo
+cpu 信息
+
+##显示系统启动时间和平均负载，也就是top命令的第一行，w命令饿可以看到这个数据
+uptime
+
+
+uptime
+
+		
+
+
+
+
+
+
 
 
 
