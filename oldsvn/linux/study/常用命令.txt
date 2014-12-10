@@ -1104,11 +1104,22 @@ rsyslogd取代了syslog并且和syslog兼容
 
 常见日志的作用
 日志文件		说明
-/var/log/cron		
-/var/log/cups/
-/var/log/dmesg
-/var/log/btmp
-/var/log/lastlog
+/var/log/cron		记录了系统定时任务想挂面的日志	
+/var/log/cups/		记录打印信息的日志
+/var/log/dmesg		记录了系统在开机时内核自检的信息，也可以用dmesg命令查看
+/var/log/btmp		记录错误登陆日志，这个是二进制文件，要用lastb查看，
+/var/log/lastlog	记录系统中所有用户最后一次登陆时间的日志。
+/var/log/maillog	记录邮件信息
+/var/log/message	记录系统重要信息的日志，这个日志文件记录linux绝大多数重要信息
+/var/log/secure		记录验证和授权方面的信息
+/var/log/wtmp		永久记录所有用户登陆，注销信息，二进制文件不能用vi，用last命令查看
+/var/run/utmp		记录当前已经登陆用户信息。这个文件会随着用户登陆和注销而不断变化，同样不能用vi，而用w，who，users命令查询
+
+####rsyslogd日志服务######
+/etc/rsyslog.conf配置文件
+
+
+
 
 
 
