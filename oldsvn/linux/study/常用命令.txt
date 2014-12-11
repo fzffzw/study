@@ -1118,10 +1118,72 @@ rsyslogd取代了syslog并且和syslog兼容
 ####rsyslogd日志服务######
 /etc/rsyslog.conf配置文件
 
+authpriv.*		/var/log/secure
+##authpriv(服务名称).(连接符号)*(日志等级) 日志记录位置
+##认证相关服务，所有日志等级 记录在/var/log/secure日志中
+
+##常见的服务名称
+
+服务名称		说明
+auth			安全和认证相关信息
+authpriv		安全和认证相关信息
+cron			定时任务和at产生日志
+daemon			ftp守护进程产生的日志
+ftp			内核产生的日志
+kern			为本地使用预留的服务
+local10-local7		打印产生的日志
+mail			邮件收发信息
+news			与新闻服务器相关的日志
+syslog			syslogd服务产生的日志信息
+user			用户等级类别的日志信息
+uucp			
 
 
+##连接符有
+"."代表只要比后面的等级高都记录。例如cron.info代码只要cron服务日志只要大于等于info级别就记录
+".="只记录所需等级的日志
+".!"代表不等于，就是除了该等级的日志外，其他等级日志都记录
 
 
+###日志等级
+等级名称		说明
+debug			一般的调试信息说明
+info			基本的通知信息
+notice			普通的信息，有一定的重要性
+warning			警告信息
+err			错误信息
+crit			临界状况信息，比err等级还严重
+alert			警告信息，比crit还严重，必须立即采取行动
+emerg			疼痛等级，熊已经无法使用了
+
+#############日志轮替##############
+logrotate配置文件 （位置为/etc/logrotate.conf）
+参数				参数说明
+daily				日志轮替周期是每天
+weekly				日志轮替周期是每周
+monthly				日志轮替的周期是每月
+rotate 数字			保留日志文件的个数。0值没有备份
+compress			日志轮替是，就得日志进行压缩
+create mode owner group		建立新日志，同时制定新日志的权限与所有者和所属组
+mail address			日志轮替时，输出内容通过邮件发送到指定的邮件地址			
+missingok			日志不存在，忽略该日志警告信息
+notifempty			日志为空文件，则不镜像日志轮替
+minsize 大小			日志轮替的最小值，就是日志一定要达到这个最小值才能轮替
+size 大小			日志只有大于指定大小才进行日志轮替
+dateext				使用日期作为日志轮替文件的后缀
+
+把源码安装的apache日志加入到轮替
+/usr/local/apache2/logs/access_log{
+daily
+create
+rotate 30
+}
+
+logrotate 命令
+logrotate [选项] 配置文件名
+选项
+-v	显示日志轮替过程
+-f	强制进行日志轮替。强制配置文件所有日志进行轮替
 
 
 
