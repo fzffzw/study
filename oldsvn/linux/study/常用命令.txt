@@ -1218,9 +1218,76 @@ bios--->MBR--->MBR启动引导程序|(grub)				     |		|
 										|
 	进入系统 <---登陆界面<---/etc/rc.d/rc.local<---按照优先级启动<--/etc/rc[0-6].d
 							和关闭相应脚本	
+#################grub##################
+grub的配置文件在/boot/grub/grub.conf(和启动相关的文件都在boot分区中)
+grub配置文件
+default=0	默认启动第一个系统
+timeout=5	等待时间，默认是5秒
+splashimage=(hd0,0)/grub/splash.xpm.gz
+这里是指定grub启动时的背景图像文件的保存位置
+hiddenmenu	隐藏菜单
+title CentOS (2.6.18-194.el5)	启动时候显示的内容
+	root (hd0,0)	第一个分区
+	kernel		加载内核
+	initrd		加载模拟目录
+
+如果要安装两个操作系统，要先安装window，再安装linux
+因为window启动不识别linux，但是linux可以识别windows，所以安装window后
+linux的grub可以识别windows并且把window的启动加入到grub中
+
+#########grub加密与字符界面分辨率###########
+grub加密
+grub-md5-crypt
+在hiddenmenu之前加入
+password --md5 MD5加密的字符串
+示例如下
+default=0
+timeout=5
+password --md5 用grub-md5-crypt输入密码生成的字符串
+splashimage=(hd0,0)/grub/splash.xpm.gz
+hiddenmenu
+
+#####系统的修复模式##########
 
 
 
+
+
+###备份恢复########
+dump 
+restore
+
+查看dump是否安装
+rpm -qa|grep dump
+
+dump的用法
+
+dump [选项] 备份之后的文件名 原文件或许路径
+-level 即是0-9级别
+-f 文件名就是指定备份的文件名
+-u 备份成功后将备份时间写到/etc/dumptables
+-v 显示备份更多的输入输出
+-j 调用bzlib库压缩备份文件，其实就是把备份文件压缩成bz2
+-w 显示允许被dump的分区的备份登记及备份时间
+
+###备份分区
+dump -0uj -f /root/boot.bak.bz2 /boot/
+##备份命令，先执行一次完全备份，并压缩和更新备份时间
+dump -1uj -f /root/boot.bak.bz2 /boot/
+##增量备份/boot/分区，并压缩
+dump -W
+#查询分区的备份时间及备份级别
+
+###restore命令
+restore [模式选项][选项]
+##模式选项 restore常用模式有以下四种，这四个模式不能混用
+-C 比较备份数据和实际数据的变化
+-i 进入交互模式，手工选择需要恢复的文件
+-t 查看模式，用于查看备份文件拥有哪些数据
+-r 还原模式，用于数据还原
+##选项
+-f 指定备份文件的文件名
+ 
 
 
 
