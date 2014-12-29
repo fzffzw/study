@@ -650,3 +650,96 @@ inner join hs_uom as hu
 on hu.hs_code=hc.hs_code
 left join product_uom as pu
 on pu.pu_code=hu.pu_code_law
+
+##############################入区单报关导出###############################
+select r.receiving_code as 入区单号,p.product_sku as 产品sku,
+op.op_quantity as 数量,pu.pu_name,p.goods_id as 料件号,p.hs_code as 商品海关编码,
+p.hs_goods_name as 海关品名,op.op_purpose_declared_value as 单价,
+(op.op_purpose_declared_value*op.op_quantity) as 总价,p.product_weight as 重量,
+r.refercence_form_id as 分批入区单号,concat(c.customer_lastname,c.customer_firstname) as 客户名称
+from receiving as r
+inner join receiving_order_detail as rod
+on r.receiving_code=rod.receiving_code
+inner join order_product as op
+on op.order_code=rod.order_code
+inner join product as p
+on p.product_id=op.product_id
+inner join customer as c
+on c.customer_code=p.customer_code
+left join product_uom as pu
+on p.pu_code=pu.pu_code
+where rod.receiving_code='BHR140000992';
+
+#####################行邮税导出数据############################
+####普通产品
+select c.customer_code as 客户代码,o.order_code as 订单号,
+o.reference_no as 交易订单号,p.product_sku as sku,op.op_quantity as 数量,
+gt.gt_code as 行邮税号,gt.gt_name as 行邮税名称,gt.gt_rate as 行邮税率,
+op.op_total_price 成交总价
+from orders as o
+inner join order_product as op
+on o.order_code=op.order_code
+inner join product as p
+on op.product_id=p.product_id
+inner join customer as c
+on c.customer_code=o.customer_code
+inner join goods_tax as gt
+on gt.gt_id=p.gt_id
+where o.warehouse_id='6'
+and o.order_status>=11
+
+###组合产品sql
+###找到组合产品
+create table op_goods as 
+select c.customer_code as customer_code,p.product_id,concat(op.order_code,op.product_id) as ocp,o.order_code as order_code,
+o.reference_no as reference_no,p.product_sku as sku,op.op_quantity as op_quantity,
+gt.gt_code as gt_code,gt.gt_name as gt_name,gt.gt_rate as gt_rate,
+op.op_total_price op_total_price
+from orders as o
+inner join order_product as op
+on o.order_code=op.order_code
+inner join product as p
+on op.product_id=p.product_id
+inner join customer as c
+on c.customer_code=o.customer_code
+left join goods_tax as gt
+on gt.gt_id=p.gt_id
+where o.warehouse_id='6'
+and o.order_status>=11
+and p.product_type='1'
+
+###组合产品还原
+create table op_good2 as 
+select og.*,pcr.pcr_product_id,pcr.pcr_quantity from op_goods as og
+inner join product_combine_relation as pcr
+on pcr.product_id = og.product_id
+
+###统计产品申报价值合计
+create table op_good3 as 
+select og2.*,sum(og2.pcr_quantity*p.product_declared_value) as sumdeclare
+from op_good2 as og2
+inner join product as p
+on og2.pcr_product_id=p.product_id
+group by ocp
+
+###将统计的产品申报价值汇总到还原的产品里面
+creater table op_good4
+select og2.*,og3.sumdeclare from op_good2 as og2
+inner join op_good3 as og3
+on og2.order_code=og2.order_code
+og2.product_id=og2.product_id
+and og2.ocp=og3.ocp
+
+###导出需要的数据
+select og4.customer_code as 客户代码,
+og4.order_code as 订单号,og4.reference_no as 交易订单号,
+p.product_sku as sku,og4.op_quantity*og4.pcr_quantity as 数量,
+gt.gt_code as 行邮税号,gt.gt_name as 行邮税名称,gt.gt_rate as 行邮税率,
+(og4.op_total_price/sumdeclare)*og4.pcr_quantity*p.product_declared_value as 成交总价
+from 
+op_good4 as og4
+inner join product as p
+on og4.pcr_product_id=p.product_id
+inner join goods_tax as gt
+on gt.gt_id=p.gt_id
+
