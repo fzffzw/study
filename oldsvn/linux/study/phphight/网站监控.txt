@@ -1,0 +1,26 @@
+网站服务、流量监控
+1 服务监控
+1）apache web服务监控
+2）mysql 数据库监控
+3）磁盘空间监控
+
+2 流量监控
+1）网站流量监控
+mrtg、cacti 通过snmp协议
+
+Postfix邮件报警
+Linux 邮件系统
+1）postfix发邮件系统
+2）sendmail发邮件系统
+3）dovecot收邮件系统
+
+Apache压力测试
+1 apace自带压力测试软件
+2 apache benchmark，啊爬车基准测试工具
+3 httpd-2.2.3-43.e15.centos软件提供
+4 ab压力测试时，可能要创建很多测试文件并删除
+
+mysql压力测试 - mysqlslap
+mysql 5.1.4版自带一个压力测试工具mysqlslap。模拟客户端访问myhsql来执行测试
+
+
