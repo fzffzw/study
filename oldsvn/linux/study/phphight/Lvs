@@ -1,0 +1,43 @@
+Cisco的以太网通道
+两个交换机之间多加几个线
+
+F5负载均衡图
+	pc机
+	 |
+	 | src -207.17.117.20:4003i（VIP）
+	 |
+	 F5(216.34.94.17:80) (Big Ip translates Dest Address to Node based on Load Balancing)
+	 |
+    -------------
+    |   |   |   |
+    |   |   |   |
+   (1) (2) (3) (4)
+
+(1) 192.168.20.1:80
+(2) 192.168.20.2:4002
+(3) 192.168.20.3:80
+(4) 192.168.20.4:8080
+这就是nat技术（Network Address Translation）
+把目的地址转换叫Dnat技术，如果把源地址转换交Snat技术
+
+1）客户发出服务请求到VIP
+2）BiGIp接收到请求，将数据包中的目的Ip地址改为选中的后台服务器IP地址，
+然后将数据包发出到后台选定的服务器
+3）后台服务器收到后，将应答包按照其路由发送到BIGIP
+4）BIGIP收到应打包后将其中的源地址改回成VIP地址，发回客户端，
+因此就完成了一个标准的服务器负载均衡的流程。
+
+LVS模式
+LVS常用的三种负载均衡模式
+1）LVS nat模式 （网络地址转换）
+virual Server via Network Address Translation(VS/NAT)
+通过网络地址转换，调度器重写请求报文的目标地址，
+根据预设的调度算法，将请求分配给后端的真是的服务器，真实服务器的响应
+报文通过调度器时，报文的源地址被重写，在返回给客户，完成整个负载调度过程
+(公网ip可以到私网，私网不能到公网)
+2）LVS ip-tun模式 （ip隧道技术）
+采用NAT技术是，由于请求和响应的报文
+3）Lvs dr模式 （直接路由）
+virual Server via Network Address Translation(VS/NAT)
+
+
