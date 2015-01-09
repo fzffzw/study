@@ -1,0 +1,7 @@
+####更新聚美订单跟踪号
+update orders as o
+inner join jmorders as jm
+on o.reference_no=jm.reference_no
+set o.ref_tracking_number=jm.tracking_number
+where o.customer_code='C0286'
+
