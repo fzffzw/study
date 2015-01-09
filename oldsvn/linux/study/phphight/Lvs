@@ -36,7 +36,27 @@ virual Server via Network Address Translation(VS/NAT)
 报文通过调度器时，报文的源地址被重写，在返回给客户，完成整个负载调度过程
 (公网ip可以到私网，私网不能到公网)
 2）LVS ip-tun模式 （ip隧道技术）
-采用NAT技术是，由于请求和响应的报文
+采用NAT技术是，由于请求和响应的报文和响应报文都必须经过调度器地址重写，
+当用户请求越来越多时，调度器的处理能力将成为瓶颈。为了解决这个问题，
+调度器把请求报文通过IP隧道转发至真实服务器，而真实服务器将
+响应直接返回给客户，所以调度器只处理请求报文。由于一般网络服务
+应答比请求报文大许多，采用VS/TUN技术后，集群系统的最大吞吐量可以提高10倍。
+
+LVS ip-tun实验规划
+directorserver 192.168.10.1
+realserver 192.168.10.2
+realserver 192.168.10.3
+vip 192.168.10.10
+
+LVS ip-tun服务器脚本
+ifconfig tunl0 192.168.10.10 netmask 255.255.255.255
+route add -host 192.169.10.10 dev tunl0
+ipvsadm -C
+ipvsadm -A -t 192.168.10.10:80 -r 192.168.10.2 -i
+ipvsadm -a -t 192.168.10.10:80 -r 192.168.10.3 -i
+ipvsadm
+
+
 3）Lvs dr模式 （直接路由）
 virual Server via Network Address Translation(VS/NAT)
 
