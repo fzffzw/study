@@ -77,7 +77,11 @@ Lvs转发到10.2（二层 数据链路层 {源mac 4| 目的mac 2}）
 此时交换机记录了 10.4和10.2的mac地址和端口
 上面完成第一次请求结果，
 
-user 在请求一次数据，{源ip 10.4|目的ip 10.2}，此时二层{源mac 4 |目的mac 2}
+user 在请求一次数据，{源ip 10.4|目的ip 10.2}，此时二层{源mac 4 |目的mac 2},所以访问永远不会将访问
+转到10.3这台服务器上。因为数据永远不会到调度器上面了。（连续点击的时候就会出问题）
+
+所以要想个办法，将user的访问的（{源ip 10.4|目的ip 10.10}）只有这样才会到调度器，调度器才会将数据
+转发到10.3
 
 
 ifconfig tunl0 192.168.10.10 netmask 255.255.255.255 up
@@ -95,7 +99,7 @@ echo "1" > /proc/syc/net/ipv4/conf/tunl0/arp_ignore
 echo "2" > /proc/sys/net/ipv4/conf/tun10/arp_announce
 echo "1" > /proc/sys/net/ipv4/conf/all/arp_ignore
 echo "2" > /proc/sys/net/ipv4/conf/all/arp_announce
-
+（忽略10.10的arp，宣告10.2的arp，就是通过网线连接的网卡）
 
 
 
