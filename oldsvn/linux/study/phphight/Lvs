@@ -149,4 +149,12 @@ ip3
 3）Lvs dr模式 （直接路由）
 virual Server via Network Address Translation(VS/NAT)
 
+###负载的常用轮叫算法
+1)轮叫 不管服务器性能平均吧请求分配集群的真实服务器
+2）加权轮叫 （weighted Round Robin）
+调度器根据真实服务器不同处理能力调度访问请求，
+3)最小链接 （Least Connections）
+调度器通过最小链接算法动态地将网络请求调度到已建立
+的链接数最小的服务器上。
+4）加权最小链接（Weighted Least Connections）
 
