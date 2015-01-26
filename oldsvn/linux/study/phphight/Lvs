@@ -35,6 +35,60 @@ virual Server via Network Address Translation(VS/NAT)
 根据预设的调度算法，将请求分配给后端的真是的服务器，真实服务器的响应
 报文通过调度器时，报文的源地址被重写，在返回给客户，完成整个负载调度过程
 (公网ip可以到私网，私网不能到公网)
+
+
+#######nat 的配置##################
+nat技术需要两块网卡，所以需要LVS添加两块网卡
+假如左侧的网卡用 net 8.8.8.1，用vm1，另外的两个网卡用vm2，
+另外的server也用vm2，保证他们在同一个网段里面
+
+LVS配置
+ifconfig eth0 8.8.8.8 netmask 255.255.255.0
+ifconfig eth1 192.168.10.1 netmask 255.255.255.0
+route add default gw 192.168.10.1
+
+real server1
+ifconfig eth0 192.168.10.2 netmask 255.255.255.0
+route add default gw 192.168.10.1
+
+real server2
+ifconfig eth0 192.168.10.3 netmask 255.255.255.0
+route add default gw 192.168.10.1 (配置网关，让数据能出去)
+
+##查看路由表
+route -n
+
+
+
+检测防火墙
+iptables -L -n
+
+service iptables stop
+
+检查se Linux
+
+sestatus
+
+
+LVS要安装ipvsadm软件
+lvs server
+echo "1" > /proc/sys/net/ipv4/ip_forward
+echo 1>/proc/sys/net/ipv4/ip_forward （ip转发表，写1表示开启路由功能，表示这个lvs相当于一个路由器）
+ipvsadm -C （清除以前的转换表）
+ipvsadm -At 8.8.8.8:80 -s rr (A增加一个带调度算法的转换表)
+ipvsadm -at 8.8.8.8:80 -r 192.168.10.2:80 -m （-m表示是以nat技术模式 -g dr模式 -i ip隧道）
+ipvsadm -at 8.8.8.8:80 -r 192.168.10.3:80 -m
+
+ip转发表，写1表示开启路由功能，表示这个lvs相当于一个路由器，
+如果不开启lvs两块网卡之间不能通信，开启了才可以通信
+
+网关，所有数据通道必须的关口。
+
+
+###安装ipsadm
+yum -y install ipvsadm*
+
+
 2）LVS ip-tun模式 （ip隧道技术）
 采用NAT技术是，由于请求和响应的报文和响应报文都必须经过调度器地址重写，
 当用户请求越来越多时，调度器的处理能力将成为瓶颈。为了解决这个问题，
