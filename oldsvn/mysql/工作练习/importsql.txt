@@ -5,3 +5,8 @@ on o.reference_no=jm.reference_no
 set o.ref_tracking_number=jm.tracking_number
 where o.customer_code='C0286'
 
+###更新新的网址
+update customer set customer_logo_save_site=REPLACE(customer_logo_save_site, 'http://203.169.186.130', 'http://120.24.52.244') where customer_logo_save_site!=''
+
+###更新菜鸟数据
+update api_message set file_path=REPLACE(file_path, '/home/apache/www/import', '/var/www/html/import') where file_path!=''
