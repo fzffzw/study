@@ -1289,9 +1289,15 @@ restore [模式选项][选项]
 -f 指定备份文件的文件名
  
 
+####隔断时间运行一次命令用watch
+一秒运行一次
+watch -n 1 'ps aux|grep '/var/www/html/import/wms/auto/shipBatchSubmit.php'|grep -v grep'
 
 
-
+运行shell脚本时候出现
+bad interpreter: No such file or directory
+因为是在window下编写的shell所以要将window下转成linux可以使用doc2unix或者在vi下面用
+:set ff=unix 或 :set fileformat=unix
 
 
 
