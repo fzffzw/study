@@ -5,7 +5,9 @@ df -h
 
 sestatus -b| grep ftp 	(查看ftp的状态)
 
-
+#ftp上传文件提示 错误: 严重文件传输错误
+使用:
+setsebool allow_ftpd_full_access on
 
 ftpd，如果未安装，则执行yum -y install vsftpd,这样将会自动在网上down and setup
   vsftpd。
