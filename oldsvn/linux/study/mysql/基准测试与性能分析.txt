@@ -4,3 +4,16 @@ p48
 
 
 2.2 基准测试策略
+mysql benchmark函数
+set @input := 'hello world';
+select benchmark(10000,md5(@input));
+
+
+测试cpu性能
+安装sysbench
+yum -y install sysbench
+测试cpu
+sysbench --test=cpu --cpu-max-prime=20000 run
+测试io
+sysbench --test=fileio --file-total-size=150G prepare
+
