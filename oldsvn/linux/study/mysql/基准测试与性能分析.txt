@@ -12,8 +12,22 @@ select benchmark(10000,md5(@input));
 测试cpu性能
 安装sysbench
 yum -y install sysbench
-测试cpu
+测试cpu (p59)
 sysbench --test=cpu --cpu-max-prime=20000 run
 测试io
 sysbench --test=fileio --file-total-size=150G prepare
+清楚sysbench为测试创建的文件
+sysbench --test=fileio --file-total-size=150G cleanup
+
+##61测试mysql
+sysbench --test=oltp --oltp-table-size=1000000 --mysql-db=test --mysql-user=root prepare
+
+sysbench --test=oltp -oltp-table-size=1000000 --mysql-db=test --mysql-user=root --max-time=60 --oltp-read-only=on --max-request=0 --num-threads=8 run
+
+p72
+用户时间、系统时间、查询、网络IO、丢失时间
+理想状态下，'丢失时间'越小越好，如果挂钟时间减去所有被测量的时间还有很大的剩余，那么这种剩余
+可能是脚本执行增加的时间，也可能产生页面增加的时间，或者是某个步骤产生的时延
+
+
 
