@@ -197,4 +197,5 @@ show table status like 'ftp_message_shipbatch_order'
 Row_format
 对于myIsam表，可能是dynamic、Fixed、或者Compressed。
 
+InnoDB引擎
 
