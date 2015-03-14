@@ -670,6 +670,29 @@ left join product_uom as pu
 on p.pu_code=pu.pu_code
 where rod.receiving_code='BHR140000992';
 
+
+select r.receiving_code as 入区单号,o.order_code as 订单号,o.ref_tracking_number as 运单号,p.product_sku as 产品sku,
+op.op_quantity as 数量,pu.pu_name,p.goods_id as 料件号,p.hs_code as 商品海关编码,
+p.hs_goods_name as 海关品名,op.op_purpose_declared_value as 单价,
+(op.op_purpose_declared_value*op.op_quantity) as 总价,p.product_weight as 重量,
+rx.refercence_form_id as 分批入区单号,concat(c.customer_lastname,c.customer_firstname) as 客户名称
+from receiving as r
+inner join receiving_order_detail as rod
+on r.receiving_code=rod.receiving_code
+inner join receiving_xml as rx
+on rx.receiving_code=r.receiving_code
+inner join orders as o
+on o.order_code=rod.order_code
+inner join order_product as op
+on op.order_code=rod.order_code
+inner join product as p
+on p.product_id=op.product_id
+inner join customer as c
+on c.customer_code=p.customer_code
+left join product_uom as pu
+on p.pu_code=pu.pu_code
+where rod.receiving_code='BHR150001251';
+
 #####################行邮税导出数据############################
 ####普通产品
 select c.customer_code as 客户代码,o.order_code as 订单号,
