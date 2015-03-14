@@ -716,6 +716,40 @@ awk '条件1{动作1}条件2{动作2}'
 ps aux |grep apache|awk '{printf $2"\t"$10"\n"}'
 awk 'BEGIN{print '读取数据前先输出数据'} {print $2}'
 
+awk [-F  field-separator]  'commands'  input-file(s)
+
+last -n 5 | awk  '{print $1}'
+
+awk工作流程是这样的：读入有'\n'换行符分割的一条记录，
+然后将记录按指定的域分隔符划分域，填充域，
+$0则表示所有域,$1表示第一个域,$n表示第n个域。
+默认域分隔符是"空白键" 或 "[tab]键",所以$1表示登录用户，$3表示登录用户ip,以此类推。
+
+
+cat /etc/passwd |awk  -F ':'  '{print $1"\t"$7}'
+root    /bin/bash
+daemon  /bin/sh
+
+
+如果只是显示/etc/passwd的账户和账户对应的shell,而账户与shell之间以逗号分割,而且在所有行添加列名name,shell,在最后一行添加"blue,/bin/nosh"
+
+cat /etc/passwd |awk  -F ':'  'BEGIN {print "name,shell"}  {print $1","$7} END {print "blue,/bin/nosh"}'
+name,shell
+root,/bin/bash
+daemon,/bin/sh
+bin,/bin/sh
+sys,/bin/sh
+....
+blue,/bin/nosh
+
+
+awk工作流程是这样的：先执行BEGING，然后读取文件，读入有/n换行符分割的一条记录，
+然后将记录按指定的域分隔符划分域，填充域，$0则表示所有域,$1表示第一个域,$n表示第n个域,
+随后开始执行模式所对应的动作action。接着开始读入第二条记录······直到所有的记录都读完，最后执行END操作。
+
+
+
+
 
 
 
@@ -748,7 +782,11 @@ sort 选项 文件名 （排序）
 -t 指定分隔符，默认分隔符是制表符
 -k n[,m] 指定字段范围排序从n开始m结束
 例如
-sort -t ‘:’ -k 3,3 /etc/passwd
+sort -t ‘:’ -k 3,3 /otc/passwd
+t    /bin/bash
+daemon  /bin/sh
+bin     /bin/sh
+sys     /bin/sh
 加上-n字符串
 ################条件判断式####################
 b 判断文件是否存在，并且是块文件
@@ -1317,7 +1355,15 @@ bad interpreter: No such file or directory
 
 
 
-
+范例一：将整个 /etc 目录下的文件全部打包成为 /tmp/etc.tar
+[root@linux ~]# tar -cvf /tmp/etc.tar /etc <==仅打包，不压缩！
+[root@linux ~]# tar -zcvf /tmp/etc.tar.gz /etc <==打包后，以 gzip 压缩
+[root@linux ~]# tar -jcvf /tmp/etc.tar.bz2 /etc <==打包后，以 bzip2 压缩
+# 特别注意，在参数 f 之后的文件档名是自己取的，我们习惯上都用 .tar 来作为辨识。
+# 如果加 z 参数，则以 .tar.gz 或 .tgz 来代表 gzip 压缩过的 tar file ～
+# 如果加 j 参数，则以 .tar.bz2 来作为附档名啊～
+# 上述指令在执行的时候，会显示一个警告讯息：
+# 『tar: Removing leading `/” from member names』那是关於绝对路径的特殊设定。
 
 
 
