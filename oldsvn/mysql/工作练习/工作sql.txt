@@ -240,6 +240,18 @@ and sbd.sbd_add_time>='2014-08-01 00:00:00'
 
 
 
+##2015-02-27前海浩方数据
+SELECT sbd.sb_code as 出区单号,p.goods_id as料件号,op.order_code as 系统订单号,date(sbd.sbd_add_time) 出货时间,p.product_title as 产品中文名称,p.product_sku as sku,p.hs_code as 商品编码,p.hs_goods_name as 海关品名,op.op_purpose_declared_value as 单价,op.op_quantity as 数量,p.pu_code
+FROM `ship_batch_detail` AS sbd
+INNER JOIN `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+INNER JOIN `order_product` AS op ON op.order_code = obd.order_code
+INNER JOIN `product` AS p ON op.product_id = p.product_id
+inner join orders as o on op.order_code=o.order_code
+inner join ship_order as so on o.order_code=so.order_code
+#inner join order_address_book as oab on oab.order_code=o.order_code
+where o.customer_code='E0309'
+and sbd.sbd_add_time>='2015-02-01 00:00:00'
+and sbd.sbd_add_time<='2015-02-27 23:59:59'
 
 #######################################
 

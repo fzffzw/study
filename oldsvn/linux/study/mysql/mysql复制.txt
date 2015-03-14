@@ -1,0 +1,18 @@
+复制有以下步骤
+1 配置一个服务器作为Master
+2 配置一个服务器作为Slave
+3 将Slave连接到Master
+
+
+mysql主从复制和分区技术
+
+1）mysql用户授权
+2）mysql bin-log日志
+3）mysql主从复制
+4）mysql分区技术
+
+#给从服务器设置授权用户
+所有的数据库.所有的表
+grant all slave on *.* to user@ip identified by 'pass'
+
+grant replication slave on *.* to user@192.168.10.% identified by "pass";

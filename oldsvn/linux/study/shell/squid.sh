@@ -3,6 +3,7 @@ function squidinstall()
 {
 	#安装squid软件包
 	yum -y install squid*
+	yum -y install squid
 	#squid 配置文件修改
 	/etc/squid/squid.conf
 	#启动squid服务
