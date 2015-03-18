@@ -19,3 +19,18 @@ update api_message set file_path=REPLACE(file_path, '/home/apache/www/import', '
 delete from ftp_message_shipbatch_order_log where fmso_id<=10411776 limit 500000
 
 
+##更新产品重量
+update product as p
+inner join skuweight as  sw
+on p.product_sku=sw.product_sku
+set p.product_weight=sw.product_weight
+
+##更新法定单位重量，注意要海关编码法定单位是kg的赛选出来
+update hs_uom_map as hum 
+inner join product as p
+on hum.product_id=p.product_id
+set hum.hum_quantity_law=p.product_weight
+where p.product_sku in(
+'DEHPH001',
+'DEHPH002',
+);

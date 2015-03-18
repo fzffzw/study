@@ -197,3 +197,18 @@ lsof -i -P|grep 18767
 p90
 char存储是删除末尾的空格空格
 
+binary和varbinary,用于保存二进制的字符串，二进制字符串和创痛字符串类似，但是它们保存的字节，而不是字符
+。填充也有所不同：mysql使用\0 (0字节)填充Binary值，而不是空格，并且不会在获取数据的时候把填充的值截掉。
+
+blob和text分别以二进制和字符形式保存大量的数据
+blob和text唯一区别就是blob保存的是二进制数据，没有字符集和排序规则，但是text有字符集和排序规则。
+
+
+from_unixtime()把时间戳转换成日期
+unix_timestame()把日期转化成时间戳
+
+timestamp没定义timestamp值，mysql就会把它设置为当前的实际，在更新的时候，如果没有显示定义timestamp
+列的值，mysql也会自动更新它。
+
+
+
