@@ -1373,7 +1373,32 @@ bad interpreter: No such file or directory
 
 
 
+ps aux | sort -k4nr | head -n 5
 
+查看占用CPU最高的5个进程
+	
+ps aux | sort -k3nr | head -n 5
+
+netstat -an|awk '/tcp/ {print $6}'|sort|uniq -c
+
+ps -ef|grep httpd|wc -l
+
+netstat -nat|grep -i "80"|wc -l
+
+netstat -an | grep ESTABLISHED | wc -l
+
+netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+返回
+TIME_WAIT 53
+ESTABLISHED 20
+
+用top查看cpu过高的pid例如27427
+然后用下面命令查看27427是哪个进程
+ps aux | grep 27427
+
+
+
+strace -p 27427 -o /home/william/strace.txt
 
 
 
