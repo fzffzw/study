@@ -37,6 +37,14 @@ find . -inum 787476 -exec mv {} gitstudy.txt \;
 而元数据则是文件的附加属性，如文件大小、创建时间、所有者等信息
 在 Linux 中，元数据中的 inode 号（inode 是文件元数据的一部分但其并不包含文件名，inode 号即索引节点号）才是文件的唯一标识而非文件名
 
+ Linux 系统中查看 inode 号可使用命令 stat 或 ls -i（若是 AIX 系统，则使用命令 istat）。清单 3.中使用命令 mv 移动并重命名文件 glibc-2.16.0.tar.xz，
+其结果不影响文件的用户数据及 inode 号，文件移动前后 inode 号均为：2485677。
+为解决文件的共享使用，Linux 系统引入了两种链接：硬链接 (hard link) 与软链接（又称符号链接，即 soft link 或 symbolic link）。
+链接为 Linux 系统解决了文件的共享使用，还带来了隐藏文件路径、增加权限安全及节省存储等好处。
+若一个 inode 号对应多个文件名，则称这些文件为硬链接。换言之，硬链接就是同一个文件使用了多个别名
+（见 图 2.hard link 就是 file 的一个别名，他们有共同的 inode）。硬链接可由命令 link 或 ln 创建。如下是对文件 oldfile 创建硬链接。
+
+
 由于硬链接是有着相同 inode 号仅文件名不同的文件，因此硬链接存在以下几点特性：
 
     * 文件有相同的 inode 及 data block；
@@ -44,6 +52,36 @@ find . -inum 787476 -exec mv {} gitstudy.txt \;
     * 不能交叉文件系统进行硬链接的创建；
     * 不能对目录进行创建，只可对文件创建；
     * 删除一个硬链接文件并不影响其他有相同 inode 号的文件。
+
+软链接与硬链接不同，若文件用户数据块中存放的内容是另一文件的路径名的指向，则该文件就是软连接。
+软链接就是一个普通文件，只是数据块内容有点特殊。软链接有着自己的 inode 号以及用户数据块（见 图 2.）。
+因此软链接的创建与使用没有类似硬链接的诸多限制：
+
+ // 可对不存在的文件创建软链接
+ # ln -s old.file soft.link 
+ # ls -liF 
+ total 0 
+ 789467 lrwxrwxrwx 1 root root 8 Sep  1 18:00 soft.link -> old.file 
+
+ // 由于被指向的文件不存在，此时的软链接 soft.link 就是死链接
+ # cat soft.link 
+ cat: soft.link: No such file or directory 
+
+ // 创建被指向的文件 old.file，soft.link 恢复成正常的软链接
+ # echo "This is an original file_A" >> old.file 
+ # cat soft.link 
+ This is an original file_A 
+
+ // 对不存在的目录创建软链接
+ # ln -s old.dir soft.link.dir 
+ # mkdir -p old.dir/test 
+ # tree . -F --inodes 
+ . 
+├── [ 789497]  old.dir/ 
+│   └── [ 789498]  test/ 
+├── [ 789495]  old.file 
+├── [ 789495]  soft.link -> old.file 
+└── [ 789497]  soft.link.dir -> old.dir/
 
 
 

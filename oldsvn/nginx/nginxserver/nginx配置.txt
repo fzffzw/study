@@ -1,0 +1,15 @@
+server {
+        listen  80;
+        .....
+
+        location / {
+            root   ........;
+            index  index.php index.html index.htm;
+
+           if (!-e $request_filename) {
+                rewrite "^/(.*)$" /index.php last;
+            }
+           rewrite ^/$/index.php last;
+           rewrite ^/(?!index\.php|js|css|images|component)(.*)$ /index.php/$1 last;
+        }
+}
