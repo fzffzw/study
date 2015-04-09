@@ -1440,6 +1440,20 @@ strace -p 27427 -o /home/william/strace.txt
 
  find / -path /var/log/httpd -type f -name "*.*" | xargs grep "114.112.86.100"
 
+dmidecode -t system
+
+tcpdump -i eth1 host 120.24.52.244 and 114.112.86.100
+
+dmesg |grep -i Ethe
+
+egrep -v "^$|^;" /etc/php.ini|less
+
+cat httpd.conf | egrep -v "^$| #|^#" |less
+
+ls | grep *.bak
+
+getenforce
+
 
 
 
