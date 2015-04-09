@@ -1438,8 +1438,7 @@ ps aux | grep 27427
 
 strace -p 27427 -o /home/william/strace.txt
 
-
-
+ find / -path /var/log/httpd -type f -name "*.*" | xargs grep "114.112.86.100"
 
 
 

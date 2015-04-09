@@ -34,3 +34,16 @@ where p.product_sku in(
 'DEHPH001',
 'DEHPH002',
 );
+
+
+
+###导出报表
+select tp2.ref_no,tmo.* from 
+tmpref2 as tp2
+left join
+(
+select fmso.form_id_xml,o.order_code,o.reference_no
+from ftp_message_shipbatch_order as fmso
+inner join orders as o
+on o.order_code=fmso.order_code) as tmo
+on tp2.ref_no=tmo.form_id_xml
