@@ -1,0 +1,12 @@
+type [-tpa] name
+选项与参数
+	不加任何选项与参数是，type会显示出name是外部指令还是bash内建指令
+-t type会显示如下
+file 表示为外部指令
+alias 表示该指令为命名别名所设定的名称
+builtin 表示该指令为bash内建的指令名称
+
+-p 如果后面接的name为外部指令，才会显示完整的文件名
+-a 会由path变量定义的路径中，将所有name指令都列出来，包括alias
+
+
