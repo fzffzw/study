@@ -1455,6 +1455,11 @@ ls | grep *.bak
 getenforce
 
 
+##sync;sync;reboot
+sync
+在Linux系统中，当数据需要存入磁盘时，通常会先放到缓冲区内，等到适当的时刻再写入磁盘，如此可提高系统的执行效率。
+
+echo $PATH|cut -d ':' -f 5;
 
 
 
