@@ -9,4 +9,30 @@ builtin 表示该指令为bash内建的指令名称
 -p 如果后面接的name为外部指令，才会显示完整的文件名
 -a 会由path变量定义的路径中，将所有name指令都列出来，包括alias
 
+如果要删除热键
+stty erase ^h
+
+
+p406
+col
+-x tab键转成对等的空格键
+-b 在文字内有反斜杠时，仅保留反斜杠最后接的那个字符
+
+
+join
+-t join默认以空格分隔数据，并且对比第一个字段数据，如果两个档案相同，则两笔数据联成一行，且第一个字段放在第一个。
+-i 忽略大小写差异
+
+paste
+paste比join简单多了，相对于join必须要对比两个胆敢的相关性，paste就直接将两行粘在一起，中间tab隔开
+
+paste [-d] file1 file2
+-d 后面可以接分隔符，预设以tab分隔
+如果file部分写成-，表示来之standard input的资料的意思
+
+expand [-t] file (将tab转成空格)
+-t 
+
+p410
+xagrs
 
