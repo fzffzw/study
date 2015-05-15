@@ -36,3 +36,7 @@ expand [-t] file (将tab转成空格)
 p410
 xagrs
 
+查出所有登录的客户
+last | cut -d ' ' -f 1|sort|uniq
+
+十二章 正则表达式和文件格式化处理

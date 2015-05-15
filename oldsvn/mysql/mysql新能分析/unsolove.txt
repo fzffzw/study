@@ -1,0 +1,13 @@
+S的空间不够了，就把S换了一个系统，继续跑，这时S落了20个小时的数据，但是发现S补的数据还不如M快， Seconds_Behind_Master: 54400，
+发现这个值越来越大，mysql版本5.5，请问一下大家，这种情况，瓶颈可能发生在哪？
+dstat
+----total-cpu-usage---- -dsk/total- -net/total- ---paging-- ---system--
+usr sys idl wai hiq siq| read  writ| recv  send|  in   out | int   csw 
+ 26   1  72   0   0   1|9172B  265k|   0     0 |   0     0 |4611  5009 
+
+binlog_foramt
+
+ 使用非row还可能会导致数据的丢失
+ 
+ 那就直接使用mixed
+ 

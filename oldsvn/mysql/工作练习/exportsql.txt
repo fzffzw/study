@@ -1,0 +1,12 @@
+###更改postcode数据
+select * from postcode where country_id=468;
+update postcode set postcode_no=concat('000',postcode_no) where  country_id=468 and length(postcode_no)=1;
+update postcode set postcode_no=concat('00',postcode_no) where  country_id=468 and length(postcode_no)=2;
+update postcode set postcode_no=concat('0',postcode_no) where  country_id=468 and length(postcode_no)=3;
+
+超过5
+select *,SUBSTR(postcode_no FROM 2 FOR 5) from postcode where country_id=154 and LENGTH(postcode_no)>5
+
+update postcode set postcode_no=SUBSTR(postcode_no FROM 2 FOR 5) where country_id=154 and LENGTH(postcode_no)>5
+
+

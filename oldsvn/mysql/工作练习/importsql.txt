@@ -63,6 +63,22 @@ where o.customer_code='C0286'
 and o.add_time>='2015.4.10 16:54:00'
 
 
+select o.order_code,o.reference_no,p.product_sku,op.op_price as 单价,op.op_quantity as 数量,op.op_price*op.op_quantity as totalvalue,op.op_price*op.op_quantity*gts.gt_rate as xys,o.order_status,gts.gt_rate as 税率,fmso.fml_status,sum(op.op_price*op.op_quantity*gts.gt_rate) as totalxys
+from orders as o
+inner join order_product as op
+on o.order_code=op.order_code
+inner join ftp_message_shipbatch_order as fmso
+on fmso.order_code=o.order_code
+inner join product as p
+on p.product_id=op.product_id
+inner join goods_tax as gts
+on gts.gt_id=p.gt_id
+where o.customer_code='C0286'
+and fmso.fml_status='3'
+group by o.order_code
+having(totalxys)>=50
+
+
 
 
 
