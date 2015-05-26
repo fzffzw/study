@@ -1,0 +1,18 @@
+yum -y install libssh2*
+
+进入ssh的目录
+例如
+/root/software/ssh2-0.11.3
+执行
+/usr/local/php/bin/phpize
+
+然后执行
+
+./configure --with-ssh2 --with-php-config=/usr/local/webserver/php/bin/php-config
+
+在执行
+make&&make install
+
+再讲生成的ssh2.so加到php的配置文件
+然后重启apache
+

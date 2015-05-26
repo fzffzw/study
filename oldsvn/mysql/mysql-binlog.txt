@@ -2,3 +2,70 @@ mysqlbinlog --start-datetime="2014-05-27 8:10:00" --stop-datetim="2014-05-27 19:
 
 
 /opt/mysql/bin/mysqlbinlog --start-datetime="2014-09-29 18:10:00" --stop-datetim="2014-09-29 21:30:00" --set-charset=utf8  --database=export_wms /var/mysql/3306/data/mysql-bin.000009 --result-file=result.sql
+
+
+
+/usr/bin/mysqlbinlog --base64-output=decode-rows -v --start-datetime="2015-05-22 13:00:00" --set-charset=utf8 --database=export /mnt/data/mysql/mysql-bin.000016 --result-file=result16.sql
+
+
+/usr/bin/mysqlbinlog  -vv --start-datetime="2015-05-22 13:00:00" --set-charset=utf8 --database=export /mnt/data/mysql/mysql-bin.000016 --result-file=result16.sql
+
+
+iconv -t utf-8 -f gb2312 -c result_resource.sql > new_result_resource.sql_utf8.sql
+
+
+
+iconv -t utf-8 -f gb2312 -c result16.sql > result16.sql.utf-8.sql
+
+
+
+–base64-output -v
+
+
+
+/usr/bin/mysqlbinlog --base64-output=decode-rows -v --start-date='2015-05-22 13:00:00' /mnt/data/mysql/mysql-bin.000016 >/root/16.sql
+
+
+/usr/local/webserver/mysql/bin/mysqlbinlog --base64-output=decode-rows -v --start-date='2015-05-22 13:00:00' /mnt/data/mysql/mysql-bin.000017 >/root/17.sql
+
+
+
+/usr/bin/mysqlbinlog --base64-output=decode-rows -v --start-datetime="2015-05-22 13:00:00" --set-charset=utf8 --database=export /mnt/data/mysql/mysql-bin.000016
+
+
+
+mysqlbinlog  --start-date="2015 16:30:00" --stop-date="2012-10-15 17:00:00" mysql_bin.000001 |mysql -uroot -p123456 
+
+
+
+
+
+/usr/bin/mysqlbinlog  --start-datetime="2015-05-22 12:00:00" --stop-date="2015-05-22 17:07:00" --set-charset=utf8 --database=export /mnt/data/mysql/mysql-bin.000016 |mysql -uroot -p123@123!
+
+
+
+/usr/local/webserver/mysql/bin/mysqlbinlog  --start-datetime="2015-05-22 12:00:00" --stop-datetim="2015-05-22 17:07:00" --set-charset=utf8 --database=export /mnt/data/mysql/mysql-bin.000001 |mysql -uroot -p123@123!
+
+
+
+/usr/local/webserver/mysql/bin/mysqlbinlog --base64-output=decode-rows -v --start-datetime="2015-05-22 13:00:00" --set-charset=utf8 --database=export /mnt/data/mysql/mysql-bin.000016 --result-file=result16.sql
+
+
+
+Warning: Using unique option prefix stop-date instead of stop-datetime is deprecated and will be removed in a future release. Please use the full name instead.
+
+
+
+
+/usr/local/webserver/mysql/bin/mysqlbinlog  --start-datetime="2015-05-22 12:00:00" --stop-datetim="2015-05-22 17:07:00" --set-charset=utf8 --database=export |mysql -uroot -p123@123!
+
+
+
+/usr/local/webserver/mysql/bin/mysqlbinlog  --start-datetime="2015-05-22 12:00:00"  --set-charset=utf8 --database=export /mnt/data/mysql/mysql-bin.000001 |mysql -uroot -p123@123!
+
+
+/usr/local/webserver/mysql/bin/mysqlbinlog  --start-datetime="2015-05-22 12:00:00"  --set-charset=utf8 --database=export /mnt/data/mysql/mysql-bin.000006 |mysql -uroot -p123@123!
+
+
+
+/usr/local/webserver/mysql/bin/mysqlbinlog  --start-datetime="2015-05-22 12:00:00" --stop-datetim="2015-05-22 17:07:00" --set-charset=utf8 --database=export |mysql -uroot -p123@123!

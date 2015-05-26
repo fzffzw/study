@@ -1,0 +1,4 @@
+##从binlog导出文件
+/usr/bin/mysqlbinlog --base64-output=decode-rows -v --start-datetime="2015-05-22 13:00:00" --set-charset=utf8 --database=export /mnt/data/mysql/mysql-bin.000016 >> /root/16.sql
+从mysqlbinglog中恢复文件
+/path/mysqlbinlog  --start-datetime="2015-05-22 12:00:00"  --set-charset=utf8 --database=dbname /mnt/data/mysql/mysql-bin.000001 |mysql -uroot -pPname

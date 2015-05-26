@@ -9,4 +9,6 @@ select *,SUBSTR(postcode_no FROM 2 FOR 5) from postcode where country_id=154 and
 
 update postcode set postcode_no=SUBSTR(postcode_no FROM 2 FOR 5) where country_id=154 and LENGTH(postcode_no)>5
 
+##备份某个表
+mysqldump -u root -p842101 -d cargo_tms --table tablename
 
