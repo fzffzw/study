@@ -12,3 +12,42 @@ update postcode set postcode_no=SUBSTR(postcode_no FROM 2 FOR 5) where country_i
 ##备份某个表
 mysqldump -u root -p842101 -d cargo_tms --table tablename
 
+
+###插入到city表数据
+insert into city(country_id,country_name,city_name)
+select c.country_id,cp.country_name,cp.city_name
+from city_post2 as cp
+inner join country as c
+on cp.country_code=c.country_code 
+group by concat(cp.country_code,cp.city_name)
+
+##插入到postcode表数据
+insert into postcode(country_id,city_id,postcode_no,postcode_no_end) select cty.country_id,cty.city_id,ctm.post_code_start,ctm.post_code_end from city as cty
+inner join (
+select c.country_id,cp.*
+from city_post2 as cp
+inner join country as c
+) ctm
+on cty.country_id=ctm.country_id
+where cty.city_name=ctm.city_name
+
+###查询城市有重复的数据
+(SELECT * FROM `sm_country_map` WHERE (1 =1) AND (country_id in(0, '253')) AND (warehouse_id in(0, '1')) AND (province_id in(0, 0))
+AND (sm_id = '19') 
+group by city_id) as gsm
+select * from
+(
+SELECT * FROM `sm_country_map` WHERE (1 =1) AND (country_id in(0, '253')) AND (warehouse_id in(0, '1')) AND (province_id in(0, 0))
+AND (sm_id = '19')
+) as allsm
+left join 
+(
+SELECT * FROM `sm_country_map` WHERE (1 =1) AND (country_id in(0, '253')) AND (warehouse_id in(0, '1')) AND (province_id in(0, 0))
+AND (sm_id = '19') 
+group by city_id
+) as gsm
+on allsm.smcm_id=gsm.smcm_id
+
+
+
+

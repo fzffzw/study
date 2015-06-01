@@ -1462,11 +1462,24 @@ sync
 echo $PATH|cut -d ':' -f 5;
 
 
+不记录history
+export HISTCONTROL=ignorespace
+然后你输入的命令前加个空格，就会被history过滤。
+ignoredups 表示去除重复
+ignoreboth:空格开头和重复的都忽略
+详情见 http://www.educity.cn/it/1635982.html
 
 
+scp
+远程到本地
+scp -r /home/ root@120.24.90.64:/home/export.sql.tar.gz
 
 
+   tar -zcvf /tmp/etc.tar.gz /etc <==打包后，以 gzip 压缩
 
+ scp local_file remote_username@remote_ip:remote_folder 
+ 
+scp local_file remote_username@remote_ip:remote_file 
 
 
 

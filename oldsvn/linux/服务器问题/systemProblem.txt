@@ -12,3 +12,5 @@ client端频繁建立连接，而端口释放较慢，导致建立新连接时�
 sysctl -w net.ipv4.tcp_timestamps=1  开启对于TCP时间戳的支持,若该项设置为0，则下面一项设置不起作用
 sysctl -w net.ipv4.tcp_tw_recycle=1  表示开启TCP连接中TIME-WAIT sockets的快速回收
 
+
+touch: 无法创建"test": 输入/输出错误
