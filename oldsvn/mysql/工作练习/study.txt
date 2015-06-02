@@ -1,0 +1,3 @@
+使用procedure analyse()显示最佳类型的建议，
+使用很简单，在select语句后面加上procedure analyse()就可以了；例如：
+select * from api_jibao_header procedure analyse();
