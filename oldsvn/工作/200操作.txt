@@ -92,3 +92,15 @@
 
  821  /opt/rabbitmq_server/sbin/rabbitmq-server --detached
 
+
+setsebool ftpd_disable_trans 1
+
+  setsebool ftpd_disable_trans 1
+  
+   sestatus -b| grep ftp
+   
+  setsebool allow_ftpd_full_access 1
+   
+
+setsebool -P allow_ftpd_anon_write=1 allow_ftpd_full_access=1 ftp_home_dir=1 ftpd_disable_trans=1 ftpd_is_daemon=1
+

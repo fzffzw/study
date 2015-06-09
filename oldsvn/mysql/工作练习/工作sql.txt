@@ -27,6 +27,7 @@ where sbd.sb_code='xxxx' AND (hu.pu_code_law='035' OR hu.pu_code_second='035');
 
 
 ##########集报相关####################################
+api_jibao_gather_details_before数据
 #jibao_tmp_avg
 SELECT SUM( op.op_quantity ) AS number, g_qty / SUM( op.op_quantity ) AS avg, jt. * 
 FROM  `jibao_tmp` AS jt
@@ -148,6 +149,16 @@ where o.customer_code='E0259'
 GROUP BY p.product_sku
 
 
+SELECT op.order_code as 系统订单号,p.hs_code as 商品编码,p.product_sku as sku,p.product_title as 商品名称,p.goods_id as料件号,op.op_quantity as 数量,
+o.reference_no as reference,sbd.sb_code as 出区单号,date(sbd.sbd_add_time) ship_date
+FROM  `ship_batch_detail` AS sbd
+INNER JOIN  `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+INNER JOIN  `order_product` AS op ON op.order_code = obd.order_code
+INNER JOIN  `product` AS p ON op.product_id = p.product_id
+inner join orders as o on op.order_code=o.order_code
+where o.customer_code='E0298'
+and sbd.sbd_add_time>='2015-05-01 00:00:00' and  sbd.sbd_add_time<='2015-05-31 23:59:59' 
+#GROUP BY p.product_sku
 
 
 
