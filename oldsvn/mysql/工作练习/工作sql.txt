@@ -223,7 +223,20 @@ inner join orders as o on op.order_code=o.order_code
 where o.customer_code='E0238'
 and sbd.sbd_add_time>='2014-08-01 00:00:00' 
 
-
+##西递
+SELECT op.order_code as 系统订单号,p.hs_code as 商品编码,p.product_sku as sku,p.product_title as 商品名称,p.goods_id as料件号,op.op_quantity as 数量,
+o.reference_no as reference,sbd.sb_code as 出区单号,date(sbd.sbd_add_time) 出区单创建时间
+FROM  `ship_batch_detail` AS sbd
+INNER JOIN  `outbound_bag_detail` AS obd ON sbd.ob_no = obd.ob_no
+INNER JOIN  `order_product` AS op ON op.order_code = obd.order_code
+INNER JOIN  `product` AS p ON op.product_id = p.product_id
+inner join orders as o on op.order_code=o.order_code
+where o.customer_code='E0248'
+and sbd.sb_code in(
+'BHC150001680',
+'BHC150001677',
+'BHC150001678'
+)
 
 SELECT op.order_code as 系统订单号,p.product_sku as sku,p.hs_code as 商品编码,p.hs_goods_name as 海关品名,p.goods_id as料件号,op.op_quantity as 数量,
 o.reference_no as reference,sbd.sb_code as 出区单号,date(sbd.sbd_add_time) ship_date

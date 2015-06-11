@@ -7,5 +7,8 @@ GRANT ALL PRIVILEGES ON wms.* TO 'root'@'192.168.25.128' IDENTIFIED BY '123456' 
 
 flush privileges;
 
-授权所有ip 用户为master 密码为master
+锟斤拷权锟斤拷锟斤拷ip 锟矫伙拷为master 锟斤拷锟斤拷为master
 GRANT ALL PRIVILEGES ON *.* TO'master'@'%' IDENTIFIED BY 'master' WITH GRANT OPTION;
+
+
+GRANT ALL PRIVILEGES ON *.* TO'virtualuser'@'%' IDENTIFIED BY '842101';

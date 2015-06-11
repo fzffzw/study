@@ -1,0 +1,54 @@
+p75
+ip与mac：链接层的arp与rarp协议
+
+arp -[nd] hostname
+-n 将主机名以ip形态显示
+-d 设定某个ip或者hostname的MAC到ARP table当中
+
+arp -n
+Address                  HWtype  HWaddress           Flags Mask            Iface
+192.168.206.1            ether   00:50:56:C0:00:08   C                     eth0
+
+2.3.8 ICMP 协定
+ICMP 的全名是『 Internet Control Message Protocol, 因特网讯息控制协议 』
+
+类别代号 		类别名称与意义 
+0 			Echo Reply (代表一个响应信息) 
+3 			Destination Unreachable (表示目的地不可到达) 
+4 			Source Quench (当 router 的负载过高时，此类别码可用来让发送端停止发送讯息) 
+5 			Redirect (用来重新导向路由路径的信息) 
+8			Echo Request (请求响应消息) 
+11			Time Exceeded for a Datagram (当数据封包在某些路由传送的现象中造成逾时状态，此类别码可告知来源该封包已被忽略的讯息) 
+12 			Parameter Problem on a Datagram (当一个 ICMP 封包重复之前的错误时，会回复来源主机关于参数错误的讯息) 
+13			Timestamp Request (要求对方送出时间讯息，用以计算路由时间的差异，以满足同步性协议的要求) 
+14 			Timestamp Reply (此讯息纯粹是响应 Timestamp Request 用的) 
+15 			Information Request (在 RARP 协议应用之前，此讯息是用来在开机时取得网络信息) 
+16 			Information Reply (用以响应 Infromation Request 讯息) 
+17 			Address Mask Request (这讯息是用来查询子网 mask 设定信息) 
+18			Address Mask Reply (响应子网 mask 查询讯息的)
+
+ICMP 封包可以帮助联机的状态回报
+
+##tcp 三次握手
+第一次
+
+第一次握手：建立连接时，客户端发送syn包（syn=j）到服务器，并进入SYN_SENT状态，等待服务器确认；
+SYN：同步序列编号（Synchronize Sequence Numbers）。
+第二次
+
+第二次握手：服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），
+即SYN+ACK包，此时服务器进入SYN_RECV状态；
+第三次
+
+第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=k+1），此包发送完毕，
+客户端和服务器进入ESTABLISHED（TCP连接成功）状态，完成三次握手。
+完成三次握手，客户端与服务器开始传送数据，在上述过程中，还有一些重要的概念：
+
+##UDP协议
+user Datagram Protocol用户数据流协议。
+
+##DNS
+Domain Name System
+
+
+
