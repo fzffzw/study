@@ -2,6 +2,11 @@
 /usr/bin/mysqlbinlog --base64-output=decode-rows -v --start-datetime="2015-05-22 13:00:00" --set-charset=utf8 --database=export /mnt/data/mysql/mysql-bin.000016 >> /root/16.sql
 从mysqlbinglog中恢复文件
 /path/mysqlbinlog  --start-datetime="2015-05-22 12:00:00"  --set-charset=utf8 --database=dbname /mnt/data/mysql/mysql-bin.000001 |mysql -uroot -pPname
+###binlog恢复export数据库
+/usr/local/webserver/mysql/bin/mysqlbinlog  --start-datetime="2015-05-22 12:00:00"  --set-charset=utf8 --database=export /mnt/data/mysql/mysql-bin.000001 |mysql -uroot -pPname
+
 
 导出的sql文件是乱码原因是binlog的版本不一致
 /usr/local/webserver/mysql/bin/mysqlbinlog --no-defaults -vvv --base64-output=DECODE-ROWS --start-datetime="2015-05-22 13:00:00" --database=export /mnt/data/mysql/mysql-bin.000016 > /path/162.sql
+
+/usr/local/webserver/mysql/bin/mysqlbinlog --no-defaults -vvv --base64-output=DECODE-ROWS --start-datetime="2015-06-11 11:50:00"  --stop-datetime="2015-06-11 11:55:00"  --database=export /mnt/data/mysql/mysql-bin.000024 > /home/0611.sql

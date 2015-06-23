@@ -131,3 +131,5 @@ on o.order_code=fmso.order_code
 where fmso.fml_update_time<='2015-04-30 23:59:59'
 and fmso.fml_status='3'
 
+###更新数据
+update api_message set file_path=REPLACE(file_path, '/home/apache/www/import', '/var/www/html/import') where file_path!=''

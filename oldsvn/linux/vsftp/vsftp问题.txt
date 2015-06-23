@@ -51,11 +51,11 @@ Could not change active booleans: Invalid boolean
 ”
 
 可以执行以下命令
-setsebool allow_ftpd_full_access  1
-setsebool allow_ftpd_use_cifs 1
-setsebool allow_ftpd_use_nfs 1
+ setsebool allow_ftpd_full_access  1
+ setsebool allow_ftpd_use_cifs 1
+ setsebool allow_ftpd_use_nfs 1
  setsebool ftp_home_dir  1
-setsebool httpd_enable_ftp_server 1
-setsebool tftp_anon_write 1
+ setsebool httpd_enable_ftp_server 1
+ setsebool tftp_anon_write 1
 
 6、 service vsftpd restart
