@@ -1,4 +1,4 @@
-##page 9
+﻿##page 9
 4、“.ibd”文件和ibdata 文件
 这两种文件都是存放Innodb 数据的文件，之所以有两种文件来存放Innodb 的数据
 （包括索引），是因为Innodb 的数据存储方式能够通过配置来决定是使用
@@ -81,6 +81,8 @@ Innodb 改变了MyISAM 的锁机制，实现了行锁。虽然Innodb 的行锁�
 存储引擎，这样即使我们在安装编译的时候将Innodb 存储引擎安装进去了，使用者也无法
 创建Innodb 的表
 
+
+/etc/services
 
 
 
