@@ -1,59 +1,80 @@
-±¸·Ý
+å¤‡ä»½
 E:\wamp\bin\mysql\mysql5.5.8\bin\mysqldump -u root -p842101 cargo_tms > E:/cargo.sql
 
 E:\wamp\bin\mysql\mysql5.5.8\bin\mysqldump -u root -p842101 -d cargo_tms > E:/cargo2.sql
 
-Ö»±¸·Ý±í½á¹¹¼ÓÈë
+åªå¤‡ä»½è¡¨ç»“æž„åŠ å…¥
 E:\wamp\bin\mysql\mysql5.5.8\bin\mysqldump -u root -p842101 -d cargo_tms > E:/cargo2.sql
 
 mysqldump -u root -p842101 -d cargo_tms > /var/www/html/cargo2.sql
-»¹Ô­
+è¿˜åŽŸ
 E:\wamp\bin\mysql\mysql5.5.8\bin\mysqlimport -u root -p842101 cargotms3 E:/cargo.sql
 
+/usr/bin/mysqldump -u cargo -pCargo_db2015 -h baohongcargo.mysql.rds.aliyuncs.com import_wms \
+--ignore-table=import_wms.product_goods  \
+--ignore-table=import_wms.product_goods2  \
+--ignore-table=import_wms.product_goods_log  \
+--ignore-table=import_wms.product_log  \
+--ignore-table=import_wms.api_message  \
+--ignore-table=import_wms.ftp_message_shipbatch_order_log \
+--ignore-table=import_wms.temp_order   \
+--ignore-table=import_wms.temp_order1   \
+--ignore-table=import_wms.temp_order2   \
+--ignore-table=import_wms.temp_order3   \
+--ignore-table=import_wms.temp_order4   \
+--ignore-table=import_wms.temp_order5   \
+--ignore-table=import_wms.temp_order_tax   \
+--ignore-table=import_wms.temp_table \
+--ignore-table=import_wms.tm_logistic_order_log \
+--ignore-table=import_wms.tm_order_log \
+--ignore-table=import_wms.tmorder2 \
+--ignore-table=import_wms.tmorder \
+>/home/import_wms0720-s.sql
 
-Ïê½â
+
+è¯¦è§£
 http://blog.sina.com.cn/s/blog_7429b9c80100rpg1.html
 
-³£¼ûÑ¡Ïî£º
---all-databases, -A£º ±¸·ÝËùÓÐÊý¾Ý¿â
---databases, -B£º ÓÃÓÚ±¸·Ý¶à¸öÊý¾Ý¿â£¬Èç¹ûÃ»ÓÐ¸ÃÑ¡Ïî£¬mysqldump °ÑµÚÒ»¸öÃû×Ö²ÎÊý×÷ÎªÊý¾Ý¿âÃû£¬ºóÃæµÄ×÷Îª±íÃû¡£Ê¹ÓÃ¸ÃÑ¡Ïî£¬mysqldum°ÑÃ¿¸öÃû×Ö¶¼µ±×÷ÎªÊý¾Ý¿âÃû¡£
---force, -f£º¼´Ê¹·¢ÏÖsql´íÎó£¬ÈÔÈ»¼ÌÐø±¸·Ý
---host=host_name, -h host_name£º±¸·ÝÖ÷»úÃû£¬Ä¬ÈÏÎªlocalhost
---no-data, -d£ºÖ»µ¼³ö±í½á¹¹
---password[=password], -p[password]£ºÃÜÂë
---port=port_num, -P port_num£ºÖÆ¶¨TCP/IPÁ¬½ÓÊ±µÄ¶Ë¿ÚºÅ
---quick, -q£º¿ìËÙµ¼³ö
---tables£º¸²¸Ç --databases or -BÑ¡Ïî£¬ºóÃæËù¸ú²ÎÊý±»ÊÓ×÷±íÃû
---user=user_name, -u user_name£ºÓÃ»§Ãû
---xml, -X£ºµ¼³öÎªxmlÎÄ¼þ
-1.±¸·ÝÈ«²¿Êý¾Ý¿âµÄÊý¾ÝºÍ½á¹¹
+å¸¸è§é€‰é¡¹ï¼š
+--all-databases, -Aï¼š å¤‡ä»½æ‰€æœ‰æ•°æ®åº“
+--databases, -Bï¼š ç”¨äºŽå¤‡ä»½å¤šä¸ªæ•°æ®åº“ï¼Œå¦‚æžœæ²¡æœ‰è¯¥é€‰é¡¹ï¼Œmysqldump æŠŠç¬¬ä¸€ä¸ªåå­—å‚æ•°ä½œä¸ºæ•°æ®åº“åï¼ŒåŽé¢çš„ä½œä¸ºè¡¨åã€‚ä½¿ç”¨è¯¥é€‰é¡¹ï¼ŒmysqldumæŠŠæ¯ä¸ªåå­—éƒ½å½“ä½œä¸ºæ•°æ®åº“åã€‚
+--force, -fï¼šå³ä½¿å‘çŽ°sqlé”™è¯¯ï¼Œä»ç„¶ç»§ç»­å¤‡ä»½
+--host=host_name, -h host_nameï¼šå¤‡ä»½ä¸»æœºåï¼Œé»˜è®¤ä¸ºlocalhost
+--no-data, -dï¼šåªå¯¼å‡ºè¡¨ç»“æž„
+--password[=password], -p[password]ï¼šå¯†ç 
+--port=port_num, -P port_numï¼šåˆ¶å®šTCP/IPè¿žæŽ¥æ—¶çš„ç«¯å£å·
+--quick, -qï¼šå¿«é€Ÿå¯¼å‡º
+--tablesï¼šè¦†ç›– --databases or -Bé€‰é¡¹ï¼ŒåŽé¢æ‰€è·Ÿå‚æ•°è¢«è§†ä½œè¡¨å
+--user=user_name, -u user_nameï¼šç”¨æˆ·å
+--xml, -Xï¼šå¯¼å‡ºä¸ºxmlæ–‡ä»¶
+1.å¤‡ä»½å…¨éƒ¨æ•°æ®åº“çš„æ•°æ®å’Œç»“æž„
 mysqldump -uroot -p123456 -A >F:\all.sql
-2.±¸·ÝÈ«²¿Êý¾Ý¿âµÄ½á¹¹£¨¼Ó -d ²ÎÊý£©
+2.å¤‡ä»½å…¨éƒ¨æ•°æ®åº“çš„ç»“æž„ï¼ˆåŠ  -d å‚æ•°ï¼‰
 mysqldump -uroot -p123456 -A -d>F:\all_struct.sql
-3.±¸·ÝÈ«²¿Êý¾Ý¿âµÄÊý¾Ý(¼Ó -t ²ÎÊý)
+3.å¤‡ä»½å…¨éƒ¨æ•°æ®åº“çš„æ•°æ®(åŠ  -t å‚æ•°)
 mysqldump -uroot -p123456 -A -t>F:\all_data.sql
-4.±¸·Ýµ¥¸öÊý¾Ý¿âµÄÊý¾ÝºÍ½á¹¹(,Êý¾Ý¿âÃûmydb)
+4.å¤‡ä»½å•ä¸ªæ•°æ®åº“çš„æ•°æ®å’Œç»“æž„(,æ•°æ®åº“åmydb)
 mysqldump -uroot -p123456 mydb>F:\mydb.sql
-5.±¸·Ýµ¥¸öÊý¾Ý¿âµÄ½á¹¹
+5.å¤‡ä»½å•ä¸ªæ•°æ®åº“çš„ç»“æž„
 mysqldump -uroot -p123456 mydb -d>F:\mydb.sql
-6.±¸·Ýµ¥¸öÊý¾Ý¿âµÄÊý¾Ý
+6.å¤‡ä»½å•ä¸ªæ•°æ®åº“çš„æ•°æ®
 mysqldump -uroot -p123456 mydb -t>F:\mydb.sql
-7.±¸·Ý¶à¸ö±íµÄÊý¾ÝºÍ½á¹¹£¨Êý¾Ý£¬½á¹¹µÄµ¥¶À±¸·Ý·½·¨ÓëÉÏÍ¬£©
+7.å¤‡ä»½å¤šä¸ªè¡¨çš„æ•°æ®å’Œç»“æž„ï¼ˆæ•°æ®ï¼Œç»“æž„çš„å•ç‹¬å¤‡ä»½æ–¹æ³•ä¸Žä¸ŠåŒï¼‰
 mysqldump -uroot -p123456  mydb t1 t2 >f:\multables.sql
-8.Ò»´Î±¸·Ý¶à¸öÊý¾Ý¿â
+8.ä¸€æ¬¡å¤‡ä»½å¤šä¸ªæ•°æ®åº“
 mysqldump -uroot -p123456 --databases db1 db2 >f:\muldbs.sql
-»¹Ô­²¿·Ö·Ö£¨1£©mysqlÃüÁîÐÐsource·½·¨  ºÍ £¨2£©ÏµÍ³ÃüÁîÐÐ·½·¨
-1.»¹Ô­È«²¿Êý¾Ý¿â:
-(1) mysqlÃüÁîÐÐ£ºmysql>source f:\all.sql
-(2) ÏµÍ³ÃüÁîÐÐ£º mysql -uroot -p123456 <f:\all.sql
-2.»¹Ô­µ¥¸öÊý¾Ý¿â(ÐèÖ¸¶¨Êý¾Ý¿â)
+è¿˜åŽŸéƒ¨åˆ†åˆ†ï¼ˆ1ï¼‰mysqlå‘½ä»¤è¡Œsourceæ–¹æ³•  å’Œ ï¼ˆ2ï¼‰ç³»ç»Ÿå‘½ä»¤è¡Œæ–¹æ³•
+1.è¿˜åŽŸå…¨éƒ¨æ•°æ®åº“:
+(1) mysqlå‘½ä»¤è¡Œï¼šmysql>source f:\all.sql
+(2) ç³»ç»Ÿå‘½ä»¤è¡Œï¼š mysql -uroot -p123456 <f:\all.sql
+2.è¿˜åŽŸå•ä¸ªæ•°æ®åº“(éœ€æŒ‡å®šæ•°æ®åº“)
 (1) mysql>use mydb
 mysql>source f:\mydb.sql
 (2) mysql -uroot -p123456 mydb <f:\mydb.sql
-3.»¹Ô­µ¥¸öÊý¾Ý¿âµÄ¶à¸ö±í(ÐèÖ¸¶¨Êý¾Ý¿â)
+3.è¿˜åŽŸå•ä¸ªæ•°æ®åº“çš„å¤šä¸ªè¡¨(éœ€æŒ‡å®šæ•°æ®åº“)
 (1) mysql>use mydb
 mysql>source f:\multables.sql
 (2) mysql -uroot -p123456 mydb <f:\multables.sql
-4.»¹Ô­¶à¸öÊý¾Ý¿â£¬£¨Ò»¸ö±¸·ÝÎÄ¼þÀïÓÐ¶à¸öÊý¾Ý¿âµÄ±¸·Ý£¬´ËÊ±²»ÐèÒªÖ¸¶¨Êý¾Ý¿â£©
-(1) mysqlÃüÁîÐÐ£ºmysql>source f:\muldbs.sql
-(2) ÏµÍ³ÃüÁîÐÐ£º mysql -uroot -p123456 <f:\muldbs.sql
+4.è¿˜åŽŸå¤šä¸ªæ•°æ®åº“ï¼Œï¼ˆä¸€ä¸ªå¤‡ä»½æ–‡ä»¶é‡Œæœ‰å¤šä¸ªæ•°æ®åº“çš„å¤‡ä»½ï¼Œæ­¤æ—¶ä¸éœ€è¦æŒ‡å®šæ•°æ®åº“ï¼‰
+(1) mysqlå‘½ä»¤è¡Œï¼šmysql>source f:\muldbs.sql
+(2) ç³»ç»Ÿå‘½ä»¤è¡Œï¼š mysql -uroot -p123456 <f:\muldbs.sql

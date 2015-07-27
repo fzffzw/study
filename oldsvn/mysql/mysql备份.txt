@@ -1,10 +1,10 @@
-±¸·İ
+å¤‡ä»½
 cd /tmp
 mkdir gmbak
 chown mysql:mysql gmbak
 mysqldump -u root -p --tab=/tmp/gmbak gm
-»Ö¸´
+æ¢å¤
 cd /tmp
-cat gmbak/*.sql | grep mysql -uroot -p gm           //»Ö¸´±í½á¹¹
-mysqlimport -uroot -p gm gmbak/*.txt --local        //»Ö¸´Êı¾İ
-ÉÏÀıÖĞgm ÊÇdb name
+cat gmbak/*.sql | grep mysql -uroot -p gm           //æ¢å¤è¡¨ç»“æ„
+mysqlimport -uroot -p gm gmbak/*.txt --local        //æ¢å¤æ•°æ®
+ä¸Šä¾‹ä¸­gm æ˜¯db name

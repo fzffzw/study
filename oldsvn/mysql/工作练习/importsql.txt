@@ -133,3 +133,141 @@ and fmso.fml_status='3'
 
 ###更新数据
 update api_message set file_path=REPLACE(file_path, '/home/apache/www/import', '/var/www/html/import') where file_path!=''
+
+
+####07-21
+导出审核的申报价值
+select o.order_id, o.order_code as 订单号,o.reference_no 交易订单号,
+p.product_sku as sku,
+op.op_quantity as 数量,
+op.op_price as 申报单价,
+op.op_total_price as 申报总价,
+gts.gt_rate as 税率
+from orders as o
+inner join order_product as op
+on o.order_code=op.order_code
+inner join ftp_message_shipbatch_order as fmso
+on fmso.order_code=o.order_code
+inner join product as p
+on p.product_id=op.product_id
+inner join goods_tax as gts
+on gts.gt_id=p.gt_id
+where fmso.fml_status='3'
+and gts.gt_rate='0.5'
+order by o.order_id asc
+limit 0,900000
+
+select o.order_id, o.order_code as 订单号,o.reference_no 交易订单号,
+p.product_sku as sku,
+op.op_quantity as 数量,
+op.op_price as 申报单价,
+op.op_total_price as 申报总价,
+gts.gt_rate as 税率
+from orders as o
+inner join order_product as op
+on o.order_code=op.order_code
+inner join ftp_message_shipbatch_order as fmso
+on fmso.order_code=o.order_code
+inner join product as p
+on p.product_id=op.product_id
+inner join goods_tax as gts
+on gts.gt_id=p.gt_id
+where fmso.fml_status='3'
+and gts.gt_rate='0.5'
+order by o.order_id asc
+limit 900000,900000
+
+
+select o.order_id, o.order_code as 订单号,o.reference_no 交易订单号,
+p.product_sku as sku,
+op.op_quantity as 数量,
+op.op_price as 申报单价,
+op.op_total_price as 申报总价,
+gts.gt_rate as 税率
+from orders as o
+inner join order_product as op
+on o.order_code=op.order_code
+inner join ftp_message_shipbatch_order as fmso
+on fmso.order_code=o.order_code
+inner join product as p
+on p.product_id=op.product_id
+inner join goods_tax as gts
+on gts.gt_id=p.gt_id
+where fmso.fml_status='3'
+and gts.gt_rate='0.5'
+order by o.order_id asc
+limit 1800000,900000
+
+
+select o.order_id, o.order_code as 订单号,o.reference_no 交易订单号,
+p.product_sku as sku,
+op.op_quantity as 数量,
+op.op_price as 申报单价,
+op.op_total_price as 申报总价,
+gts.gt_rate as 税率
+from orders as o
+inner join order_product as op
+on o.order_code=op.order_code
+inner join ftp_message_shipbatch_order as fmso
+on fmso.order_code=o.order_code
+inner join product as p
+on p.product_id=op.product_id
+inner join goods_tax as gts
+on gts.gt_id=p.gt_id
+where fmso.fml_status='3'
+and gts.gt_rate='0.5'
+order by o.order_id asc
+limit 2700000,900000
+
+
+
+
+##包含已审核往后的ASN总的SKU件数
+
+备货
+select sum(rd.rd_receiving_qty) from receiving as r
+inner join receiving_detail as rd
+on r.receiving_code=rd.receiving_code
+where r.receiving_status>='4'
+
+
+##集货
+select sum(op.op_quantity) 
+from receiving as r
+inner join receiving_order_detail as rod
+on r.receiving_code=rod.receiving_code
+inner join order_product as op
+on op.order_code=rod.order_code
+where r.receiving_status>='4'
+
+
+##已出库总的SKU件数
+select sum(op.op_quantity) from ftp_message_shipbatch_order as fmso
+inner join order_product as op
+on fmso.order_code=op.order_code
+where fmso.fml_status='3'
+
+
+##包含已审核往后的ASN总的申报价值
+select sum(p.product_declared_value*rd.rd_receiving_qty) from receiving as r
+inner join receiving_detail as rd
+on r.receiving_code=rd.receiving_code
+inner join product as p
+on rd.product_id=p.product_id
+where r.receiving_status>='4'
+
+
+
+
+##已出库总的申报价值
+select sum(op.op_quantity*p.product_declared_value) from ftp_message_shipbatch_order as fmso
+inner join order_product as op
+on fmso.order_code=op.order_code
+inner join product as p
+on p.product_id=op.product_id
+where fmso.fml_status='3'
+
+
+##已出库的订单数
+select count(*) from ftp_message_shipbatch_order where fml_status='3'
+

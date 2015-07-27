@@ -4,6 +4,9 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'192.168.25.128' IDENTIFIED BY '123456' WI
 
 GRANT ALL PRIVILEGES ON wms.* TO 'root'@'192.168.25.128' IDENTIFIED BY '123456' WITH GRANT OPTION;
 
+  revoke all  on import_wms.* from 'root'@'192.168.25.%'
+
+   revoke ALL on import_wms.* from 'root'@'%';  
 
 flush privileges;
 

@@ -103,3 +103,29 @@ GATEWAY：代表的是『整个主机系统的 default gateway』，
  也就是当你有 ifcfg-eth0, ifcfg-eth1.... 
  等多个档案，只要在其中一个档案设定 GATEWAY 即可
  
+ 
+ lsusb
+ 
+ lsusb命令是一个学习USB驱动开发，认识USB设备的助手，推荐大家使用，如果您的开发板中或者产品中没有lsusb命令可以自己移植一个
+ 
+ ##安装驱动
+ rpm -ivh kmod-rt3070sta* rt2870-firmware*
+ 
+ iwconfig
+ 
+ ##p147
+ 	ifconfig 查询的说明：
+   eth0：就是网络卡的代号，也有 lo 这个 loopback ；
+ HWaddr：就是网络卡的硬件地址，俗称的 MAC 是也；
+ inet addr：IPv4 的 IP 地址，后续的 Bcast, Mask 分别代表的是 Broadcast 与 netmask 喔！
+ inet6 addr：是 IPv6 的版本的 IP ，我们没有使用，所以略过；
+ MTU：就是第二章谈到的 MTU 啊！
+ RX：那一行代表的是网络由启动到目前为止的封包接收情况， packets 代表封包数、errors 代表封包发生错误的数量、 dropped 代表封包由于有问题而遭丢弃的数量等等
+ TX：与 RX 相反，为网络由启动到目前为止的传送情况；
+ collisions：代表封包碰撞的情况，如果发生太多次， 表示你的网络状况不太好；
+ txqueuelen：代表用来传输数据的缓冲区的储存长度；
+ RX bytes, TX bytes：总接收、发送字节总量
+
+
+
+

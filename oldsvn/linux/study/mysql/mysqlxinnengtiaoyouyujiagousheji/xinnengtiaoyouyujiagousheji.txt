@@ -84,6 +84,61 @@ Innodb 改变了MyISAM 的锁机制，实现了行锁。虽然Innodb 的行锁�
 
 /etc/services
 
+#p52 mysql备份
+通过mysqldump 生成INSERT 语句的逻辑备份文件的时候，有一个非常有用的选项可
+以供我们使用，那就是“--master-data[=value]”。当添加了“--master-data=1”的时候，
+mysqldump 会将当前MySQL 使用到binlog 日志的名称和位置记录到dump 文件中，并且是被
+以CHANGE_MASTER 语句的形式记录，如果仅仅只是使用“--master-data”或者“--masterdata＝
+2”，则CHANGE_MASTER 语句会以注释的形式存在。这个选项在实施slave 的在线搭建
+的时候是非常有用的，即使不是进行在线搭建slave，也可以在某些情况下做恢复的过程中
+通过备份的binlog 做进一步恢复操作。
+在某些场景下，我们可能只是为了将某些特殊的数据导出到其他数据库中，而又不希望
+通过先建临时表的方式来实现，我们还可以在通过mysqldump 程序的“—where='wherecondition'”
+来实现，但只能在仅dump 一个表的情况下使用。
+
+，通过“--no-createinfo”
+去掉dump 文件中创建表结构的命令等等
+
+
+通过"FIELDS TERMINATED BY"可以设定每两个字段之间的分隔符；
+而通过“LINES TERMINATED BY”则会告诉MySQL 输出文件在每条记录结束的时候需要
+添加什么字符。
+
+SELECT * from Table INTO OUTFILE '/tmp/dump.text'
+-> FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
+-> LINES TERMINATED BY '\n'
+-> FROM test_outfile limit 100;
+
+导出逗号的
+mysqldump -uroot -T/tmp/mysqldump test test_outfile --fieldsenclosed-
+by=\" --fields-terminated-by=,
+
+mysql优化
+##p77
+MySQL 的 Query Profiler 是一个使用非常方便的 Query 诊断分析工具，
+通过该工具可以获取一条Query 在整个执行过程中多种资源的消耗情况，
+如 CPU，IO，IPC，SWAP 等，以及发生的 PAGE FAULTS，CONTEXT SWITCHE 等等，
+同时还能得到该 Query 执行过程中 MySQL 所调用的各个函数在源文件中的位置。
+
+
+##p89
+锁定类型					说明
+IGNORE					当发生锁请求的时候内部交互使用，在锁定结构和队列中并不会有任何信息存储
+UNLOCK					释放锁定请求的交互用所类型
+READ					普通读锁定
+WRITE					普通写锁定
+READ_WITH_SHARED_LOCKS  在Innodb 中使用到，由如下方式产生 如：SELECT ... LOCK IN SHARE MODE
+READ_HIGH_PRIORITY		高优先级读锁定
+READ_NO_INSERT			不允许Concurent Insert 的锁定
+WRITE_ALLOW_WRITE		这个类型实际上就是当由存储引擎自行处理锁定的时候，mysqld 允许其他的线程再获取读或者写锁定，因为即使资源冲突，存储引擎自己也会知道怎么来处理
+WRITE_ALLOW_READ		这种锁定发生在对表做DDL（ALTER TABLE ...）的时候，MySQL 可以允许其他线程获取读锁定，因为MySQL 是通过重建整个表然后再RENAME 而实现的该功能，所在整个过程原表仍然可以提供读服务
+WRITE_CONCURRENT_INSERT 正在进行Concurent Insert 时候所使用的锁定方式，该锁定进行的时候，除了READ_NO_INSERT 之外的其他任何读锁定请求都不会被阻塞
+WRITE_DELAYED			在使用INSERT DELAYED 时候的锁定类型
+WRITE_LOW_PRIORITY		显示声明的低级别锁定方式， 通过设置LOW_PRIORITY_UPDAT = 1 而产生
+WRITE_ONLY				当在操作过程中某个锁定异常中断之后系统内部需要进行CLOSE TABLE 操作，在这个过程中出现的锁定类型就是WRITE_ONLY
+
+
+
 
 
 
