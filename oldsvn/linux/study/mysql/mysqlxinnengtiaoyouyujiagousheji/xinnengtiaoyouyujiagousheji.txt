@@ -152,4 +152,54 @@ mysql索引限制
 8)使用非等值mysql无法使用hash索引
 
 
+##p162
+show VARIABLES like '%binlog%'
++-----------------------------------------+----------------------+
+| Variable_name                           | Value                |
++-----------------------------------------+----------------------+
+| binlog_cache_size                       | 32768                |
+| binlog_direct_non_transactional_updates | OFF                  |
+| binlog_format                           | MIXED                |
+| innodb_locks_unsafe_for_binlog          | OFF                  |
+| max_binlog_cache_size                   | 18446744073709547520 |
+| max_binlog_size                         | 1073741824           |
+| sync_binlog                             | 0                    |
++-----------------------------------------+----------------------+
+
+“sync_binlog”：这个参数是对于MySQL 系统来说是至关重要的，他不仅影响到Binlog 对MySQL 所
+带来的性能损耗，而且还影响到MySQL 中数据的完整性。对于“sync_binlog”参数的各种设置的说明如
+下：
+● sync_binlog=0，当事务提交之后，MySQL 不做fsync 之类的磁盘同步指令刷新binlog_cache 中
+的信息到磁盘，而让Filesystem 自行决定什么时候来做同步，或者cache 满了之后才同步到磁
+盘。
+● sync_binlog=n，当每进行n 次事务提交之后，MySQL 将进行一次fsync 之类的磁盘同步指令来
+将binlog_cache 中的数据强制写入磁盘
+
+
+MySQL 复制环境中，实际上是是有8 个参数可以让我们控制需要复制或者需要忽略而不进行复制的DB 或
+者Table 的，分别为：
+● Binlog_Do_DB：设定哪些数据库（Schema）需要记录Binlog；
+● Binlog_Ignore_DB：设定哪些数据库（Schema）不要记录Binlog；
+● Replicate_Do_DB：设定需要复制的数据库（Schema），多个DB 用逗号（“,”）分隔；
+● Replicate_Ignore_DB：设定可以忽略的数据库（Schema）；
+● Replicate_Do_Table：设定需要复制的Table；
+● Replicate_Ignore_Table：设定可以忽略的Table；
+● Replicate_Wild_Do_Table：功能同Replicate_Do_Table，但可以带通配符来进行设置；
+● Replicate_Wild_Ignore_Table：功能同Replicate_Ignore_Table，可带通配符设置；
+
+这八个参数中的前面两个是设置在Master 端的，而后面六个参数则是设置在Slave 端
+的。虽然前面两个参数和后面六个参数在功能上并没有非常直接的关系，但是对于优化MySQL 的
+Replication 来说都可以启到相似的功能。当然也有一定的区别，其主要区别如下：
+
+##Slow Query Log 的相关参数配置。
+show variables like 'log_slow%';
+##
+show variables like 'long_query%';
+
+MySQL 中针对Query Cache 有两个专
+用的SQL Hint（提示）：SQL_NO_CACHE 和SQL_CACHE，分别代表强制不使用Query Cache 和强制使用
+Query Cache。
+
+
+
 
