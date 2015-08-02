@@ -202,4 +202,291 @@ Query Cache。
 
 
 
+##p167 网络连接的性能配置项及对性能的影响
+ ● max_conecctions：整个MySQL允许的最大连接数； 
+       这个参数主要影响的是整个MySQL应用的并发处理能力，当系统中实际需要的连接量大于 
+       max_conecctions的情况下，由于MySQL的设置限制，那么应用中必然会产生连接请求的等待， 
+       从而限制了相应的并发量。所以一般来说，只要MySQL主机性能允许，都是将该参数设置的尽 
+       可能大一点。一般来说500到800左右是一个比较合适的参考值 
+
+   ● max_user_connections：每个用户允许的最大连接数； 
+       上面的参数是限制了整个MySQL的连接数，而max_user_connections则是针对于单个用户的连 
+       接限制。在一般情况下我们可能都较少使用这个限制，只有在一些专门提供MySQL数据存储服 
+       务，或者是提供虚拟主机服务的应用中可能需要用到。除了限制的对象区别之外，其他方面和 
+       max_connections一样。这个参数的设置完全依赖于应用程序的连接用户数，对于普通的应用来
+ 说，完全没有做太多的限制，可以尽量放开一些。 
+
+   ● net_buffer_length：网络包传输中，传输消息之前的netbuffer初始化大小； 
+       这个参数主要可能影响的是网络传输的效率，由于该参数所设置的只是消息缓冲区的初始化大 
+       小，所以造成的影响主要是当我们的每次消息都很大的时候MySQL总是需要多次申请扩展该缓 
+       冲区大小。系统默认大小为16KB，一般来说可以满足大多数场景，当然如果我们的查询都是非 
+       常小，每次网络传输量都很少，而且系统内存又比较紧缺的情况下，也可以适当将该值降低到 
+       8KB。 
+
+   ● max_allowed_packet：在网络传输中，一次传消息输量的最大值； 
+       这个参数与net_buffer_length相对应，只不过是netbuffer的最大值。当我们的消息传输量 
+       大于net_buffer_length的设置时，MySQL会自动增大net buffer的大小，直到缓冲区大小达 
+       到max_allowed_packet所设置的值。系统默认值为1MB，最大值是1GB，必须设定为1024的倍 
+       数，单位为字节。 
+
+   ● back_log：在MySQL的连接请求等待队列中允许存放的最大连接请求数。 
+       连接请求等待队列，实际上是指当某一时刻客户端的连接请求数量过大的时候，MySQL主线程没 
+       办法及时给每一个新的连接请求分配（或者创建）连接线程的时候，还没有分配到连接线程的 
+       所有请求将存放在一个等待队列中，这个队列就是MySQL的连接请求队列。当我们的系统存在 
+       瞬时的大量连接请求的时候，则应该注意back_log参数的设置。系统默认值为50，最大可以设 
+       置为65535。当我们增大back_log的设置的时候，同时还需要主义OS级别对网络监听队列的限 
+       制，因为如果OS的网络监听设置小于MySQL的back_log设置的时候，我们加大“back_log”设 
+       置是没有意义的。 
+
+在MySQL中，为了尽可提高客户端请求创建连接这个过程的性能，实现了一个ThreadCache池，将 
+空闲的连接线程存放在其中，而不是完成请求后就销毁。这样，当有新的连接请求的时候，MySQL首先会 
+检查ThreadCache池中是否存在空闲连接线程，如果存在则取出来直接使用，如果没有空闲连接线程， 
+才创建新的连接线程。在MySQL中与连接线程相关的系统参数及状态变量说明如下：
+● thread_cache_size：ThreadCache池中应该存放的连接线程数。 
+       当系统最初启动的时候，并不会马上就创建thread_cache_size所设置数目的连接线程存放在 
+       ThreadCache池中，而是随着连接线程的创建及使用，慢慢的将用完的连接线程存入其中。当 
+       存放的连接线程达到thread_cache_size值之后，MySQL就不会再续保存用完的连接线程了。 
+
+       如果我们的应用程序使用的短连接，ThreadCache池的功效是最明显的。因为在短连接的数据 
+       库应用中，数据库连接的创建和销毁是非常频繁的，如果每次都需要让MySQL新建和销毁相应 
+       的连接线程，那么这个资源消耗实际上是非常大的，而当我们使用了ThreadCache之后，由于 
+       连接线程大部分都是在创建好了等待取用的状态，既不需要每次都重新创建，又不需要在使用 
+       完之后销毁，所以可以节省下大量的系统资源。所以在短连接的应用系统中， 
+       thread_cache_size的值应该设置的相对大一些，不应该小于应用系统对数据库的实际并发请求 
+       数。 
+
+ ● thread_stack：每个连接线程被创建的时候，MySQL给他分配的内存大小。 
+       当MySQL创建一个新的连接线程的时候，是需要给他分配一定大小的内存堆栈空间，以便存放 
+       客户端的请求Query以及自身的各种状态和处理信息。不过一般来说如果不是对MySQL的连接线 
+       程处理机制十分熟悉的话，不应该轻易调整该参数的大小，使用系统的默认值（192KB）基本上 
+       可以所有的普通应用环境。如果该值设置太小，会影响MySQL连接线程能够处理客户端请求的 
+       Query内容的大小，以及用户创建的Procedures和Functions等。 
+
+mysql>show variables like'thread%';
+
++---------------------------------+---------------------------+
+
+| Variable_name                   | Value                     |
+
++---------------------------------+---------------------------+
+
+| thread_cache_size               | 100                       |
+
+| thread_concurrency              | 10                        |
+
+| thread_handling                 | one-thread-per-connection |
+
+| thread_pool_high_prio_mode      | transactions              |
+
+| thread_pool_high_prio_tickets   | 4294967295                |
+
+| thread_pool_idle_timeout        | 60                        |
+
+| thread_pool_max_threads         | 100000                    |
+
+| thread_pool_oversubscribe       | 10                        |
+
+| thread_pool_size                | 24                        |
+
+| thread_pool_stall_limit         | 30                        |
+
+| thread_stack                    | 262144                    |
+
+| threadpool_workaround_epoll_bug | OFF                       |
+
++---------------------------------+---------------------------+
+
+再来看一下系统被连接的次数以及当前系统中连接线程的状态值： 
+mysql>show status like'connections';
+
++-------------------------+-----------------+
+
+| Variable_name           | Value           |
+
++-------------------------+-----------------+
+
+| Connections             | 8216212         |系统启动到现在共接收到客户端的连接次数
+
++-------------------------+-----------------+
+
+mysql>show status like'%thread%';
+
++------------------------------------------------+-----------------+
+
+| Variable_name                                  | Value           |
+
++------------------------------------------------+-----------------+
+
+| Delayed_insert_threads                         | 0               |
+
+| Extra_threads_connected                        | 0               |
+
+| Performance_schema_thread_classes_lost         | 0               |
+
+| Performance_schema_thread_instances_lost       | 0               |
+
+| Slow_launch_threads                            | 0               |
+
+| Threadpool_idle_threads                        | 0               |
+
+| Threadpool_threads                             | 0               |
+
+| Threads_cached                                 | 68              | 而在ThreadCache池中当共Cache了个连接线程。
+
+| Threads_connected                              | 33              | 当前有33个连接线程处于和客户端连接的状态
+
+| Threads_created                                | 187             | 共创建了187个连接线程
+
+| Threads_rejected                               | 0               |
+
+| Threads_running                                | 13              | 而33个连接状态的线程中只有一个13是active状态，
+
+| Tokudb_FILESYSTEM_THREADS_BLOCKED_BY_FULL_DISK | 0               |
+
++------------------------------------------------+-----------------+
+
+Threads_Cache_Hit= (Connections-Threads_created)/Connections*100% 
+（8216212-187）/8216212=0.9999772401198995
+
+mysql>show status like'open_tables'
+
++-------------------------+-----------------+
+
+| Variable_name           | Value           |
+
++-------------------------+-----------------+
+
+| Open_tables             | 100             |
+
++-------------------------+-----------------+
+
+##p172
+在MySQL中，之前介绍的多种Cache之外，还有在Query执行过程中的两种Buffer会对数据库的整 
+体性能产生影响。 
+mysql>show variables like'%buffer%';
+
++-------------------------------------+-----------------+
+
+| Variable_name                       | Value           |
+
++-------------------------------------+-----------------+
+
+| bulk_insert_buffer_size             | 4194304         |
+
+| innodb_buffer_pool_dump_at_shutdown | OFF             |
+
+| innodb_buffer_pool_dump_now         | OFF             |
+
+| innodb_buffer_pool_filename         | ib_buffer_pool  |
+
+| innodb_buffer_pool_instances        | 8               |
+
+| innodb_buffer_pool_load_abort       | OFF             |
+
+| innodb_buffer_pool_load_at_startup  | OFF             |
+
+| innodb_buffer_pool_load_now         | OFF             |
+
+| innodb_buffer_pool_size             | 10066329600     |
+
+| innodb_change_buffer_max_size       | 25              |
+
+| innodb_change_buffering             | all             |
+
+| innodb_log_buffer_size              | 8388608         |
+
+| innodb_sort_buffer_size             | 1048576         |
+
+| join_buffer_size                    | 1048576         |  当我们的Join 是 ALL，index，rang 或者 index_merge 的时候使用的Buffer； 
+
+| key_buffer_size                     | 16777216        |
+
+| myisam_sort_buffer_size             | 262144          |
+
+| net_buffer_length                   | 16384           |
+
+| preload_buffer_size                 | 32768           |
+
+| read_buffer_size                    | 1048576         |
+
+| read_rnd_buffer_size                | 1048576         |
+
+| sort_buffer_size                    | 2097152         |
+
+| sql_buffer_result                   | OFF             |
+
++-------------------------------------+-----------------+
+
+###p175 常用的存储引擎优化
+我们先来分析一下与MyISAM索引缓存相关的几个系统参数和状态参数
+◆ key_buffer_size，索引缓存大小； 
+       这个参数用来设置整个MySQL中的常规 KeyCache大小。一般来说，如果我们的MySQL是运行 
+   在32位平台纸上，此值建议不要超过2GB大小。如果是运行在64位平台纸上则不用考虑此限制，但 
+   也最好不要超过4GB。 
+
+   ◆ key_buffer_block_size，索引缓存中的CacheBlockSize； 
+       在前面我们已经介绍了，在Key Cache中的所有数据都是以Cache Block的形式存在，而 
+       key_buffer_block_size就是设置每个Cache Block的大小，实际上也同时限定了我们将 
+       “.MYI”文件中的IndexBlock被读入时候的FileBlock的大小。 
+
+   ◆ key_cache_division_limit，LRU链表中的HotArea和WarmArea分界值； 
+       实际上，在MySQL的KeyCache中所使用的LRU算法并不像传统的算法一样仅仅只是通过访问频 
+       率以及最后访问时间来通过一个唯一的链表实现，而是将其分成了两部分。一部分用来存放使 
+       用比较频繁的Hot CackeLock（HotChain），被成为HotArea，另外一部分则用来存放使用 
+       不是太频繁的WarmCacheBlock（WarmChain），被成为WarmArea。这样做的目的主要是为 
+       了保护使用比较频繁的CacheBlock更不容易被换出。而key_cache_division_limit参数则是 
+       告诉MySQL该如何划分整个CacheChain划分为HotChain和WarmChain两部分，参数值为Warm 
+       Chain占整个Chain的百分比值。设置范围1～100，系统默认为100，也就是只有WarmChain。 
+
+   ◆ key_cache_age_threshold，控制CacheBlock从HotArea降到WarmArea的限制； 
+       key_cache_age_threshold参数控制HotArea中的CacheBlock何时该被降级到WarmArea中。 
+       系统默认值为300，最小可以设置为100。值越小，被降级的可能性越大。 
+
+
+   Key_Size =key_number* (key_length+4)/0.67 
+
+   Max_key_buffer_size<Max_RAM-QCache_Usage-Threads_Usage-System_Usage 
+
+   Threads_Usage  =  max_connections  *  (sort_buffer_size  +  join_buffer_size  + 
+read_buffer_size+read_rnd_buffer_size+thread_stack) 
+
+Cache相关的性能状态参数变量。 
+
+   ◆ Key_blocks_not_flushed，已经更改但还未刷新到磁盘的DirtyCacheBlock； 
+   ◆ Key_blocks_unused，目前未被使用的CacheBlock数目； 
+   ◆ Key_blocks_used，已经使用了的CacheBlock数目； 
+   ◆ Key_read_requests，CacheBlock被请求读取的总次数； 
+   ◆ Key_reads，在CacheBlock中找不到需要读取的Key信息后到“.MYI”文件中读取的次数； 
+   ◆ Key_write_requests，CacheBlock被请求修改的总次数； 
+   ◆ Key_writes，在CacheBlock中找不到需要修改的Key信息后到“.MYI”文件中读入再修改的次 
+       数； 
+
+Key_buffer_UsageRatio = (1 - Key_blocks_used/(Key_blocks_used + Key_blocks_unused)) * 
+100% 
+
+   Key_Buffer_Read_HitRatio=(1-Key_reads/Key_read_requests)*100% 
+
+   Key_Buffer_Write_HitRatio=(1-Key_writes/Key_Write_requests)*100% 
+
+   通过上面的这三个比率数据，就可以很清楚的知道我们的Key Cache设置是否合理，尤其是 
+Key_Buffer_Read_HitRatio 参 数 和 Key_buffer_UsageRatio 这 两 个 比 率 。 一 般 来 说 
+Key_buffer_UsageRatio应该在99%以上甚至100%，如果该值过低，则说明我们的key_buffer_size设置 
+过大，MySQL根本使用不完。Key_Buffer_Read_HitRatio也应该尽可能的高。如果该值较低，则很有可 
+能是我们的 key_buffer_size 设置过小，需要适当增加 key_buffer_size 值，也有可能是 
+key_cache_age_threshold和key_cache_division_limit的设置不当，造成KeyCachecache失效太快。 
+一般来说，在实际应用场景中，很少有人调整key_cache_age_threshold和key_cache_division_limit 
+这两个参数的值，大都是使用系统的默认值。 
+
+NULL值对统计信息的影响 
+   虽然都是使用B-Tree索引，但是MyISAM索引和Oracle索引的处理方式不太一样，MyISAM的索引中 
+是会记录值为NULL的列信息的，只不过NULL值的索引键占用的空间非常少。所以，NULL值的处理方式 
+可能会影响到MySQL的查询优化器对执行计划的选择。所以MySQL就给我们提供了myisam_stats_method 
+这个参数让我们可以自行决定对索引中的NULL值的处理方式。 
+
+   myisam_stats_method参数的作用就是让我们告诉MyISAM在收集统计信息的时候，是认为所有NULL 
+值都是等同还是认为每个NULL值都认为是完全不相等的值，所以其可设置的值也为 nulls_unequal和 
+nulls_equal。 
+
+   当我们设置myisam_stats_method= nulls_unequal，MyISAM在搜集统计信息的时候会认为每个 
+NULL值都不同，则基于该字段的索引的Cardinality就会更大，也就是说MyISAM会认为DISTINCT值数 
 
