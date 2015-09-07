@@ -84,6 +84,22 @@ find . -inum 787476 -exec mv {} gitstudy.txt \;
 └── [ 789497]  soft.link.dir -> old.dir/
 
 
+ln -s 源文件 目标文件
+
+ln -s log2013.log link2013
+
+ln -s /usr/local/apache2/logs /etc/httpd/logs
+
+rm -rf symbolic_name
+
+ln -s /etc/httpd/logs /usr/local/apache2/logs
+
+ln -s /etc/httpd/logs /usr/local/apache2/
+
+ln -sbnf /etc/httpd/logs /usr/local/apache2
+
+ln -s /home/system/httpd /etc/httpd/logs (httpd/logs目录下产生httpd文件软链接)
+
 
 
 查找某个文件夹下的包含某个字符的文件
@@ -1385,59 +1401,6 @@ grub-md5-crypt
 在hiddenmenu之前加入
 password --md5 MD5加密的字符串
 示例如下
-default=0
-timeout=5
-password --md5 用grub-md5-crypt输入密码生成的字符串
-splashimage=(hd0,0)/grub/splash.xpm.gz
-hiddenmenu
-
-#####系统的修复模式##########
-
-
-
-
-
-###备份恢复########
-dump 
-restore
-
-查看dump是否安装
-rpm -qa|grep dump
-
-dump的用法
-
-dump [选项] 备份之后的文件名 原文件或许路径
--level 即是0-9级别
--f 文件名就是指定备份的文件名
--u 备份成功后将备份时间写到/etc/dumptables
--v 显示备份更多的输入输出
--j 调用bzlib库压缩备份文件，其实就是把备份文件压缩成bz2
--w 显示允许被dump的分区的备份登记及备份时间
-
-###备份分区
-dump -0uj -f /root/boot.bak.bz2 /boot/
-##备份命令，先执行一次完全备份，并压缩和更新备份时间
-dump -1uj -f /root/boot.bak.bz2 /boot/
-##增量备份/boot/分区，并压缩
-dump -W
-#查询分区的备份时间及备份级别
-
-###restore命令
-restore [模式选项][选项]
-##模式选项 restore常用模式有以下四种，这四个模式不能混用
--C 比较备份数据和实际数据的变化
--i 进入交互模式，手工选择需要恢复的文件
--t 查看模式，用于查看备份文件拥有哪些数据
--r 还原模式，用于数据还原
-##选项
--f 指定备份文件的文件名
- 
-
-####隔断时间运行一次命令用watch
-一秒运行一次
-watch -n 1 'ps aux|grep '/var/www/html/import/wms/auto/shipBatchSubmit.php'|grep -v grep'
-
-
 运行shell脚本时候出现
 bad interpreter: No such file or directory
 因为是在window下编写的shell所以要将window下转成linux可以使用doc2unix或者在vi下面用
@@ -1514,101 +1477,24 @@ sync
 
 echo $PATH|cut -d ':' -f 5;
 
+stty -a
+将目前的stty参数都列出来
 
-不记录history
-export HISTCONTROL=ignorespace
-然后你输入的命令前加个空格，就会被history过滤。
-ignoredups 表示去除重复
-ignoreboth:空格开头和重复的都忽略
-详情见 http://www.educity.cn/it/1635982.html
-
-
-scp
-远程到本地
-scp -r /home/ root@120.24.90.64:/home/export.sql.tar.gz
-
-远程到本地
-scp -r  root@120.24.52.244:"/home/import_wms0720-s.sql" /home
-
-本地复制到远程
-scp abc.zip root@remote_server:/home/root/abc.zip
-
-
-
-   tar -zcvf /tmp/etc.tar.gz /etc <==打包后，以 gzip 压缩
-
- scp local_file remote_username@remote_ip:remote_folder 
- 
-scp local_file remote_username@remote_ip:remote_file 
-
-
-###route用法
-route命令用于显示和操作IP路由表。要实现两个不同的子网之间的通信，
-需要一台连接两个网络的路由器，或者同时位于两个网络的网关来实现
-
-
-
-Kernel IP routing table
-Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0
-192.168.25.0    0.0.0.0         255.255.255.0   U     0      0        0 eth0
-169.254.0.0     0.0.0.0         255.255.0.0     U     1002   0        0 eth0
-0.0.0.0         192.168.25.11   0.0.0.0         UG    0      0        0 eth0
-
-192.168.0.0~192.168.0.255这个ip网段可分为Net_ID与Host_ID,Net_ID是不可变的，就是占用的bit用光（全为1）
-Host_ID可变，就将他想成保留在（全为0）
-
-netmask 255.255.255.0 网域定义最重要参数
-network 192.168.0.0 第一个ip
-broadcast 192.168.0.255 最后一个ip
-可以设定成主机的ip
-192.168.0.1~192.168.0.254
-第一个ip：     11000000.10101000.00000000.00000000
-最后一个ip  11000000.10101000.00000000.11111111
-			|---------Net_ID---------|--host--|
-			11111111.11111111.11111111.0000000 netmask 二进制
-			255 .     255    .  255  .  0
-class A 255.0.0.0
-Class B 255.255.0.0
-Class C	255.255.255.0
-
-172.16.0.0 23位 Net_ID
-
-将IP地址与掩码地址做与运算，得到的就是网络地址
-
-CIDR的介绍：
-就是将Net_ID分出一部分作为Host_ID
-CIDR（Classless Inter-Domain Routing，无类域间路由选择）它消除了传统的A类
-、B类和C类地址以及划分子网的概念，因而可以更加有效地分配IPv4的地址空间。
-它可以将好几个IP网络结合在一起，使用一种无类别的域际路由选择算法，
-使它们合并成一条路由从而较少路由表中的路由条目减轻Internet路由器的负担
+echo $-
+显示目前set的设定值
 
 
 
 
-network的host位全是0
-broadcast的host全为1
-10101100.00010000.0000000 0.0000000  network 172.16.0.0 
-10101100.00010000.0000000 1.11111111 broadcast 172.16.1.255 （）
-11111111.11111111.1111111 0.00000000 netmask 255.255.254.0
-知道network 和netmask就可以算出broadcast 因此常用network以及netmask表示网域			
 
-比如讲classC 镜像子域切分，以192.168.0.0~192.168.0.255，将他们分成两个子域
 
-#Destination 指Network的意思
-#Gateway 指改接口的gatwayip，若为 0.0.0.0表示不需要额外的ip
-#Genmask 指netmask（子网掩码，与Destination组成一部主机或网域）
-#Flags 共有多个旗帜来表示改网域或者主机代表
-		U代表该路由可用
-		G代表该网域需要经由Gateway来帮忙转递
-		H 代表改行路由为一部主机，而非一整个网域
-	Iface 就是interface接口意思
-	
-##查询my.cnf文件
-whereis my.cnf
-mysql --help | grep my.cnf	
-		
-		
+
+
+
+
+
+
+
 
 
 
