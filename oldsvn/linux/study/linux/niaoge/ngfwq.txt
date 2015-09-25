@@ -423,4 +423,39 @@ wireshark
      [root@www ~]# nc -l localhost 20000 & 
      [root@www ~]# netstat -tlunp | grep nc 
 
+#p221
+[root@www ~]# yum [option] [查询的工作项目] [相关参数] 
+    选项与参数： 
+    option：主要的参数，包括有： 
+       -y ：当yum 询问使用者的意见时，主动回答 yes 而不需要由键盘输入； 
+
+    [查询的工作项目]：由于不同的使用条件，而有一些选择的项目，包括： 
+        install ：指定安装的软件名称，所以后面需接『软件名称 』 
+       update   ：进行整体升级的行为；当然也可以接某个软件，仅升级一个软件； 
+       remove   ：移除某个软件，后面需接软件名称； 
+       search   ：搜寻某个软件或者是重要关键字； 
+        list    ：列出目前yum 所管理的所有的软件名称与版本，有点类似 rpm -qa； 
+        info    ：同上，不过有点类似rpm -qai 的执行结果； 
+       clean    ：下载的档案被放到/var/cache/yum ，可使用clean 将他移除， 
+                 可清除的项目：packages | headers | metadata | cache 等； 
+
+在[查询的工作项目]部分还可以具有整个群组软件的安装方式，如下所示： 
+       grouplist    ：列出所有可使用的『软件群组』，例如Development Tools 之类的； 
+       groupinfo    ：后面接group_name，则可了解该group 内含的所有软件名； 
+       groupinstall：这个好用！可以安装一整组的软件群组，相当的不错用！ 
+                      更常与--installroot=/some/path 共享来安装新系统 
+       groupremove ：移除某个软件群组
+
+yum search php|grep 'fpm'
+
+php-fpm.x86_64 : PHP FastCGI Process Manager
+php54w-fpm.x86_64 : PHP FastCGI Process Manager
+php55w-fpm.x86_64 : PHP FastCGI Process Manager
+php56w-fpm.x86_64 : PHP FastCGI Process Manager
+
+# 范例一：搜寻CentOS 官网提供的软件名称是否有与RAID 有关的？ 
+     [root@www ~]# yum search raid 
+
+
+
 
