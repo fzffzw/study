@@ -457,5 +457,46 @@ php56w-fpm.x86_64 : PHP FastCGI Process Manager
      [root@www ~]# yum search raid 
 
 
+# yum clean all  <==改过配置文件，最好清除既有清单
+
+
+# 范例：列出目前yum server 所使用的容器有哪些？ 
+    [root@www ~]# yum repolist all
+
+base                                                                     CentOS-6 - Base - mirrors.aliyun.com   enabled:  6,575(拥有的软件数目)
+repolist: 19,092
+
+
+#p235
+ nmap (注1)的软件说明之名称为：『Network exploration tool and security / 
+port scanner』，顾名思义，这个东西是被系统管理员用来管理系统安全性查核的工 
+具！他的具体描述当中也提到了，nmap 可以经由程序内部自行定义的几个port 对应 
+的指纹数据，来查出该port 的服务为何，所以我们也可以藉此了解我们主机的 port 
+到底是干嘛用的！在CentOS 里头是有提供nmap 的，如果你没有安装，那么就使用 
+yum 去安装他吧！ 
+
+[root@www ~]# nmap [扫瞄类型] [扫瞄参数] [hosts 地址与范围] 
+    选项与参数： 
+    [扫瞄类型]：主要的扫瞄类型有底下几种： 
+        -sT：扫瞄TCP 封包已建立的联机 connect() ！ 
+        -sS：扫瞄TCP 封包带有SYN 卷标的数据 
+   -sP：以ping 的方式进行扫瞄 
+        -sU：以UDP 的封包格式进行扫瞄 
+        -sO：以 IP 的协议 (protocol) 进行主机的扫瞄 
+    [扫瞄参数]：主要的扫瞄参数有几种： 
+        -PT：使用TCP 里头的ping 的方式来进行扫瞄，可以获知目前有几部计 
+算机存活(较常用) 
+        -PI：使用实际的ping (带有 ICMP 封包的) 来进行扫瞄 
+        -p ：这个是port range ，例如1024-, 80-1023, 30000-60000 等等的 
+使用方式 
+    [Hosts 地址与范围]：这个有趣多了，有几种类似的类型 
+        192.168.1.100   ：直接写入HOST IP 而已，仅检查一部； 
+        192.168.1.0/24 ：为C Class 的型态， 
+        192.168.*.*     ：嘿嘿！则变为B Class 的型态了！扫瞄的范围变广了！ 
+        192.168.1.0-50,60-100,103,200 ：这种是变形的主机范围啦！很好用吧！
+
+
+
+
 
 
