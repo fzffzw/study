@@ -490,3 +490,138 @@ nulls_equal。
    当我们设置myisam_stats_method= nulls_unequal，MyISAM在搜集统计信息的时候会认为每个 
 NULL值都不同，则基于该字段的索引的Cardinality就会更大，也就是说MyISAM会认为DISTINCT值数 
 
+
+##p179 Innodb 存储引擎优化
+Innodb 存储引擎和MyISAM 存储引擎最大区别主要有四点，第一点是缓存机制，第二点是事务支持，
+第三点是锁定实现，最后一点就是数据存储方式的差异
+
+Innodb_buffer_pool_size 的合理设置
+Innodb 存储引擎的缓存机制和MyISAM 的最大区别就在于Innodb 不仅仅缓存索引，同时还会缓存实
+际的数据。所以，完全相同的数据库，使用Innodb 存储引擎可以使用更多的内存来缓存数据库相关的信
+息，当然前提是要有足够的物理内存。这对于在现在这个内存价格不断降低的时代，无疑是个很吸引人
+的特性。
+
+innodb_buffer_pool_size 参数用来设置Innodb 最主要的Buffer(Innodb_Buffer_Pool)的大小，也
+就是缓存用户表及索引数据的最主要缓存空间，对Innodb 整体性能影响也最大。无论是MySQL 官方手册
+还是网络上很多人所分享的Innodb 优化建议，都简单的建议将Innodb 的Buffer Pool 设置为整个系统
+物理内存的50% ～ 80% 之间。如此轻率的给出此类建议，我个人觉得实在是有些不妥。
+
+
+假设是一台单独给MySQL 使用的主机，物理内存总大小为8G，MySQL 最大连接数为500，同时还使用
+了MyISAM 存储引擎，这时候我们的整体内存该如何分配呢？
+内存分配为如下几大部分：
+a) 系统使用，假设预留800M；
+b) 线程独享，约2GB = 500 * (1MB + 1MB + 1MB + 512KB + 512KB)，组成大概如下:
+sort_buffer_size：1MB
+join_buffer_size：1MB
+read_buffer_size：1MB
+read_rnd_buffer_size：512KB
+thread_statck：512KB
+c) MyISAM Key Cache，假设大概为1.5GB；
+d) Innodb Buffer Pool 最大可用量：8GB - 800MB - 2GB - 1.5GB = 3.7GB；
+
+
+当系统上线之后，我们可以通过Innodb 存储引擎提供给我们的关于Buffer Pool 的实时状态信息作
+出进一步分析，来确定系统中Innodb 的Buffer Pool 使用情况是否正常高效：
+mysql>show status like 'Innodb_buffer_pool_%';
+
++---------------------------------------+-----------------+
+
+| Variable_name                         | Value           |
+
++---------------------------------------+-----------------+
+
+| Innodb_buffer_pool_dump_status        | not started     |
+
+| Innodb_buffer_pool_load_status        | not started     |
+
+| Innodb_buffer_pool_pages_data         | 565116          | 有565116是有数据的
+
+| Innodb_buffer_pool_bytes_data         | 9258860544      |
+
+| Innodb_buffer_pool_pages_dirty        | 958             |
+
+| Innodb_buffer_pool_bytes_dirty        | 15695872        |
+
+| Innodb_buffer_pool_pages_flushed      | 367511177       |
+
+| Innodb_buffer_pool_pages_free         | 8196            | 有8196 是Free 状态
+
+| Innodb_buffer_pool_pages_misc         | 41088           |
+
+| Innodb_buffer_pool_pages_total        | 614400          | 上面的值我们可以看出总共614400 pages，
+
+| Innodb_buffer_pool_read_ahead_rnd     | 0               | 记录进行随机读的时候产生的预读次数
+
+| Innodb_buffer_pool_read_ahead         | 9147190         | 记录连续读的时候产生的预读次数
+
+| Innodb_buffer_pool_read_ahead_evicted | 600             |
+
+| Innodb_buffer_pool_read_requests      | 5722907757818   | read 请求5722907757818 次
+
+| Innodb_buffer_pool_reads              | 7242994         | 其中有7242994 次所请求的数据在buffer pool 中没有（7242994 次是通过读取物理磁盘来读取数据的）
+
+| Innodb_buffer_pool_wait_free          | 52              |
+
+| Innodb_buffer_pool_write_requests     | 3148862243      |
+
++---------------------------------------+-----------------+
+
+
+所以很容易也就得出了Innodb Buffer Pool 的Read 命中率大概在为：(5722907757818 - 7242994)/ 5722907757818 * 100% = 0.99999873438568180564726727308328
+
+#p182
+innodb_log_buffer_size 参数的使用
+这个参数就是用来设置Innodb 的Log Buffer 大小的，系统默认值为1MB。Log Buffer
+的主要作用就是缓冲Log 数据，提高写Log 的IO 性能。一般来说，如果你的系统不是写负载非常高且以
+大事务居多的话，8MB 以内的大小就完全足够了。
+
+mysql>show status like 'innodb_log%';
+
++---------------------------+-----------------+
+
+| Variable_name             | Value           |
+
++---------------------------+-----------------+
+
+| Innodb_log_waits          | 0               |
+
+| Innodb_log_write_requests | 392286378       |
+
+| Innodb_log_writes         | 306233023       |
+
++---------------------------+-----------------+
+
+innodb_additional_mem_pool_size 参数理解
+innodb_additional_mem_pool_size 所设置的是用于存放Innodb 的字典信息和其他一些内部结构所
+需要的内存空间。
+
+Double Write Buffer
+Double Write Buffer 是Innodb 所使用的一种较为独特的文件Flush 实现技术，主要做用是为了通
+过减少文件同步次数提高IO 性能的情况下，提高系统Crash 或者断电情况下数据的安全性，避免写入的
+数据不完整。
+
+一般来说，Innodb 在将数据同步到数据文件进行持久化之前，首先会将需要同步的内容写入存在于
+表空间中的系统保留的存储空间，也就是被我们称之为Double Write Buffer 的地方，然后再将数据进
+行文件同步。所以实质上，Double Write Buffer 中就是存放了一份需要同步到文件中数据的一个备份，
+以便在遇到系统Crash 或者主机断电的时候，能够校验最后一次文件同步是否准确的完成了，如果未完
+成，则可以通过这个备份来继续完成工作，保证数据的正确性。
+
+#p185 mysql隔离级别
+Innodb 在事务隔离级别方面支持的信息如下：
+1. READ UNCOMMITTED
+常被成为Dirty Reads（脏读），可以说是事务上的最低隔离级别：在普通的非锁定模式下
+SELECT 的执行使我们看到的数据可能并不是查询发起时间点的数据，因而在这个隔离度下是非
+Consistent Reads（一致性读）；
+
+2. READ COMMITTED
+这个事务隔离级别有些类似Oracle 数据库默认的隔离级。属于语句级别的隔离，如通过
+SELECT ... FOR UPDATE 和SELECT ... LOCK IN SHARE MODE 来执行的请求仅仅锁定索引记录，而
+不锁定之前的间隙，因而允许在锁定的记录后自由地插入新记录。当然，这与Innodb 的锁定实现机
+制有关。如果我们的Query 可以很准确的通过索引定位到需要锁定的记录，则仅仅只需要锁定相关
+的索引记录，而不需要锁定该索引之前的间隙。但如果我们的Query 通过索引检索的时候无法通过
+索引准确定位到需要锁定的记录，或者是一个基于范围的查询，InnoDB 就必须设置next-key 或
+gap locks 来阻塞其它用户对范围内的空隙插入。Consistent Reads 的实现机制与Oracle 基本类
+似： 每一个Consistent Read，甚至是同一个事务中的，均设置并作为它自己的最新快照。
+这一隔离级别下，不会出现Dirty Read，但是可能出现Non-Repeatable Reads(不可重复读)
+和Phantom Reads（幻读）。

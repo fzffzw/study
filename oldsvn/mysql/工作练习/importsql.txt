@@ -221,6 +221,56 @@ limit 2700000,900000
 
 
 
+###导行邮税
+select o.order_code as 订单号,
+o.reference_no as 交易订单号,
+sum(op.op_price*op.op_quantity) as 货值,
+sum(op.op_price*op.op_quantity*gts.gt_rate) as 行邮税,
+fmso.fml_update_time as 海关审核时间,
+o.add_time as 创建时间,
+fmso.form_id_xml as 物品清单号
+from orders as o
+inner join order_product as op
+on o.order_code=op.order_code
+inner join ftp_message_shipbatch_order as fmso
+on fmso.order_code=o.order_code
+inner join product as p
+on p.product_id=op.product_id
+inner join goods_tax as gts
+on gts.gt_id=p.gt_id
+where o.customer_code='C0286'
+and fmso.fml_status='3'
+and fmso.fml_update_time>='2015-09-24 00:00:00'
+and fmso.fml_update_time<='2015-09-30 23:59:59'
+group by o.order_code
+
+
+###优化语句
+select o.order_code as 订单号,
+o.reference_no as 交易订单号,
+sum(op.op_price*op.op_quantity) as 货值,
+sum(op.op_price*op.op_quantity*gts.gt_rate) as 行邮税,
+fmso.fml_update_time as 海关审核时间,
+o.add_time as 创建时间,
+fmso.form_id_xml as 物品清单号
+from (
+select * 
+from ftp_message_shipbatch_order where fml_update_time>='2015-09-24 00:00:00'
+and fml_update_time<='2015-09-30 23:59:59'
+and customer_code='C0286'
+and fml_status='3' ) as fmso
+inner join orders as o
+on fmso.order_code=o.order_code
+inner join order_product as op
+on o.order_code=op.order_code
+inner join product as p
+on p.product_id=op.product_id
+inner join goods_tax as gts
+on gts.gt_id=p.gt_id
+group by o.order_code
+
+
+
 
 ##包含已审核往后的ASN总的SKU件数
 
@@ -270,4 +320,15 @@ where fmso.fml_status='3'
 
 ##已出库的订单数
 select count(*) from ftp_message_shipbatch_order where fml_status='3'
+
+###导货值
+select date_format(fmso.fml_update_time,'%Y-%m') as 年月,
+sum(op.op_total_price) as 申报总价
+from order_product as op
+inner join ftp_message_shipbatch_order as fmso
+on fmso.order_code=op.order_code
+where fmso.fml_status='3'
+group by date_format(fmso.fml_update_time,'%Y-%m')
+
+
 

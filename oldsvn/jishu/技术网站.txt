@@ -1,4 +1,4 @@
-Ì«Ë®ÁË£¬¶¼ÊÇÕÕÊéÉÏ¶ÁµÄ,ºÇºÇ£¬mysqlÓÅ»¯ÎŞ·Ç¾ÍÊÇ·Ö±í£¬½á¹¹Éè¼Æ£¬Ë÷ÒıµÄÉè¼Æ
+å¤ªæ°´äº†ï¼Œéƒ½æ˜¯ç…§ä¹¦ä¸Šè¯»çš„,å‘µå‘µï¼Œmysqlä¼˜åŒ–æ— éå°±æ˜¯åˆ†è¡¨ï¼Œç»“æ„è®¾è®¡ï¼Œç´¢å¼•çš„è®¾è®¡
 
 http://www.phppan.com/category/pm/
 http://www.php-internal.com/downloads/
@@ -8,17 +8,17 @@ http://www.54chen.com
 
 http://yanbin.org/
 
-iceÖĞ¼ä¼ş
-PHPRPC NuSOAPÓëPHPRPC±È½Ï
+iceä¸­é—´ä»¶
+PHPRPC NuSOAPä¸PHPRPCæ¯”è¾ƒ
 
 http://www.phpwebgo.com/article/class/id/13/
 
 http://www.oschina.net/news/24456/open-source-php-projects-2011
 
-nosql memcacheÇø±ğ
+nosql memcacheåŒºåˆ«
 
 
-nosql php Á´½Ó nosqlÊÓÆµÑ§Ï°
+nosql php é“¾æ¥ nosqlè§†é¢‘å­¦ä¹ 
 
 http://crodas.org/slides/2010/PHPConf/NoSQL/#slide50
 
@@ -36,23 +36,23 @@ http://www.oschina.net/news/24339/strangest-language-feature
 http://www.gsm8.cn/bbs/forum.php
 
 
-ibm phpÊÔÌâ(ËÑË÷) http://www.phperz.com/browse/life/020GO020091790.htmlhttp://wenku.baidu.com/view/b3d071244b35eefdc8d33306.html
+ibm phpè¯•é¢˜(æœç´¢) http://www.phperz.com/browse/life/020GO020091790.htmlhttp://wenku.baidu.com/view/b3d071244b35eefdc8d33306.html
 
-http://www.iteye.com/topic/1120476 (ÔÆ×ÀÃæ)
-
-
-ERwin £¨Êı¾İ¿â½¨Ä££©
+http://www.iteye.com/topic/1120476 (äº‘æ¡Œé¢)
 
 
-mysql master-master master-slaveÇø±ğÓ¦ÓÃ
+ERwin ï¼ˆæ•°æ®åº“å»ºæ¨¡ï¼‰
+
+
+mysql master-master master-slaveåŒºåˆ«åº”ç”¨
 http://blog.xiuwz.com/2012/01/10/talk-nginx-with-http/
 
 http://www.cnblogs.com/jackyrong/archive/2008/03/29/1129212.html
 
 http://www.taobaodba.com/html/tag/innotop
 
-´ó¹æÄ£Web·şÎñ¿ª·¢¼¼Êõ Êé
-mysql jsÃæÊÔ
+å¤§è§„æ¨¡WebæœåŠ¡å¼€å‘æŠ€æœ¯ ä¹¦
+mysql jsé¢è¯•
 http://www.uml.net.cn
 
 
@@ -62,11 +62,11 @@ http://www.pztai.com/index.php
 
 Ocean base
 
-¾«Í¨CSS,DIV+CSS ±ğ¾ß·ç¸ñ pdf
+ç²¾é€šCSS,DIV+CSS åˆ«å…·é£æ ¼ pdf
 
 Goagent
 
-·ÀµÁÁ´ ÌÔ±¦¼¼ÊõÍÅ¶Ó
+é˜²ç›—é“¾ æ·˜å®æŠ€æœ¯å›¢é˜Ÿ
 
 
 
@@ -75,7 +75,7 @@ Goagent
 
 
 
-¾Û¼¯Ë÷Òı ¾Û´ØË÷Òı
+èšé›†ç´¢å¼• èšç°‡ç´¢å¼•
 
 
 http://www.cnblogs.com/hustcat/archive/2009/10/28/1591648.html
@@ -89,13 +89,13 @@ http://www.ccvita.com
 
 http://www.blags.org/php-sphinxapi-use-method/comment-page-1/
 
-http://blog.s135.com (¸ßĞÔÄÜÏà¹ØÍøÕ¾)
+http://blog.s135.com (é«˜æ€§èƒ½ç›¸å…³ç½‘ç«™)
 
 http://code.google.com/p/httpcws/
 
-http://www.mysqlops.com £¨mysqlÔ´Âë¼°ÓÅ»¯Ïà¹Ø£©
+http://www.mysqlops.com ï¼ˆmysqlæºç åŠä¼˜åŒ–ç›¸å…³ï¼‰
 
-http://www.open-open.com/home/space-2869-do-blog-id-5489.html (mysqlËÉÉ¢Ë÷Òı)
+http://www.open-open.com/home/space-2869-do-blog-id-5489.html (mysqlæ¾æ•£ç´¢å¼•)
 
 lucene php 
 
@@ -107,32 +107,32 @@ http://www.rocing.cn/category-8-1.html
 
 http://www.cnblogs.com/picaso/category/301439.html
 
-php Ëã·¨ £¨ËÑË÷£©
+php ç®—æ³• ï¼ˆæœç´¢ï¼‰
 
-http://7567567.blog.51cto.com/706378/d-1 £¨¼¼ÊõÏà¹Ø mysqlÖ÷´Ó£©
+http://7567567.blog.51cto.com/706378/d-1 ï¼ˆæŠ€æœ¯ç›¸å…³ mysqlä¸»ä»ï¼‰
 
 
-http://www.oschina.net/news/27272/google-interview-strange-questions (googleÃæÊÔ)
+http://www.oschina.net/news/27272/google-interview-strange-questions (googleé¢è¯•)
 
-Sqoop ³ÉÎª Apache ¶¥¼¶ÏîÄ¿
+Sqoop æˆä¸º Apache é¡¶çº§é¡¹ç›®
 
 http://www.fuchaoqun.com/2008/11/sphinx-on-windows-xp/
 
-http://www.fuchaoqun.com/2008/11/sphinx-on-windows-xp/ sphinx ÅäÖÃ
+http://www.fuchaoqun.com/2008/11/sphinx-on-windows-xp/ sphinx é…ç½®
 
 
-http://www.blogjava.net/dongbule/archive/2010/08/22/329602.html  mysqlÖ÷´Ó
-http://2526575.blog.51cto.com/2516575/689199  mysqlÖ÷´Ó
+http://www.blogjava.net/dongbule/archive/2010/08/22/329602.html  mysqlä¸»ä»
+http://2526575.blog.51cto.com/2516575/689199  mysqlä¸»ä»
 
-http://blog.csdn.net/jtlyuan/article/details/7435857 tencentÃæÊÔ
+http://blog.csdn.net/jtlyuan/article/details/7435857 tencenté¢è¯•
 
 
 http://c.chinaitlab.com/special/cpxsf/index.html
 http://www.cnblogs.com/kkun/archive/2011/11/23/2260312.html
 
-http://www.cnblogs.com/python27/archive/2012/04/09/2438614.html tencentÌâÄ¿
+http://www.cnblogs.com/python27/archive/2012/04/09/2438614.html tencenté¢˜ç›®
 
-http://www.sziwap.com/ ¸ßĞÔÄÜphp
+http://www.sziwap.com/ é«˜æ€§èƒ½php
 
 http://www.uml.org.cn
 
@@ -142,7 +142,7 @@ http://www.ooso.net
 
 
 
-£¨ÖĞÎÄ·Ö´Ê£© ÅÅĞò
+ï¼ˆä¸­æ–‡åˆ†è¯ï¼‰ æ’åº
 
 
 
@@ -156,4 +156,8 @@ http://cdc.tencent.com/
 http://www.hemono.com/?m=201110
 
 
-http://www.oschina.net/news/25225/10-fresh-jquery-plugins-january-2012 (jquery²å¼ş)
+http://www.oschina.net/news/25225/10-fresh-jquery-plugins-january-2012 (jqueryæ’ä»¶)
+
+
+å¼€å‘å­¦ä¹ ç½‘ç«™
+http://www.kgc.cn/php/15688.shtml

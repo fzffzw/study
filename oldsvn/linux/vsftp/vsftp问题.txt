@@ -59,3 +59,11 @@ Could not change active booleans: Invalid boolean
  setsebool tftp_anon_write 1
 
 6、 service vsftpd restart
+
+
+421 There are too many connections from your internet address.
+--------------
+你们很多人在使用ftp吗 提示说过多连接
+你是不是在设定文件里设置max_clients参数了 并且设置的太小了？
+vsftpd.conf里面的设置
+max_clients=200

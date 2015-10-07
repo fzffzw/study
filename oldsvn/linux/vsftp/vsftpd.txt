@@ -1,112 +1,112 @@
-centOSÖĞvsftp°²×°ÓëÅäÖÃ
+centOSä¸­vsftpå®‰è£…ä¸é…ç½®
 
 http://my.oschina.net/u/130017/blog/15229
 
-1. °²×°
-Ê¹ÓÃchkconfig --listÀ´²é¿´ÊÇ·ñ×°ÓĞvsftpd·şÎñ£»
-Ê¹ÓÃyumÃüÁîÖ±½Ó°²×°£ºyum -y install vsftpd
-È»ºóÎªËü´´½¨ÈÕÖ¾ÎÄ¼ş£ºtouch /var/log/vsftpd.log
+1. å®‰è£…
+ä½¿ç”¨chkconfig --listæ¥æŸ¥çœ‹æ˜¯å¦è£…æœ‰vsftpdæœåŠ¡ï¼›
+ä½¿ç”¨yumå‘½ä»¤ç›´æ¥å®‰è£…ï¼šyum -y install vsftpd
+ç„¶åä¸ºå®ƒåˆ›å»ºæ—¥å¿—æ–‡ä»¶ï¼štouch /var/log/vsftpd.log
 
-ÕâÑù¼òµ¥µÄÁ½¸öÃüÁî¾ÍÍê³ÉÁËvsftpµÄ°²×°£¬µ«ÊÇÈç¹ûÄãÏÖÔÚÏëÕâÑùftp://your_ipÀ´·ÃÎÊµÄ»°£¬ÄÇ»¹²»ĞĞ£¬»¹ĞèÒªÅäÖÃÈ¨ÏŞ£¡
+è¿™æ ·ç®€å•çš„ä¸¤ä¸ªå‘½ä»¤å°±å®Œæˆäº†vsftpçš„å®‰è£…ï¼Œä½†æ˜¯å¦‚æœä½ ç°åœ¨æƒ³è¿™æ ·ftp://your_ipæ¥è®¿é—®çš„è¯ï¼Œé‚£è¿˜ä¸è¡Œï¼Œè¿˜éœ€è¦é…ç½®æƒé™ï¼
 
-2. Æô¶¯ÓëÅäÖÃ×ÔÆô¶¯
-Ê¹ÓÃchkconfig --listÀ´²é¿´vsftpd·şÎñÆô¶¯ÏîÇé¿ö£»
-Èç¹û¿´µ½µÄÊÇÈçÏÂÏÔÊ¾µÄ½á¹û£º
+2. å¯åŠ¨ä¸é…ç½®è‡ªå¯åŠ¨
+ä½¿ç”¨chkconfig --listæ¥æŸ¥çœ‹vsftpdæœåŠ¡å¯åŠ¨é¡¹æƒ…å†µï¼›
+å¦‚æœçœ‹åˆ°çš„æ˜¯å¦‚ä¸‹æ˜¾ç¤ºçš„ç»“æœï¼š
 vsftpd          0:off   1:off   2:off   3:off   4:off   5:off   6:off
-·şÎñÈ«²¿¶¼ÊÇoffµÄ£¬×¢ÒâÕâÀïµÄoff±íÊ¾µÄÊÇ·şÎñÆ÷Æô¶¯µÄÊ±ºòÊÇ·ñ»á×ÔÆô¶¯·şÎñ£¬ÎÒÃÇÊ¹ÓÃÈçÏÂÃüÁîÀ´ÅäÖÃÆä×ÔÆô¶¯£º
-chkconfig --level 2345 vsftpd on #2345¶ÔÓ¦µÄÊÇÉÏÃæ¶ÔÓ¦µÄ0-6Ïî
+æœåŠ¡å…¨éƒ¨éƒ½æ˜¯offçš„ï¼Œæ³¨æ„è¿™é‡Œçš„offè¡¨ç¤ºçš„æ˜¯æœåŠ¡å™¨å¯åŠ¨çš„æ—¶å€™æ˜¯å¦ä¼šè‡ªå¯åŠ¨æœåŠ¡ï¼Œæˆ‘ä»¬ä½¿ç”¨å¦‚ä¸‹å‘½ä»¤æ¥é…ç½®å…¶è‡ªå¯åŠ¨ï¼š
+chkconfig --level 2345 vsftpd on #2345å¯¹åº”çš„æ˜¯ä¸Šé¢å¯¹åº”çš„0-6é¡¹
 
-²é¿´Óë¹ÜÀíftp·şÎñ£º
-Æô¶¯ftp·şÎñ£ºservice vsftpd start
-²é¿´ftp·şÎñ×´Ì¬£ºservice vsftpd status
-ÖØÆôftp·şÎñ£ºservice vsftpd restart
-¹Ø±Õftp·şÎñ£ºservice vsftpd stop
+æŸ¥çœ‹ä¸ç®¡ç†ftpæœåŠ¡ï¼š
+å¯åŠ¨ftpæœåŠ¡ï¼šservice vsftpd start
+æŸ¥çœ‹ftpæœåŠ¡çŠ¶æ€ï¼šservice vsftpd status
+é‡å¯ftpæœåŠ¡ï¼šservice vsftpd restart
+å…³é—­ftpæœåŠ¡ï¼šservice vsftpd stop
 
-3. ÅäÖÃvsftp·şÎñ
-±à¼­/etc/vsftpd/vsftpd.confÎÄ¼ş£¬ÅäÖÃvsftp·şÎñ£º
+3. é…ç½®vsftpæœåŠ¡
+ç¼–è¾‘/etc/vsftpd/vsftpd.confæ–‡ä»¶ï¼Œé…ç½®vsftpæœåŠ¡ï¼š
 #vi /etc/vsftpd/vsftpd.conf
-3.1 ±à¼­ĞŞ¸ÄÈçÏÂÏîÄ¿£º
-anonymous_enable=NO #Éè¶¨²»ÔÊĞíÄäÃû·ÃÎÊ
-local_enable=YES #Éè¶¨±¾µØÓÃ»§¿ÉÒÔ·ÃÎÊ¡£×¢£ºÈçÊ¹ÓÃĞéÄâËŞÖ÷ÓÃ»§£¬ÔÚ¸ÃÏîÄ¿Éè¶¨ÎªNOµÄÇé¿öÏÂËùÓĞĞéÄâÓÃ»§½«ÎŞ·¨·ÃÎÊ¡£
-chroot_list_enable=YES #Ê¹ÓÃ»§²»ÄÜÀë¿ªÖ÷Ä¿Â¼
-xferlog_file=/var/log/vsftpd.log #Éè¶¨vsftpdµÄ·şÎñÈÕÖ¾±£´æÂ·¾¶¡£×¢Òâ£¬¸ÃÎÄ¼şÄ¬ÈÏ²»´æÔÚ¡£±ØĞëÒªÊÖ¶¯touch³öÀ´
-ascii_upload_enable=YES #ÔÊĞíÊ¹ÓÃASCIIÄ£Ê½ÉÏ´«
-ascii_download_enable=YES #Éè¶¨Ö§³ÖASCIIÄ£Ê½µÄÉÏ´«ºÍÏÂÔØ¹¦ÄÜ¡£
-pam_service_name=vsftpd #PAMÈÏÖ¤ÎÄ¼şÃû¡£PAM½«¸ù¾İ/etc/pam.d/vsftpd½øĞĞÈÏÖ¤
+3.1 ç¼–è¾‘ä¿®æ”¹å¦‚ä¸‹é¡¹ç›®ï¼š
+anonymous_enable=NO #è®¾å®šä¸å…è®¸åŒ¿åè®¿é—®
+local_enable=YES #è®¾å®šæœ¬åœ°ç”¨æˆ·å¯ä»¥è®¿é—®ã€‚æ³¨ï¼šå¦‚ä½¿ç”¨è™šæ‹Ÿå®¿ä¸»ç”¨æˆ·ï¼Œåœ¨è¯¥é¡¹ç›®è®¾å®šä¸ºNOçš„æƒ…å†µä¸‹æ‰€æœ‰è™šæ‹Ÿç”¨æˆ·å°†æ— æ³•è®¿é—®ã€‚
+chroot_list_enable=YES #ä½¿ç”¨æˆ·ä¸èƒ½ç¦»å¼€ä¸»ç›®å½•
+xferlog_file=/var/log/vsftpd.log #è®¾å®švsftpdçš„æœåŠ¡æ—¥å¿—ä¿å­˜è·¯å¾„ã€‚æ³¨æ„ï¼Œè¯¥æ–‡ä»¶é»˜è®¤ä¸å­˜åœ¨ã€‚å¿…é¡»è¦æ‰‹åŠ¨touchå‡ºæ¥
+ascii_upload_enable=YES #å…è®¸ä½¿ç”¨ASCIIæ¨¡å¼ä¸Šä¼ 
+ascii_download_enable=YES #è®¾å®šæ”¯æŒASCIIæ¨¡å¼çš„ä¸Šä¼ å’Œä¸‹è½½åŠŸèƒ½ã€‚
+pam_service_name=vsftpd #PAMè®¤è¯æ–‡ä»¶åã€‚PAMå°†æ ¹æ®/etc/pam.d/vsftpdè¿›è¡Œè®¤è¯
 
-ÒÔÏÂÕâĞ©ÊÇ¹ØÓÚVsftpdĞéÄâÓÃ»§Ö§³ÖµÄÖØÒªCentOS FTP·şÎñÅäÖÃÏîÄ¿¡£Ä¬ÈÏvsftpd.confÖĞ²»°üº¬ÕâĞ©Éè¶¨ÏîÄ¿£¬ĞèÒª×Ô¼ºÊÖ¶¯Ìí¼ÓRHEL/CentOS FTP·şÎñÅäÖÃ¡£
-guest_enable=YES #Éè¶¨ÆôÓÃĞéÄâÓÃ»§¹¦ÄÜ¡£
-guest_username=ftp #Ö¸¶¨ĞéÄâÓÃ»§µÄËŞÖ÷ÓÃ»§¡£-RHEL/CentOSÖĞÒÑ¾­ÓĞÄÚÖÃµÄftpÓÃ»§ÁË
-user_config_dir=/etc/vsftpd/vuser_conf #Éè¶¨ĞéÄâÓÃ»§¸öÈËvsftpµÄRHEL/CentOS FTP·şÎñÎÄ¼ş´æ·ÅÂ·¾¶¡£´æ·ÅĞéÄâÓÃ»§¸öĞÔµÄCentOS FTP·şÎñÎÄ¼ş(ÅäÖÃÎÄ¼şÃû=ĞéÄâÓÃ»§Ãû)
+ä»¥ä¸‹è¿™äº›æ˜¯å…³äºVsftpdè™šæ‹Ÿç”¨æˆ·æ”¯æŒçš„é‡è¦CentOS FTPæœåŠ¡é…ç½®é¡¹ç›®ã€‚é»˜è®¤vsftpd.confä¸­ä¸åŒ…å«è¿™äº›è®¾å®šé¡¹ç›®ï¼Œéœ€è¦è‡ªå·±æ‰‹åŠ¨æ·»åŠ RHEL/CentOS FTPæœåŠ¡é…ç½®ã€‚
+guest_enable=YES #è®¾å®šå¯ç”¨è™šæ‹Ÿç”¨æˆ·åŠŸèƒ½ã€‚
+guest_username=ftp #æŒ‡å®šè™šæ‹Ÿç”¨æˆ·çš„å®¿ä¸»ç”¨æˆ·ã€‚-RHEL/CentOSä¸­å·²ç»æœ‰å†…ç½®çš„ftpç”¨æˆ·äº†
+user_config_dir=/etc/vsftpd/vuser_conf #è®¾å®šè™šæ‹Ÿç”¨æˆ·ä¸ªäººvsftpçš„RHEL/CentOS FTPæœåŠ¡æ–‡ä»¶å­˜æ”¾è·¯å¾„ã€‚å­˜æ”¾è™šæ‹Ÿç”¨æˆ·ä¸ªæ€§çš„CentOS FTPæœåŠ¡æ–‡ä»¶(é…ç½®æ–‡ä»¶å=è™šæ‹Ÿç”¨æˆ·å)
 
-3.2 ´´½¨chroot list£¬½«ftpÓÃ»§¼ÓÈëÆäÖĞ£º
+3.2 åˆ›å»ºchroot listï¼Œå°†ftpç”¨æˆ·åŠ å…¥å…¶ä¸­ï¼š
 touch /etc/vsftpd/chroot_list
 echo ftp >> /etc/vsftpd/chroot_list
 
-3.3 ½øĞĞÈÏÖ¤£º
-Ê×ÏÈ£¬°²×°Berkeley DB¹¤¾ß£¬ºÜ¶àÈËÕÒ²»µ½db_loadµÄÎÊÌâ¾ÍÊÇÃ»ÓĞ°²×°Õâ¸ö°ü¡£
+3.3 è¿›è¡Œè®¤è¯ï¼š
+é¦–å…ˆï¼Œå®‰è£…Berkeley DBå·¥å…·ï¼Œå¾ˆå¤šäººæ‰¾ä¸åˆ°db_loadçš„é—®é¢˜å°±æ˜¯æ²¡æœ‰å®‰è£…è¿™ä¸ªåŒ…ã€‚
 yum install db4 db4-utils
-È»ºó£¬´´½¨ÓÃ»§ÃÜÂëÎÄ±¾/etc/vsftpd/vuser_passwd.txt £¬×¢ÒâÆæĞĞÊÇÓÃ»§Ãû£¬Å¼ĞĞÊÇÃÜÂë
+ç„¶åï¼Œåˆ›å»ºç”¨æˆ·å¯†ç æ–‡æœ¬/etc/vsftpd/vuser_passwd.txt ï¼Œæ³¨æ„å¥‡è¡Œæ˜¯ç”¨æˆ·åï¼Œå¶è¡Œæ˜¯å¯†ç 
 ftpuser1
 ftppass1
 ftpuser2
 ftppass2
-½Ó×Å£¬.Éú³ÉĞéÄâÓÃ»§ÈÏÖ¤µÄdbÎÄ¼ş
+æ¥ç€ï¼Œ.ç”Ÿæˆè™šæ‹Ÿç”¨æˆ·è®¤è¯çš„dbæ–‡ä»¶
 db_load -T -t hash -f /etc/vsftpd/vuser_passwd.txt /etc/vsftpd/vuser_passwd.db
-Ëæºó£¬±à¼­ÈÏÖ¤ÎÄ¼ş/etc/pam.d/vsftpd£¬È«²¿×¢ÊÍµôÔ­À´Óï¾ä
-ÔÙÔö¼ÓÒÔÏÂÁ½¾ä
+éšåï¼Œç¼–è¾‘è®¤è¯æ–‡ä»¶/etc/pam.d/vsftpdï¼Œå…¨éƒ¨æ³¨é‡Šæ‰åŸæ¥è¯­å¥
+å†å¢åŠ ä»¥ä¸‹ä¸¤å¥
 auth required pam_userdb.so db=/etc/vsftpd/vuser_passwd
 account required pam_userdb.so db=/etc/vsftpd/vuser_passwd
-×îºó£¬´´½¨ĞéÄâÓÃ»§¸öĞÔRHEL/CentOS FTP·şÎñÎÄ¼ş
+æœ€åï¼Œåˆ›å»ºè™šæ‹Ÿç”¨æˆ·ä¸ªæ€§RHEL/CentOS FTPæœåŠ¡æ–‡ä»¶
 mkdir /etc/vsftpd/vuser_conf/
 vi /etc/vsftpd/vuser_conf/ftpuser1
-ÄÚÈİÈçÏÂ£º
-local_root=/opt/var/ftp1 ĞéÄâÓÃ»§µÄ¸ùÄ¿Â¼(¸ù¾İÊµ¼ÊĞŞ¸Ä)
-write_enable=YES ¿ÉĞ´
-anon_umask=022 ÑÚÂë
+å†…å®¹å¦‚ä¸‹ï¼š
+local_root=/opt/var/ftp1 è™šæ‹Ÿç”¨æˆ·çš„æ ¹ç›®å½•(æ ¹æ®å®é™…ä¿®æ”¹)
+write_enable=YES å¯å†™
+anon_umask=022 æ©ç 
 anon_world_readable_only=NO
 anon_upload_enable=YES
 anon_mkdir_write_enable=YES
 anon_other_write_enable=YES
 
-4. ÎªÄ¿Â¼¸½È¨ÏŞ²¢ÖØÆô¶¯vsftp·şÎñ:
+4. ä¸ºç›®å½•é™„æƒé™å¹¶é‡å¯åŠ¨vsftpæœåŠ¡:
 mkdir /opt/var/ftp/ftpuser1
 chmod 777 /opt/var/ftp/ftpuser1
 service vsftpd restart
 
-5. ³£¼ûÎÊÌâ£º
+5. å¸¸è§é—®é¢˜ï¼š
 5.1 553 Could not create file
-Ò»°ã¶¼ÊÇSELinuxµÄÎÊÌâ£¬ÉèÖÃSELinuxµÄÒ»¸öÖµ£¬ÖØÆô·şÎñÆ÷¼´¿É¡£
+ä¸€èˆ¬éƒ½æ˜¯SELinuxçš„é—®é¢˜ï¼Œè®¾ç½®SELinuxçš„ä¸€ä¸ªå€¼ï¼Œé‡å¯æœåŠ¡å™¨å³å¯ã€‚
 setsebool -P ftpd_disable_trans 1
 service vsftpd restart
 
 5.2 500 OOPS: bad bool value in config file for: write_enable
-×¢ÒâÄãµÄCentOS FTP·şÎñÎÄ¼şÖĞ±£Ö¤Ã¿Ò»ĞĞ×îºóÃ»ÓĞÈÎºÎ¿Õ¸ñ£¬Ò»°ã³ö´í¾ÍÊÇÔÚ¶àÓàµÄ¿Õ¸ñÉÏ¡£
+æ³¨æ„ä½ çš„CentOS FTPæœåŠ¡æ–‡ä»¶ä¸­ä¿è¯æ¯ä¸€è¡Œæœ€åæ²¡æœ‰ä»»ä½•ç©ºæ ¼ï¼Œä¸€èˆ¬å‡ºé”™å°±æ˜¯åœ¨å¤šä½™çš„ç©ºæ ¼ä¸Šã€‚
 
-5.3 ĞéÄâÓÃ»§ÉÏ´«ºóÄ¬ÈÏÈ¨ÏŞÎª£º600£¬ÓÃ»§ÎŞ·¨ÏÂÔØÎÄ¼ş
-ÔÚÅäÖÃÎÄ¼şÖĞÌí¼Ó»òĞŞ¸Äanon_umaskÏîµÄÖµ¡£Èçanon_umask=022»ò000
+5.3 è™šæ‹Ÿç”¨æˆ·ä¸Šä¼ åé»˜è®¤æƒé™ä¸ºï¼š600ï¼Œç”¨æˆ·æ— æ³•ä¸‹è½½æ–‡ä»¶
+åœ¨é…ç½®æ–‡ä»¶ä¸­æ·»åŠ æˆ–ä¿®æ”¹anon_umaské¡¹çš„å€¼ã€‚å¦‚anon_umask=022æˆ–000
 
-6. Ê¹ÓÃÃüÁîÌí¼ÓftpÓÃ»§£¨Óë3.3ÀàËÆ£©
-6.1 Ìí¼ÓftpÓÃ»§£¬ÃüÁî¸ñÊ½£º
-#adduser -d /Ä¿Â¼Â·¾¶ -g ftp -s /sbin/nologin ÓÃ»§Ãû
-ÈçÊ¹ÓÃ£º#adduser -d /opt/dongge -g ftp -s /sbin/nologin dongge
-Ôö¼ÓÁËÒ»¸öÃûÎªdonggeµÄÓÃ»§£¬ËüµÄÄ¿Â¼ÊôÓÚ/opt/donggeÏÂÃæ£¬ÊôÓÚftpÓÃ»§×é¡£´ËÓÃ»§ÊÇ²»¿ÉÒÔµÇÂ½ÎÒÃÇÖÕ¶Ë·şÎñÆ÷µÄ¡£
+6. ä½¿ç”¨å‘½ä»¤æ·»åŠ ftpç”¨æˆ·ï¼ˆä¸3.3ç±»ä¼¼ï¼‰
+6.1 æ·»åŠ ftpç”¨æˆ·ï¼Œå‘½ä»¤æ ¼å¼ï¼š
+#adduser -d /ç›®å½•è·¯å¾„ -g ftp -s /sbin/nologin ç”¨æˆ·å
+å¦‚ä½¿ç”¨ï¼š#adduser -d /opt/dongge -g ftp -s /sbin/nologin dongge
+å¢åŠ äº†ä¸€ä¸ªåä¸ºdonggeçš„ç”¨æˆ·ï¼Œå®ƒçš„ç›®å½•å±äº/opt/donggeä¸‹é¢ï¼Œå±äºftpç”¨æˆ·ç»„ã€‚æ­¤ç”¨æˆ·æ˜¯ä¸å¯ä»¥ç™»é™†æˆ‘ä»¬ç»ˆç«¯æœåŠ¡å™¨çš„ã€‚
 
-6.2 Ìí¼ÓÃÜÂë£º
+6.2 æ·»åŠ å¯†ç ï¼š
 #passwd dongge
-ÉèÖÃÓÃ»§ÃûÎªFTPUSERµÄÓÃ»§ÔÚÄ¿Â¼ÏÂ¿ÉÒÔ¶ÁĞ´µÄÈ¨ÏŞ
+è®¾ç½®ç”¨æˆ·åä¸ºFTPUSERçš„ç”¨æˆ·åœ¨ç›®å½•ä¸‹å¯ä»¥è¯»å†™çš„æƒé™
 #chown -R dongge:ftp /opt/dongge/
 
-6.3 Ä¿Â¼¹ÒÔØ£º
-Èç¹ûÎÒÃÇÏë°Ñ/opt/donggeÄ¿Â¼¹Òµ½ÎÒÃÇµÄftpÄ¿Â¼ÏÂÃæ£¬¿ÉÒÔÊ¹ÓÃmountÃüÁî
-#mount ¨C-bind /opt/dongge /var/ftp/dongge
-ÕâÑùÎÒÃÇ¾ÍÍê³ÉÁËÌí¼ÓÓÃ»§Óë¹ÒÔØÄ¿Â¼µÄÅäÖÃ¡£
+6.3 ç›®å½•æŒ‚è½½ï¼š
+å¦‚æœæˆ‘ä»¬æƒ³æŠŠ/opt/donggeç›®å½•æŒ‚åˆ°æˆ‘ä»¬çš„ftpç›®å½•ä¸‹é¢ï¼Œå¯ä»¥ä½¿ç”¨mountå‘½ä»¤
+#mount â€“-bind /opt/dongge /var/ftp/dongge
+è¿™æ ·æˆ‘ä»¬å°±å®Œæˆäº†æ·»åŠ ç”¨æˆ·ä¸æŒ‚è½½ç›®å½•çš„é…ç½®ã€‚
 
-7. Ö§³ÖhttpÏÂÔØ
-±à¼­/etc/httpd/conf/httpd.confÎÄ¼ş£º
+7. æ”¯æŒhttpä¸‹è½½
+ç¼–è¾‘/etc/httpd/conf/httpd.confæ–‡ä»¶ï¼š
 #vi /etc/httpd/conf/httpd.conf
 
-Ìí¼ÓÈçÏÂ´úÂë£º
+æ·»åŠ å¦‚ä¸‹ä»£ç ï¼š
 Alias /fileshare "/var/ftp/ftpuser1"
 <Directory "/var/ftp/ftpuser1">
     Options Indexes MultiViews
@@ -115,12 +115,12 @@ Alias /fileshare "/var/ftp/ftpuser1"
     Allow from all
 </Directory>
 
-ÖØÆôhttpd·şÎñ£¬¼´¿ÉÊ¹ÓÃhttp://your_ip/fileshareÀ´·ÃÎÊ²¢ÏÂÔØËùĞèÒªÎÄ¼ş£º£©
+é‡å¯httpdæœåŠ¡ï¼Œå³å¯ä½¿ç”¨http://your_ip/fileshareæ¥è®¿é—®å¹¶ä¸‹è½½æ‰€éœ€è¦æ–‡ä»¶ï¼šï¼‰
 
-8. ÍµÀÁvsftpµÄÅäÖÃ·½·¨
-Íê³É²½Öè1£¬2£¬3.1ºó£¬Ö±½Ó½«ÈçÏÂ´úÂëÌí¼Óµ½/etc/vsftpd/vsftpd.confÎÄ¼şÖĞ£º
-write_enable=YES ¿ÉĞ´
-anon_umask=022 ÑÚÂë
+8. å·æ‡’vsftpçš„é…ç½®æ–¹æ³•
+å®Œæˆæ­¥éª¤1ï¼Œ2ï¼Œ3.1åï¼Œç›´æ¥å°†å¦‚ä¸‹ä»£ç æ·»åŠ åˆ°/etc/vsftpd/vsftpd.confæ–‡ä»¶ä¸­ï¼š
+write_enable=YES å¯å†™
+anon_umask=022 æ©ç 
 anon_world_readable_only=NO
 anon_upload_enable=YES
 anon_mkdir_write_enable=YES
