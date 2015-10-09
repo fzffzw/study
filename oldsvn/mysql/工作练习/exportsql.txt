@@ -50,4 +50,58 @@ on allsm.smcm_id=gsm.smcm_id
 
 
 
+###产品导出
+select p.customer_code as 客户代码,
+p.product_sku as 产品sku,
+p.product_barcode_type,
+p.product_barcode as 产品条码,
+p.product_title as 产品名称,
+p.product_title_en as 英文名,
+p.product_status as 状态,
+pum.pu_name as 单位,
+p.currency_code as 申报币种,
+p.product_declared_value as 申报价值,
+p.product_weight as 产品重量（KG）,
+p.hs_code as 海关编码,
+p.goods_id as 招保料号,
+pc.pc_name as 产品品类,
+ds.distributor_code as 供应商代码,
+p.product_length as 长（CM）,
+p.product_width as 宽（CM）,
+p.product_height as 高（CM）,
+p.product_receive_status as 产品接收类型,
+p.product_is_qc as 质检类型,
+p.product_type as 产品分类,
+p.product_add_time as 产品添加时间,
+p.is_accessories as 是否属于零件类,
+p.has_invoice as 有无发票,
+p.model_serial as 产品型号,
+p.hs_goods_name as 海关品名,
+p.with_battery as 是否带电池,
+p.battery_type as 电池类型,
+hu.pu_code_law as 法定单位,
+hum.hum_quantity_law as 法定数量,
+hu.pu_code_second as 第二法定单位,
+hum.hum_quantity_second as 第二法定数量,
+he.hs_code as 要素代码,
+he.he_name as 要素名称,
+hem.hem_detail as 申报要素内容
 
+from product as p
+left join product_uom as pum
+on p.pu_code=pum.pu_code
+left join product_category as pc
+on pc.pc_id=p.pc_id
+left join distributor as ds
+on ds.distributor_id=p.distributor_id
+left join hs_uom as hu
+on hu.hs_code=p.hs_code
+left join hs_uom_map as hum
+on p.product_id=hum.product_id
+and hum.hu_id=hu.hu_id
+left join hs_element as he
+on he.hs_code=p.hs_code
+left join hs_element_map as hem
+on hem.product_id=p.product_id
+and hem.he_id=he.he_id
+where p.customer_code='E0309'
