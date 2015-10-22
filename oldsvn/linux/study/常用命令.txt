@@ -215,6 +215,14 @@ tcp        0      0 ::ffff:192.168.0.103:22     ::ffff:192.168.0.105:1976   ESTA
 tcp        0      0 ::ffff:192.168.0.103:22     ::ffff:192.168.0.105:1976   ESTABLISHED 
 tcp        0      0 ::ffff:192.168.0.103:22     ::ffff:192.168.0.105:1975   ESTABLISHED 
 
+##查找僵尸进程
+ps -A -ostat,ppid,pid,cmd | grep -e '^[Zz]'
+
+Zs    1566  1581 [shipBatchSubmit] <defunct>
+
+
+
+
 1976和1975表示连接计算机的端口（原端口）
 
 

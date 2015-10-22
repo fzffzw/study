@@ -221,7 +221,7 @@ limit 2700000,900000
 
 
 
-###导行邮税
+###导行邮税（审核时间）
 select o.order_code as 订单号,
 o.reference_no as 交易订单号,
 sum(op.op_price*op.op_quantity) as 货值,
@@ -270,6 +270,29 @@ on gts.gt_id=p.gt_id
 group by o.order_code
 
 
+##订单创建时间
+select o.order_code as 订单号,
+o.reference_no as 交易订单号,
+sum(op.op_price*op.op_quantity) as 货值,
+sum(op.op_price*op.op_quantity*gts.gt_rate) as 行邮税,
+fmso.fml_update_time as 海关审核时间,
+o.add_time as 创建时间,
+fmso.form_id_xml as 物品清单号
+from orders as o
+inner join order_product as op
+on o.order_code=op.order_code
+inner join ftp_message_shipbatch_order as fmso
+on fmso.order_code=o.order_code
+inner join product as p
+on p.product_id=op.product_id
+inner join goods_tax as gts
+on gts.gt_id=p.gt_id
+where o.customer_code='C0359'
+#and fmso.fml_status='3'
+and o.add_time>='2015-09-01 00:00:00'
+and o.add_time<='2015-09-30 23:59:59'
+group by o.order_code
+
 
 
 ##包含已审核往后的ASN总的SKU件数
@@ -317,7 +340,7 @@ inner join product as p
 on p.product_id=op.product_id
 where fmso.fml_status='3'
 
-
+e
 ##已出库的订单数
 select count(*) from ftp_message_shipbatch_order where fml_status='3'
 
@@ -331,4 +354,18 @@ where fmso.fml_status='3'
 group by date_format(fmso.fml_update_time,'%Y-%m')
 
 
+料件号&sku&条码
 
+([0-9]+)(=>[0-9A-Z]+)
+'\1',
+
+excel弄成这样的文本
+22342=>O153JP012P1990
+
+ID加上引号
+([0-9]+)(=>[0-9A-Z]+)
+'\1'\2
+
+
+('[0-9]+'=>)([0-9A-Z]+)
+\1'\2'

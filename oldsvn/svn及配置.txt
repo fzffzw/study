@@ -2,30 +2,30 @@
 http://oplinux.com/app/svn/linux-yum-install-svn.html
 
 2012
-linuxÏÂÍ¨¹ıyum°²×°svn¼°ÅäÖÃ
-×÷Õß£ºÓ°×Ó   ·¢²¼£º2012-06-16 18:01   ·ÖÀà£ºSVN   ÔÄ¶Á£º13,413 views   ÇÀÉ³·¢  
-1.»·¾³
+linuxä¸‹é€šè¿‡yumå®‰è£…svnåŠé…ç½®
+ä½œè€…ï¼šå½±å­   å‘å¸ƒï¼š2012-06-16 18:01   åˆ†ç±»ï¼šSVN   é˜…è¯»ï¼š13,413 views   æŠ¢æ²™å‘  
+1.ç¯å¢ƒ
 centos5.5
-2.°²×°svn
+2.å®‰è£…svn
 yum -y install subversion
-3.ÅäÖÃ
-½¨Á¢°æ±¾¿âÄ¿Â¼
+3.é…ç½®
+å»ºç«‹ç‰ˆæœ¬åº“ç›®å½•
 mkdir /www/svndata
 svnserve -d -r /www/svndata
 
 
-Èç¹û³öÏÖ£¬ÕâÑùµÄ´íÎóĞÅÏ¢£¬¡°svnserve: ²»ÄÜ°ó¶¨·şÎñÆ÷Ì×½Ó×Ö: µØÖ·ÒÑ¾­±»Ê¹ÓÃ¡±
-ÄÇÏÈ°Ñsvnserve½ø³Ì¸Éµô¡£
-¾ßÌå×ö·¨ÊÇ
-$ ps -aux  ££²é¿´½ø³Ì,svnserveµÄpidÎª16663
-$ kill -9 16663 #¸Éµôsvnserve
-ÔÙ´ÎÔËĞĞ$ svnserve -d -r /var/www/svn
+å¦‚æœå‡ºç°ï¼Œè¿™æ ·çš„é”™è¯¯ä¿¡æ¯ï¼Œâ€œsvnserve: ä¸èƒ½ç»‘å®šæœåŠ¡å™¨å¥—æ¥å­—: åœ°å€å·²ç»è¢«ä½¿ç”¨â€
+é‚£å…ˆæŠŠsvnserveè¿›ç¨‹å¹²æ‰ã€‚
+å…·ä½“åšæ³•æ˜¯
+$ ps -aux  ï¼ƒæŸ¥çœ‹è¿›ç¨‹,svnserveçš„pidä¸º16663
+$ kill -9 16663 #å¹²æ‰svnserve
+å†æ¬¡è¿è¡Œ$ svnserve -d -r /var/www/svn
 
-   ÓÒ¼üTortoiseSVN -> Settings -> Saved Data-> Authentication Data µã¡°Clear¡±¡£ÕâÑù£¬ÖØĞÂ·ÃÎÊÅäÖÃ¿âµÄÊ±ºò£¬¾Í»áÌáÊ¾ÊäÈëÓÃ»§ÃñºÍÃÜÂëÁË¡£
-       Õâ¿ÉÒÔ½â¾ö·ÃÎÊ²»Í¬µÄµØÖ·£¬ÓÃ»§Ãû/ÃÜÂë²»Í¬µÄÎÊÌâ¡£
+   å³é”®TortoiseSVN -> Settings -> Saved Data-> Authentication Data ç‚¹â€œClearâ€ã€‚è¿™æ ·ï¼Œé‡æ–°è®¿é—®é…ç½®åº“çš„æ—¶å€™ï¼Œå°±ä¼šæç¤ºè¾“å…¥ç”¨æˆ·æ°‘å’Œå¯†ç äº†ã€‚
+       è¿™å¯ä»¥è§£å†³è®¿é—®ä¸åŒçš„åœ°å€ï¼Œç”¨æˆ·å/å¯†ç ä¸åŒçš„é—®é¢˜ã€‚
 
 	   
-vi /etc/sysconfig/iptables ·À»ğÇ½	   
+vi /etc/sysconfig/iptables é˜²ç«å¢™	   
 	   
 -A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 3690 -j ACCEPT 
 
@@ -35,26 +35,26 @@ svnserve -d -r /var/www/html
 
 iptables restart
 
-Áí£¬ÓĞ¿ªÆô3690¶Ë¿ÚµÄÃüÁî£¬ÔÚÖÕ¶ËÊäÈëÒÔÏÂÃüÁî£º
+å¦ï¼Œæœ‰å¼€å¯3690ç«¯å£çš„å‘½ä»¤ï¼Œåœ¨ç»ˆç«¯è¾“å…¥ä»¥ä¸‹å‘½ä»¤ï¼š
 
 1>iptables -I INPUT -i eth0 -p tcp --dport 3690 -j ACCEPT
 
 2>iptables -I OUTPUT -o eth0 -p tcp --sport 3690 -j ACCEPT
 
-È»ºó±£´æ£ºetc/rc.d/init.d/iptables save
+ç„¶åä¿å­˜ï¼šetc/rc.d/init.d/iptables save
 
-ÔÚ¿´¿´ÊÇ·ñÒÑ¾­ÓĞÁË360¶Ë¿ÚµÄ¿ª·ÅÈ¨ÏŞ£º/etc/init.d/iptables status
-
-
-ÓÃ»§Ãû ÃÜÂë±£´æÔÚ
-C:\Documents and Settings\¡¾user¡¿\Application Data\Subversion\auth\svn.simple
+åœ¨çœ‹çœ‹æ˜¯å¦å·²ç»æœ‰äº†360ç«¯å£çš„å¼€æ”¾æƒé™ï¼š/etc/init.d/iptables status
 
 
+ç”¨æˆ·å å¯†ç ä¿å­˜åœ¨
+C:\Documents and Settings\ã€userã€‘\Application Data\Subversion\auth\svn.simple
 
-4.½¨Á¢°æ±¾¿â
-´´½¨Ò»¸öĞÂµÄSubversionÏîÄ¿
+
+
+4.å»ºç«‹ç‰ˆæœ¬åº“
+åˆ›å»ºä¸€ä¸ªæ–°çš„Subversioné¡¹ç›®
 svnadmin create /www/svndata/oplinux
-ÅäÖÃÔÊĞíÓÃ»§rsync·ÃÎÊ
+é…ç½®å…è®¸ç”¨æˆ·rsyncè®¿é—®
 cd /www/svndata/oplinux/conf
 vi svnserve.conf
 anon-access=none
@@ -75,41 +75,41 @@ authz
 [/]
 william = rw
 
-×¢£ºĞŞ¸ÄµÄÎÄ¼şÇ°Ãæ²»ÄÜÓĞ¿Õ¸ñ£¬·ñÔòÆô¶¯svn server³ö´í
+æ³¨ï¼šä¿®æ”¹çš„æ–‡ä»¶å‰é¢ä¸èƒ½æœ‰ç©ºæ ¼ï¼Œå¦åˆ™å¯åŠ¨svn serverå‡ºé”™
 vi passwd
 [users]
-#<ÓÃ»§1> = <ÃÜÂë1>
-#<ÓÃ»§2> = <ÃÜÂë2>
+#<ç”¨æˆ·1> = <å¯†ç 1>
+#<ç”¨æˆ·2> = <å¯†ç 2>
 rsync=rsync
-5.¿Í»§¶ËÁ¬½Ó
+5.å®¢æˆ·ç«¯è¿æ¥
 svn co svn://ip/oplinux
-ÓÃ»§ÃûÃÜÂë:rsync
+ç”¨æˆ·åå¯†ç :rsync
 ===============================================================
-6.ÊµÏÖSVNÓëWEBÍ¬²½,¿ÉÒÔCOÒ»¸ö³öÀ´,Ò²¿ÉÒÔÖ±½ÓÅäÔÚ²Ö¿âÖĞ
-1)ÉèÖÃWEB·şÎñÆ÷¸ùÄ¿Â¼Îª/www/webroot
-2)checkoutÒ»·İSVN
+6.å®ç°SVNä¸WEBåŒæ­¥,å¯ä»¥COä¸€ä¸ªå‡ºæ¥,ä¹Ÿå¯ä»¥ç›´æ¥é…åœ¨ä»“åº“ä¸­
+1)è®¾ç½®WEBæœåŠ¡å™¨æ ¹ç›®å½•ä¸º/www/webroot
+2)checkoutä¸€ä»½SVN
 svn co svn://localhost/oplinux /www/webroot
-ĞŞ¸ÄÈ¨ÏŞÎªWEBÓÃ»§
+ä¿®æ”¹æƒé™ä¸ºWEBç”¨æˆ·
 chown -R apache:apache /www/webroot/oplinux
-3)½¨Á¢Í¬²½½Å±¾
+3)å»ºç«‹åŒæ­¥è„šæœ¬
 cd /www/svndata/oplinux/hooks/
 cp post-commit.tmpl post-commit
-±à¼­post-commit,ÔÚÎÄ¼ş×îºóÌí¼ÓÒÔÏÂÄÚÈİ
+ç¼–è¾‘post-commit,åœ¨æ–‡ä»¶æœ€åæ·»åŠ ä»¥ä¸‹å†…å®¹
 export LANG=en_US.UTF-8
 SVN=/usr/bin/svn
 WEB=/www/webroot/
-$SVN update $WEB ¨Cusername rsync ¨Cpassword rsync
+$SVN update $WEB â€“username rsync â€“password rsync
 chown -R apache:apache $WEB
-Ôö¼Ó½Å±¾Ö´ĞĞÈ¨ÏŞ
+å¢åŠ è„šæœ¬æ‰§è¡Œæƒé™
 chmod +x post-commit
 
-svn ¸üĞÂµ½Ö¸¶¨Ä¿Â¼
+svn æ›´æ–°åˆ°æŒ‡å®šç›®å½•
 http://www.s135.com/post/371/
 
 
-¡¡¡¡½ñÌì»¨¼¸·ÖÖÓĞ´µÄÒ»¸öPHPĞ¡³ÌĞò£¬ÓÃÍ¾ÊÇ£ºÎŞĞè¸ø³ÌĞòÔ±¿ª·Å·şÎñÆ÷SSHÕÊºÅ£¬Ö»ĞèÍ¨¹ıWebä¯ÀÀÆ÷¼´¿É´ÓSVN°æ±¾¿â¸üĞÂ´úÂëµ½Linux·şÎñÆ÷µÄÖ¸¶¨Ä¿Â¼¡£Èç¹ûÓĞĞèÒª£¬¿ÉÒÔ¸øÕâ¶Î´úÂë¼Ó¸öÃÜÂëµÇÂ¼¡£
+ã€€ã€€ä»Šå¤©èŠ±å‡ åˆ†é’Ÿå†™çš„ä¸€ä¸ªPHPå°ç¨‹åºï¼Œç”¨é€”æ˜¯ï¼šæ— éœ€ç»™ç¨‹åºå‘˜å¼€æ”¾æœåŠ¡å™¨SSHå¸å·ï¼Œåªéœ€é€šè¿‡Webæµè§ˆå™¨å³å¯ä»SVNç‰ˆæœ¬åº“æ›´æ–°ä»£ç åˆ°LinuxæœåŠ¡å™¨çš„æŒ‡å®šç›®å½•ã€‚å¦‚æœæœ‰éœ€è¦ï¼Œå¯ä»¥ç»™è¿™æ®µä»£ç åŠ ä¸ªå¯†ç ç™»å½•ã€‚
 
-¡¡¡¡1¡¢¼ÙÉèwww¡¢wwwÊÇApache»òNginx·şÎñÆ÷µÄÓÃ»§ÃûºÍ×é£¬/data0/www/ÊÇÍøÒ³ÎÄ¼ş´æ·Å¸ùÄ¿Â¼£¬Ö´ĞĞÒÔÏÂshellÃüÁî£º
+ã€€ã€€1ã€å‡è®¾wwwã€wwwæ˜¯Apacheæˆ–NginxæœåŠ¡å™¨çš„ç”¨æˆ·åå’Œç»„ï¼Œ/data0/www/æ˜¯ç½‘é¡µæ–‡ä»¶å­˜æ”¾æ ¹ç›®å½•ï¼Œæ‰§è¡Œä»¥ä¸‹shellå‘½ä»¤ï¼š
 sudo -s
 /usr/sbin/groupadd www -g 48
 /usr/sbin/useradd -u 48 -g www www
@@ -120,24 +120,24 @@ cd /data0/www/
 /usr/local/bin/svn checkout --username zhangyan --password 123456 http://xxx.xxx.xxx.xxx:8080/svn/web/trunk/
 
 
-¡¡¡¡2¡¢´´½¨ÎÄ¼şsvn_up.php£º
+ã€€ã€€2ã€åˆ›å»ºæ–‡ä»¶svn_up.phpï¼š
 view plainprint?
 <?php  
 header("Cache-Control:no-cache,must-revalidate");  
 $handle = popen('/usr/local/bin/svn up --username zhangyan --password 123456 /data0/www/*', 'r');  
-$read = stream_get_contents($handle);//ĞèÒª PHP5 »ò¸ü¸ß°æ±¾  
+$read = stream_get_contents($handle);//éœ€è¦ PHP5 æˆ–æ›´é«˜ç‰ˆæœ¬  
 echo "<pre>";  
 printf($read);  
 echo "</pre>";  
 pclose($handle);  
 ?>  
 
-¡¡¡¡3¡¢Í¨¹ıä¯ÀÀÆ÷·ÃÎÊsvn_up.php£¬ÏÔÊ¾ÒÔÏÂÄÚÈİ£¨Àı£©£º
-¡¡¡¡U    /data0/www/app/DataTransferService.php
-¡¡¡¡Updated to revision 561.
+ã€€ã€€3ã€é€šè¿‡æµè§ˆå™¨è®¿é—®svn_up.phpï¼Œæ˜¾ç¤ºä»¥ä¸‹å†…å®¹ï¼ˆä¾‹ï¼‰ï¼š
+ã€€ã€€U    /data0/www/app/DataTransferService.php
+ã€€ã€€Updated to revision 561.
 
 
-svn ¸üĞÂ
+svn æ›´æ–°
 
 #!/bin/sh
 export LANG=zh_CN.UTF-8
@@ -163,3 +163,5 @@ chmod -R post-commit
 
 /var/svncode/cargotms/hooks/post-commit: line 50: mailer.py: command not found
 
+svnadmin create /var/svncode/ekjoms
+svnadmin create /var/svncode/ekjwms
