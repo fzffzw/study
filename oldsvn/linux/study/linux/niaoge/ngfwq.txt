@@ -495,6 +495,124 @@ yum 去安装他吧！
         192.168.*.*     ：嘿嘿！则变为B Class 的型态了！扫瞄的范围变广了！ 
         192.168.1.0-50,60-100,103,200 ：这种是变形的主机范围啦！很好用吧！
 
+#p243
+ls -Z
+-rw-r--r--  root root root:object_r:user_home_t        ipvsadm-1.24-13.el5.i386.rpm
+-rw-------  root root root:object_r:user_home_t        mbox
+drwxr-xr-x  root root root:object_r:user_home_t        ms
+
+安全性本文主要用冒号分为三个字段 (最后一个字段先略过不看)，这三个
+字段的意义为：
+Identify:role:type
+身份识别:角色:类型
+
+root：表示 root 的账号身份，如同上面的表格显示的是 root 家目
+录下的数据啊！
+system_u：表示系统程序方面的识别，通常就是程序啰；
+user_u：代表的是一般使用者账号相关的身份。
+
+角色 (Role)： 透过角色字段，我们可以知道这个数据是属于程序、档案资
+源还是代表使用者。一般的角色有：
+object_r：代表的是档案或目录等档案资源，这应该是最常见的啰；
+system_r：代表的就是程序啦！不过，一般使用者也会被指定成为system_r 喔！
+
+类型 (Type)： 在预设的 targeted 政策中， Identify 与 Role 字段基本上是不重要的！
+重要的在于这个类型 (type) 字段！ 基本上，一个主体程序能
+不能读取到这个档案资源，与类型字段有关！而类型字段在档案与程序的定义不
+太相同，分别是：
+o type：在档案资源 (Object) 上面称为类型 (Type)；
+o domain：在主体程序 (Subject) 则称为领域 (domain) 
+
+
+身份识别 		角色 		该对应在 targeted 的意义
+root 		system_r 	代表供 root 账号登入时所取得的权限
+system_u 	system_r 	由于为系统账号，因此是非交谈式的系统运作程序
+user_u 		system_r 	一般可登入用户的程序啰！
+
+
+但就如上所述，其实最重要的字段是类型字段，主体与目标之间是否具有可以读写的权
+限，与程序的 domain 及档案的 type 有关！这两者的关系我们可以使用达成 WWW 服
+务器功能的 httpd 这支程序与 /var/www/html 这个网页放置的目录来说明。 首先，
+看看这两个咚咚的安全性本文内容先：
+
+
+1. 首先，我们触发一个可执行的目标档案，那就是具有 httpd_exec_t 这个类
+型的 /usr/sbin/httpd
+2. 该档案的类型会让这个档案所造成的主体程序 (Subject) 具有 httpd 这
+个领域 (domain)， 我们的政策针对这个领域已经制定了许多规则，其中包括这
+个领域可以读取的目标资源类型；
+3. 由于 httpd domain 被设定为可以读取 httpd_sys_content_t 这个类型的
+目标档案 (Object)， 因此你的网页放置到 /var/www/html/ 目录下，就能够被
+httpd 那支程序所读取了；
+4. 但最终能不能读到正确的资料，还得要看 rwx 是否符合 Linux 权限的规范！
+
+#p247
+目前 SELinux 支持三种模式，分别如下：
+ enforcing：强制模式，代表 SELinux 运作中，且已经正确的开始限制domain/type 了；
+ permissive：宽容模式：代表 SELinux 运作中，不过仅会有警告讯息并不
+会实际限制 domain/type 的存取。这种模式可以运来作为 SELinux 的 debug
+之用；
+ disabled：关闭， SELinux 并没有实际运作
+
+那你怎么知道目前的 SELinux 模式呢？就透过 getenforce 吧！
+[root@www ~]# getenforce
+
+另外，我们又如何知道 SELinux 的政策 (Policy) 为何呢？这时可以来观察配置文件
+啦：
+
+[root@www ~]# vim /etc/selinux/config
+SELINUX=enforcing <==调整 enforcing|disabled|permissive
+SELINUXTYPE=targeted <==目前仅有 targeted 与 mls
+
+
+# 范例一：将 SELinux 在 Enforcing 与 permissive 之间切换与观察
+[root@www ~]# setenforce 0（0：permissive，1：setenforce） 
+[root@www ~]# getenforce
+
+不过请注意， setenforce 无法在 Disabled 的模式底下进行模式的切换喔！
+
+『 restorecon -Rv / 』重新还原所有 SELinux 的类型，就能够处理这个错误！
+
+#p249
+7.4.3 SELinux type 的修改
+
+
+# 范例：将 /etc/hosts 复制到 root 家目录，并观察相关的 SELinux 类型变化
+[root@www ~]# cp /etc/hosts /root
+[root@www ~]# ls -dZ /etc/hosts /root/hosts /root
+
+[root@localhost home]# ls -dZ /etc/hosts /root/hosts /root
+-rw-r--r--  root root system_u:object_r:etc_t          /etc/hosts
+drwxr-x---  root root root:object_r:user_home_dir_t    /root
+-rw-r--r--  root root root:object_r:user_home_t        /root/hosts
+
+看到没有？当你单纯的复制时， SELinux 的 type 字段是会继承目标目录的，所以
+/root/hosts 的类型就会变成 admin_home_t 这个类型了。但是如果是移动呢？那么连
+同 SELinux 的类型也会被移动过去，因此 /tmp/hosts 会依旧保持 admin_home_t 而
+不会变成 /tmp 的 tmp_t 这个类型呦！要注意！要注意！那么，如何将 /tmp/hosts 变
+更成为最原始的 net_conf_t 这个类型呢？那就得要使用 chcon 啰！
+
+ chcon
+[root@www ~]# chcon [-R] [-t type] [-u user] [-r role] 档案
+
+#p250
+[root@www ~]# chcon [-R] --reference=范例文件 档案
+选项与参数：
+-R ：连同该目录下的次目录也同时修改；
+-t ：后面接安全性本文的类型字段！例如 httpd_sys_content_t ；
+-u ：后面接身份识别，例如 system_u；
+-r ：后面街角色，例如 system_r；
+--reference=范例文件：拿某个档案当范例来修改后续接的档案的类型！
+
+
+# 范例：将刚刚的 /tmp/hosts 类型改为 etc_t 的类型
+[root@www ~]# chcon -t net_conf_t /tmp/hosts
+
+
+[root@www ~]# restorecon [-Rv] 档案或目录
+选项与参数：
+-R ：连同次目录一起修改；
+-v ：将过程显示到屏幕上
 
 
 

@@ -10,7 +10,7 @@ mysqldump -u root -p842101 -d cargo_tms > /var/www/html/cargo2.sql
 还原
 E:\wamp\bin\mysql\mysql5.5.8\bin\mysqlimport -u root -p842101 cargotms3 E:/cargo.sql
 
-/usr/bin/mysqldump -u cargo -pCargo_db2015 -h baohongcargo.mysql.rds.aliyuncs.com import_wms \
+/usr/bin/mysqldump -u cargo -pPassword -h baohongcargo.mysql.rds.aliyuncs.com import_wms \
 --ignore-table=import_wms.product_goods  \
 --ignore-table=import_wms.product_goods2  \
 --ignore-table=import_wms.product_goods_log  \
